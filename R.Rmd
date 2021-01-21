@@ -1,0 +1,97 @@
+# Analysing the TreeSAPP output in R {#R}
+
+```{r setup-R, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+These instructions will help you to complete the script template `treesapp_analysis.R` to complete the initial analysis of your TreeSAPP output. To adjust the code examples below and in the script template, replace any angle brackets, e.g. `<SOME TEXT>`, with the missing code.
+
+## Resources for analysis of TreeSAPP output in R
+
+-   Both TreeSAPP output files `marker_contig_map.tsv` (one each for the metagenomic and metatranscriptomic analysis) you generated on the [Google Cloud Platform (GCP)](#shell).
+
+-   An R script template called `treesapp_analysis.R` on Canvas.
+
+-   `Saanich_Data.csv` file containing geochemical measurements.
+
+## Checklist to write and run R script
+
+-   [ ] Place `treesapp_analysis.R` and both `marker_contig_map.tsv` files into a single folder and create a new RStudio project in that folder on your local computer.
+
+-   [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#R-writing).
+
+## Writing the R script {#R-writing}
+
+In the `treesapp_analysis.R` script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then combine the metagenomic and metatranscriptomic data into a single data frame and then break the taxonomic information into taxonomic ranks. You will also load the `Saanich_Data.csv` file for geochemical measurements to learn more about the conditions at your assigned depth. Further process your data sets to address [the four main research questions](#research-questions).
+
+## Load any required packages
+
+```{r}
+<Load packages>
+```
+
+## Load metagenomic and metatranscriptomic TreeSAPP data
+
+```{r}
+<Load data sets>
+```
+
+## Combine the metagenomic and metatranscriptomic data
+
+Look at the documentation of `rbind()` on how to combine two data sets that contain the same variables. Before you do that, you should add a variable that tells you if a particular row comes from the metagenomic or metatranscriptomic source.
+
+```{r}
+<Add variable to data frame indicating source>
+<Combine data sets>
+```
+
+## Subset your data to the variables and marker genes of interest.
+
+Determine which variables and marker genes you will need and subset your data to them. NarG is an ortholog of NxrA and cannot be distinguished by TreeSAPP. Any sequences that are identified as NxrA by TreeSAPP could be either NarG or NxrA. As a consequence, determine if your data contains NxrA as a marker. If your depth has anoxic conditions (O_2 \< 20 µM, true for all depths \<= 150 m), interpret NxrA assignments by TreeSAPP as NarG instead.
+
+```{r}
+<If your depth is <= 150, change "NxrA" entries to "NarG">
+<Subset data>
+```
+
+## Processing taxonomic information
+
+Your taxonomic information contains information from the highest to lowest available rank. Look at a few rows containing taxonomic information anddetermine the separator between each rank. Google a function that allows you split a character object at each of these separator (Hint: there is a function in the tidyverse with that we did not cover). As a result, your initial single taxonomic variable will be split into multiple new variables, one for each rank. Use the R object `rank` to assign the names for those new variables.
+
+```{r}
+rank <- c("root", "kingdom", "phylum", "class",
+          "order", "family", "genus", "species")
+
+<split the taxonomic information in the data frame into separate ranks>
+```
+
+## Load the geochemical data set into a new data frame.
+
+```{r}
+<Load geochemicals>
+```
+
+## Additional Hints for each guiding question
+
+### How does abundance of denitrification genes differ across the pathway? Are trends similar for both RNA and DNA?
+
+-   You will need to sum the abundance for each gene. What functions do you know that allow you to summarize data for multiple groups (in this case each marker gene constitutes a group).
+
+### How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?
+
+-   You will need to make a decision at what taxonomic rank you will calculate diversity. Why might you not be able to use the lowest possible? Why should your taxonomic rank not be too high?
+-   You will need to calculate the total abundance for each taxon (for whichever rank you chose).
+-   What R package did you use before to calculate diversity?
+
+### What specific taxa are responsible for denitrification? Are they the same for all steps? For DNA versus RNA?
+
+-   You will need to count how many genes each taxa possess/expresses.
+
+### How does the abundance of denitrification genes relate to nitrogen species in Saanich (use the geochemical data in `Saanich_Data.csv` from our previous data science sessions)?
+
+-   Determine the geochemical conditions at your given depths. Which is the best available terminal electron acceptor?
+
+```{r eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
+# Reset code chunk settings to `default_chunk_options` (defined in `index.Rmd`)
+knitr::opts_chunk$set(default_chunk_options)
+```

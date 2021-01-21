@@ -1,0 +1,178 @@
+# Running TreeSAPP on the Google Cloud Platform {#shell}
+
+```{r setup-shell, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+These instructions will help you to complete the script template `treesapp_analysis.sh` to run your TreeSAPP analysis of the Saanich Inlet data of your assigned depth on the Google Cloud Platform (GCP) and copy the output files to your local machine. To adjust the code examples below and in the script template, replace any angle brackets, e.g. `<SOME TEXT>`, with the missing code.
+
+## Resources for TreeSAPP analysis
+
+-   A shell script template called `treesapp_analysis.sh` on Canvas.
+
+-   A Google Cloud instance for your group called `group-<your group number>`.
+
+-   The Saanich Inlet data located in the `/usr/local/data/MICB425/SI072_Data` directory of your Google Cloud instance, specifically:
+
+    -   Metagenomic (metaG, DNA) reads: `/usr/local/data/MICB425/SI072_Data/MetaG_reads/`
+    -   Metatranscriptomic (metaT, RNA): reads `/usr/local/data/MICB425/SI072_Data/MetaT_reads/`
+    -   Assemblies of both DNA **and** RNA `/usr/local/data/MICB425/SI072_Data/MetaG_assemblies/`
+
+-   A Singularity container with TreeSAPP on your Google Cloud instance at `/usr/local/bin/treesapp.sif`.
+
+## Checklist to write and run shell script
+
+-   [ ] Edit the `treesapp_analysis.sh` script following [the instructions below](#shell-writing).
+
+-   [ ] Using the command line interface (CLI) on your computer, copy the script to your group's Google Cloud instance using:\
+    `gcloud compute scp <path to file on your computer> <group instance>:<destination>`
+
+-   [ ] Make the script executable on the Google Cloud instance (otherwise you won't be able to run it). In the CLI and while in the directory containing your script, run the following command:\
+    `chmod u+x treesapp_analysis.sh`.
+
+-   [ ] Still in the CLI, start a new session with `screen -S <session name>`.
+
+-   [ ] In the new session, start the script with `./treesapp_analysis.sh`.
+
+-   [ ] After the script has run (will take at most 8 hours), locate the `final_output/marker_contig_map.tsv` files (one copy for the metagenomic and one for the metatranscriptomic analysis) in the TreeSAPP output directory and copy each one to your local computer:\
+    `gcloud compute scp <group instance>:<path to file> <destination on your computer>`
+
+After these steps, you will continue with the analysis of your results in R on your local computer using R and the provided `treesapp_analysis.R` script template.
+
+## Writing the shell script {#shell-writing}
+
+In the `treesapp_analysis.sh` script, we will define some variables to make our code more readable when running commands, give some feedback to the user as the script runs, and finally run the TreeSAPP workflow using a Singularity container. Edit the script either on your local computer or after you have copied it to the Google Cloud instance using the text editor of your choice (e.g. RStudio on your local machine or `nano <file name>` on GCP).
+
+### Defining the shell
+
+The script template starts with:
+
+```{bash}
+#! bin/bash
+```
+
+and defines the shell used to interpret this script and where the shell is located (i.e. the `bash` shell in the `/bin` directory). You do not need to modify anything about that step.
+
+### Setting a variable for your depth
+
+Let's define our first variable with the name "depth". Replace `<your depth>` with the depth your group has been assigned to (e.g. `100`).
+
+```{bash}
+depth="<your  depth>"
+```
+
+### Providing user feedback
+
+It is good practice to provide feedback to the user while a script is running by printing messages to the terminal. Let's print a welcome message to the terminal using the `echo` command to informing the user what the script is going to do. This is a great opportunity to call the `depth` variable that we have just defined.
+
+*Hint*: Remember, to call a variable, you have to prepend its name with a `$`, e.g. if the variable's name is `some_variable` then you call it with `$some_variable`.
+
+```{bash}
+echo "TreeSAPP analysis of Saanich Inlet Data at Depth <call depth variable> m"
+```
+
+### Defining variable for input directory
+
+Define a variable for path to the input data directory. Let's call the variable `input_dir`.
+
+```{bash}
+<variable_name>="<path to data directory>"
+```
+
+### Sharing the host data folder with the Singularity container
+
+The data we want to analyze with TreeSAPP is located on the host system (the Google Cloud instance), but TreeSAPP itself is on the Singularity container. In general, files on the host system are not available to a container, i.e. we would not be able to process the data files with TreeSAPP! Luckily, we can to make the host directory with our data available to the container by creating a so-called bind path. Bind paths are defined by the environmental variable `SINGULARITY_BIND` which we will `export` (so it is also available to Singularity). Your home directories on both host and container will automatically be connected (i.e. whatever you save in the home directory of the container will be also available in the home directory of the host).
+
+*Hint*: Remember that you already defined a variable containing the path to the input directory.
+
+```{bash}
+export <bind paths variable name>="<shared directory>"
+```
+
+### Creating output directory
+
+Define a variable for the TreeSAPP output directory and choose a name for it yourself. The directory should be located in your home directory (which is also shared between your host and container). To refer to your home directory, use the environmental variable `HOME` which is automatically defined by the shell (i.e. you do not need to first define it yourself). Finally, create the output directory.
+
+```{bash}
+<set output directory variable>
+<create the ouput directory>
+```
+
+### Reporting variables to user
+
+Let's provide the user some feedback where TreeSAPP is going to save its output and what bind paths have been set.
+
+```{bash}
+<print command> "<Some text explaining what variables have been set>"
+```
+
+### Giving path to Singularity container with TreeSAPP
+
+Let's define a variable with the path to the Singularity TreeSAPP container.
+
+```{bash}
+<variable for path to container>
+```
+
+### Listing TreeSAPP version
+
+In a previous tutorial we logged into the shell of the container (using `singularity shell <container name>`). One of the great advantages of containers is that we can directly execute commands on the container WITHOUT logging into it by using:\
+`singularity exec <container name> <command that can be incredibly long depending on what you are doing>`
+
+Let's print the information about the configuration of TreeSAPP using the command `treesapp info` on the container:
+
+```{bash}
+echo "The Singularity container at <path to container> has the following \
+configuration for TreeSAPP:"
+<execute command on container> <path to container> treesapp info
+```
+
+*Hint*: When we have very long commands in a script, we can introduce line breaks using `\` which are best used right after a space in the command (see example above after the word "following").
+
+### Executing TreeSAPP analysis
+
+In CLI (i.e. not as part of this script), check the documentation for `treesapp assign`, the command you will use for the automated reconstruction of a nutrient cycle (visit its [wikipage](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign) to learn more). Your command will look like this: `<execute command on treesapp container> treesapp assign -h`. Looking at the TreeSAPP documentation, determine the flags you need in addition to the ones already included below.
+
+Time to run our analysis! You will have to identify the input file(s) that you need to process. Your group has been assigned a specific depth, and you do only need to process any files of that depth (indicated in the name, e.g. `SI072_135m_A_MetaT.fastq.gz` is the metatranscriptome at 135 m depth). You will run the analysis once for metagenomic (two files, forward reads are in the file that contains `.1` in its name, and reverse reads in file the with `.2`) and once for metatranscriptomic reads (a single file that contains both forward and reverse reads) and align them to the assembled contigs. All reads are pair-end.
+
+You will need to provide the following settings using flags:
+
+-   Which assembly file to use.
+-   To use 8 CPUs for the analysis.
+-   To do the analysis for all marker genes provided in TreeSAPP.
+-   To output a verbose runtime log.
+-   Where to save the results.
+-   To calculate the rpkm values for detected sequences.
+-   Which reads to use and what type they are (i.e. pair-end or single-end).
+-   To delete any intermediate files generated by the analysis.
+-   To use position masking of multiple sequence alignment.
+
+*Hints*:
+
+-   Will you ouput the data for metagenomic and metatranscriptomic analysis to the same folder? Does the folder already exist?
+-   If you want the default value of a flag, then you do not need to provide it.
+-   Where is the input data located in the singularity container?
+-   Metatrascriptomic reads are **NOT** rRNA.
+-   In scripts you often refer to variables while combined with additional text. Let's say you have defined the variable `file_name="some_file"` to refer to the file `some_file`. Now you want to save a modified version of the file as `some_file_modified`. If you would write `$file_name_modified`, then the shell does not know that you just want to call a variable called `$file_name` and instead will assume you are calling a variable called `$file_name_modified` and will return an empty string. To indicate the beginning and end of a variable name, use curly braces. In the above example, you would use `${file_name}_modified`.
+
+Optional bonus challenge:\
+Earlier we defined the `depth` variable. Could you use it in some way when you define which assembly and reads you are using in the analysis?
+
+```{bash}
+# Metagenomic analysis
+singularity exec <treesapp container> \
+treesapp assign \
+-i <input data dir><file path to your assembly> \
+-m <choose the correct option> \
+<number of CPU threads, set to 8>
+<your output directory> \
+<your remaining settings>
+
+# Metatranscriptomic analysis
+<you are on your own now :)>
+```
+
+```{r eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
+# Reset code chunk settings to `default_chunk_options` (defined in `index.Rmd`)
+knitr::opts_chunk$set(default_chunk_options)
+```

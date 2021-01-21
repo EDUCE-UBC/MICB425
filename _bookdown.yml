@@ -1,0 +1,19 @@
+book_filename: MICB425
+repo: https://github.com/EDUCE-UBC/MICB425
+output_dir: _book
+language:
+  label:
+    fig: "FIGURE "
+    tab: "TABLE "
+delete_merged_file: true
+rmd_files:
+# Providing array as YAML sequence, so it's easier to comment out Rmd files that
+# are not needed.
+  - index.Rmd
+  - introduction.Rmd
+  - instructions.Rmd
+  - shell.Rmd
+  - R.Rmd
+#  - summary.Rmd
+#  - gcp_setup.Rmd
+  - references.Rmd

@@ -1,0 +1,31 @@
+# Introduction {#introduction}
+
+## Background
+
+Marine oxygen minimum zones (OMZs) provide useful environmental contexts in which to study coupled biogeochemical cycling through microbial metabolic networks. Because OMZs are hotspots for nitrogen loss processes, reconstructing the nitrogen cycle as a distributed metabolic process has potential to shed new insight into microbial controls on nutrient and energy fluxes in the ocean. Genes encoding key steps in the nitrogen cycle are well defined (Figure \@ref(fig:N-cycle-genes)) providing a basis for functional anchor screening to determine their distribution across the Tree of Life.
+
+```{r N-cycle-genes, echo = FALSE, fig.cap = "Nitrogen cycle"}
+knitr::include_graphics("N_cycle_genes.png")
+```
+
+## Methods
+
+Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA was extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the constuction of shotgun Illumina libraries. Sequencing data were generat ed on the Illumina HiSeq platform with **2x150bp** technology. For more in-depth sampling and sequencing methods, please see @Hawley2017.
+
+The resulting reads were processed and quality controlled at the Joint Genome Institute using the IMG/M pipeline. Metagenomes were assembled and processed using MEGAHIT v1.1.2 at UBC.
+
+## Using meta-omics data
+
+We a trying to address the following questions: Who is there? What are they doing? How do they respond to change?
+
+The genome sequence information is a guide to the metabolic potential of the community. It represents an inventory of the microbial genotypes that are present at the time of sampling. We can use this information to identify the taxonomic structure of the sample and to provide a map for the metabolic potential at the individual, population and community levels of organization. Because DNA can persist in the environment for longer periods of time than RNA or protein, we can also use the abundance of gene X or gene Y to tell us about prior metabolic activity e.g. gene abundance is a proxy for process. We can use gene abundance information in numerical models to infer metabolic flux through a given pathway because the abundance of gene X is proportional to the replication of the genome in which it resides. Genomic information is also more robust to sampling noise as we collect and process samples for downstream analysis. For information on gene-centric modelling incorporating DNA, RNA and protein information in Saanich Inlet see this paper @Louca2016.
+
+While genomic information tells us about metabolic potential, the transcriptome is a guide to action or gene expression. We can to a certain extent use this information to identify who is there but more often it is used to indicate which pathways are active at the time of sampling. If can open a window into response patterns along environmental gradients with the caveat that its short-lived nature is less robust to sampling noise. There is no guarantee that the presence of transcripts for a given gene X are converted into protein. However, because prokaryotes couple transcription to translation we typically infer a direct relationship. For information on relationships between DNA, RNA and protein in Saanich Inlet see this paper as well @Hawley2014.
+
+## TreeSAPP
+
+You will be implementing a pipeline called Tree-based Sensitive and Accurate Protein Profiler (**TreeSAPP**) for automated reconstruction of the nitrogen cycle along defined redox gradients in Saanich Inlet using the Google Cloud Platform. TreeSAPP takes either metagenomic or metatranscriptomic reads and aligns them to previously binned sequence data with each bin representing a putative microbial taxon.
+
+TreeSAPP determines three things: A. What taxa are in our metagenomic and metatranscriptomic data represented? B. Which marker genes do these taxa contain (metagenomic data) or actually express (metatranscriptomic data)? C. At what levels are those genes represented (metagenomic data) or expressed by the taxon?
+
+Please see the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign) for more information on `treesapp assign`, the subcommand you will use. You will be provided with a script template for both the shell and R portion of your analysis ("treesapp_analysis.sh" and "treesapp_analysis.R") that will guide you as you develop your code.
