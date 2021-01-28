@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Analysing the TreeSAPP output in R | Mapping microbes and marine denitrification</title>
+  <meta name="description" content="This is the project information for MICB425 Module 04." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Analysing the TreeSAPP output in R | Mapping microbes and marine denitrification" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the project information for MICB425 Module 04." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Analysing the TreeSAPP output in R | Mapping microbes and marine denitrification" />
+  
+  <meta name="twitter:description" content="This is the project information for MICB425 Module 04." />
+  
+
+<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="shell.html"/>
+<link rel="next" href="references-1.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#methods"><i class="fa fa-check"></i><b>1.2</b> Methods</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#using-meta-omics-data"><i class="fa fa-check"></i><b>1.3</b> Using meta-omics data</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#treesapp"><i class="fa fa-check"></i><b>1.4</b> TreeSAPP</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="instructions.html"><a href="instructions.html"><i class="fa fa-check"></i><b>2</b> Instructions</a><ul>
+<li class="chapter" data-level="2.1" data-path="instructions.html"><a href="instructions.html#timeline"><i class="fa fa-check"></i><b>2.1</b> Timeline</a></li>
+<li class="chapter" data-level="2.2" data-path="instructions.html"><a href="instructions.html#reports"><i class="fa fa-check"></i><b>2.2</b> Reports</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="instructions.html"><a href="instructions.html#abstract"><i class="fa fa-check"></i><b>2.2.1</b> Abstract</a></li>
+<li class="chapter" data-level="2.2.2" data-path="instructions.html"><a href="instructions.html#introduction-1"><i class="fa fa-check"></i><b>2.2.2</b> Introduction</a></li>
+<li class="chapter" data-level="2.2.3" data-path="instructions.html"><a href="instructions.html#methods-1"><i class="fa fa-check"></i><b>2.2.3</b> Methods</a></li>
+<li class="chapter" data-level="2.2.4" data-path="instructions.html"><a href="instructions.html#research-questions"><i class="fa fa-check"></i><b>2.2.4</b> Results</a></li>
+<li class="chapter" data-level="2.2.5" data-path="instructions.html"><a href="instructions.html#discussion"><i class="fa fa-check"></i><b>2.2.5</b> Discussion</a></li>
+<li class="chapter" data-level="2.2.6" data-path="instructions.html"><a href="instructions.html#references"><i class="fa fa-check"></i><b>2.2.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="instructions.html"><a href="instructions.html#assessment"><i class="fa fa-check"></i><b>2.3</b> Assessment</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="instructions.html"><a href="instructions.html#peer-evaluation-5"><i class="fa fa-check"></i><b>2.3.1</b> Peer evaluation (5%)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="instructions.html"><a href="instructions.html#report-10"><i class="fa fa-check"></i><b>2.3.2</b> Report (10%)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="instructions.html"><a href="instructions.html#ujemi-submission"><i class="fa fa-check"></i><b>2.4</b> UJEMI submission</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="shell.html"><a href="shell.html"><i class="fa fa-check"></i><b>3</b> Running TreeSAPP on the Google Cloud Platform</a><ul>
+<li class="chapter" data-level="3.1" data-path="shell.html"><a href="shell.html#resources-for-treesapp-analysis"><i class="fa fa-check"></i><b>3.1</b> Resources for TreeSAPP analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="shell.html"><a href="shell.html#checklist-to-write-and-run-shell-script"><i class="fa fa-check"></i><b>3.2</b> Checklist to write and run shell script</a></li>
+<li class="chapter" data-level="3.3" data-path="shell.html"><a href="shell.html#shell-writing"><i class="fa fa-check"></i><b>3.3</b> Writing the shell script</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="shell.html"><a href="shell.html#defining-the-shell"><i class="fa fa-check"></i><b>3.3.1</b> Defining the shell</a></li>
+<li class="chapter" data-level="3.3.2" data-path="shell.html"><a href="shell.html#setting-a-variable-for-your-depth"><i class="fa fa-check"></i><b>3.3.2</b> Setting a variable for your depth</a></li>
+<li class="chapter" data-level="3.3.3" data-path="shell.html"><a href="shell.html#providing-user-feedback"><i class="fa fa-check"></i><b>3.3.3</b> Providing user feedback</a></li>
+<li class="chapter" data-level="3.3.4" data-path="shell.html"><a href="shell.html#defining-variable-for-input-directory"><i class="fa fa-check"></i><b>3.3.4</b> Defining variable for input directory</a></li>
+<li class="chapter" data-level="3.3.5" data-path="shell.html"><a href="shell.html#sharing-the-host-data-folder-with-the-singularity-container"><i class="fa fa-check"></i><b>3.3.5</b> Sharing the host data folder with the Singularity container</a></li>
+<li class="chapter" data-level="3.3.6" data-path="shell.html"><a href="shell.html#creating-output-directory"><i class="fa fa-check"></i><b>3.3.6</b> Creating output directory</a></li>
+<li class="chapter" data-level="3.3.7" data-path="shell.html"><a href="shell.html#reporting-variables-to-user"><i class="fa fa-check"></i><b>3.3.7</b> Reporting variables to user</a></li>
+<li class="chapter" data-level="3.3.8" data-path="shell.html"><a href="shell.html#giving-path-to-singularity-container-with-treesapp"><i class="fa fa-check"></i><b>3.3.8</b> Giving path to Singularity container with TreeSAPP</a></li>
+<li class="chapter" data-level="3.3.9" data-path="shell.html"><a href="shell.html#listing-treesapp-version"><i class="fa fa-check"></i><b>3.3.9</b> Listing TreeSAPP version</a></li>
+<li class="chapter" data-level="3.3.10" data-path="shell.html"><a href="shell.html#executing-treesapp-analysis"><i class="fa fa-check"></i><b>3.3.10</b> Executing TreeSAPP analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="R.html"><a href="R.html"><i class="fa fa-check"></i><b>4</b> Analysing the TreeSAPP output in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="R.html"><a href="R.html#resources-for-analysis-of-treesapp-output-in-r"><i class="fa fa-check"></i><b>4.1</b> Resources for analysis of TreeSAPP output in R</a></li>
+<li class="chapter" data-level="4.2" data-path="R.html"><a href="R.html#checklist-to-write-and-run-r-script"><i class="fa fa-check"></i><b>4.2</b> Checklist to write and run R script</a></li>
+<li class="chapter" data-level="4.3" data-path="R.html"><a href="R.html#R-writing"><i class="fa fa-check"></i><b>4.3</b> Writing the R script</a></li>
+<li class="chapter" data-level="4.4" data-path="R.html"><a href="R.html#load-any-required-packages"><i class="fa fa-check"></i><b>4.4</b> Load any required packages</a></li>
+<li class="chapter" data-level="4.5" data-path="R.html"><a href="R.html#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fa fa-check"></i><b>4.5</b> Load metagenomic and metatranscriptomic TreeSAPP data</a></li>
+<li class="chapter" data-level="4.6" data-path="R.html"><a href="R.html#combine-the-metagenomic-and-metatranscriptomic-data"><i class="fa fa-check"></i><b>4.6</b> Combine the metagenomic and metatranscriptomic data</a></li>
+<li class="chapter" data-level="4.7" data-path="R.html"><a href="R.html#subset-your-data-to-the-variables-and-marker-genes-of-interest."><i class="fa fa-check"></i><b>4.7</b> Subset your data to the variables and marker genes of interest.</a></li>
+<li class="chapter" data-level="4.8" data-path="R.html"><a href="R.html#processing-taxonomic-information"><i class="fa fa-check"></i><b>4.8</b> Processing taxonomic information</a></li>
+<li class="chapter" data-level="4.9" data-path="R.html"><a href="R.html#load-the-geochemical-data-set-into-a-new-data-frame."><i class="fa fa-check"></i><b>4.9</b> Load the geochemical data set into a new data frame.</a></li>
+<li class="chapter" data-level="4.10" data-path="R.html"><a href="R.html#additional-hints-for-each-guiding-question"><i class="fa fa-check"></i><b>4.10</b> Additional Hints for each guiding question</a><ul>
+<li class="chapter" data-level="4.10.1" data-path="R.html"><a href="R.html#how-does-abundance-of-denitrification-genes-differ-across-the-pathway-are-trends-similar-for-both-rna-and-dna"><i class="fa fa-check"></i><b>4.10.1</b> How does abundance of denitrification genes differ across the pathway? Are trends similar for both RNA and DNA?</a></li>
+<li class="chapter" data-level="4.10.2" data-path="R.html"><a href="R.html#how-does-microbial-diversity-differ-across-the-pathway-are-trends-similar-for-both-rna-and-dna"><i class="fa fa-check"></i><b>4.10.2</b> How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?</a></li>
+<li class="chapter" data-level="4.10.3" data-path="R.html"><a href="R.html#what-specific-taxa-are-responsible-for-denitrification-are-they-the-same-for-all-steps-for-dna-versus-rna"><i class="fa fa-check"></i><b>4.10.3</b> What specific taxa are responsible for denitrification? Are they the same for all steps? For DNA versus RNA?</a></li>
+<li class="chapter" data-level="4.10.4" data-path="R.html"><a href="R.html#how-does-the-abundance-of-denitrification-genes-relate-to-nitrogen-species-in-saanich-use-the-geochemical-data-in-saanich_data.csv-from-our-previous-data-science-sessions"><i class="fa fa-check"></i><b>4.10.4</b> How does the abundance of denitrification genes relate to nitrogen species in Saanich (use the geochemical data in <code>Saanich_Data.csv</code> from our previous data science sessions)?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mapping microbes and marine denitrification</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="R" class="section level1">
+<h1><span class="header-section-number">4</span> Analysing the TreeSAPP output in R</h1>
+<p>These instructions will help you to complete the script template <code>treesapp_analysis.R</code> to complete the initial analysis of your TreeSAPP output. To adjust the code examples below and in the script template, replace any angle brackets, e.g. <code>&lt;SOME TEXT&gt;</code>, with the missing code.</p>
+<div id="resources-for-analysis-of-treesapp-output-in-r" class="section level2">
+<h2><span class="header-section-number">4.1</span> Resources for analysis of TreeSAPP output in R</h2>
+<ul>
+<li><p>Both TreeSAPP output files <code>marker_contig_map.tsv</code> (one each for the metagenomic and metatranscriptomic analysis) you generated on the <a href="shell.html#shell">Google Cloud Platform (GCP)</a>.</p></li>
+<li><p>An R script template called <code>treesapp_analysis.R</code> on Canvas.</p></li>
+<li><p><code>Saanich_Data.csv</code> file containing geochemical measurements.</p></li>
+</ul>
+</div>
+<div id="checklist-to-write-and-run-r-script" class="section level2">
+<h2><span class="header-section-number">4.2</span> Checklist to write and run R script</h2>
+<ul>
+<li><p><input type="checkbox" disabled="" />
+Place <code>treesapp_analysis.R</code> and both <code>marker_contig_map.tsv</code> files into a single folder and create a new RStudio project in that folder on your local computer.</p></li>
+<li><p><input type="checkbox" disabled="" />
+Edit the <code>treesapp_analysis.R</code> script following <a href="R.html#R-writing">the instructions below</a>.</p></li>
+</ul>
+</div>
+<div id="R-writing" class="section level2">
+<h2><span class="header-section-number">4.3</span> Writing the R script</h2>
+<p>In the <code>treesapp_analysis.R</code> script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then combine the metagenomic and metatranscriptomic data into a single data frame and then break the taxonomic information into taxonomic ranks. You will also load the <code>Saanich_Data.csv</code> file for geochemical measurements to learn more about the conditions at your assigned depth. Further process your data sets to address <a href="instructions.html#research-questions">the four main research questions</a>.</p>
+</div>
+<div id="load-any-required-packages" class="section level2">
+<h2><span class="header-section-number">4.4</span> Load any required packages</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="R.html#cb11-1"></a><span class="op">&lt;</span>Load packages<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="load-metagenomic-and-metatranscriptomic-treesapp-data" class="section level2">
+<h2><span class="header-section-number">4.5</span> Load metagenomic and metatranscriptomic TreeSAPP data</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="R.html#cb12-1"></a><span class="op">&lt;</span>Load data sets<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="combine-the-metagenomic-and-metatranscriptomic-data" class="section level2">
+<h2><span class="header-section-number">4.6</span> Combine the metagenomic and metatranscriptomic data</h2>
+<p>Look at the documentation of <code>rbind()</code> on how to combine two data sets that contain the same variables. Before you do that, you should add a variable that tells you if a particular row comes from the metagenomic or metatranscriptomic source.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="R.html#cb13-1"></a><span class="op">&lt;</span>Add variable to data frame indicating source<span class="op">&gt;</span></span>
+<span id="cb13-2"><a href="R.html#cb13-2"></a><span class="er">&lt;</span>Combine data sets<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="subset-your-data-to-the-variables-and-marker-genes-of-interest." class="section level2">
+<h2><span class="header-section-number">4.7</span> Subset your data to the variables and marker genes of interest.</h2>
+<p>Determine which variables and marker genes you will need and subset your data to them. NarG is an ortholog of NxrA and cannot be distinguished by TreeSAPP. Any sequences that are identified as NxrA by TreeSAPP could be either NarG or NxrA. As a consequence, determine if your data contains NxrA as a marker. If your depth has anoxic conditions (O_2 &lt; 20 µM, true for all depths &lt;= 150 m), interpret NxrA assignments by TreeSAPP as NarG instead.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="R.html#cb14-1"></a><span class="op">&lt;</span>If your depth is <span class="op">&lt;=</span><span class="st"> </span><span class="dv">150</span>, change <span class="st">&quot;NxrA&quot;</span> entries to <span class="st">&quot;NarG&quot;</span><span class="op">&gt;</span></span>
+<span id="cb14-2"><a href="R.html#cb14-2"></a><span class="er">&lt;</span>Subset data<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="processing-taxonomic-information" class="section level2">
+<h2><span class="header-section-number">4.8</span> Processing taxonomic information</h2>
+<p>Your taxonomic information contains information from the highest to lowest available rank. Look at a few rows containing taxonomic information anddetermine the separator between each rank. Google a function that allows you split a character object at each of these separator (Hint: there is a function in the tidyverse with that we did not cover). As a result, your initial single taxonomic variable will be split into multiple new variables, one for each rank. Use the R object <code>rank</code> to assign the names for those new variables.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="R.html#cb15-1"></a>rank &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;root&quot;</span>, <span class="st">&quot;kingdom&quot;</span>, <span class="st">&quot;phylum&quot;</span>, <span class="st">&quot;class&quot;</span>,</span>
+<span id="cb15-2"><a href="R.html#cb15-2"></a>          <span class="st">&quot;order&quot;</span>, <span class="st">&quot;family&quot;</span>, <span class="st">&quot;genus&quot;</span>, <span class="st">&quot;species&quot;</span>)</span>
+<span id="cb15-3"><a href="R.html#cb15-3"></a></span>
+<span id="cb15-4"><a href="R.html#cb15-4"></a><span class="op">&lt;</span>split the taxonomic information <span class="cf">in</span> the data frame into separate ranks<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="load-the-geochemical-data-set-into-a-new-data-frame." class="section level2">
+<h2><span class="header-section-number">4.9</span> Load the geochemical data set into a new data frame.</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="R.html#cb16-1"></a><span class="op">&lt;</span>Load geochemicals<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="additional-hints-for-each-guiding-question" class="section level2">
+<h2><span class="header-section-number">4.10</span> Additional Hints for each guiding question</h2>
+<div id="how-does-abundance-of-denitrification-genes-differ-across-the-pathway-are-trends-similar-for-both-rna-and-dna" class="section level3">
+<h3><span class="header-section-number">4.10.1</span> How does abundance of denitrification genes differ across the pathway? Are trends similar for both RNA and DNA?</h3>
+<ul>
+<li>You will need to sum the abundance for each gene. What functions do you know that allow you to summarize data for multiple groups (in this case each marker gene constitutes a group).</li>
+</ul>
+</div>
+<div id="how-does-microbial-diversity-differ-across-the-pathway-are-trends-similar-for-both-rna-and-dna" class="section level3">
+<h3><span class="header-section-number">4.10.2</span> How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?</h3>
+<ul>
+<li>You will need to make a decision at what taxonomic rank you will calculate diversity. Why might you not be able to use the lowest possible? Why should your taxonomic rank not be too high?</li>
+<li>You will need to calculate the total abundance for each taxon (for whichever rank you chose).</li>
+<li>What R package did you use before to calculate diversity?</li>
+</ul>
+</div>
+<div id="what-specific-taxa-are-responsible-for-denitrification-are-they-the-same-for-all-steps-for-dna-versus-rna" class="section level3">
+<h3><span class="header-section-number">4.10.3</span> What specific taxa are responsible for denitrification? Are they the same for all steps? For DNA versus RNA?</h3>
+<ul>
+<li>You will need to count how many genes each taxa possess/expresses.</li>
+</ul>
+</div>
+<div id="how-does-the-abundance-of-denitrification-genes-relate-to-nitrogen-species-in-saanich-use-the-geochemical-data-in-saanich_data.csv-from-our-previous-data-science-sessions" class="section level3">
+<h3><span class="header-section-number">4.10.4</span> How does the abundance of denitrification genes relate to nitrogen species in Saanich (use the geochemical data in <code>Saanich_Data.csv</code> from our previous data science sessions)?</h3>
+<ul>
+<li>Determine the geochemical conditions at your given depths. Which is the best available terminal electron acceptor?</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="shell.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

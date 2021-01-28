@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Instructions | Mapping microbes and marine denitrification</title>
+  <meta name="description" content="This is the project information for MICB425 Module 04." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Instructions | Mapping microbes and marine denitrification" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the project information for MICB425 Module 04." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Instructions | Mapping microbes and marine denitrification" />
+  
+  <meta name="twitter:description" content="This is the project information for MICB425 Module 04." />
+  
+
+<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="shell.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#methods"><i class="fa fa-check"></i><b>1.2</b> Methods</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#using-meta-omics-data"><i class="fa fa-check"></i><b>1.3</b> Using meta-omics data</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#treesapp"><i class="fa fa-check"></i><b>1.4</b> TreeSAPP</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="instructions.html"><a href="instructions.html"><i class="fa fa-check"></i><b>2</b> Instructions</a><ul>
+<li class="chapter" data-level="2.1" data-path="instructions.html"><a href="instructions.html#timeline"><i class="fa fa-check"></i><b>2.1</b> Timeline</a></li>
+<li class="chapter" data-level="2.2" data-path="instructions.html"><a href="instructions.html#reports"><i class="fa fa-check"></i><b>2.2</b> Reports</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="instructions.html"><a href="instructions.html#abstract"><i class="fa fa-check"></i><b>2.2.1</b> Abstract</a></li>
+<li class="chapter" data-level="2.2.2" data-path="instructions.html"><a href="instructions.html#introduction-1"><i class="fa fa-check"></i><b>2.2.2</b> Introduction</a></li>
+<li class="chapter" data-level="2.2.3" data-path="instructions.html"><a href="instructions.html#methods-1"><i class="fa fa-check"></i><b>2.2.3</b> Methods</a></li>
+<li class="chapter" data-level="2.2.4" data-path="instructions.html"><a href="instructions.html#research-questions"><i class="fa fa-check"></i><b>2.2.4</b> Results</a></li>
+<li class="chapter" data-level="2.2.5" data-path="instructions.html"><a href="instructions.html#discussion"><i class="fa fa-check"></i><b>2.2.5</b> Discussion</a></li>
+<li class="chapter" data-level="2.2.6" data-path="instructions.html"><a href="instructions.html#references"><i class="fa fa-check"></i><b>2.2.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="instructions.html"><a href="instructions.html#assessment"><i class="fa fa-check"></i><b>2.3</b> Assessment</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="instructions.html"><a href="instructions.html#peer-evaluation-5"><i class="fa fa-check"></i><b>2.3.1</b> Peer evaluation (5%)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="instructions.html"><a href="instructions.html#report-10"><i class="fa fa-check"></i><b>2.3.2</b> Report (10%)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="instructions.html"><a href="instructions.html#ujemi-submission"><i class="fa fa-check"></i><b>2.4</b> UJEMI submission</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="shell.html"><a href="shell.html"><i class="fa fa-check"></i><b>3</b> Running TreeSAPP on the Google Cloud Platform</a><ul>
+<li class="chapter" data-level="3.1" data-path="shell.html"><a href="shell.html#resources-for-treesapp-analysis"><i class="fa fa-check"></i><b>3.1</b> Resources for TreeSAPP analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="shell.html"><a href="shell.html#checklist-to-write-and-run-shell-script"><i class="fa fa-check"></i><b>3.2</b> Checklist to write and run shell script</a></li>
+<li class="chapter" data-level="3.3" data-path="shell.html"><a href="shell.html#shell-writing"><i class="fa fa-check"></i><b>3.3</b> Writing the shell script</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="shell.html"><a href="shell.html#defining-the-shell"><i class="fa fa-check"></i><b>3.3.1</b> Defining the shell</a></li>
+<li class="chapter" data-level="3.3.2" data-path="shell.html"><a href="shell.html#setting-a-variable-for-your-depth"><i class="fa fa-check"></i><b>3.3.2</b> Setting a variable for your depth</a></li>
+<li class="chapter" data-level="3.3.3" data-path="shell.html"><a href="shell.html#providing-user-feedback"><i class="fa fa-check"></i><b>3.3.3</b> Providing user feedback</a></li>
+<li class="chapter" data-level="3.3.4" data-path="shell.html"><a href="shell.html#defining-variable-for-input-directory"><i class="fa fa-check"></i><b>3.3.4</b> Defining variable for input directory</a></li>
+<li class="chapter" data-level="3.3.5" data-path="shell.html"><a href="shell.html#sharing-the-host-data-folder-with-the-singularity-container"><i class="fa fa-check"></i><b>3.3.5</b> Sharing the host data folder with the Singularity container</a></li>
+<li class="chapter" data-level="3.3.6" data-path="shell.html"><a href="shell.html#creating-output-directory"><i class="fa fa-check"></i><b>3.3.6</b> Creating output directory</a></li>
+<li class="chapter" data-level="3.3.7" data-path="shell.html"><a href="shell.html#reporting-variables-to-user"><i class="fa fa-check"></i><b>3.3.7</b> Reporting variables to user</a></li>
+<li class="chapter" data-level="3.3.8" data-path="shell.html"><a href="shell.html#giving-path-to-singularity-container-with-treesapp"><i class="fa fa-check"></i><b>3.3.8</b> Giving path to Singularity container with TreeSAPP</a></li>
+<li class="chapter" data-level="3.3.9" data-path="shell.html"><a href="shell.html#listing-treesapp-version"><i class="fa fa-check"></i><b>3.3.9</b> Listing TreeSAPP version</a></li>
+<li class="chapter" data-level="3.3.10" data-path="shell.html"><a href="shell.html#executing-treesapp-analysis"><i class="fa fa-check"></i><b>3.3.10</b> Executing TreeSAPP analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="R.html"><a href="R.html"><i class="fa fa-check"></i><b>4</b> Analysing the TreeSAPP output in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="R.html"><a href="R.html#resources-for-analysis-of-treesapp-output-in-r"><i class="fa fa-check"></i><b>4.1</b> Resources for analysis of TreeSAPP output in R</a></li>
+<li class="chapter" data-level="4.2" data-path="R.html"><a href="R.html#checklist-to-write-and-run-r-script"><i class="fa fa-check"></i><b>4.2</b> Checklist to write and run R script</a></li>
+<li class="chapter" data-level="4.3" data-path="R.html"><a href="R.html#R-writing"><i class="fa fa-check"></i><b>4.3</b> Writing the R script</a></li>
+<li class="chapter" data-level="4.4" data-path="R.html"><a href="R.html#load-any-required-packages"><i class="fa fa-check"></i><b>4.4</b> Load any required packages</a></li>
+<li class="chapter" data-level="4.5" data-path="R.html"><a href="R.html#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fa fa-check"></i><b>4.5</b> Load metagenomic and metatranscriptomic TreeSAPP data</a></li>
+<li class="chapter" data-level="4.6" data-path="R.html"><a href="R.html#combine-the-metagenomic-and-metatranscriptomic-data"><i class="fa fa-check"></i><b>4.6</b> Combine the metagenomic and metatranscriptomic data</a></li>
+<li class="chapter" data-level="4.7" data-path="R.html"><a href="R.html#subset-your-data-to-the-variables-and-marker-genes-of-interest."><i class="fa fa-check"></i><b>4.7</b> Subset your data to the variables and marker genes of interest.</a></li>
+<li class="chapter" data-level="4.8" data-path="R.html"><a href="R.html#processing-taxonomic-information"><i class="fa fa-check"></i><b>4.8</b> Processing taxonomic information</a></li>
+<li class="chapter" data-level="4.9" data-path="R.html"><a href="R.html#load-the-geochemical-data-set-into-a-new-data-frame."><i class="fa fa-check"></i><b>4.9</b> Load the geochemical data set into a new data frame.</a></li>
+<li class="chapter" data-level="4.10" data-path="R.html"><a href="R.html#additional-hints-for-each-guiding-question"><i class="fa fa-check"></i><b>4.10</b> Additional Hints for each guiding question</a><ul>
+<li class="chapter" data-level="4.10.1" data-path="R.html"><a href="R.html#how-does-abundance-of-denitrification-genes-differ-across-the-pathway-are-trends-similar-for-both-rna-and-dna"><i class="fa fa-check"></i><b>4.10.1</b> How does abundance of denitrification genes differ across the pathway? Are trends similar for both RNA and DNA?</a></li>
+<li class="chapter" data-level="4.10.2" data-path="R.html"><a href="R.html#how-does-microbial-diversity-differ-across-the-pathway-are-trends-similar-for-both-rna-and-dna"><i class="fa fa-check"></i><b>4.10.2</b> How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?</a></li>
+<li class="chapter" data-level="4.10.3" data-path="R.html"><a href="R.html#what-specific-taxa-are-responsible-for-denitrification-are-they-the-same-for-all-steps-for-dna-versus-rna"><i class="fa fa-check"></i><b>4.10.3</b> What specific taxa are responsible for denitrification? Are they the same for all steps? For DNA versus RNA?</a></li>
+<li class="chapter" data-level="4.10.4" data-path="R.html"><a href="R.html#how-does-the-abundance-of-denitrification-genes-relate-to-nitrogen-species-in-saanich-use-the-geochemical-data-in-saanich_data.csv-from-our-previous-data-science-sessions"><i class="fa fa-check"></i><b>4.10.4</b> How does the abundance of denitrification genes relate to nitrogen species in Saanich (use the geochemical data in <code>Saanich_Data.csv</code> from our previous data science sessions)?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Mapping microbes and marine denitrification</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="instructions" class="section level1">
+<h1><span class="header-section-number">2</span> Instructions</h1>
+<p>In this project, you will work in teams to explore marine microbial communities and the nitrogen cycle, particularly <strong>denitrification</strong>. You will use metagenomic and metatranscriptomic data from Cruise 72 at 7 depths in Saanich Inlet, a seasonally anoxic fjord that serves as a model ecosystem for studying microbial community responses to changing levels of oxygen. Each group has been assigned a specific depth (given in Canvas group name) and will assess microbial communities in terms of taxonomic rank, abundance, and expression along the redoxcline in Saanich Inlet.</p>
+<div id="timeline" class="section level2">
+<h2><span class="header-section-number">2.1</span> Timeline</h2>
+<p>The following provides an outline as well as some specific milestones within the project.</p>
+<ol style="list-style-type: decimal">
+<li><p>Mar 27: Introduction and begin running TreeSAPP</p>
+<ul>
+<li>Ideally, your GCP analyses should run over the weekend so that you have data to work with in class on Monday.</li>
+</ul></li>
+<li><p>Mar 30: Introduction to statistics; Group work</p></li>
+<li><p>Apr 1 and 3: Group work</p></li>
+<li><p>Apr 6: Project synthesis</p>
+<ul>
+<li>Be prepared to discuss the main conclusions that you’ve reached for your assigned depth.</li>
+</ul></li>
+<li><p>(April 8: Course recap and discussion)</p></li>
+<li><p>April 9-24: Report writing.</p>
+<ul>
+<li>Groups are expected to meet remotely as needed over the Finals Period in order to complete the report. This report serves as a final for this course and should be treated as such.</li>
+</ul></li>
+<li><p>April 24: Final reports due with final portfolios</p></li>
+</ol>
+</div>
+<div id="reports" class="section level2">
+<h2><span class="header-section-number">2.2</span> Reports</h2>
+<p>Reports should be formatted as per the <a href="https://jb.asm.org/sites/default/files/additional-assets/JB-ITA.pdf">Instructions to Authors</a> for the <a href="https://jb.asm.org/">Journal of Bacteriology</a>.</p>
+<p>Each group will complete <strong>one</strong> report with the following sections.</p>
+<div id="abstract" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Abstract</h3>
+<p><em>200–250 words</em></p>
+<p>Note that an Importance section is not required.</p>
+</div>
+<div id="introduction-1" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Introduction</h3>
+<p><em>500–750 words</em></p>
+<ul>
+<li>Overview of the nitrogen cycle including its global impacts and microbial foundations.</li>
+<li>Introduce Saanich Inlet as a model ecosystem for studying microbial community responses to ocean deoxygenation <em>e.g.</em> seasonal cycles, relevant biogeochemistry, previous studies, etc.</li>
+</ul>
+</div>
+<div id="methods-1" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Methods</h3>
+<p><em>300–500 words</em></p>
+<ul>
+<li><p>Briefly describe the data (sampling, sequencing, processing, etc.)</p></li>
+<li><p>Briefly describe your analysis methods including</p>
+<ul>
+<li>TreeSAPP version and commands used</li>
+<li>iTOL version</li>
+<li>R version and packages used</li>
+<li>Statistics (if applicable)</li>
+</ul></li>
+<li><p>Provide one single shell script and one single R script (i.e “treesapp_analysis.sh” and “treesapp_analysis.R”) as individual files (i.e. not as part of your manuscript) containing the complete code to generate your results.</p></li>
+</ul>
+</div>
+<div id="research-questions" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Results</h3>
+<p><em>500–750 words</em></p>
+<p>Your analysis will focus on <strong>denitrification genes at your assigned depth</strong> (which is given in your Canvas group name) and the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>How does abundance of denitrification genes differ across the pathway? Are trends similar for both RNA and DNA?</li>
+<li>How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?</li>
+<li>What specific taxa are responsible for denitrification? Are they the same for all steps? For DNA versus RNA?</li>
+<li>How does the abundance of denitrification genes relate to nitrogen species in Saanich (use the geochemical data in <code>Saanich_Data.csv</code> from our previous data science sessions)?</li>
+</ol>
+<p>You must include ≥ 5 figures/panels with titles and full captions. These figures can be combined into multi-panel figures if desired.</p>
+</div>
+<div id="discussion" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> Discussion</h3>
+<p><em>750–1000 words</em></p>
+<ul>
+<li>Frame your depth’s results within a broader discussion of Saanich Inlet and the other depths (Apr 6 discussion)</li>
+<li>Propose evolutionary, environmental, etc. reasoning for distributed metabolism as seen in the denitrification pathway</li>
+<li>Future directions</li>
+</ul>
+</div>
+<div id="references" class="section level3">
+<h3><span class="header-section-number">2.2.6</span> References</h3>
+<p><em>10 or more</em> formatted in the ASM style such as for the <a href="https://jb.asm.org/content/organization-and-format">Journal of Bacteriology</a>. If you are using a reference manager, this style can be downloaded for <a href="https://endnote.com/style_download/american-society-for-microbiology-asm-journals-2/">EndNote</a>, <a href="https://github.com/citation-style-language/styles/blob/master/american-society-for-microbiology.csl">Mendeley</a>, or <a href="https://www.zotero.org/styles?q=microbiology">Zotero</a>.</p>
+<p>Make sure to cite the data source papers!</p>
+</div>
+</div>
+<div id="assessment" class="section level2">
+<h2><span class="header-section-number">2.3</span> Assessment</h2>
+<p>Reports will account for 15% of the course marks distributed as follows.</p>
+<div id="peer-evaluation-5" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Peer evaluation (5%)</h3>
+<p><strong>Total: 40 pts</strong></p>
+<p>Peer assessment will occur through <a href="https://www.catme.org/">CATME</a> wherein everyone will assess themselves and their group members. Marks will be scaled to your evaluation score with 90%+ (or 0.9+ out of 1 within CATME) counting as full marks.</p>
+<p>Individuals who do not adequately contribute to their group will forfeit the 5% contributions mark and may be asked to complete the project on their own.</p>
+<p>Peer assessment includes:</p>
+<ul>
+<li>Contributing to the team’s work</li>
+<li>Interacting with teammates</li>
+<li>Expecting quality</li>
+<li>Having related knowledge, skills, and abilities</li>
+</ul>
+<p>Individuals score themselves and all team members on a scale of 1 (unsatisfactory) – 3 (satisfactory) – 5 (excellent) in these categories. Scores are then averaged and scaled within team such that 1 corresponds to all team members contributing equally to all categories of assessment:</p>
+<ul>
+<li>1+ = Mostly 5s</li>
+<li>0.95 = Mostly 4s</li>
+<li>0.8 = Mostly 3s</li>
+<li>0.65 = Mostly 2s</li>
+<li>0.5 = Mostly 1s</li>
+</ul>
+<p>Marks will be scaled to your CATME score based on the following:</p>
+<ul>
+<li>0.9 - 1+ = 100% = 40</li>
+<li>0.8 - 0.89 = 90% = 36</li>
+<li>0.7 - 0.79 = 80% = 32</li>
+<li>0.6 - 0.69 = 70% = 28</li>
+<li>&lt;0.6 = Assessed on a case-by-case basis</li>
+</ul>
+<p><em>Unwarranted blanketed low scoring of your team or high scoring of yourself will result in the removal of your scores from the average so that they do not unfairly impact you or your team members.</em></p>
+<p>If issues occur within your group, please do not hesitate to contact Dr. Hallam (<a href="mailto:shallam@mail.ubc.ca" class="email">shallam@mail.ubc.ca</a>), or Dr. Koenig (<a href="mailto:stephan.koenig@ubc.ca" class="email">stephan.koenig@ubc.ca</a>) <em>at any point</em>.</p>
+</div>
+<div id="report-10" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Report (10%)</h3>
+<p><strong>Total: 80 pts</strong></p>
+<p>Each group will submit an electronic copy of their group’s final report (due <strong>April 24</strong>). Reports will be assessed on:</p>
+<ul>
+<li>Completion of relevant analyses toward answering biological questions</li>
+<li>Logic and completeness of conclusions made from these analyses</li>
+<li>Writing clarity, grammar, and style</li>
+<li>Figure clarity, effectiveness, and relevance</li>
+</ul>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="19%" />
+<col width="23%" />
+<col width="23%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Poor (0-1 pts)</strong></th>
+<th><strong>Below average (2-4 pts)</strong></th>
+<th><strong>Good (5-7 pts)</strong></th>
+<th><strong>Excellent (8-10 pts)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Abstract</strong></td>
+<td>Not provided</td>
+<td>Summarizes only part of the report or contains numerous inaccuracies</td>
+<td>Summarizes most of the report including relevant results; Some inaccuracies or missing pieces</td>
+<td>Accurately summarizes the report including background, relevant results, and conclusions; Few to no inaccuracies</td>
+</tr>
+<tr class="even">
+<td><strong>Introduction</strong></td>
+<td>Background information not provided or provided but not relevant to the research question(s); Hypotheses / questions are not stated nor supported by relevant sources</td>
+<td>Background is relevant but not sufficient to frame the research question(s); Hypotheses / questions are unclear and/or unsupported</td>
+<td>Background is relevant but does not fully frame the research question(s); Hypotheses / questions are unclear or unsupported</td>
+<td>Background is relevant and fully frames the research question(s); Hypotheses / questions are clearly stated and supported by scientific sources</td>
+</tr>
+<tr class="odd">
+<td><strong>Methods</strong></td>
+<td>Incomplete and missing numerous methods used; Unclear or confusing</td>
+<td>Missing several methods used; Numerous errors or unclear statements</td>
+<td>Missing one or more methods used; Results could not be replicated due to issues with clarity or accuracy</td>
+<td>Sufficient to allow replication of the results including sampling, sequencing, processing, and analysis; Succinct and not overly wordy</td>
+</tr>
+<tr class="even">
+<td><strong>Code (R and TreeSAPP)</strong></td>
+<td>Code missing significant portions or is not provided</td>
+<td>Code is incomplete or erroneous such that results cannot be replicated; No explanation of code is given</td>
+<td>Code replicates results but is verbose or inefficient; Minimal commenting is provided</td>
+<td>Code replicates results and is efficient; Detailed explanation of code is provided in comments using # notation</td>
+</tr>
+<tr class="odd">
+<td><strong>Results</strong></td>
+<td>Most of the research questions are not addressed or the results are consistently incomplete or irrelevant</td>
+<td>Several research questions are not addressed; Numerous results are incomplete, erroneous, or irrelevant</td>
+<td>1 or more research questions are not fully addressed; Some results are incomplete or do not to pertain to the questions</td>
+<td>All research questions are investigated with relevant analyses and figures; Results are clearly stated and not incorrectly or over-interpreted</td>
+</tr>
+<tr class="even">
+<td><strong>Figures &amp; captions</strong></td>
+<td>2 or fewer figures are given; Captions are incomplete or missing</td>
+<td>3+ relevant figures are provided but lack proper formatting or completeness; Captions lack numerous details or descriptions</td>
+<td>4+ relevant figures are provided with mostly proper formatting; Captions lack some details or descriptions</td>
+<td>5+ relevant figures are provided with proper formatting; Captions are included for all figures and contain a title as well as description of axes, other aesthetics, and overall data trends</td>
+</tr>
+<tr class="odd">
+<td><strong>Discussion</strong></td>
+<td>Synthesis of results is missing or does not pertain to the data; Statements are not supported by the data</td>
+<td>Conclusions are incomplete or not relevant to the data; Multiple research questions are not addressed or results are incorrectly interpreted</td>
+<td>Conclusions restate results but without summarization or synthesis across depths; 1 or more questions are not addressed; Some results are incorrectly interpreted</td>
+<td>Results are summarized within the context of the original questions and more broadly across depths; Results are correctly interpreted and discussed with scientific language; Conclusions are supported by the data and 1 or more future directions are proposed</td>
+</tr>
+<tr class="even">
+<td><strong>Writing, grammar, &amp; format</strong></td>
+<td>Grammatical errors, spelling mistakes, and/or language cause significant issues in understanding of the content throughout</td>
+<td>Numerous grammatical, spelling, or language errors that negatively impact understanding; Some language is overly verbose or informal; One or more sections significantly differ from the recommended length</td>
+<td>Some grammatical, spelling, or language errors that negatively impact understanding occur; Some language is overly verbose or informal; One section may significantly differ from the recommended length</td>
+<td>Minimal to no errors; Formal scientific language used throughout; Text flows and is easy to read; Sections adhere to word limits; Report provided in J Bacteriology format</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="ujemi-submission" class="section level2">
+<h2><span class="header-section-number">2.4</span> UJEMI submission</h2>
+<p>Outstanding reports will be invited to submit to The Undergraduate Journal of Experimental Microbiology and Immunology (<a href="https://jemi.microbiology.ubc.ca/">UJEMI</a>). More information on this will be provided near the end of the Finals Period.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="shell.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
