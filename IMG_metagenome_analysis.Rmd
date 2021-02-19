@@ -1,0 +1,1513 @@
+---
+title: "A global census of methanogenic and methanotrophic Archaea"
+author: "Connor Morgan-Lang and Steven J. Hallam"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggmap)
+library(sp)
+library(rworldmap)
+library(RColorBrewer)
+library(tidyr)
+library(dplyr)
+library(stringr)
+library(knitr)
+library(purrr)
+library(grid)
+library(magrittr)
+library(broom)
+library(ggdendro)
+library(ecodist)
+library(dendextend)
+library(egg)
+library(reactable)
+library(networkD3)
+
+project_prefix="~/Bioinformatics/Hallam_projects/McrA_census/"
+
+Rank <- c("Root", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+Depth <- c(1, 2, 3, 4, 5, 6, 7, 8)
+
+rank_depth_map <- data.frame(Rank, Depth,
+                             stringsAsFactors = FALSE)
+
+MoreColours <- function(n_o, palette="BrBG") {
+  ramp_func <- colorRampPalette(brewer.pal(9, palette))
+  ramp_func(n_o)
+}
+
+test_str <- "Root; Archaea; Euryarchaeota; Methanomicrobia; Methanomicrobiales; Methanomicrobiaceae"
+resolved_rank <- function(lineage_str) {
+  taxa <- str_split(lineage_str, pattern="; ")
+  len <- length(unlist(taxa))
+  if (len == 0) {
+    return("Unclassified")
+  }
+  rank <- as.character(with(rank_depth_map, Rank[Depth %in% len])) %>% 
+    unlist()
+  return(rank)
+}
+resolved_rank(test_str)
+
+project_theme <- theme(panel.background = element_blank(),
+                       panel.grid.major.y = element_line(colour = "#bdbdbd", linetype = "dotted"),
+                       panel.grid.major.x = element_blank(),
+                       panel.grid.minor = element_blank(),
+                       axis.text.x = element_text(angle = 45, hjust = 1))
+
+coords2region = function(points, area="continent") {  
+  # The single argument to this function, points, is a data.frame in which:
+  #   - column 1 contains the longitude in degrees
+  #   - column 2 contains the latitude in degrees
+  countriesSP <- getMap(resolution='low')
+
+  # converting points to a SpatialPoints object
+  # setting CRS directly to that from rworldmap
+  pointsSP = SpatialPoints(points, proj4string=CRS(proj4string(countriesSP)))  
+  # use 'over' to get indices of the Polygons object containing each point 
+  indices = over(pointsSP, countriesSP)
+  if (area=="continent")
+    indices$REGION   # returns the continent (7 continent model)
+  else if (area == "country")
+    indices$ADMIN  #returns country name
+  else
+    return(NA)
+}
+
+gather_dendrogram_data <- function(count_mat) {
+  # Create the dendrogram using hierarchical cluster with Bray-Curtis distance
+  dend <- as.dendrogram(hclust(bcdist(count_mat),
+                               method="average"))
+  dend_data <- dendro_data(dend)
+  
+  segment_data <- with(segment(dend_data),
+                       data.frame(x = y, y = x, xend = yend, yend = xend))
+  dend_data_list <- list("dend" = dend, "data" = dend_data, "segments" = segment_data)
+  return(dend_data_list)
+}
+
+get_y_lims <- function(pos_table) {
+  # Limits for the vertical axes
+  y_axis_limits <- with(
+    pos_table, 
+    c(min(y_center - 0.5 * height), max(y_center + 0.5 * height))) +
+    0.1 * c(-1, 1) # extra spacing: 0.1
+  return(y_axis_limits)
+}
+
+# get_x_lims <- function(pos_table) {
+#    x_axis_limits <- with(pos_table, 
+#                          c(min(x_center - 0.5 * width), max(x_center + 0.5 * width))) +
+#      0.1 * c(-1, 1) # extra spacing: 0.1
+#   return(x_axis_limits)
+# }
+
+plot_gg_dendrogram <- function(segment_data) {
+  # Dendrogram plot
+  plt_dendr <- ggplot(segment_data) + 
+      geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
+      scale_x_reverse(expand = c(0, 0)) +
+      project_theme
+  return(plt_dendr)
+}
+options(dplyr.summarise.inform = FALSE)
+
+```
+
+# Introduction
+
+### Taxonomy
+  Archaeal methanogens (methane producers) and methanotrophs (methane consumers) play an integral role in the global methane cycle. Altogether, it is estimated that methanogens produce more than a billion tons of methane globally per year while methanotrophs are responsible for oxidizing more than half of the biotically and abiotically formed methane that would otherwise enter the atmosphere (Thauer _et al_., 2008; Reeburgh, 2007). 
+  From a phylogenetic perspective archaeal methanogens and methanotrophs are widely distributed within the Archaeal Domain of Life. After decades of the widely-held consensus restricting methanogens within the phylum Euryarchaeota, increasing whole genome shotgun sequencing throughput in combination with improved methods for resolving metagenome assembled genomes (MAGs) has led to the identification of multiple new archaeal lineages with potential methane (and other linear alkane) cycling metabolisms (Evans _et al_., 2019; Borrel _et al_., 2019). These new archaeal methanogens and methanotrophs are primarily affiliated with uncultivated candidate divisions within the TACK and Asgard superphyla including Thaumarchaeota, Crenarchaeota, Korarchaeota and Helarchaeota (Hua _et al_., 2019; Vanwonterghem _et al_., 2016; Evans _et al_., 2015; McKay _et al_., 2019; Seitz _et al_. 2019). 
+  Canonical methanogens affiliated with Euryarchaeota fall into 4 classes: Methanomicrobia, Methanopyri, Methanococci, and Methanobacteria (Adam _et al_., 2017). In the past six years, putative methanognic or methanotrophic phenotypes have need ascribed to MAGs affiliated with diverse archaeal phyla including Thermoplasmata (Borrel _et al_., 2013; Brugère _et al_., 2014), Methanonatronarchaeia (Sorokin _et al_., 2017), Archaeoglobi (Boyd _et al_., 2019), Methanofastidiosa (Nobu _et al_., 2016), _Ca. Methanoliparia_ (Borrel _et al_., 2019) and Hadesarchaea (Wang _et al_. 2019) resolving 7 new methane cycling classes. Note that the candidate phylum Verstraetearchaeota, has recently been absorbed into the Crenarchaeaota as the class Methanomethylicia (GTDB) (REF). With respect to anaerobic methane oxidizing archaea (ANME) archaea, 7 groups or lineages have been described: ANME-1(a-b) of the order _Ca. Methanophagales_, ANME-2(a-d) and ANME-3 belong to the order Methanosarcinales. ANME are typically found inhabiting sulfate-methane transition zones (SMTZ) in oceanic sediments near cold seeps, mud volcanoes, hydrothermal vents and stratified waters in association with sulfate-reducing bacteria (SRB) but have also been idenfitied in stratifed lakes and wastewater treatment facilities.
+
+### Metabolism
+ There are three primary pathways for methane production: hydrogenotrophic, aceticlastic and methylotrophic. The majority of methanogens are CO~2~-dependent hydrogenotrophs, or hydrogenotrophic, acquiring electrons from H~2~ to reduce CO~2~. This metabolism is represented by the Methanococci, Methanobacteria, Methanocellales within the Methanomicrobia. and the lone Methanopyri representative, _Methanopyrus kandleri_. The Methanomicrobia order Methanosarcinales contain Archaea capable of aceticlastic and methylotrophic methanotrophy using a varity of methylated compounds, as well as methanotrophy in the ANME-2 and ANME-3. Methanomassilicoccales in the Thermoplasmata, Methanofastidiosa and Methanonatronarchaeia are capable of CH~3~-dependent hydrogenotrophy to produce methane. To oxidize methane to CO~2~ under anaerobic conditions, ANME typically transfer electrons to SRB partners affiliated with Deltaproteobateria, usually Desulfosarcina or Desulfobulbus. Although alternative modes of metabolic coupling have been described (Scheller _et al_., 2016) this phenomenon has been difficult to measure outside of laboratory settings. One of the most groundbreaking results has been the discovery of non-Euryarchaea that are predominantly implicated in CH~3~-dependent hydrogenotrophic methanogenesis and short-chain alkane oxidation. Only a single member from this clade has been confirmed to participate in butane-oxidation, however, and the remaining metabolic predictions were inferred by the presence or absence of specific carriers (e.g. methyltransferases) and enzymes. These genomes are not easy to obtain given they are typically rare and difficult to culture. Thus, the identification of one or more phylogenetically constrained marker genes would be a useful diagnostic tool for determining distribution, activity and function of methane cycling Archaea in natural and engineered environments.
+
+### Taxonomy and metabolism inferred via McrA
+  Along with the recently discovered, and still emerging, clade of short-chain alkane oxidizers, methane cycling Archaea all harbour a set of genes necessary to assemble a complete methyl coenzyme M reductase (Mcr) complex, formed by a dimer of heterotrimers (with two each of alpha, beta and gamma subunits). In methanogens, this facilitates the terminal step of reducing the methyl group of coenzyme M and the reverse in ANME lineages. The highly conserved and taxonomically constrained gene encoding the alpha-subunit of Mcr, McrA, is also a functional anchor that has been used in amplicon studies to map the population structure of methanogens and methanotrophs in various environments for decades. Phylogenies reconstructed from either McrA alone or concatenated with the beta and gamma subunits, McrABG, are mostly congruent with phylogenies derived from small subunit (SSU or 16S) rRNA gene sequences providing a diagnostic tool for methane cycling Archaea. Exceptions to this are sequences from the "divergent" clade, indicated by their long branch lengths. This polyphyletic clade includes multiple different phyla, as well as copies of McrA that may allow organisms to convert longer chain alkanes.
+  While metabolism isn't perfectly segregated into monophyletic clades in the McrA tree, it is generally consistent, and therefore possible to deconvolute these signatures to annotate clades in the reference tree with general methane-based metabolisms. Difficulties arise in the Genus Methanosarcina, the most metabolically diverse of the methanogens (Ferry, 2010). Given the clear environmental, economic and evolutionary importance of Mcr-encoding Archaea we sought to estimate their global diversity and distribution using the TreeSAPP pipeline for fast phylogenetic mapping of functional anchor genes (https://github.com/hallamlab/TreeSAPP) leveraging the current Joint Genome Institute (JGI) Integrated Microbial Genomes and Microbiomes (IMG and IMG/M) databases and the high-performance computing power of National Energy Research Scientific Computing Center (NERSC).
+
+```{r taxa_guide, eval=TRUE, include=TRUE, echo=FALSE, fig.align="center"}
+
+names <- c("ANME-1a", "ANME-1b", "ANME-2a", "ANME-2b", "ANME-2c", "ANME-2d", "ANME-3")
+class <- c("Methanomicrobia", "Methanomicrobia", "Methanomicrobia", "Methanomicrobia", "Methanomicrobia", "Methanomicrobia", "Methanomicrobia")
+order <- c("Methanophagales", "Methanophagales", "Methanosarcinales", "Methanosarcinales", "Methanosarcinales", "Methanosarcinales", "Methanosarcinales")
+family <- c("unclassified Methanophagales", "unclassified Methanophagales", "unclassified Methanosarcinales", "unclassified Methanosarcinales", "unclassified Methanosarcinales", "unclassified Methanosarcinales", "unclassified Methanosarcinales")
+ref_anme <- c("GB37 and GB60 ANME-1a (Krukenberg et al., 2018)", "ANME-1b (Meyerdierks et al., 2010)",
+              "SRX359142 (Wang et al., 2014)", "Unavailable", "ANME-2c (Borrel et al., 2019)", "Ca. 'Methanoperedens nitroreducens' (Haroon et al., 2013)",
+              "Unavailable")
+
+kable(x = data.frame(names, class, order, ref_anme),
+      col.names = c("Group", "Class", "Order", "Genomic representative(s)"),
+      format = "pandoc", padding = 2,
+      caption = "Taxonomic affiliation of the ANME")
+
+```
+
+## Project aims
+
+This report seeks to provide both a particular exploration of McrA abundance and diversity as well as a more general or extensible template structure for conducting gene-centric analysis using TreeSAPP. Specific questions we aim to address with current the JGI databases and NSERC resources include:
+
+1. Where are methanogens, methanotrophs and short-chain alkane oxidizers distributed in the environment and how abundant are they?
+2. Can we identify versions of mcrA that lack genomic representation (e.g. isolate, SAG or MAG) for targeted sequencing projects. 
+3. What type of environments, and specific locations if possible, contain methanogens and methanotrophs that have not been well described?  
+4. The global diversity within and between ecosystems has not been well explored and described in a cohesive framework.
+    + What is the alpha diversity range across all metagenomes?
+    + Does rarefaction indicate we have saturated most of the diversity?
+    + How many McrA OTUs have we collectively identified globally? 
+    + To what degree are methane-metabolizing Archaea endemic and are there lineage-specific patterns i.e., are some groups more ubiquitous than others? What are the metabolic constraints or drivers that promote or inhibit their colonization?
+5. What are the most dominant metabolisms, both as seen in the metagenomes and extrapolated to environmental distribution, and how does this relate to global carbon cycling?
+
+This is not intended to be an exhaustive list ofguiding questions, but more of a starting point to define distribution patterns of mcrA allels and develop new hypothesis regarding the evolution and application of methane cycling phenotypes.
+
+Additional objectives of this report include:
+
+1. Constuction of the most contemporary McrA reference tree from isolates, SAGs and high-quality MAGs and a putative reference tree significantly expanded with metagenome-derived sequences.
+2. Construction of a concatenated McrABG reference tree.
+3. Imporved mcrA database for the design of optimized primer sets.
+
+```{r load_data, include=FALSE}
+dat <- read.table(file=paste0(project_prefix, "ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_all_McrA/final_outputs/extra_annotated_marker_contig_map.tsv"),
+                  header=TRUE,
+                  sep="\t", quote="") %>% 
+  separate(col = Query, into=c("taxon_oid", "contig_name"), sep = ':') %>% 
+  mutate(taxon_oid = gsub(taxon_oid, pattern = ".a", replacement = '')) %>% 
+  mutate(Dataset = "MAGs")
+
+# Specific.Ecosystem intentionally not included due to most entries being either 'Unclassified'/NA or redundant
+# "RawData/update_metagenomes_09-10-2018.txt"
+metadata <- read.table(file=paste0(project_prefix, "RawData/29Jan2020_metagenomes_list.csv"),
+                       header=T,
+                       sep=",", quote='"', fill = T, na.strings = c('', "NA")) %>% 
+  select(taxon_oid, GOLD.SPID, NCBI.Biosample.Accession, Geographic.Location, Ecosystem, Ecosystem.Category, Ecosystem.Subtype, Ecosystem.Type, Latitude, Longitude, SRA.accession, Run.accession)
+
+lat_long <- select(metadata, Longitude, Latitude) %>% 
+  filter(!is.na(Longitude)) %>% 
+  unique()
+lat_long$Continent <- coords2region(points=lat_long, area="continent")
+metadata <- left_join(x=metadata, y=lat_long, by=c("Latitude", "Longitude")) %>% 
+  mutate(Longitude = round(Longitude, 1)) %>% 
+  mutate(Latitude = round(Latitude, 1))
+
+original_classifications <- read.table(file=paste0(project_prefix, "ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/IMG.to.treesapp/final_outputs/marker_contig_map.tsv"),
+                  header=TRUE,
+                  sep="\t", quote="") %>% 
+  mutate(Length=End_pos-Start_pos) %>% 
+  separate(col = Taxonomy, into = c('r', 'k', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
+  select(Length, EvoDist, p, c, o, f, g) %>%
+  mutate(Dataset="Original")
+isolate_classifications <- read.table(file=paste0(project_prefix, "ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/IMG.to.IMG_Archaea_CompleteGenomes/final_outputs/marker_contig_map.tsv"),
+                  header=TRUE,
+                  sep="\t", quote="") %>% 
+  mutate(Length=End_pos-Start_pos) %>% 
+  separate(col = Taxonomy, into = c('r', 'k', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
+  select(Length, EvoDist, p, c, o, f, g) %>%
+  mutate(Dataset="Isolates")
+sag_classifications <- read.table(file=paste0(project_prefix, "ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/IMG.to.RefSeq_Archaea_SAGs/final_outputs/marker_contig_map.tsv"),
+                  header=TRUE,
+                  sep="\t", quote="") %>% 
+  mutate(Length=End_pos-Start_pos) %>%  
+  separate(col = Taxonomy, into = c('r', 'k', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
+  select(Length, EvoDist, p, c, o, f, g) %>%
+  mutate(Dataset="SAGs")
+
+potu_dat <- read.table(file=paste0(project_prefix, "ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_all_McrA/phylotu_matrix.tsv"),
+                                   header=TRUE,
+                                   sep="\t", quote="", comment.char = "") %>% 
+  pivot_longer(-X.OTU_ID ,names_to = "taxon_oid", values_to = "Count") %>% 
+  rename("OTU_ID" = X.OTU_ID) %>% 
+  mutate(taxon_oid = as.character(gsub('X', '', taxon_oid)))
+
+```
+
+# Materials and Methods
+
+TreeSAPP version 0.9.6, with it's dependencies Prodigal, HMMER, BMGE, FastTree, EPA-NG, and RAxML-NG (\citen{Hyatt2010, Eddy1998a, Criscuolo2010, Price2010, Barbera2018, Kozlov2019}), was used to identify and taxonomically classify McrA homologs, and construct and update reference packages.
+
+The following three commands for `treesapp assign`, `treesapp layer` and `treesapp phylotu` were executed to generate most data for this report.
+
+```{bash ts_commands, eval=F}
+treesapp assign -t M0701 -m prot -i ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_Mcr.faa -o ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_all_McrA/ --delete --overwrite -n 12 --refpkg_dir ProcessedData/TreeSAPP_output/updates/MAG_update_RaxML-NG/final_outputs/ --placement_summary max_lwr
+treesapp layer --treesapp_output ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_all_McrA/ --refpkg_dir ProcessedData/TreeSAPP_output/updates/MAG_update_RaxML-NG/final_outputs/ -c ProcessedData/TreeSAPP_output/updates/MAG_update_RaxML-NG/final_outputs/McrA_Metabolism_colours_style.txt
+treesapp phylotu --refpkg_path ProcessedData/TreeSAPP_output/updates/MAG_update_RaxML-NG/final_outputs/McrA_build.pkl --assign_output ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_all_McrA/ -o ProcessedData/TreeSAPP_output/classifications/Metagenomes_Mcr/ficus_metagenome_all_McrA/ --sample_regex '^(\d+)\.a:.*'
+```
+
+## Metadata
+
+All metadata for the metagenomes and MAGs were provided by the JGI. These data were repaired and processed to fit the particular questions of this study. Missing values ('NA' or 'Unclassified') were replaced with "Unavailable" throughout this document. Values that we deemed unnecessarily specific were reclassified as "Other".
+
+```{r metadata_inventory}
+eco_dat <- metadata %>% 
+  select(taxon_oid, Ecosystem, Ecosystem.Category, Ecosystem.Subtype, Ecosystem.Type) %>% 
+  pivot_longer(cols = starts_with("Ecosystem"), names_to = "Label", values_to = "Ecosystem")
+
+eco_dat %>%
+  filter(is.na(Ecosystem) | (Ecosystem %in% c("Unknown", "Unavailable", "Unclassified", "Other"))) %>% 
+  ggplot(aes(x=Label, fill=Ecosystem)) +
+  geom_histogram(stat="count", colour="black") +
+  scale_fill_brewer(palette = "Blues") +
+  project_theme
+```
+
+```{r metadata_sankey, echo=F, include=T}
+mcra_ecos <- merge(dat, eco_dat, by="taxon_oid") %>% 
+  pull(Ecosystem) %>% 
+  unique()
+
+# A connection data frame is a list of flows with intensity for each flow
+l1 <- metadata %>% 
+  select(Ecosystem, Ecosystem.Category)
+names(l1) <- c("source", "target")
+l2 <- metadata %>% 
+  select(Ecosystem.Category, Ecosystem.Type)
+names(l2) <- c("source", "target")
+l3 <- metadata %>% 
+  select(Ecosystem.Type, Ecosystem.Subtype)
+names(l3) <- c("source", "target")
+links <- rbind(l1, l2, l3) %>%
+  mutate(source = ifelse(is.na(source), "Unavailable", as.character(source))) %>% 
+  mutate(target = ifelse(is.na(target), "Unavailable", as.character(target))) %>% 
+  group_by(source, target) %>%
+  tally(name="value") %>% 
+  ungroup() %>% 
+  filter(source %in% mcra_ecos & target %in% mcra_ecos) %>% 
+  # filter(source != "Unclassified") %>% 
+  filter(value > 10) %>% 
+  as.data.frame()
+
+# From these flows we need to create a node data frame: it lists every entities involved in the flow
+nodes <- data.frame(
+  name=c(as.character(links$source),
+         as.character(links$target)) %>% unique()
+  )
+
+# With networkD3, connection must be provided using id, not using real name like in the links dataframe.. So we need to reformat it.
+links$IDsource <- match(links$source, nodes$name)-1 
+links$IDtarget <- match(links$target, nodes$name)-1
+ 
+# Make the Network
+p <- sankeyNetwork(Links = links, Nodes = nodes,
+                   Source = "IDsource", Target = "IDtarget",
+                   Value = "value", NodeID = "name",
+                   sinksRight=FALSE)
+p
+
+```
+
+There are two levels of ecosystem labels used: a broad "ecosystem" category and a finer-grained category called "ecosystem subtype". Our ecosystem subtype variable was derived from the JGI's "Ecosystem.Type" and "Ecosystem.Subtype" variables.
+
+At least there were only `r filter(metadata, is.na(Ecosystem)) %>% nrow()` metagenomes that lack all Ecosystem information.
+
+```{r fix_metadata}
+metadata <- metadata %>% 
+  mutate(Ecosystem.Category = replace_na(as.character(Ecosystem.Category), "Unavailable")) %>% 
+  mutate(Ecosystem.Type = replace_na(as.character(Ecosystem.Type), "Unavailable")) %>% 
+  mutate(Ecosystem.Subtype = replace_na(as.character(Ecosystem.Subtype), "Unavailable"))
+# Standardize the ecosystem 
+metadata$Ecosystem.Subtype <- gsub("Unclassified", "Unavailable", metadata$Ecosystem.Subtype)
+metadata$Ecosystem.Type <- gsub("Unclassified", "Unavailable", metadata$Ecosystem.Type)
+```
+
+```{r mcra-ify, include=FALSE, eval=TRUE}
+# Merge the metadata and McrA classification tables, split lineage string into taxonomic rank variables, and select important columns
+mcra_dat <- merge(dat, metadata, by="taxon_oid") %>%
+  filter("McrA" == Marker) %>% 
+  mutate(Resolved = as.character(lapply(Taxonomy, resolved_rank))) %>%
+  separate(col = Taxonomy, into = c('r', 'k', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
+  mutate(Length = End_pos - Start_pos) %>% 
+  mutate(Continent = as.character(Continent)) %>% 
+  mutate(Continent = ifelse((is.na(Continent) & Ecosystem.Type == "Marine"), "Oceania", Continent)) %>% 
+  mutate(Continent = ifelse(is.na(Continent), "Unknown", Continent)) %>% 
+  select(-Sample, -iNode, -Abundance, -LWR, -Distances, -r, -End_pos, -Start_pos)
+
+rare_envs <- mcra_dat %>% 
+  group_by(Ecosystem.Subtype) %>%
+  summarize(n_McrA = n(),
+            n_MetaG = n_distinct(taxon_oid)) %>% 
+  filter(n_McrA <= 2 & n_MetaG <= 2) %>% 
+  pull(Ecosystem.Subtype)
+
+host_mcra <- mcra_dat %>% 
+  filter(Ecosystem.Category %in% c("Animal", "Mammals", "Arthropoda", "Birds")) %>% 
+  filter(Ecosystem.Subtype %in% c("Stomach", "Large intestine", "Foregut", "Oral", "Hindgut", "Midgut", "Gut", "Fecal", "Crop"))
+
+# Write the unique SRR accessions to a file
+write.table(dplyr::filter(mcra_dat, !is.na(Run.accession)) %>% pull(Run.accession) %>% unique(),
+            file = paste0(project_prefix, "SRR_McrA_metagenomes_unique.txt"),
+            row.names = F, quote = F, col.names = "Run.accession")
+
+```
+
+## McrA reference phylogeny
+
+To generate the most comprehensive and current reference package to map McrA homologous to, we began by iteratively updating a reference package with homologs detected in isolate genomes, SAGs and MAGs. To begin, McrA amino acid sequences were downloaded from the FunGene database (version 9.9; \citen{Fish2013}). Partial sequences (<80\% of the FunGene HMM) were removed to retain only near full-length sequences.
+In addition to the FunGene sequences, 84 sequences sourced from recently published genomes harbouring putative Mcr homologs \citen{Evans2015b, Nobu2016, Vanwonterghem2016a, Sorokin2017, Borrel2019, Boyd2019, Chen2019, McKay2019, Wang2019} were used to augment this reference package, as described previously \citen{Morgan-Lang2020}.
+In total 320 candidate reference amino acid sequences were input to TreeSAPP's create module to build a new reference package. These sequences, as well as those in future reference package iterations, were clustered at 97\% similarity using USEARCH’s cluster-fast algorithm with length-sorting to ensure fragments did not become centroids. Centroid sequences were compared to the cluster members for taxonomic lineage resolution and replaced if they were less complete and comparable in sequence length. Clustering the candidate reference sequences was used to balance taxonomic resolution for sequence classification and run-time performance. 97\% approximates Species-level clusters for McrA, however, some leaves represent multiple strains of a single Species while others represent several Species in a Genus.
+This phylogeny, and those of other intermediate reference packages, was inferred with FastTree 2.1.10 using the Le-Gascuel model (\citen{Price2010, LG2008}).
+This first reference package contained 246 reference McrA amino acid sequences.
+
+Next, the reference package was updated with homologs detected in annotated proteins from 358 GenBank complete archaeal genomes (encompassing 886,284 sequences) and 695 IMG archaeal isolate genomes (2,041,954 sequences). No novel (>3\% dissimilar) McrA were found in the 327 classified GenBank sequences. 20 novel sequences were included in the updated reference package out of 833 classified from IMG isolate genomes. These sequences were also used to "resolve" leaves in the initial reference package; new candidate reference sequences that are members of the same cluster as an original reference sequence can replace the existing reference if the candidate has a more resolved taxonomic lineage. The final isolate-updated reference package contained 260 reference sequences.
+
+17,150 archaeal SAG ORFs from RefSeq and an additional 12,113 scaffolds from 277 archaeal IMG SAGs were downloaded and searched for McrA sequences. A single novel McrA sequence was identified from a solitary SAG in RefSeq. This likely indicates an undersampling of methane cycling Archaea in current SAG studies.
+
+The final protein sequence dataset queried for novel McrA sequences was that from the JGI's public repository  of metagenome-assembled genomes (\citen{Eloe-Fadrosh2020}). This pre-release version contained 67,753 MAGs from 7,824 samples distributed across the Earth microbiome. GTDB-tk version 1.2.0 was used to assign taxonomy to these genomes, identifying 4,014 Archaea and 63,730 Bacteria. The archaeal amino acid sequences were queried using the SAG-updated reference package, identifying 881 putative McrA homologs in 718 MAGs created from 438 metagenomes.
+172 sequences were shorter than the minimum sequence length threshold (366 amino acids), leaving 709 potential sequences to be used in the update. Unlike while updating the reference package with isolate genomes and SAGs, the new candidates were not used to resolve any reference leaves with shallow taxonomic labels. After clustering these candidates with the reference sequences, 463 unique at 97\% similarity remained.
+IQTree (version 2.0.5) determined the best-fit protein model as LG+F+R6 with ModelFinder according to Bayesian Information Criterion and LG+G4 according to corrected Akaike Information Criterion (\citen{Minh2020,Kalyaanamoorthy2017}). The final McrA reference phylogeny was built using RAxML-NG (version 1.0.0) with LG+F+R6 as ModelFinder estimated the total likelihood to be lower than that with LG+G4 (\cite{Kozlov2019}).
+Bootstrapping and branch supports were calculated by UFBoot2 (\citen{Hoang2018}).
+
+## Metagenome-derived protein classifications
+
+  Following iterative updating of the reference package for McrA, TreeSAPP was used to find and classify all McrA sequences in the JGI IMG/M database image from 29 January, 2020. The analysis was split into 19,861 assembled and 1,465 unassembled metagenomes with 1,226 paired samples (20,100 unique samples). Metagenomes were processed previously using the annotation pipelines at the JGI. Whether these were reprocessed using consistent, contemporary tools or simply copied from IMG (and the tools used varies with time) remains unknown. There were 15.5 x 10\textsuperscript{9} (approximately 1.2 Tb) putative amino acid sequences included in this analysis.
+
+Some of the ecosystem categories (i.e. Category, Type and Subtype) were more specific than necessary for our purposes and were collapsed into similar or related categories.
+
+Sequences that were associated with synthetic communities were removed as these are not natural and likely do not provide any new information. Moreover, Drinking water, Sand and Mycelium were found to harbour rare homologs of McrA in fewer than three metagenomes and were removed due to the likelihood of false positives. 
+
+```{r reorganize_eco_data}
+
+mcra_dat$Ecosystem.Category <- ifelse(mcra_dat$Ecosystem.Category %in% c("Animal", "Mammals", "Arthropoda", "Birds", "Annelida", "Insecta"),
+                                      'Host-associated',
+                                      mcra_dat$Ecosystem.Category)
+mcra_dat$Ecosystem.Category <- ifelse(mcra_dat$Ecosystem.Category %in% c("Lab enrichment", "Bioreactor"),
+                                      'Lab enrichment',
+                                      mcra_dat$Ecosystem.Category)
+mcra_dat$Ecosystem.Category <- ifelse(mcra_dat$Ecosystem.Category == "Industrial production",
+                                      'Built environment',
+                                      mcra_dat$Ecosystem.Category)
+mcra_dat$Ecosystem.Category <- ifelse(mcra_dat$Ecosystem.Category %in% c("Modeled", "Biotransformation", "Bioremediation"),
+                                      'Other',
+                                      mcra_dat$Ecosystem.Category)
+mcra_dat$Ecosystem.Subtype <- ifelse(mcra_dat$Ecosystem.Subtype %in% c("Stomach", "Large intestine", "Foregut", "Oral", "Hindgut", "Midgut", "Gut", "Fecal", "Crop"),
+                                  "Host-associated",
+                                  mcra_dat$Ecosystem.Subtype)
+mcra_dat$Ecosystem.Subtype <- ifelse(mcra_dat$Ecosystem.Subtype == "Intertidal zone",
+                                  "Coastal",
+                                  mcra_dat$Ecosystem.Subtype)
+mcra_dat$Ecosystem.Subtype <- ifelse(mcra_dat$Ecosystem.Subtype %in% c("Saline", "Hypersaline", "Alkaline", "Chloroethene", "Tetrachloroethylene"),
+                                  mcra_dat$Ecosystem.Type,
+                                  mcra_dat$Ecosystem.Subtype)
+mcra_dat$Ecosystem.Subtype <- ifelse(mcra_dat$Ecosystem.Type == "Thermal springs" & mcra_dat$Ecosystem.Subtype == "Unavailable",
+                                  "Hot (42-90C)",
+                                  mcra_dat$Ecosystem.Subtype)
+
+# Likely a false positive, from a synthetic community
+mcra_dat <- mcra_dat %>% 
+  filter(! Ecosystem.Type %in% c("Mycelium", "Bacteria", "Phyllosphere")) %>% 
+  filter(! grepl("simulated", Ecosystem.Type, ignore.case=TRUE))
+
+
+mcra_dat <- filter(mcra_dat, ! Ecosystem.Subtype %in% rare_envs) %>% 
+  mutate(Ecosystem.Pasted = ifelse(Ecosystem.Subtype == Ecosystem.Type,
+                                   Ecosystem.Type,
+                                   ifelse(Ecosystem.Subtype == "Unavailable",
+                                          Ecosystem.Type,
+                                          paste(Ecosystem.Type, Ecosystem.Subtype, sep="-")))) %>% 
+  select(-Ecosystem.Subtype, -Ecosystem.Type, -Ecosystem)
+
+```
+
+Sequences that were associated with synthetic communities were removed as these are not natural and likely do not provide any new information. Moreover, `r rare_envs` and Mycelium were found to harbour rare homologs of McrA in fewer than three metagenomes and were removed in case these were also false positives.
+
+```{r palettes, include=FALSE, eval=TRUE}
+
+metabolic_palette <- data.frame(Metabolism = c("Aceticlastic", "Aceticlastic, CO2-dependent hydrogenotrophy, Methylotrophic", # "Methylotrophic",
+                                               "CH3-dependent hydrogenotrophy", "CH3-dependent hydrogenotrophy;CO2-dependent hydrogenotrophy", "CO2-dependent hydrogenotrophy", 
+                                               "Aceticlastic, CO2-dependent hydrogenotrophy, Methylotrophic;Methanotrophic", 
+                                               "Methanotrophic", "Short-chain alkane oxidation", "Unknown"),
+                                mColour = MoreColours(length(unique(mcra_dat$Metabolism)), "RdYlBu"),
+                                stringsAsFactors = FALSE)
+
+metabolism_fill_scale <- scale_fill_manual(name="Metabolism",
+                                           limits=metabolic_palette$Metabolism,
+                                           values = setNames(metabolic_palette$mColour, metabolic_palette$Metabolism))
+
+rank_palette <- scale_fill_manual(name="Resolved", drop=TRUE,
+                                  values=setNames(MoreColours(length(rank_depth_map$Rank), "PuOr"), rank_depth_map$Rank))
+```
+
+# Results
+
+`r filter(dat, Marker == "McrA") %>% nrow()` McrA sequences were taxonomically classified. `r length(unique(dat$taxon_oid))` out of `r nrow(metadata)` metagenomes were found to contain at least one of the three Mcr subunits.
+
+```{r remove, eval=T, include=F}
+rm(dat, metadata)
+```
+
+Here is where the sequences were detected, globally.
+```{r prep-global_map, echo=F}
+coord_sum <- mcra_dat %>%
+  filter(!is.na(Latitude) | !is.na(Longitude)) %>% 
+  group_by(Latitude, Longitude) %>% 
+  tally(sort=TRUE) %>% 
+  filter(n > 2)
+
+continent_totals <- mcra_dat %>% 
+  group_by(Continent) %>% 
+  tally(name = "Continent_Total")
+
+coord_sum$Latitude <- as.numeric(as.character(coord_sum$Latitude))
+coord_sum$Longitude <- as.numeric(coord_sum$Longitude)
+```
+
+```{r global_map, warning=F, echo=T, message=F, fig.align="center", fig.height=8, fig.width=10}
+# Make the global map
+map_canvas <- ggplot() +
+  borders("world", colour="gray50", fill="gray50") +
+  geom_point(data=coord_sum,
+             aes(x=Longitude, y=Latitude, size=log(n)),
+             colour="black", fill="white", shape = 21, stroke = 1, alpha=3/4) +
+  guides(size=guide_legend(title="Log(Count)")) +
+  scale_radius(range=c(1,6),
+               breaks=c(2,4,8)) +
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.y=element_blank(),
+        axis.title.x=element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.y = element_blank())
+ggsave(plot=map_canvas,
+       filename=paste0(project_prefix, "figures/McrA_global_distribution.png"),
+       height=6,
+       width=10)
+
+# Make the ecosystem category stacked barplot
+global_eco_bars <- mcra_dat %>% 
+  filter(!is.na(Latitude) | !is.na(Longitude)) %>% 
+  group_by(Continent, Ecosystem.Category) %>% 
+  tally(sort=TRUE, name="counts") %>% 
+  filter(counts >= 2) %>% 
+  group_by(Continent) %>% 
+  mutate(Percentage = (counts*100)/sum(counts)) %>% 
+  ungroup() %>% 
+  left_join(continent_totals, by="Continent") %>% 
+  ggplot(aes(x=Continent, y=Percentage)) +
+  geom_bar(stat="identity", colour="black", aes(fill=Ecosystem.Category)) +
+  geom_text(aes(y=100, label=Continent_Total),
+            check_overlap = TRUE, size=3, angle=0, hjust="left", nudge_y=1) +
+  guides(fill=guide_legend(title="Ecosystem category")) +
+  # scale_fill_manual(values = MoreColours(length(unique(mcra_dat$Ecosystem.Category)),
+  #                                        palette = "Set3")) +
+  scale_fill_viridis_d() +
+  coord_flip() + 
+  project_theme +
+  theme(legend.position = "left",
+        axis.text.x = element_text(angle=0, hjust=0.5),
+        panel.grid.major.y = element_blank())
+
+map_bars <- cowplot::plot_grid(map_canvas, global_eco_bars,
+                               ncol = 1, nrow = 2, rel_heights = c(5,4))
+cowplot::save_plot(plot=map_bars, base_height=10, base_width=12, ncol = 1,
+                   filename=paste0(project_prefix, "figures/McrA_globe_bars.png"))
+map_bars
+
+```
+
+Only metagenomes with more than a single McrA sequence were plotted on the map, retaining `r sum(coord_sum$n)` sequences. Removing singletons (i.e. metagenomes with a single Mcr subunit sequence predicted) left `r group_by(mcra_dat, taxon_oid) %>% tally(sort=TRUE) %>% filter(n >= 2) %>% nrow()` metagenomes, though this filter was not applied for any downstream analyses.
+ 
+For the remainder of this report we focus on McrA sequences derived from `r length(unique(mcra_dat$taxon_oid))` metagenomes. 
+
+Here is a table of the different ecosystems, the number of McrA sequences found in each, and the number of unique metagenomes associated with that ecosystem.
+
+```{r, eval=T, echo=F}
+mcra_dat %>% group_by(Ecosystem.Category, Ecosystem.Pasted) %>%
+  summarize(n_McrA = n(),
+            n_MetaG = n_distinct(taxon_oid)) %>%
+  arrange(desc(n_McrA)) %>%
+  reactable(columns = list(
+    Ecosystem.Category = colDef(name = "Ecosystem"),
+    Ecosystem.Pasted = colDef(name = "Ecosystem subtype"),
+    n_McrA = colDef(name = "McrA found"),
+    n_MetaG = colDef(name = "Unique Metagenomes")),
+    defaultPageSize = 15, sortable = TRUE)
+
+mcra_env_summary_dat <- mcra_dat %>% 
+  group_by(Ecosystem.Category) %>% 
+  summarize(n_McrA = n(),
+            n_MetaG = n_distinct(taxon_oid))
+```
+
+McrA was detected most often in aquatic ecosystems (`r filter(mcra_env_summary_dat, Ecosystem.Category == "Aquatic") %>% pull(n_MetaG)` samples) followed by host-associated (non-human) ecosystems (`r filter(mcra_env_summary_dat, Ecosystem.Category == "Host associated") %>% pull(n_MetaG)`) and terrestrial (`r filter(mcra_env_summary_dat, Ecosystem.Category == "Terrestrial") %>% pull(n_MetaG)`). On a per-sample basis though, wastewater samples were more interesting, harbouring well over `r filter(mcra_env_summary_dat, Ecosystem.Category == "Wastewater") %>% pull(n_McrA) %>% round(-3)` McrA sequences from just `r filter(mcra_env_summary_dat, Ecosystem.Category == "Wastewater") %>% pull(n_MetaG)` samples.
+
+A wide variance in sequence lengths of these classified sequences was observed. 
+
+```{r length_filter, include=T, eval=T, echo=F, results=T}
+summary(mcra_dat$Length)
+
+vent_seqs <- nrow(filter(mcra_dat, Ecosystem.Pasted == "Marine-Hydrothermal vents"))
+
+first_quantile <- quantile(mcra_dat$Length,probs = 0.25)
+short_mcra <- filter(mcra_dat, Length < first_quantile)
+mcra_dat <- filter(mcra_dat, Length >= first_quantile)
+host_mcra <- filter(host_mcra, Length >= first_quantile)
+
+short_vent_seqs <- nrow(filter(short_mcra, Ecosystem.Pasted == "Marine-Hydrothermal vents"))
+```
+
+While all sequences were greater than 10% of the McrA HMM size (~555 AA), only `r filter(mcra_dat, Length >= 500) %>%  nrow()` sequences were estimated to be near full-length (>500 AA). Even though all sequences passed the default, and already stringent, classification filters of TreeSAPP the remaining analyses will use the `r nrow(mcra_dat)` subset of classified sequences that were greater than `r first_quantile` AA - the first quantile.
+
+A taxonomic distribution histogram of the short McrA homologs was not suggestive of bias. However, `r round((100*short_vent_seqs)/vent_seqs, 2)`% of sequences (`r short_vent_seqs`) from hydrothermal vents were removed, `r round((100*short_vent_seqs)/nrow(short_mcra), 1)`% of all short McrA sequences. This may suggest that the HMM used to initially screen the proteins doesn't accurately model the McrA sequence diversity here by only aligning to a small, conserved region and not continuing the alignment into more variable regions. This is a point of interest that should be investigated further.
+
+```{r short_stuff, include=F, eval=F, echo=F, results=F}
+ggplot(short_mcra, aes(x=o)) +
+  geom_bar() +
+  project_theme +
+  theme(plot.margin = unit(c(1, 1, 1, 2), "cm"))
+
+ggplot(short_mcra, aes(x=Ecosystem.Pasted)) +
+  geom_bar() +
+  coord_flip() +
+  project_theme
+
+```
+
+## Phylogeny
+
+`r filter(mcra_dat, Length >= 250) %>%  nrow()` McrA sequences greater than 250 AA were used to determine the number of OTUs identified. Using the cluster_fast algorithm within USEARCH v11.0.667, we identified 284, 586, 861 OTUs after clustering at 90%, 95% and 97% similarity. These were subsequently used to update the reference package in TreeSAPP. The original reference package's phylogeny was created from 228 sequences resulting from clustering at 97% similarity. An additional taxonomic filter was applied during `treesapp update` to ensure sequences used were classified to at least the rank of Kingdom, discarding the few sequences that were initially classified as 'Root'. The iTOL trees are available below:
+
+* [90% similarity phylogeny containing 323 leaves](https://itol.embl.de/tree/128189113139155011569328926)
+* [95% similarity phylogeny containing 473 leaves](https://itol.embl.de/tree/8225417136417201569344810)
+* [97% similarity phylogeny containing 640 leaves](https://itol.embl.de/tree/8225417136471711569347613)
+
+```{r evo_dist, warning=F, echo=T, message=F, fig.align="center", fig.height=6, fig.width=8}
+evodist_dat <- mcra_dat %>% 
+  select(Length, EvoDist, p, c, o, f, g, Dataset) %>% 
+  rbind(original_classifications, isolate_classifications, sag_classifications) %>% 
+  filter(Length >= 81)
+
+dist_density <- ggplot(evodist_dat, aes(x=EvoDist, fill=Dataset)) +
+  geom_density(colour="black", alpha=0.5) +
+  scale_fill_brewer(palette="BrBG",
+                    breaks=c("Original", "Isolates", "SAGs", "MAGs")) +
+  xlim(0,2) +
+  ylab("Density") +
+  xlab("Evolutionary Distance") +
+  project_theme +
+  theme(axis.text.x = element_text(angle=0, hjust=0.5))
+ggsave(plot=dist_density,
+       filename=paste0(project_prefix, "figures/EvoDist_Density.png"),
+       height = 6, width = 8)
+dist_density
+```
+
+The MAG dataset has more sequences classified with a lower evolutionary distance and doesn't manifest a blip around a distance of one.
+
+```{r dist_table, echo=F}
+evodist_dat %>% 
+  group_by(Dataset) %>% 
+  summarise_at(vars("EvoDist"), c(mean, median)) %>% 
+  kable(col.names = c("Evolutionary Distance", "Mean", "Median"))
+```
+
+The mean and median evolutionary distances between the reference and query sequences is also significantly less in the reference package updated with the MAG sequences as well.
+
+From here onward, only McrA sequences with an evolutionary distance less than two will be retained and analyzed.
+
+```{r evodist_filter, echo=F}
+mcra_dat <- filter(mcra_dat, EvoDist <= 2)
+```
+
+## Taxonomy
+
+We begin exploring the taxonomic assignments by determining the spread of classifications across different taxonomic ranks i.e. the "known-knowns". We want to ensure the majority of sequences were not assigned to Root, otherwise this may indicate something is deeply wrong with this reference package. Each of the following variables represent the number of sequences that were classified at a rank, and the following rank was not assigned (i.e. non-cumulative).
+
+```{r prep_classification-depth, echo=F}
+known_df <- mcra_dat %>% 
+  group_by(Resolved) %>% 
+  dplyr::count() %>% 
+  ungroup() %>% 
+  merge(rank_depth_map, by.x="Resolved", by.y="Rank") %>% 
+  mutate(Proportion = n/sum(n)) %>% 
+  mutate(Resolved = reorder(Resolved, Depth))
+
+k_r <- filter(known_df, Resolved == "Root")$n
+k_k <- filter(known_df, Resolved == "Kingdom")$n
+k_p <- filter(known_df, Resolved == "Phylum")$n
+
+scalar <- sum(known_df$n)
+```
+
+```{r classification-depth, fig.height=2, fig.width=6, fig.align="center"}
+res_bar <- known_df %>% 
+  filter(Resolved != "Root") %>% 
+  ggplot(aes(fill=Resolved, y=n, x=1)) +
+  geom_bar(stat = "identity", colour="black") +
+  ylab("Assigned Sequences") +
+  rank_palette +
+  scale_y_continuous(limits = c(0,scalar),
+                     breaks = seq(0, round(scalar, -4), 5E3),
+                     sec.axis = sec_axis(~./scalar, name = "Proportion")) +
+  coord_flip() +
+  theme(panel.background = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+ggsave(plot=res_bar,
+       file=paste0(project_prefix, "figures/IMG_metagenome_Mcr_classification_ranks.png"),
+       height = 3, width = 8)
+res_bar
+```
+
+We were actually able to assign a reasonable portion of McrA sequences to a Species and over 50% of the sequences were assigned to Genus or greater resolution. Only `r k_k+k_r` sequences were assigned to '_Archaea_' or '_Root_', which is a good start since this metabolism is very constrained! This basically means there were no glaring voids in the phylogeny relative to the metagenomes in IMG/M, However there it is likely that there are more McrA in other Phyla, waiting to be discovered as more sampling and sequencing unfolds in the environment.
+
+The following is a visual summary of McrA assignments across different taxonomic ranks using TreeSAPP. This first histogram uses the number of McrA sequences identified in each taxonomic Class. Sequences that could not be classified to the rank of Class (`r sum(k_r, k_k, k_p)`) were not accounted for in this plot.
+
+```{r phylum_census, eval=F, echo=F}
+mcra_dat %>% 
+  filter(!is.na(p)) %>% 
+  group_by(p) %>% 
+  dplyr::count() %>% 
+  ungroup() %>% 
+  mutate(p = reorder(p, n)) %>% 
+  ggplot(aes(x=p, y=log10(n))) +
+    geom_bar(stat="identity") +
+    geom_text(aes(x=p, label=n),
+              check_overlap = TRUE, size=4, angle=0, nudge_y=0.5) +
+    xlab("Phylum") +
+    ylab("Log10 (Count)") +
+    project_theme +
+    theme(plot.margin = unit(c(1, 2, 1, 2), "cm"))
+```
+
+
+```{r class_census, fig.height=5, fig.width=8, fig.align="center"}
+
+c_census_dat <- mcra_dat %>% 
+  filter(!is.na(c)) %>% 
+  group_by(c) %>% 
+  dplyr::count() %>% 
+  ungroup() %>% 
+  mutate(c = reorder(c, n))
+  
+class_hist <- ggplot(c_census_dat, aes(x=c, y=log10(n))) +
+  geom_bar(stat="identity") +
+  geom_text(aes(x=c, label=n),
+            check_overlap = TRUE, size=4, angle=0, nudge_y=0.5) +
+  scale_y_continuous(breaks=seq(0,max(c_census_dat$n),1)) +
+  xlab("Class") +
+  ylab("Log10 (Count)") +
+  # expand_limits(x = -1) +
+  project_theme +
+  theme(plot.margin = unit(c(1, 2, 1, 2), "cm"))
+
+ggsave(plot=class_hist,
+       filename=paste0(project_prefix, "figures/Taxa_class_distribution.png"),
+       height=6,
+       width=10)
+class_hist
+```
+
+```{r genus_census, eval=F, echo=F}
+
+g_census_dat <- mcra_dat %>% 
+  filter(!is.na(g)) %>% 
+  group_by(g) %>% 
+  dplyr::count() %>% 
+  ungroup() %>% 
+  mutate(g = reorder(g, n))
+  
+ggplot(filter(g_census_dat, n > 100), aes(x=g, y=n)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(x=g, label=n),
+            check_overlap = TRUE, size=4, angle=0, nudge_y=50) +
+  scale_y_continuous(breaks=seq(0,max(g_census_dat$n),100)) +
+  xlab("Genus") +
+  ylab("Count") +
+  project_theme +
+  theme(plot.margin = unit(c(1, 2, 1, 2), "cm"))
+
+```
+
+  The vast majority of McrA isoforms belong to Methanomicrobia and Methanobacteria though there was a significant signal from some newly described lineages such as the _Hadesarchaea_ (of _Euryarchaeota_), _Candidatus Methanomethylia_ (of _Verstraetearchaeota_), and members of the phylum _Helarchaeota_.
+  
+  The _Methanococci_ appear to be vastly underrepresented with a mere `r mcra_dat %>% filter(c == "c__Methanococci") %>% nrow()` sequences classified. More would be expected as there were 20 reference sequences in the McrA reference package, and 27 assemblies (21 of them complete) and 16 unique species in the NCBI as of October 2019. There doesn't seem to be any bias against this clade by the HMM as clade-exclusion analysis -- used for validating the reference package's sensitivity and precision -- shows all Methanococci test sequences were classified. The reasons behind this remains to be determined.
+
+Metagenomes from some environments may be yielding more McrA sequences on a per metagenome basis.
+
+```{r weight_class, fig.height=8, fig.width=6, fig.align="center", echo=F, message=F, warning=F}
+
+metag_counts <- mcra_dat %>% 
+  group_by(Ecosystem.Pasted) %>% 
+  summarise(n_metaG = n_distinct(taxon_oid))
+
+unres_bars <- mcra_dat %>%  
+  group_by(Ecosystem.Pasted, Resolved) %>% 
+  dplyr::count() %>% 
+  ungroup() %>%
+  left_join(metag_counts, by = "Ecosystem.Pasted") %>% 
+  left_join(rank_depth_map, by = c("Resolved" = "Rank")) %>% 
+  mutate(MetaG.norm = n/n_metaG) %>%
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, MetaG.norm, FUN = sum)) %>% 
+  mutate(Resolved = reorder(Resolved, Depth)) %>% 
+  group_by(Ecosystem.Pasted) %>%
+  filter(sum(MetaG.norm) > 2) %>%
+  ungroup() %>%
+  ggplot(aes(x=Ecosystem.Pasted, y=MetaG.norm, fill=Resolved, group=Resolved)) +
+  geom_bar(position="stack",
+           stat="identity") +
+  rank_palette +
+  coord_flip() +
+  ylab("McrA per metagenome") +
+  xlab("Ecosystem") +
+  project_theme +
+  theme(axis.text.x = element_text(angle=0, hjust=0.5))
+ggsave(plot=unres_bars + coord_cartesian() + theme(axis.text.x = element_text(angle=45, hjust=1),
+        plot.margin = unit(c(0, 1, 0, 1), "cm")),
+       filename=paste0(project_prefix, "figures/Eco_rank_resolved.png"),
+       height=6,
+       width=10)
+
+unres_bars
+```
+
+This figure is useful in a couple of ways. First of all, it could indicate which environments contain a lot of methanogens or methanotrophs. Secondly, it shows the environments with poorly characterized Archaeal communities as bars with large orange portions. For example, fracking water, petrochemical and wastewater methanogens and methanotrophs in these samples have been well characterized whereas consortia in tar (e.g. Pitch Lake), cold seeps, hydrothermal vents and other oceanic environments are typically poorly characterized.
+
+## Diversity
+
+We sought to uncover the diversity of methanogens and methanotrophs in individual metagenomes and ecosystems by using `treesapp phylotu`. Briefly, this method identifies an evolutionary distance value that reflects the typical distance within a monophyletic clade of a taxon, then partitions the phylogeny's nodes into clusters using this threshold. A cluster does not contain nodes that are greater than the evolutionary distance threshold. Unique to `treesapp phylotu`, the set of internal node are also included in these clusters as query sequences can be placed on their edges during phylogenetic placement. It should be noted that internal nodes belonging to the same cluster are estimated to represent similar ancestral sequences and their pairwise evolutionary distance are within the expected range of extant sequences that belong to the same taxon.  Using the McrA reference phylogeny as a framework for clustering the query sequences, we found `r length(unique(potu_dat$OTU_ID))` unique phylogenetic OTUs (pOTUs) that sequences could be mapped to. Out of these, `r filter(potu_dat, Count >= 1) %>% pull(OTU_ID) %>% unique() %>% length()` clusters were occupied by at least one query sequence.
+
+Calculating diversity metrics from amplicon data is straightforward enough as there are thousands of sequences per sample. However, when assessing diversity from metagenomes using a single functional anchor gene found in a small fraction of the community the types of questions we can answer become limited.
+
+```{r orf_tally, include=T, eval=T, echo=F, results=T}
+
+tally_dat <- mcra_dat %>%
+  group_by(taxon_oid) %>% 
+  tally(name="orfs") %>% 
+  filter(orfs > 2) %>% 
+  arrange(desc(orfs))
+summary(tally_dat$orfs)
+
+```
+
+The number of McrA identified per metagenomic sample was typically under 1000 and usually less than 25. Calculating diversity measures on a sample-basis is unrealistic and so other analysis will need to be performed by aggregating pOTU counts from multiple samples. Here is how the number of pOTUs compares to the number of identified McrA ORFs in the samples.
+
+```{r cluster_correlation, echo=F, fig.height=5, fig.width=7, fig.align="center"}
+
+potu_dat <- filter(potu_dat, Count >= 1)
+cluster_counts <- potu_dat %>% 
+  group_by(taxon_oid) %>% 
+  tally(name="otus") %>%
+  arrange(desc(otus))
+
+left_join(cluster_counts, tally_dat, by = "taxon_oid") %>% 
+  left_join(select(mcra_dat, taxon_oid, Ecosystem.Category), by = "taxon_oid") %>% 
+  filter(!is.na(Ecosystem.Category)) %>% 
+  ggplot(aes(x=orfs, y=otus)) +
+  scale_colour_viridis_d() +
+  geom_point(aes(colour=Ecosystem.Category), shape=21, size=2) +
+  geom_smooth(se=F, method="lm") +
+  guides(colour=guide_legend(title="Ecosystem category")) +
+  labs(x="McrA ORFs",
+       y="McrA pOTUs") +
+  project_theme
+
+```
+
+As we already knew, there are very few ORFs in most samples, and even fewer unique pOTUs. The trend appears approximately linear in most samples.
+
+```{r otu_env_hist, echo=F, eval=T, fig.height=5, fig.width=8, fig.align="center"}
+
+env_otu_sums <- left_join(potu_dat, select(mcra_dat, taxon_oid, Ecosystem.Pasted), by = "taxon_oid") %>% 
+  group_by(Ecosystem.Pasted, OTU_ID) %>%
+  summarise_at(vars(Count), sum)
+
+env_otu_sums %>% 
+  tally(name="otus") %>% 
+  filter(otus > 10) %>% 
+  filter(!is.na(Ecosystem.Pasted)) %>% 
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, otus)) %>% 
+  ggplot(aes(x=Ecosystem.Pasted, y=otus)) +
+  geom_bar(stat="identity") +
+  labs(y="Unique pOTUs",
+       x="Ecosystem Type") +
+  project_theme +
+  theme(plot.margin = unit(c(0, 1, 0, 1), "cm"))
+
+```
+
+It may be possible if we group by some ecosystem category (where there are hundreds-to-thousands per, below) or classify ORFs predicted from reads.
+
+```{r env_count, warning=F, message=F, echo=F, fig.height=5, fig.width=8, fig.align="center"}
+mcra_dat %>% 
+  group_by(Ecosystem.Pasted) %>%
+  tally() %>% 
+  filter(n > (max(n)/1E2)) %>%
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, n)) %>% 
+  ggplot(aes(x=Ecosystem.Pasted, y=n)) +
+  geom_histogram(stat = "identity") +
+  labs(x="Ecosystem type",
+       y="McrA sequences") +
+  project_theme +
+  theme(plot.margin = unit(c(0, 1, 0, 3), "cm"))
+
+ggsave(filename=paste0(project_prefix, "figures/McrA_abundance_histogram.png"),
+       height=6,
+       width=10)
+
+```
+
+## Environmental
+
+Here we evaluate the different types of mthan eycling Archaea inhabiting different environments. Sequences that were not classified at the rank of Order have been removed. The orders have also been hierarchically clustered by their abundance and ordered on the vertical axis.
+
+```{r prep_eco-dist, echo=F, message=F, warning=F}
+
+o_census_dat <- mcra_dat %>% 
+  filter(!is.na(o)) %>%
+  filter(Ecosystem.Pasted != "Unavailable") %>% 
+  mutate(Eco.Number = as.numeric(as.factor(Ecosystem.Pasted))) %>%
+  mutate(Class.Number = as.numeric(as.factor(c))) %>% 
+  group_by(c, Class.Number, o, Eco.Number, Ecosystem.Pasted) %>% 
+  dplyr::count() %>% 
+  ungroup() %>% 
+  filter(n >= 4) %>%
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, n))
+
+o_census_mat <- o_census_dat %>%
+  select("o", "Ecosystem.Pasted", "n") %>%
+  spread(key="o", value = "n", fill = 0) %>% 
+  tibble::column_to_rownames("Ecosystem.Pasted") %>% 
+  as.matrix() %>% 
+  t()
+
+dend_data_list <- gather_dendrogram_data(o_census_mat)
+dend_data <- dend_data_list$data
+segment_data <- dend_data_list$segments
+
+# Use the dendrogram label data to position the taxon labels
+env_pos_table <- with(dend_data$labels,
+                      data.frame(y_center = x,
+                                 o = as.character(label),
+                                 height = 1))
+# Table to position the ecosystems
+taxa_pos_table <- data.frame("Ecosystem.Pasted" = colnames(o_census_mat)) %>%
+    mutate(x_center = (1:n()),
+           width = 1)
+
+y_axis_limits <- get_y_lims(env_pos_table)
+
+o_census_dat <- o_census_dat %>%
+  left_join(env_pos_table, by='o') %>%
+  left_join(taxa_pos_table, by="Ecosystem.Pasted") %>%
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, Eco.Number))
+
+```
+
+```{r eco_dist, message=F, warning=F, fig.height=10, fig.width=14, fig.align="center"}
+# Dendrogram plot
+plt_dendr <- plot_gg_dendrogram(segment_data) +
+  scale_y_continuous(breaks = env_pos_table$y_center, 
+                     labels = env_pos_table$o, 
+                     limits = y_axis_limits, 
+                     expand = c(0, 0)) +
+  labs(x = "Distance", y = "Order")
+# Bubble plot
+plt_bub <- o_census_dat %>% 
+  ggplot(aes(x = x_center, y = y_center, fill = c, height = height, width = width)) +
+  geom_point(aes(size=log(n), fill=c),
+             colour="black", pch=21) +
+  scale_x_continuous(breaks = taxa_pos_table$x_center, 
+                     labels = taxa_pos_table$Ecosystem.Pasted, 
+                     expand = c(0, 0.5)) + 
+  scale_y_continuous(breaks = env_pos_table[, "y_center"], 
+                     labels = rep("", nrow(env_pos_table)),
+                     limits = y_axis_limits, 
+                     expand = c(0, 0)) +
+  scale_radius(range = c(1,6),
+               breaks = c(2,4,6)) +
+  scale_fill_manual(values = MoreColours(length(unique(o_census_dat$c)))) +
+  guides(fill=guide_legend(title="Class"),
+         size=guide_legend(title="Log(Count)")) +
+  labs(x = "Ecosystem", y = "") +
+  project_theme +
+  theme(panel.grid.major.x = element_line(colour = "#bdbdbd", linetype = "dotted"),
+        axis.text.x = element_text(size = rel(1), hjust = 1, angle = 45),
+        axis.ticks.y = element_blank(),
+        plot.margin = unit(c(1, 0.2, 0.2, -0.7), "cm"), 
+        panel.grid.minor = element_blank())
+
+order_eco_plt <- cowplot::plot_grid(plt_dendr, plt_bub,
+                   align = 'h', rel_widths = c(1, 3))
+cowplot::save_plot(plot=order_eco_plt, base_height=7, base_width=14, ncol = 1,
+                   filename=paste0(project_prefix, "figures/Ecosystem_taxa_orders.png"))
+order_eco_plt
+```
+
+This "Unavailable" ecosystem was really popular with the Archaea! `r filter(mcra_dat, Ecosystem.Pasted == "Unavailable") %>% nrow()` McrA sequences (`r filter(mcra_dat, Ecosystem.Pasted == "Unavailable") %>% pull(taxon_oid) %>% unique() %>% length()` metagenomes) do not have Ecosystem.Pasted information available.
+
+  Apart from this limitation, these data show soil ecosystems were some of the most diverse, with many McrA isoforms in abundance. The orders _Methanosarcinales_, _Methanomicrobiales_,  _Methanobacteriales_ and to a lesser extent the _Methanomassillicoccales_ were nearly ubiquitous. At the opposite end of the spectrum, _Thermoplasmatales_, _Methanopyrales_, _Methanophagales_ and _Archaeoglobales_ seem restricted to very few environments.
+  
+### Anaerobic digestor communities
+
+How resolved were the taxonomic classifications of McrA found in AD metagenomes?
+
+```{r ad_resolution, echo=F, fig.align="center", fig.height=3, fig.width=8}
+ad_mcr <- mcra_dat %>% 
+  filter(Ecosystem.Pasted == "Anaerobic digestor") %>% 
+  filter(Resolved != "Root")
+
+res_bar <- ad_mcr %>% 
+  group_by(Resolved) %>% 
+  dplyr::count() %>% 
+  ungroup() %>% 
+  merge(rank_depth_map, by.x="Resolved", by.y="Rank") %>%
+  mutate(Resolved = reorder(Resolved, Depth)) %>% 
+  ggplot(aes(fill=Resolved, y=n, x=1)) +
+  geom_bar(stat = "identity", colour="black") +
+  ylab("Assigned Sequences") +
+  rank_palette +
+  scale_y_continuous(breaks = seq(0, nrow(ad_mcr), 1E3)) +
+  coord_flip() +
+  theme(panel.background = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+ggsave(plot=res_bar,
+       file=paste0(project_prefix, "figures/AD_Mcr_classification_ranks.png"),
+       height = 2, width = 6)
+res_bar
+```
+
+```{r prep-ad_summary, echo=F}
+co2_genera <- filter(ad_mcr, Metabolism == "CO2-dependent hydrogenotrophy") %>% select(c, g)
+```
+
+The McrA sequences in the anaerobic digestor communities were very well resolved, with `r round(filter(ad_mcr, Resolved %in% c("Species", "Genus")) %>% nrow()*100/nrow(ad_mcr), 1)`% of the sequences classified at least to Genus.
+
+What genera were detected in these communities?
+
+```{r ad_genera, message=F, warning=F, fig.height=6, fig.width=8, fig.align="center"}
+
+ad_mcr %>% 
+  filter(!is.na(c)) %>% 
+  group_by(g, c) %>% 
+  dplyr::count(name = "count") %>% 
+  ungroup() %>%
+  mutate(g = reorder(g, count)) %>% 
+  ggplot(aes(x=g, y=count, fill=c)) +
+  geom_bar(stat="identity", colour="black") +
+  scale_fill_manual(values = MoreColours(length(unique(o_census_dat$c)))) +
+  guides(fill=guide_legend(title="Class")) +
+  labs(x="Genus", y="Count") +
+  project_theme +
+  theme(plot.margin = unit(c(1, 0.2, 0.2, 1), "cm"))
+
+```
+
+Anaerobic digestors are dominated by genera from the taxonomic class *Methanomicrobia*. The only aceticlastic methanogens found in these samples were *Methanosaeta* and *Methanothrix*, but these are the only characterized genera capable of producing methane from acetate. The remaining genera present from *Methanomicrobia* were all CO2-dependent hydrogenotrophs. `r co2_genera %>% filter(c == "c__Methanomicrobia") %>% unique() %>% nrow()` out of `r co2_genera %>% unique() %>% nrow()` genera found to be facilitating CO2-dependent hydrogenotrophy belong to *Methanomicrobia* and the remainder were of *Methanobacteria*.
+
+### Endemism
+
+From these data, it's not clear whether any of these were groups have such defined niche ranges that they could be considered endemic to a specific environment. _Methanophagales_ were found in mostly reduced, hydrocarbon-rich environments as well as clay and in the bottom of lakes. The same goes for _Archaeoglobi_. _Thermoplasmatales_ were found in dissimilar environments, groundwater and host-associated (human gut).
+
+```{r endemism, echo=F}
+endemic_arc <- mcra_dat %>% 
+  dplyr::filter(o %in% c("o__Methanopyrales", "o__Methanophagales", "o__Thermoplasmatales", "o__Archaeoglobales")) %>%
+  dplyr::select(o, taxon_oid, Ecosystem.Pasted) %>%  
+  unique()
+
+endemic_arc %>% 
+  group_by(o, Ecosystem.Pasted) %>% 
+  tally() %>% 
+  arrange(o, Ecosystem.Pasted) %>% 
+  dplyr::rename(Order = o) %>%
+  dplyr::rename(Metagenomes = n) %>%
+  reactable()
+```
+
+The only methanogenic order that could be considered endemic are the _Methanopyrales_, which are generally exceedingly rare. They were only found in three different hydrothermal vent metagenomes and two unclassified ecosystems. Perhaps greater resolution is required.
+
+
+## New lineages
+
+Judging from the number of sequences that were resolved between Phylum (selected as a threshold to reduce the number of false inferences by potential false positives) and Family, there are many sequences that are not closely related to the sequences in the reference package. We want to investigate these more, determining both their taxonomic and environmental origins.
+
+```{r novel, echo=F}
+novel_seqs <- mcra_dat %>% 
+  filter(Resolved %in% c("Phylum", "Class", "Order", "Family"))
+
+novel_seqs %>% 
+  group_by(p) %>% 
+  tally() %>%
+  kable(col.names = c("Phylum", "Count"),
+        format = "pandoc", padding = 2)
+```
+
+We found `r count(novel_seqs)` sequences meeting our definition of novel as stated above. These are related to reference sequences with uncultured representatives, so can still reliably be considered novel with respect to cultured archaea. These novel sequences were from `r pull(novel_seqs, taxon_oid) %>% unique() %>% length()` unique metagenomes. Remarkably, `r round((filter(novel_seqs, Ecosystem.Pasted %in% c("Wetlands", "Hydrothermal vents")) %>% nrow()*100)/nrow(novel_seqs))`% of these sequences originated from just `r filter(novel_seqs, Ecosystem.Pasted == "Wetlands") %>% select(taxon_oid) %>% unique() %>% count()` wetland and `r filter(novel_seqs, Ecosystem.Pasted == "Hydrothermal vents") %>% select(taxon_oid) %>% unique() %>% count()` hydrothermal vent metagenomes. Furthermore, `r filter(mcra_dat, grepl("guaymas", Geographic.Location, ignore.case = T)) %>% pull(taxon_oid) %>% unique() %>% length()` of the `r filter(mcra_dat, Ecosystem.Pasted == "Hydrothermal vents") %>% pull(taxon_oid) %>% unique() %>% length()` hydrothermal vent metagenomes were from Guaymas Basin in the Gulf of California. This is particularly striking given that `r round(filter(novel_seqs, Ecosystem.Pasted == "Hydrothermal vents") %>% count()*100 / filter(mcra_dat, Ecosystem.Pasted == "Hydrothermal vents") %>% count())`% of the `r filter(mcra_dat, Ecosystem.Pasted == "Hydrothermal vents") %>% count()` McrA from hydrothermal vents were considered novel. Meanwhile, just `r round(filter(novel_seqs, Ecosystem.Pasted == "Wetlands") %>% count()*100 / filter(mcra_dat, Ecosystem.Pasted == "Wetlands") %>% count())`% of wetland McrA sequences were considered novel using the same definition. This highlights the fact that these communities are understudied suggests we still have much to learn from these environments.
+
+```{r}
+
+# TODO: Harmonize the palettes used across ecosystem categories
+novel_seq_eco_pal <- MoreColours(length(unique(novel_seqs$Ecosystem.Category)), "Paired")
+novel_seq_plt_dat <- novel_seqs %>% 
+  group_by(c, Ecosystem.Category, Ecosystem.Pasted) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Percentage = 100*n/sum(n)) %>% 
+  mutate(c = reorder(c, n, FUN = sum)) %>% 
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, Percentage, FUN = sum)) %>% 
+  mutate(Ecosystem.Category = reorder(Ecosystem.Category, Percentage, FUN = sum))
+
+novel_seq_plt_dat %>% 
+  group_by(c, Ecosystem.Category) %>% 
+  summarise_at(vars(Percentage), sum) %>% 
+  ggplot(aes(x=c, y=Percentage)) +
+  geom_bar(aes(fill=Ecosystem.Category),
+           stat = "identity", colour="black", size=0.5) +
+  scale_fill_manual(values = novel_seq_eco_pal) +
+  guides(fill=guide_legend(title="Ecosystem"),
+         size=FALSE) +
+  xlab("Class") +
+  ylab("Query sequences (%)") +
+  project_theme + 
+  theme(plot.margin = unit(c(1, 0.2, 0.2, 0.7), "cm"))
+
+
+novel_seq_env_plt <- novel_seq_plt_dat %>%
+  group_by(Ecosystem.Category, Ecosystem.Pasted) %>% 
+  summarise_at(vars(Percentage), sum) %>% 
+  ggplot(aes(x=Ecosystem.Pasted, y=Percentage)) +
+  geom_bar(aes(fill=Ecosystem.Category),
+           stat = "identity", colour="black", size=0.5) +
+  scale_fill_manual(values = novel_seq_eco_pal) +
+  guides(fill=guide_legend(title="Ecosystem"),
+         size=FALSE) +
+  xlab("Ecosystem Sub-category") +
+  ylab("Query sequences (%)") +
+  project_theme + 
+  theme(plot.margin = unit(c(1, 0.2, 0.2, 2), "cm"))
+
+ggsave(plot = novel_seq_env_plt,
+       filename = paste0(project_prefix, "figures/Novel_seq_histogram.png"),
+       height=6,
+       width=10)
+novel_seq_env_plt
+```
+
+Where are the really novel McrA sequences (note: not divergent as in the butane- or ethane-oxidizing Mcr) from and how many are there?
+
+```{r phylum-less, fig.align="center"}
+unknowns <- mcra_dat %>% 
+  filter(is.na(p)) %>% 
+  group_by(Ecosystem.Category, Ecosystem.Pasted) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Percent = 100*n/sum(n)) %>% 
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, Percent, FUN = sum)) %>% 
+  mutate(Ecosystem.Category = reorder(Ecosystem.Category, Percent, FUN = sum))
+
+n_unknown <- sum(unknowns$n)
+
+ggplot(unknowns, aes(x=Ecosystem.Pasted, y=n, fill=Ecosystem.Category)) +
+  geom_bar(stat = "identity", colour="black", size=0.5) +
+  scale_fill_manual(values = MoreColours(length(unique(unknowns$Ecosystem.Category)), "Paired")) +
+  guides(fill=guide_legend(title="Ecosystem"),
+         size=FALSE) +
+  ylab("Query sequences") +
+  xlab("Ecosystem Sub-category") +
+  project_theme
+```
+
+There were `r n_unknown` McrA sequences that could not be classified at the rank of Phylum. Most of these were derived from aquatic environments, predominantly hydrothermal vent, ocean and lake ecosystems.
+
+There you have it: if you want to have a good chance at finding a lot of novel McrA, sequence some metagenomes from hydrothermal vents, stratified waters or insect GI tracts.
+
+### Helarchaeota
+
+*Candidatus Helarchaeota* is a recently described candidate phylum (Seitz et al., 2019), related to other Archaea in the Asgard superphylum.
+The have only been described in hydrothermal vents from Guaymas Basin and are suggested to participate in short-chain alkane oxidation.
+
+```{r helarchaeota}
+hel_dat <- mcra_dat %>% 
+  filter(p == "p__Candidatus Helarchaeota")
+hel_eco_counts <- hel_dat %>% 
+  group_by(Ecosystem.Pasted) %>%
+  count(name="Count") %>% 
+  ungroup()
+hel_dat <- left_join(hel_dat, hel_eco_counts, by="Ecosystem.Pasted")
+```
+
+We found `r nrow(hel_dat)` McrA likely from _Candidatus Helarchaeota_ genomes in `r unique(pull(hel_dat, taxon_oid)) %>% length()` metagenomes.
+These were primarily from freshwater environments, an unexpected surprise given their currently understood environment range to be in relatively extreme hydrothermal vent ecosystems. 
+And yet, over a third of all putative _Candidatus Helarchaeota_ McrA sequences were found in freshwater environments, mostly lakes. These lakes were Yellowstone Lake, Lake Kivu (Rwanda), and Lake Towuti.
+Additionally, 10% of _Candidatus Helarchaeota_ McrA were sourced from soils sampled in the United States and Finland.
+
+```{r hel_plot_2, echo=F, message=F, warning=F, fig.height=4, fig.width=6, fig.align="center"}
+hel_env <- ggplot(hel_dat, aes(x=Continent)) +
+  geom_histogram(stat="count", aes(fill=Ecosystem.Pasted)) +
+  scale_fill_viridis_d() +
+  ylab(NULL) +
+  guides(fill=guide_legend(ncol=2,
+                           title="Ecosystem")) +
+  project_theme
+ggsave(plot=hel_env,
+       filename=paste0(project_prefix, "figures/Helarchaeota_habitats.png"),
+       height=4, width=6)
+hel_env
+```
+
+The following plots show the evolutionary distance of the *Helarchaeota* McrA in relation to our current reference sequences.
+
+```{r hel_plot_1, echo=F, message=F, warning=F, fig.height=5, fig.width=5, fig.align="center"}
+hel_evodist <- ggplot(hel_dat, aes(x=EvoDist)) +
+  geom_density(fill="#bdbdbd") +
+  ylab("Density") +
+  xlab("Evolutionary Distance") +
+  project_theme
+ggsave(plot=hel_evodist,
+       filename=paste0(project_prefix, "figures/Helarchaeota_EvoDist_density.png"),
+       height=4, width=4)
+hel_evodist
+```
+
+The interpolated distribution above appears trimodal, suggesting there are several different groups of _Candidatus Helarchaeota_: one that is very closely related to the reference MAGs, a second that is more distantly related, and a third that is very distantly related and also much more rare. This last plot shows the evolutionary distance distributions by ecosystem subtype.
+
+```{r hel_plot_3, echo=F, message=F, warning=F, fig.height=6, fig.width=9, fig.align="center"}
+hel_hist <- hel_dat %>%
+  filter(Count >= 5) %>% 
+  ggplot(aes(x=EvoDist)) +
+  geom_histogram(aes(fill=Ecosystem.Pasted, group=Ecosystem.Pasted),
+                 colour="black", alpha=0.5, binwidth = 0.05) +
+  ylab("Density") +
+  xlab("Evolutionary Distance") +
+  guides(fill=guide_legend(title="Ecosystem")) +
+  facet_wrap(~Ecosystem.Pasted) +
+  scale_fill_viridis_d() +
+  project_theme
+ggsave(plot=hel_hist,
+       filename=paste0(project_prefix, "figures/Helarchaeota_EvoEco_density.png"),
+       height=6, width=7)
+hel_hist
+```
+
+In most environments where the closely related phylotype is present, the semi-related phylotype rivals it in abundance. Although, no more than ten copies of it were found in most ecosystems indicating these organisms are typically exceedingly rare.
+
+## Metabolic
+
+`r mcra_dat %>% filter(Metabolism != "Unknown") %>% nrow()` McrA sequences were assigned a metabolic potential based on their location in the phylogeny. If a sequence mapped to an edge/branch deep in the tree such that there were multiple metabolisms annotated in the leaves it was assigned the "Unknown" designation. 
+
+```{r metabolical_df, include=FALSE, eval=T}
+
+metabolic_census <- mcra_dat %>% 
+  filter(!is.na(c)) %>% 
+  group_by(Metabolism, c) %>% 
+  count() %>% 
+  ungroup() %>%
+  mutate(Metabolism = reorder(Metabolism, n, FUN = sum))
+
+metabolic_env <- mcra_dat %>%
+  mutate(Eco.Number = as.numeric(as.factor(Ecosystem.Pasted))) %>%
+  group_by(Ecosystem.Pasted, Eco.Number, Metabolism, Resolved, f) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Percentage = (100*n)/sum(n)) %>% 
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, Percentage, FUN = sum)) %>% 
+  merge(rank_depth_map, by.x="Resolved", by.y="Rank") %>% 
+  mutate(Resolved = reorder(Resolved, Depth)) %>% 
+  mutate(f = ifelse(is.na(f), "unclassified", f)) %>% 
+  filter(Percentage >= 0.01 & n >= 2) %>%
+  filter(!Ecosystem.Pasted %in% c("Unclassified", "Unavailable"))
+
+tax_filtered_met_env <- metabolic_env %>% 
+  filter(! Resolved %in% c("Root", "Kingdom", "Phylum", "Class", "Order")) %>% 
+  filter(f != "unclassified")
+
+```
+
+The following figures layer metabolic information with taxonomic and therefore some pruning was involved. In the series of metabolic figures, the first analyzes `r sum(metabolic_census$n)` sequences, `r sum(tax_filtered_met_env$n)` in the second and the remaining figures (using the `metabolic_env` data-frame) include `r sum(metabolic_env$n)` sequences. Rows (here representing combinations of ecosystem, taxonomic family and metabolism) were discarded if: fewer than 2 sequences were identified for a family in an environment or ecosystem type information was unavailable. Rows were discarded if sequences were not assigned a family for the second figure.
+
+What is the distribution of metabolisms?
+
+```{r metabolical, fig.height=8, fig.width=10, fig.align="center"}
+
+ggplot(metabolic_census, aes(x=Metabolism, y=n)) +
+  geom_bar(stat = "identity", colour="black", aes(fill=c)) +
+  scale_fill_manual(values = MoreColours(length(unique(c_census_dat$c)))) +
+  guides(fill=guide_legend(title="Class")) +
+  ylab("Count") +
+  xlab("Metabolism") +
+  project_theme +
+  theme(plot.margin = margin(1, 1, 1, 6, "cm"))
+
+ggsave(filename=paste0(project_prefix, "figures/Metabolic_taxonomic_histogram.png"),
+       height=6,
+       width=10)
+```
+
+CO2-dependent hydrogenotrophy was by far the most well represented methane metabolism. Methanomicrobia comprise some part of each metabolic class. Methylotrophy was the most rare metabolism and found in a mere `r filter(mcra_dat, Metabolism == "Methylotrophic") %>% pull(taxon_oid) %>% unique() %>% length()` metagenomes.
+
+```{r prep_meta_env, echo=F}
+
+metabolic_mat <- tax_filtered_met_env %>%
+  group_by(f, Eco.Number, Ecosystem.Pasted) %>% 
+  count() %>% 
+  ungroup() %>% 
+  select("f", "Ecosystem.Pasted", "n") %>%
+  spread(key="f", value = "n", fill = 0) %>% 
+  tibble::column_to_rownames("Ecosystem.Pasted") %>% 
+  as.matrix() %>% 
+  t()
+
+dend_data_list <- gather_dendrogram_data(metabolic_mat)
+dend_data <- dend_data_list$data
+segment_data <- dend_data_list$segments
+# Use the dendrogram label data to position the taxon labels
+env_pos_table <- with(dend_data$labels,
+                      data.frame(y_center = x,
+                                 f = as.character(label),
+                                 height = 1))
+# Table to position the ecosystems
+taxa_pos_table <- data.frame(Ecosystem.Pasted = colnames(metabolic_mat)) %>%
+    mutate(x_center = (1:n()),
+           width = 1)
+
+tax_filtered_met_env <- tax_filtered_met_env %>%
+  left_join(env_pos_table) %>%
+  left_join(taxa_pos_table) %>%
+  mutate(Ecosystem.Pasted = reorder(Ecosystem.Pasted, Eco.Number))
+
+y_axis_limits <- get_y_lims(env_pos_table)
+```
+
+```{r meta_env,  message=F, warning=F, fig.height=10, fig.width=16, fig.align="center"}
+# Dendrogram plot
+plt_dendr <- plot_gg_dendrogram(segment_data) +
+  scale_y_continuous(breaks = env_pos_table$y_center, 
+                     labels = env_pos_table$f, 
+                     limits = y_axis_limits, 
+                     expand = c(0, 0)) +
+  labs(x = "Distance", y = "Family")
+
+plt_bub <- tax_filtered_met_env %>% 
+  ggplot(aes(x = x_center, y = y_center, fill = Metabolism, height = height, width = width)) +
+  geom_point(aes(size=log(n)),
+             position = position_jitterdodge(dodge.width = 0, jitter.width = 0.25, jitter.height = 0.25),
+             colour="black", pch=21) +
+  scale_x_continuous(breaks = taxa_pos_table$x_center, 
+                     labels = taxa_pos_table$Ecosystem.Pasted, 
+                     expand = c(0, 0.5)) + 
+  scale_y_continuous(breaks = env_pos_table[, "y_center"], 
+                     labels = rep("", nrow(env_pos_table)),
+                     limits = y_axis_limits, 
+                     expand = c(0, 0)) +
+  scale_radius(name = "Log(Count)",
+               range = c(1,6),
+               breaks = c(2,4,6)) +
+  labs(x = "Ecosystem", y = "") +
+  metabolism_fill_scale +
+  project_theme +
+  theme(panel.grid.major.x = element_line(colour = "#bdbdbd", linetype = "dotted"),
+        axis.text.x = element_text(size = rel(1), hjust = 1, angle = 45),
+        axis.ticks.y = element_blank(),
+        plot.margin = unit(c(1, 0.2, 0.2, 0.5), "cm"), 
+        panel.grid.minor = element_blank())
+
+eco_bubble_plt <- cowplot::plot_grid(plt_dendr, plt_bub,
+                   align = 'h', rel_widths = c(1, 3))
+
+cowplot::save_plot(filename = paste0(project_prefix, "figures/Ecosystem_metabolism_bubble.png"),
+                   plot = eco_bubble_plt, ncol = 3, base_height=12, base_width=7)
+eco_bubble_plt
+
+```
+
+We also evaluated the distribution of potential short-chain alkane metabolism for each environment using the McrA phylogenetic signature. All ecosystems that contribute less that 1/10th of a percentage to the overall total number of McrA classifications have been omitted from the following figures.
+
+```{r prep_stacked-bars, echo=F}
+
+env_totals <- metabolic_env %>% 
+  group_by(Ecosystem.Pasted) %>% 
+  summarise_at(vars(n), sum) %>% 
+  rename(Env_total = n)
+
+metabolic_mat <- metabolic_env %>%
+  group_by(Metabolism, Ecosystem.Pasted) %>% 
+  filter(Percentage >= 0.02) %>% 
+  count() %>% 
+  ungroup() %>% 
+  select("Metabolism", "Ecosystem.Pasted", "n") %>% 
+  spread(key="Metabolism", value="n", fill=0) %>% 
+  tibble::column_to_rownames("Ecosystem.Pasted") %>% 
+  as.matrix()
+
+dend_data_list <- gather_dendrogram_data(metabolic_mat)
+dend_data <- dend_data_list$data
+segment_data <- dend_data_list$segments
+
+y_pos_table <- with(dend_data$labels,
+                    data.frame(y_center = x,
+                               Ecosystem.Pasted = as.character(label),
+                               height = 1))
+
+y_axis_limits <- get_y_lims(y_pos_table)
+```
+
+```{r stacked_bars, message=F, warning=F, fig.align="center", fig.height=8, fig.width=12}
+# Dendrogram plot
+dendr_plt <- plot_gg_dendrogram(segment_data) +
+  scale_y_continuous(breaks = y_pos_table$y_center, 
+                     labels = y_pos_table$Ecosystem.Pasted, 
+                     limits = y_axis_limits,
+                     expand = c(0, 0)) +
+  labs(x = "Distance", y = "Ecosystem")
+# Stacked bar plot
+stk_plt <- metabolic_env %>%
+  left_join(env_totals, by = "Ecosystem.Pasted") %>%
+  mutate(Percentage = (n*100)/Env_total) %>%
+  group_by(Metabolism, Ecosystem.Pasted, Env_total) %>% 
+  summarise_at(vars(Percentage), sum) %>% 
+  ungroup() %>% 
+  select("Metabolism", "Ecosystem.Pasted", "Percentage", "Env_total") %>% 
+  left_join(y_pos_table, by = "Ecosystem.Pasted") %>%
+  ggplot(aes(x = y_center, y = Percentage, fill=Metabolism, group=Metabolism, width = height)) +
+  geom_bar(position = "stack", stat="identity", col="black") +
+  scale_x_continuous(breaks = y_pos_table$y_center,
+                     labels = rep("", nrow(y_pos_table)),
+                     expand = c(0, 0.5)) +
+  metabolism_fill_scale +
+  guides(fill=guide_legend(title="Metabolism"),
+         size=guide_legend(title="Log(Count)")) +
+  labs(x = "", y = "Percent") +
+  geom_text(aes(y=100, label=Env_total),
+            check_overlap = TRUE, size=3, angle=0, hjust="left", nudge_y=3) +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0, 130),
+                     breaks=seq(0,100,20)) +
+  coord_flip() +
+  project_theme +
+  theme(panel.grid.major.y = element_blank(),
+        axis.text.x = element_text(size = rel(1), hjust = 1, angle = 45),
+        axis.ticks.y = element_blank(),
+        plot.margin = unit(c(0, -0.2, 0, -0.2), "cm"),  # Pad the margin to prevent text from being cut off
+        panel.grid.minor = element_blank())
+
+eco_metabolic_plt <- cowplot::plot_grid(dendr_plt, stk_plt,
+                                        align = 'v', axis="b", rel_widths = c(1,2), ncol = 2)
+
+cowplot::save_plot(filename = paste0(project_prefix, "figures/Ecosystem_metabolisms.png"),
+                   plot = eco_metabolic_plt, ncol = 1, base_height = 8, base_width = 12)
+eco_metabolic_plt
+```
+
+The number of McrA sequences identified in each ecosystem is provided atop each bar. Wetlands host dominant hydrogenotrophic consortia, with a strong aceticlastic contingent, and background methylotophy, methanotrophy and short-chain alkane oxidation. Wetlands, thermal springs and freshwater lakes appear to hold the most diverse metabolic strategies out of the natural environments; Archaea with the potential for all these metabolisms have been cultured in anaerobic media except for methanotrophs. Hydrothermal vent communities were mostly alkanotrophic, though specific alkanes currently cannot be discerned phylogenetically due to the absence of experimentally-confirmed activity annotations. However, the ANME representing methanotrophic clades on the reference phylogeny were the most significant constituent of these communities relative to Archaea possessing "divergent"-McrA sequences that may facilitate alkane oxidation. Short-chain alkane oxidizers were present in oil seeps, hydrothermal vents, thermal springs, labelled as "Hot (42-90C)", and freshwater ecosystems as well as Pitch Lake, a liquid asphalt lake located in Trinidad and Tobego. Methanotrophic McrA were also detected in all of these environments.
+
+We know the newly described and rapidly expanding clade of short-chain alkane McrA sequences exhibit much larger branch lengths. But are the sequences in the reference package closely related to what we've observed in the metagenomes, or are they still relatively distant to those query sequences? And how do these evolutionary distances compare to the McrA sequences involved in other metabolic pathways?
+
+```{r evodist_metabolism, message=F, warning=F, fig.align="center", fig.height=6, fig.width=8}
+dist_points <- ggplot(mcra_dat, aes(x=Metabolism, y=EvoDist)) +
+  geom_boxplot(outlier.alpha=0) +
+  geom_point(aes(fill=Metabolism), colour="black", alpha=1/4,
+             size=2, shape=21, position="jitter") +
+  coord_flip() +
+  metabolism_fill_scale +
+  guides(fill=FALSE) +
+  ylab("Evolutionary Distance") +
+  xlab(NULL) +
+  project_theme +
+  theme(axis.text.x = element_text(angle=0, hjust=0.5))
+ggsave(plot=dist_points,
+       paste0(project_prefix, "figures/Metabolism_EvoDist_scattered.png"),
+       height = 6, width = 10)
+dist_points
+```
+
+This plot is not all that unexpected. A larger fraction of the sequences we're unable to assign a metabolic label were increasingly distant to the sequences in the reference package. Moreover, as predicted, sequences predicted to facilitate short-chain alkane oxidation have a larger evolutionary distance between themselves and the references.
+
+A searchable table to chase up further questions:
+
+```{r metabolic_table, echo=F}
+metabolic_env %>% 
+  group_by(Ecosystem.Pasted, Metabolism) %>% 
+  summarise_at(vars(n), sum) %>% 
+  filter(Metabolism != "Unknown") %>% 
+  filter(n > 100) %>% 
+  arrange(Metabolism, n) %>% 
+  reactable(columns = list(
+    Ecosystem.Pasted = colDef(name = "Ecosystem"),
+    Metabolism = colDef(name = "Metabolism"),
+    n = colDef(name = "Count")),
+    defaultPageSize = 15, filterable = TRUE, sortable = TRUE)
+  
+```
+
+```{r message=F, warning=F, fig.align="center", fig.height=8, fig.width=12}
+
+metabolic_plot <- metabolic_env %>% 
+  group_by(Ecosystem.Pasted, Metabolism) %>% 
+  summarise_at(vars(Percentage), sum) %>% 
+  filter(Percentage >= 0.02) %>% 
+  ggplot(aes(x=Ecosystem.Pasted, y=Percentage, group=Metabolism, fill=Metabolism)) +
+  geom_bar(colour="black", stat = "identity") +
+  ylab("Percentage of Total") +
+  xlab("Ecosystem") +
+  metabolism_fill_scale +
+  project_theme +
+  theme(plot.margin = margin(0, 0, 0, 4, "cm"),
+        panel.grid.major.x = element_line(colour = "#bdbdbd", linetype = "dotted"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.ticks.x = element_blank())
+
+pred_plot <- metabolic_env %>% 
+  group_by(Ecosystem.Pasted, Resolved) %>% 
+  summarise_at(vars(Percentage), sum) %>% 
+  filter(Percentage >= 0.02) %>% 
+  ggplot(aes(x=Ecosystem.Pasted, y=Percentage, group=Resolved, fill=Resolved)) +
+  geom_bar(colour="black", stat="identity") +
+  rank_palette +
+  guides(fill=guide_legend(title="Rank Resolved")) +
+  scale_y_reverse() +
+  project_theme +
+  theme(plot.margin = margin(0, 0, 0, 4, "cm"),
+        panel.grid.major.x = element_line(colour = "#bdbdbd", linetype = "dotted"),
+        axis.title = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+combined_plt <- ggarrange(pred_plot, metabolic_plot, ncol=1, nrow=2)
+grid.newpage()
+svg(file=paste0(project_prefix, "figures/Fig4bc_McrA_IMG_Metagenomes.svg"),
+       width = 8, height = 8)
+combined_plt
+dev.off()
+
+```
+
+```{r n_metag, include=FALSE}
+wetland_mg <- mcra_dat %>% filter(Ecosystem.Pasted == "Wetlands") %>%
+  select(taxon_oid) %>%
+  unique() %>% 
+  nrow()
+vent_mg <- mcra_dat %>% filter(Ecosystem.Pasted == "Hydrothermal vents") %>%
+  select(taxon_oid) %>%
+  unique() %>% 
+  nrow()
+```
+
+The wetland and hydrothermal vent metagenomes alone (`r wetland_mg` and `r vent_mg`, respectively) contribute `r round(mcra_dat %>% filter(Ecosystem.Pasted %in% c("Wetlands", "Hydrothermal vents")) %>% count() * 100 / count(mcra_dat))`% (`r mcra_dat %>% filter(Ecosystem.Pasted %in% c("Wetlands", "Hydrothermal vents")) %>% count()`) of all identified McrA sequences. McrA from wetlands were primarily from peatlands (`r filter(mcra_dat, Ecosystem.Pasted == "Wetlands") %>% filter(grepl("peat", Ecosystem.Pasted, ignore.case = T)) %>% nrow()`) and bogs (`r filter(mcra_dat, Ecosystem.Pasted == "Wetlands") %>% filter(Ecosystem.Pasted == "Lentic") %>% nrow()`). Hydrothermal vent metagenomes were nearly all (`r filter(mcra_dat, grepl("Gulf of California", Geographic.Location)) %>% nrow()`) from the Gulf of California, probably Guaymas Basin. An additional `r filter(mcra_dat, Ecosystem.Pasted == "Volcanic") %>% nrow()` sequences detected in a hydrothermal fluid metagenome from the Juan de Fuca Ridge flank could be included under "Hydrothermal vents" ecosystem, but are currently classified as "Volcanic".
+
+McrA identified in metagenomes sampled from various hosts (e.g. birds, termites, feces from other animals) contributed the second most McrA sequences and surprisingly many new McrA that were assigned broadly to Archaea indicating the possibilty of new phylum level designations in the future.
+
+# Discusssion
+
+  Firstly, we'd like to emphasize that these results are only preliminary as a few genera and newly described lineages of McrA-containing Archaea were not included in the version of the reference tree used including Methanofastidiosa and Helarchaeota. Moreover, Methanoflorentaceae are not properly designated in the reference tree (_Methanoflorens stordalenmirensis_ is resolved only to Methanomicrobia). Once these groups are included in a new version of the reference tree, we will begin a new search of SAG and MAG datasets for new or underrepresented lineages. Only SAGs and MAGs with reasonably resolved lineages, e.g. to the rank of Family, will then be added to the updated McrA tree. Completing the reference tree with the latest isoforms should increase the number of sequences assigned to species or genus ranks, solidifying future estimates of novel McrA-containing Archaea. To this end we will need renewed access to NERSC resources and the IMG and IMG/M databases (including FASTQ files for calculating relative abudances). 
+
+  A surprising feature of these data was the total absence of McrA derived from open ocean samples. With the well-described Archaeal lineages in and around hot- and cold-seeps, hydrothermal vents, as well as various sediment drilling projects (e.g. Gulf of Mexico) it was unexpected to see no McrA sequences from these samples. It is unlikely these sequences belonged to the `r mcra_dat %>% filter(is.na(Latitude) | is.na(Longitude)) %>% group_by(taxon_oid) %>% tally() %>% nrow()` samples missing Latitude or Longitude values. Future iterations could include NCBI if IMG does not include these samples but it would be good to hear the JGI's suggestions on why these samples were underrepresented or wholly missing from IMG/M.
+  
+  Methanosarcinales is the most metabolically flexible class of all, with many species capable of at least one of aceticlastic, CO~2~-dependent hydrogenotrophy, or methylotrophic methanogeneis. This makes metabolic annotation a rather delicate operation. These will be annotated on a species-to-species basis so highly similar sequences will still be annotated. At the same time, since metabolic assignment requires all children must have identical metabolic annotations, even a small distance between the query and reference sequences will cause the query to be assigned "Unknown", making for a rather stringent, albeit custom, filter. Alternatively, if there is broad concern over this we can forfeit all sequences annotated within the Methanosarcinales during metabolic analyses.
+
+Once we have tabulated a comprehensive and phylogentically constrained set of McrA sequences we will provide a primer mapping and design feature as well as active site summaries for each McrA isoform. 
