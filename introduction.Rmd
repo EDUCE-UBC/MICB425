@@ -28,4 +28,4 @@ You will be implementing a pipeline called Tree-based Sensitive and Accurate Pro
 
 TreeSAPP determines three things: A. What taxa are in our metagenomic and metatranscriptomic data represented? B. Which marker genes do these taxa contain (metagenomic data) or actually express (metatranscriptomic data)? C. At what levels are those genes represented (metagenomic data) or expressed by the taxon?
 
-Please see the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign) for more information on `treesapp assign`, the subcommand you will use. You will be provided with a script template for both the shell and R portion of your analysis ("treesapp_analysis.sh" and "treesapp_analysis.R") that will guide you as you develop your code.
+Please see the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign) for more information on `treesapp assign`, the subcommand you will use. You will be provided with a script template for both the shell and R portion of your analysis (`treesapp_analysis.sh` and `treesapp_analysis.R`) that will guide you as you develop your code.

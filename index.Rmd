@@ -9,21 +9,17 @@ bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book
 link-citations: true
-description: "This is the project information for MICB425 Module 04."
+description: | 
+  | A collection of tutorials and the capstone project information for MICB425
+    Module 04.
 # For further configuration, see `_bookdown.yml`
 ---
-
-# Overview {.unnumbered}
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 # Saving the default settings for code chunks to use to reset settings.
 default_chunk_options <- knitr::opts_chunk$get()
 ```
 
-This document contains all relevant information to complete the group project:
+# {-}
 
--   [Introduction](#introduction) contains the background of the data collected and the methods used so far to generate the data set you are going to work with.
--   [Instructions](#instructions) will give you information on the focus of your report, how to write it and evaluation.
--   Common shell commands you will use for GCP and TreeSAPP can be found [here](#shell) as well as a script outline.
--   Instructions on how to complete the R analysis.
-<!-- - [Summary](#summary) give an overview of all different depths. -->
+<font size="48">Bookdown is under construction</font>

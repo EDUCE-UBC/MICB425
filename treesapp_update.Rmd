@@ -1,0 +1,11 @@
+# Updating TreeSAPP reference package with new sequences
+
+Add introduction and goal
+
+## Steps for the udpate
+
+Add steps
+
+## Tree topology after update 
+
+Add tree image and contrast with original topography

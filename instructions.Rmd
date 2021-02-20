@@ -1,3 +1,5 @@
+# (PART) Capstone project {-}
+
 # Instructions {#instructions}
 
 In this project, you will work in teams to explore marine microbial communities and the nitrogen cycle, particularly **denitrification**. You will use metagenomic and metatranscriptomic data from Cruise 72 at 7 depths in Saanich Inlet, a seasonally anoxic fjord that serves as a model ecosystem for studying microbial community responses to changing levels of oxygen. Each group has been assigned a specific depth (given in Canvas group name) and will assess microbial communities in terms of taxonomic rank, abundance, and expression along the redoxcline in Saanich Inlet.

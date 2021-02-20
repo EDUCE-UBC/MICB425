@@ -1,0 +1,15 @@
+# Creating a reference package for TreeSAPP
+
+Add introduction and goal
+
+## Making the reference package
+
+Add steps
+
+## Testing the purity of the reference package
+
+Add steps
+
+## Looking at tree of reference package with iTOL
+
+Add steps and iTOL image
