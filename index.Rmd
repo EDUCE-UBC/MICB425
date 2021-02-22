@@ -19,7 +19,3 @@ description: |
 # Saving the default settings for code chunks to use to reset settings.
 default_chunk_options <- knitr::opts_chunk$get()
 ```
-
-# {-}
-
-<font size="48">Bookdown is under construction</font>

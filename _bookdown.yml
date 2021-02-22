@@ -9,15 +9,15 @@ rmd_files:
 # Providing array as YAML sequence, so it's easier to comment out Rmd files that
 # are not needed.
   - index.Rmd
-  # - overview.Rmd
-  # - introduction.Rmd
-  # - tools.Rmd
-  # - treesapp_create.Rmd
-  # - treesapp_assign.Rmd
-  # - treesapp_update.Rmd
-  # - instructions.Rmd
+  - overview.Rmd
+  - introduction.Rmd
+  - tools.Rmd
+  - treesapp_create.Rmd
+  - treesapp_assign.Rmd
+  - treesapp_update.Rmd
+  - instructions.Rmd
   # - summary.Rmd
   # - gcp_setup.Rmd
   # - shell.Rmd
   # - R.Rmd
-  # - references.Rmd
+  - references.Rmd
