@@ -1,15 +1,74 @@
-# Creating a reference package for TreeSAPP
+---
+title: "__Creating a reference package for TreeSAPP__"
+date: 2021-03-1
+output: html_document
+---
+## __Introduction and Goals__
 
-Add introduction and goal
+This tutorial is meant for users who would like to analyze a gene family lacking an associated TreeSAPP reference package (refpkg). This tutorial is also useful to people who find a refpkg is completely useless to them and would rather start over than use treesapp update. This tutorial will cover most of the available modules in TreeSAPP: create, package, purity, assign, update, and layer.The protein family we'll be focusing on is that of the copper-containing membrane-bound monooxygenases2. This family contains particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) and we'll be building a reference package for the alpha subunits of these enzymes called XmoA.
 
-## Making the reference package
 
-Add steps
+## __Making the reference package__
 
-## Testing the purity of the reference package
+The steps involved are:
 
-Add steps
+* Log into server and move into your working directory
+
+`cd ts_tutorial`
+
+* Download the fasta files we'll be using to create, update and evaluate our XmoA reference package from [xmoa_file_list.txt](https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt)with wget then run wget again to retrieve each file within this list.
+
+`wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt`
+`wget -i xmoa_file_list.txt`
+
+There are 72 fasta sequences in these files and are well curated PmoA and AmoA sequences downloaded from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi), [EggNOG v5.0](http://eggnog5.embl.de/#/app/home), and [FunGene](http://fungene.cme.msu.edu/).
+
+* Confirm the number of sequences in the fasta file
+
+`grep -c "^>" *faa`
+
+* Create the input FASTA file
+
+`cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa >XmoA_seed.faa`
+
+* Use submodule `treesapp create` to build the XmoA refpkg
+
+To speed things along we'll be using FastTree to infer the phylogeny and will skip bootstrapping with `--fast`. To remove potential redundant sequences, we'll cluster the candidate reference sequences at 97% similarity using the argument `-p`. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more the flag `--headless` will prevent these requests. This command will take ~2 minutes to complete.
+
+`treesapp create --fast --headless --overwrite --cluster --trim_align -n 4 -m prot -p 0.97 --fastx_input XmoA_seed.faa -c XmoA --output XmoA_seed`
+
+The final reference package file is located in `./XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule `treesapp package`.
+
+* Replace the current refpkg_code 'Z1111' with unique identifier N0102 (If you plan on just using this one reference package then you don't really need to worry about changing it)
+
+`treesapp package edit refpkg_code N0102 --overwrite --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl`
+
+We can also modify the reference package's description while we're here.
+
+`treesapp package edit description "Alpha subunits of copper membrane monooxygenase enzymes"  --overwrite --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl`
+
+## __Testing the purity of the reference package__
+
+
+![The important bit of the output should look like this](D:/rnath/Documents/summary_TSassign2.jpg)
+
+From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they're closely related) and the sequences were all from the family TIGR03080, also known as 'methane monooxygenase/ammonia monooxygenase, subunit A'. In all, we're probably good to proceed!
+
 
 ## Looking at tree of reference package with iTOL
 
-Add steps and iTOL image
+First off, we can quickly and easily view where the sequences were placed on the phylogeny using the interactive Tree of Life. 
+
+* Transfer the directory containing the XmoA iTOL outputs p_amoA_FunGene9.5_isolates_assign/iTOL_output/XmoA to your desktop
+
+* Navigate to [iTOL](https://itol.embl.de/). using a web browser  
+
+* upload the file XmoA_complete_profile.jplace from the XmoA directory This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
+
+* navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
+
+* Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to this figure on the right.
+
+![The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the Gammaproteobacteria order Methylococcales. Another 15 sequences were placed on the clade of Betaproteobacteria, represented by the genera Nitrosospira and Nitrosomonas](D:/rnath/Documents/iTOL_XmoA2.jpg)
+
+
