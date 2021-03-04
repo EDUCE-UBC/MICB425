@@ -1,5 +1,5 @@
 ---
-title: "Mapping microbes and marine denitrification"
+title: "Gene-centric mapping of microbial metabolic functions"
 subtitle: "2020.21 MICB425 Capstone project"
 author: "Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam"
 date: "version `r format(Sys.time(), '%B %d, %Y')`"
