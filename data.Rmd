@@ -35,11 +35,12 @@ List of directories and their contents
 
 ## Methods
 
-### Wet lab
-
-To be added
+Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA was extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the constuction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with **2x150bp** technology. For more in-depth sampling and sequencing methods, please see @Hawley.2017.
 
 ### Quality filtering of reads
+
+The resulting reads were processed and quality controlled at the Joint Genome Institute using the IMG/M pipeline. 
+
 Quality filtering was performed with Trimmomatic (v.0.35, [documentation](http://www.usadellab.org/cms/?page=trimmomatic)) @Bolger.2014 with default parameters except:
 
     LEADING:3 

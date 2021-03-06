@@ -1,4 +1,4 @@
-# Introduction {#introduction}
+# Exploring a meta'omic world
 
 ## Background
 
@@ -7,12 +7,6 @@ Marine oxygen minimum zones (OMZs) provide useful environmental contexts in whic
 ```{r N-cycle-genes, echo = FALSE, fig.cap = "Nitrogen cycle"}
 knitr::include_graphics("images/N_cycle_genes.png")
 ```
-
-## Methods
-
-Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA was extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the constuction of shotgun Illumina libraries. Sequencing data were generat ed on the Illumina HiSeq platform with **2x150bp** technology. For more in-depth sampling and sequencing methods, please see @Hawley.2017.
-
-The resulting reads were processed and quality controlled at the Joint Genome Institute using the IMG/M pipeline. Metagenomes were assembled and processed using MEGAHIT v1.1.2 at UBC.
 
 ## Using meta-omics data
 

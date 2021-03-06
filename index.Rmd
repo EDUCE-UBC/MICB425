@@ -24,3 +24,11 @@ description: |
 # Saving the default settings for code chunks to use to reset settings.
 default_chunk_options <- knitr::opts_chunk$get()
 ```
+
+# Overview {-}
+
+This document introduces metagenomic and metatranscriptomic workflows
+
+-   Part I outlines the motivation and insights afforded by meta'omic workflows.
+-   Part II provides hands-on tutorials to learn to important tools, TreeSAPP and iTOL.
+-   Part III is a capstone project to explore the meta'omics data collected from the Saanich Inlet watercolumn.

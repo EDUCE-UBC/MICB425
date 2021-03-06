@@ -2,6 +2,6 @@
 
 Add introduction and goal
 
-# Plotting abundances in iTOL
+## Plotting abundances in iTOL
 
 Add steps
