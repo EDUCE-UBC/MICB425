@@ -4,7 +4,12 @@ subtitle: "2020.21 MICB425 Capstone project"
 author: "Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam"
 date: "version `r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output:
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
+        scroll_highlight: yes
 bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book

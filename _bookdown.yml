@@ -16,6 +16,7 @@ rmd_files:
   - treesapp_assign.Rmd
   - treesapp_update.Rmd
   - instructions.Rmd
+  - data.Rmd
   # - summary.Rmd
   # - gcp_setup.Rmd
   # - shell.Rmd

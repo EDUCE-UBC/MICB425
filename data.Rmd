@@ -1,0 +1,54 @@
+# The Saanich Inlet data set
+
+## Description 
+
+We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:
+
+![](images/saanich_inlet_map.png){width=4in}
+
+The figure shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165, 200.
+
+For more details about these data, see @Hallam.2017, and for more detailed information on the environmental context and time series data, see @Torres-Beltrán.2017.
+
+## Data on the server
+
+The data is located on the MICB425 server at `/mnt/datasets`.
+
+```{r echo = FALSE, comment = NA}
+cat(paste(readLines("data/directory_structure.txt"),
+          collapse = "\n"),
+    fill = TRUE)
+```
+
+## Description of input data
+
+List of directories and their contents
+
+-  `MAGs`
+-  `MetaG_Assemblies`
+-  `MetaG_Trim_QC_Reads`
+-  `MetaT_Raw_Reads`
+-  `SAGs`
+-  `seq2lineage_Tables`
+
+## Methods
+
+### Wet lab
+
+To be added
+
+### Quality filtering of reads
+Quality filtering was performed with Trimmomatic (v.0.35, [documentation](http://www.usadellab.org/cms/?page=trimmomatic)) @Bolger.2014 with default parameters except:
+
+    LEADING:3 
+    TRAILING:3 
+    SLIDINGWINDOW:4:15 
+    MINLEN:36
+
+### Assembly
+
+MEGAHIT (v.1.1.3, [documentation](https://github.com/voutcn/megahit/wiki/Assembly-Tips)) @Li.2015 assembled MAGs using with default parameters except for:
+    
+    --k-min 27 
+    --k-step 10 
+    --min-contig-len 500
