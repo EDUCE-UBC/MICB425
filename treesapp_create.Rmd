@@ -12,4 +12,6 @@ Add steps
 
 ## Looking at tree of reference package with iTOL
 
+Assign reference sequences to reference package to generate tree with labels
+
 Add steps and iTOL image
