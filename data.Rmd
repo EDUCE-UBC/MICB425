@@ -4,9 +4,11 @@
 
 We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:
 
-![](images/saanich_inlet_map.png){width=4in}
+```{r saanich-inlet, echo = FALSE, fig.cap = "The Saanich Inlet"}
+knitr::include_graphics("images/saanich_inlet_map.png")
+```
 
-The figure shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165, 200.
+Figure \@ref(fig:saanich-inlet) shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165, 200.
 
 For more details about these data, see @Hallam.2017, and for more detailed information on the environmental context and time series data, see @Torres-Beltrán.2017.
 

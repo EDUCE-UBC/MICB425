@@ -5,7 +5,7 @@
 Marine oxygen minimum zones (OMZs) provide useful environmental contexts in which to study coupled biogeochemical cycling through microbial metabolic networks. Because OMZs are hotspots for nitrogen loss processes, reconstructing the nitrogen cycle as a distributed metabolic process has potential to shed new insight into microbial controls on nutrient and energy fluxes in the ocean. Genes encoding key steps in the nitrogen cycle are well defined (Figure \@ref(fig:N-cycle-genes)) providing a basis for functional anchor screening to determine their distribution across the Tree of Life.
 
 ```{r N-cycle-genes, echo = FALSE, fig.cap = "Nitrogen cycle"}
-knitr::include_graphics("N_cycle_genes.png")
+knitr::include_graphics("images/N_cycle_genes.png")
 ```
 
 ## Methods
