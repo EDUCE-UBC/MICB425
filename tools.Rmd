@@ -1,16 +1,22 @@
-# (PART) Tutorials {-}
-
 # Tools
+
+## Shell
+
+Please review previous tutorials. Here we provide a short [cheat sheet](#shell-cheat-sheet) for commonly used commands.
 
 ## TreeSAPP
 
 Tree-based Sensitive and Accurate Phylogenetic Profiler (TreeSAPP)
 [GitHub](https://github.com/hallamlab/TreeSAPP) and [wiki](https://github.com/hallamlab/TreeSAPP/wiki)
 
+Reference @Morgan-Lang.2020
+
 Add description
 
 ## iTOL
 
 Interactive Tree Of Life ([iTOL](https://itol.embl.de/))
+
+Reference @Letunic.2019
 
 Add description

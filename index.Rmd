@@ -4,7 +4,12 @@ subtitle: "2020.21 MICB425 Capstone project"
 author: "Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam"
 date: "version `r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output:
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
+        scroll_highlight: yes
 bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book
@@ -20,6 +25,10 @@ description: |
 default_chunk_options <- knitr::opts_chunk$get()
 ```
 
-# {-}
+# Overview {-}
 
-<font size="48">Bookdown is under construction</font>
+This document introduces metagenomic and metatranscriptomic workflows
+
+-   Part I outlines the motivation and insights afforded by meta'omic workflows.
+-   Part II provides hands-on tutorials to learn to important tools, TreeSAPP and iTOL.
+-   Part III is a capstone project to explore the meta'omics data collected from the Saanich Inlet watercolumn.
