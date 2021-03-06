@@ -1,11 +1,7 @@
-# Updating TreeSAPP reference package with new sequences
+# Use TreeSAPP abundance
 
 Add introduction and goal
 
-## Steps for the udpate
+# Plotting abundances in iTOL
 
 Add steps
-
-## Tree topology after update 
-
-Add tree image and contrast with original topography

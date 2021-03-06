@@ -1,4 +1,4 @@
-# Classifying unknown sequences with TreeSAPP
+# Classifying unknown sequences with TreeSAPP and updating a reference package
 
 Add introduction and goal
 
@@ -15,3 +15,11 @@ Add steps and show tree.
 ### Calssification table
 
 Add steps for R?
+
+## Steps for the udpate
+
+Add steps
+
+## Tree topology after update 
+
+Add tree image and contrast with original topography
