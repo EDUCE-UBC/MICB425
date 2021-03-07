@@ -35,7 +35,7 @@ List of directories and their contents
 
 ## Methods
 
-Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA was extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the constuction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with **2x150bp** technology. For more in-depth sampling and sequencing methods, please see @Hawley.2017.
+Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with **2x150bp** technology. For more in-depth sampling and sequencing methods, please see @Hawley.2017.
 
 ### Quality filtering of reads
 
