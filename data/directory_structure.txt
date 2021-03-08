@@ -2,7 +2,7 @@
 └── [122G]  datasets
     ├── [   0]  directory_structure.txt
     ├── [492M]  MAGs
-    │   └── [492M]  Concatonated
+    │   └── [492M]  Concatenated
     │       └── [492M]  All_SI072_Metawrap_MAGs.fa
     ├── [3.5G]  MetaG_Assemblies
     │   ├── [630M]  SI072_100m_contig.fa
@@ -36,7 +36,7 @@
     │   ├── [8.7G]  SI072_165m_MetaT_QC_Filtered.fastq.gz
     │   └── [6.0G]  SI072_200m_MetaT_QC_Filtered.fastq.gz
     ├── [181M]  SAGs
-    │   └── [181M]  Concatonated_Med_Plus
+    │   └── [181M]  Concatenated_Med_Plus
     │       └── [181M]  Saanich_Med_Plus_SAGs.fasta
     └── [ 42K]  seq2lineage_Tables
         ├── [ 17K]  Med_Plus_SAGs_GTDB_Taxonomies.tsv
