@@ -8,7 +8,7 @@ We will work with real-world data collected as part of an ongoing oceanographic 
 knitr::include_graphics("images/saanich_inlet_map.png")
 ```
 
-Figure \@ref(fig:saanich-inlet) shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165, 200.
+Figure \@ref(fig:saanich-inlet) shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.
 
 For more details about these data, see @Hallam.2017, and for more detailed information on the environmental context and time series data, see @Torres-Beltrán.2017.
 

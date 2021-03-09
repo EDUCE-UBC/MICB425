@@ -16,10 +16,14 @@ The genome sequence information is a guide to the metabolic potential of the com
 
 While genomic information tells us about metabolic potential, the transcriptome is a guide to action or gene expression. We can to a certain extent use this information to identify who is there but more often it is used to indicate which pathways are active at the time of sampling. If can open a window into response patterns along environmental gradients with the caveat that its short-lived nature is less robust to sampling noise. There is no guarantee that the presence of transcripts for a given gene X are converted into protein. However, because prokaryotes couple transcription to translation we typically infer a direct relationship. For information on relationships between DNA, RNA and protein in Saanich Inlet see this paper as well @Hawley.2014.
 
+In "gene-centric" approaches we consider the taxonomy and phylogeny of individual genes rather than their host organisms. A tool that allows us to use such an approach is TreeSAPP.
+
 ## TreeSAPP
 
 You will be implementing a pipeline called Tree-based Sensitive and Accurate Protein Profiler (**TreeSAPP**) for automated reconstruction of the nitrogen cycle along defined redox gradients in Saanich Inlet using the Google Cloud Platform. TreeSAPP takes either metagenomic or metatranscriptomic reads and aligns them to previously binned sequence data with each bin representing a putative microbial taxon.
 
-TreeSAPP determines three things: A. What taxa are in our metagenomic and metatranscriptomic data represented? B. Which marker genes do these taxa contain (metagenomic data) or actually express (metatranscriptomic data)? C. At what levels are those genes represented (metagenomic data) or expressed by the taxon?
+TreeSAPP determines three things:
 
-Please see the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign) for more information on `treesapp assign`, the subcommand you will use. You will be provided with a script template for both the shell and R portion of your analysis (`treesapp_analysis.sh` and `treesapp_analysis.R`) that will guide you as you develop your code.
+A. What taxa are in our metagenomic and metatranscriptomic data represented?
+B. Which marker genes do these taxa contain (metagenomic data) or actually express (metatranscriptomic data)?
+C. At what levels are those genes represented (metagenomic data) or expressed by the taxon?
