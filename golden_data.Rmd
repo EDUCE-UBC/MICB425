@@ -1,6 +1,10 @@
 # Acquiring golden data
 
-Golden data, describe
+Golden data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they what should be used to create all future reference packages. But what does 'well-curated' mean, and how can you identify data that would meet this gold standard?
+
+## The golden standard
+
+
 
 ## What databases can I retrieve sequences from?
 
@@ -9,17 +13,28 @@ Throughout the development of TreeSAPP I have frequented [FunGene](http://fungen
 [EggNOG](http://eggnog5.embl.de/#/app/home) is another source of curated orthologous groups. The breadth of families available here is astounding and more often than not they do have the sequences you're looking for. What I've found handy is first looking for the Cluster of Orthologous Gene (COG) identifier on NCBI's [Conserved Domains](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) database. Then I'd use that identifier to search for the sequences I'm interested in on EggNOG.\
 Unfortunately, the breadth of taxa covered by EggNOG is limited to *just* 5,090 organisms. In many cases this is good enough to build a 'seed' reference package, especially if you're building a reference package of a well-conserved, or housekeeping, gene. Yet, there are plenty of scenarios where the number of sequences downloaded is just too few for your objective and a more comprehensive reference package is required. More on that below.
 
+In addition to these **global/behemoth** databases, there are smaller curated databases that are independently maintained. These tend to be gene- or function-specific and, as long as they're still maintained, highly reliable. Perhaps the most notable of these is the [Carbohydrate Active enZYmes (CAZy)](http://www.cazy.org/) database. The maintainers of CAZy are constantly screening new sequenced from GenBank and sort any hits into different families based on their putative biochemical characterization.
+
 ## Alternative sources
 
-EggNOG and FunGene are my favourite sources, though this leaves out the vast majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, UniProt, Pfam, and other similar databases are all great but they lack an API to retrieve lineage information, and therefore this needs to be provided in either a separate table or the FASTA headers.
+EggNOG and FunGene are my favourite sources, though this leaves out the majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, UniProt, Pfam, and other similar databases are all great but they lack an API to retrieve lineage information, and therefore this needs to be provided in either a separate table.
 
-First, the table. The lineage table can be provided using the `--seqs2lineage` argument. The format of the lineage table is tabular or comma-separated with the fields:
+The lineage table can be provided using the `--seqs2lineage` argument. The format of the lineage table is tabular or comma-separated with the fields:
 
 | SeqID | Organism | Lineage | Domain | Phylum | Class | Order | Family | Genus | Species |
 |-------|----------|---------|--------|--------|-------|-------|--------|-------|---------|
 
 'SeqID' must be the first field and it can be a prefix of the query sequences that were placed. This is useful when the queries are contigs (i.e. nucleotide sequences) but the amino acid open-reading frames were classified. Providing the contig name as the 'SeqID' will work. Some of these fields are redundant and not all are required. If the "Lineage" field is provided, the separated rank fields (e.g. "Domain", "Phylum", etc.) are not needed and vice versa. If the lineage field is used there are two things that can help you and TreeSAPP: first off, other non-canonical ranks (e.g. sub-order, super-phylum, etc.) should be removed from the lineage. Secondly, it is best to explicitly include the rank-prefixes in the lineages (d\_\_Archaea; p\_\_Euryarchaeota) so TreeSAPP doesn't have to do this later. The "Organism" field is also optional and the most resolved rank is used in its place if it is missing.
 
-The second option, involves modifying the sequence's FASTA header to follow the format: \>SeqID lineage=cellular organisms; Domain; Phylum; Class [Organism_name]
+## Validation
 
-where 'SeqID' should be replaced with a temporary, unique accession or ID (e.g. AMH87091), "Domain; Phylum; Class" need to be replaced with the appropriate values for the organism this sequence was derived from, and `Organism_name` should be replaced with the appropriate organism name, such as 'Candidatus Methanophagales'. No quotes required, though.
+There are a number of quality control measures that can be taken to ensure the functional characteristics are as expected.
+
+### Basic
+
+* BLAST
+* EggNOG-mapper
+
+### Advanced
+
+* hmmsearch across PFam database
