@@ -13,6 +13,12 @@ Reference @Morgan-Lang.2020
 
 Add description
 
+### Current list of TreeSAPP reference packages
+
+```{r child = "child_Rmds/refpkgs.Rmd"}
+```
+
+
 ## iTOL
 
 Interactive Tree Of Life ([iTOL](https://itol.embl.de/))
