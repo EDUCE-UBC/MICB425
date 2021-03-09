@@ -34,6 +34,10 @@ You will need to decide on the scope and focus of your project:
 
 Add questions.
 
+## Resources
+
+You will be provided with a script template for both the shell and R portion of your analysis (`treesapp_analysis.sh` and `treesapp_analysis.R`) that will guide you as you develop your code.
+
 ## Your submission
 
 Your final submission will consist of 3 separate files: the report itself (`docx` or `pdf`), one shell script `treesapp_analysis.sh`, and one R script `treesapp_analysis.R` (both script files must be in plain text format). The report should not contain any code, but should contain versions of software tools used and a high-level description of your workflow (i.e describe *what* was done and NOT *how*).
