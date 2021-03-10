@@ -4,27 +4,36 @@ Golden data in the context of biological sequence analysis are those that come f
 
 ## The golden standard
 
-
+The field of genomics is blessed with an abundance of reference data. In fact, it is not uncommon for biologists and bioinformaticians alike to gripe over their long-running computational tasks due to such large reference databases that need to be compared to. Not all of these data are, however, of the same quality. The vast majority have been automatically curated using algorithms with known shortcomings and only a small portion have been manually curated with verified functional characterization. These latter data are the ones we consider well-curated, or golden.
 
 ## What databases can I retrieve sequences from?
 
-Throughout the development of TreeSAPP I have frequented [FunGene](http://fungene.cme.msu.edu/), the functional gene pipeline and repository. This database provides curated sequences (of varying reliability) for many popular function and taxonomic anchor genes. FunGene is also great since they have hidden Markov models (HMMs) for every gene available, providing a sense of what the full length gene is and allowing users to filter the sequences based on the percentage of an HMM covered. Since we're building a reference tree I suggest downloading all full length and near-full length genes, so setting that HMM coverage parameter to between 60 and 90%.
+One of the most comprehensive and reputable biological sequence databases is SwissProt. The protein sequences curated within SwissProt can be accessed and downloaded through the [UniProt Knowledgebase](https://www.uniprot.org/) by selecting 'Swiss-Prot' under the 'UniProtKB' panel on the left of the landing page. You can submit queries for a protein family through their search bar, and add filters to the query using their [advanced search](https://www.uniprot.org/help/advanced_search) options. For example, you can search for reviewed RuBisCO sequences by entering the query 'rubisco taxonomy:"Bacteria [2]" AND reviewed:yes'.
 
-[EggNOG](http://eggnog5.embl.de/#/app/home) is another source of curated orthologous groups. The breadth of families available here is astounding and more often than not they do have the sequences you're looking for. What I've found handy is first looking for the Cluster of Orthologous Gene (COG) identifier on NCBI's [Conserved Domains](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) database. Then I'd use that identifier to search for the sequences I'm interested in on EggNOG.\
+Throughout the development of TreeSAPP I have frequented [FunGene](http://fungene.cme.msu.edu/), the functional gene pipeline and repository. This database provides curated sequences (of varying reliability) for many popular functional and taxonomic anchor genes. FunGene is also great since they have hidden Markov models (HMMs) for every gene available, providing a sense of what the full length gene is and allowing users to filter the sequences based on the percentage of an HMM covered. Since we're building a reference tree I suggest downloading all full length and near-full length genes, so setting that HMM coverage parameter to between 60 and 90% is recommended.
+
+[EggNOG](http://eggnog5.embl.de/#/app/home) is another source of curated orthologous groups. The breadth of families available here is astounding and more often than not they do have the sequences you're looking for.\
+There are a couple of benefits to accessing data from EggNOG. The first is they use a controlled language, so by using the correct reference name a single search will yield all available protein sequences belonging to that protein family or COG. What I've found handy is first looking for the Clusters of Orthologous Gene (COG) identifier on NCBI's [Conserved Domains](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) database. Then I'd use that identifier to search for the sequences I'm interested in on EggNOG.
+The second benefit is the quality of their automated annotation pipeline. With every version of EggNOG, the entire set of protein sequences is clustered and the orthologous groups are defined _de novo_. This prevents incorrect legacy annotations from propagating to new sequences.
 Unfortunately, the breadth of taxa covered by EggNOG is limited to *just* 5,090 organisms. In many cases this is good enough to build a 'seed' reference package, especially if you're building a reference package of a well-conserved, or housekeeping, gene. Yet, there are plenty of scenarios where the number of sequences downloaded is just too few for your objective and a more comprehensive reference package is required. More on that below.
 
-In addition to these **global/behemoth** databases, there are smaller curated databases that are independently maintained. These tend to be gene- or function-specific and, as long as they're still maintained, highly reliable. Perhaps the most notable of these is the [Carbohydrate Active enZYmes (CAZy)](http://www.cazy.org/) database. The maintainers of CAZy are constantly screening new sequenced from GenBank and sort any hits into different families based on their putative biochemical characterization.
+In addition to these general and all-encompassing databases there are smaller curated databases that are independently maintained. These tend to be gene- or function-specific and, as long as they're still maintained, highly reliable. Perhaps the most notable of these is the [Carbohydrate Active enZYmes (CAZy)](http://www.cazy.org/) database. The maintainers of CAZy are constantly screening new sequenced from GenBank and sort any hits into different families based on their putative biochemical characterization.
 
 ## Alternative sources
 
-EggNOG and FunGene are my favourite sources, though this leaves out the majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, UniProt, Pfam, and other similar databases are all great but they lack an API to retrieve lineage information, and therefore this needs to be provided in either a separate table.
+EggNOG and FunGene are my favourite sources, though this leaves out the majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, Pfam, and other similar databases are all great but they lack an API to retrieve lineage information, and therefore this needs to be provided in either a separate table.
 
-The lineage table can be provided using the `--seqs2lineage` argument. The format of the lineage table is tabular or comma-separated with the fields:
+A table that maps each sequence identifier to its respective taxonomic lineage can be provided using the `--seqs2lineage` argument. The format of the lineage table is tabular or comma-separated with the fields:
 
 | SeqID | Organism | Lineage | Domain | Phylum | Class | Order | Family | Genus | Species |
 |-------|----------|---------|--------|--------|-------|-------|--------|-------|---------|
 
 'SeqID' must be the first field and it can be a prefix of the query sequences that were placed. This is useful when the queries are contigs (i.e. nucleotide sequences) but the amino acid open-reading frames were classified. Providing the contig name as the 'SeqID' will work. Some of these fields are redundant and not all are required. If the "Lineage" field is provided, the separated rank fields (e.g. "Domain", "Phylum", etc.) are not needed and vice versa. If the lineage field is used there are two things that can help you and TreeSAPP: first off, other non-canonical ranks (e.g. sub-order, super-phylum, etc.) should be removed from the lineage. Secondly, it is best to explicitly include the rank-prefixes in the lineages (d\_\_Archaea; p\_\_Euryarchaeota) so TreeSAPP doesn't have to do this later. The "Organism" field is also optional and the most resolved rank is used in its place if it is missing.
+
+## Data access hazards
+
+Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in _E. coli_ widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea it would refer to the beta subunit of methyl-coenzyme M reductase - a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation.
+Another issue can be genes or proteins with synonyms, making the search for these data more complex. In these cases, you may need to search multiple databases with several queries in order to access all the sequences belonging to the same protein family.
 
 ## Validation
 
@@ -32,9 +41,11 @@ There are a number of quality control measures that can be taken to ensure the f
 
 ### Basic
 
-* BLAST
-* EggNOG-mapper
+* **BLAST**: The first method for validating a set of candidate reference sequences could be to use the web-based [Basic Local Alignment Search Tool](https://blast.ncbi.nlm.nih.gov/Blast.cgi) available through the NCBI. Submit a FASTA file containing your sequences to Protein BLAST (blastp) with an appropriate database. To further reduce the processing time, you can restrict the reference sequences to specific taxa or use different algorithms. One thing to note is the query size limit - only FASTA files containing fewer than 100,000 characters will be accepted. So, it is a good idea to take a representative sample or cluster the sequences before submitting the job.
+
+* **EggNOG-mapper**: If you didn't download your query sequences from the EggNOG database, a good resource to check your sequences is [EggNOG mapper](http://eggnog-mapper.embl.de/). It will annotate your query sequences against the EggNOG database and serve the result in several formats.
 
 ### Advanced
 
-* hmmsearch across PFam database
+* **Phylogenetic inference**: Try building a phylogeny from the candidate reference sequences and see whether there are any anomolously long branches between clades.
+* **hmmsearch across PFam database**: Got some time to kill? Try aligning your candidate reference sequences to all profile HMMs in the PFam database! This will need to be done on the command-line and you will need to download Pfam-A.hmm.gz from the [PFam ftp site](http://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/).
