@@ -1,10 +1,15 @@
 ---
-title: "Mapping microbes and marine denitrification"
+title: "Gene-centric mapping of microbial metabolic functions"
 subtitle: "2020.21 MICB425 Capstone project"
 author: "Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam"
 date: "version `r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output:
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
+        scroll_highlight: yes
 bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book
@@ -19,3 +24,11 @@ description: |
 # Saving the default settings for code chunks to use to reset settings.
 default_chunk_options <- knitr::opts_chunk$get()
 ```
+
+# Overview {-}
+
+This document introduces metagenomic and metatranscriptomic workflows
+
+-   Part I outlines the motivation and insights afforded by meta'omic workflows.
+-   Part II provides hands-on tutorials to learn two important tools, TreeSAPP and iTOL.
+-   Part III is a capstone project to explore the meta'omics data collected from the Saanich Inlet water column.

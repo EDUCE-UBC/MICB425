@@ -1,4 +1,4 @@
-# Analysing the TreeSAPP output in R {#R}
+# Analysing the TreeSAPP output in R
 
 ```{r setup-R, echo = FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
@@ -8,21 +8,18 @@ These instructions will help you to complete the script template `treesapp_analy
 
 ## Resources for analysis of TreeSAPP output in R
 
--   Both TreeSAPP output files `marker_contig_map.tsv` (one each for the metagenomic and metatranscriptomic analysis) you generated on the [Google Cloud Platform (GCP)](#shell).
-
+-   Both TreeSAPP output files `marker_contig_map.tsv` (one each for the metagenomic and metatranscriptomic analysis) you generated with [TreeSAPP](#running-treesapp on a server).
 -   An R script template called `treesapp_analysis.R` on Canvas.
-
 -   `Saanich_Data.csv` file containing geochemical measurements.
 
 ## Checklist to write and run R script
 
 -   [ ] Place `treesapp_analysis.R` and both `marker_contig_map.tsv` files into a single folder and create a new RStudio project in that folder on your local computer.
+-   [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#writing-the-r-script).
 
--   [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#R-writing).
+## Writing the R script
 
-## Writing the R script {#R-writing}
-
-In the `treesapp_analysis.R` script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then combine the metagenomic and metatranscriptomic data into a single data frame and then break the taxonomic information into taxonomic ranks. You will also load the `Saanich_Data.csv` file for geochemical measurements to learn more about the conditions at your assigned depth. Further process your data sets to address [the four main research questions](#research-questions).
+In the `treesapp_analysis.R` script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then combine the metagenomic and metatranscriptomic data into a single data frame and then break the taxonomic information into taxonomic ranks. You will also load the `Saanich_Data.csv` file for geochemical measurements to learn more about the conditions at your assigned depth. Further process your data sets to address [the four main research questions](#results).
 
 ## Load any required packages
 

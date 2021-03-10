@@ -1,0 +1,45 @@
+/mnt
+└── [122G]  datasets
+    ├── [   0]  directory_structure.txt
+    ├── [492M]  MAGs
+    │   └── [492M]  Concatenated
+    │       └── [492M]  All_SI072_Metawrap_MAGs.fa
+    ├── [3.5G]  MetaG_Assemblies
+    │   ├── [630M]  SI072_100m_contig.fa
+    │   ├── [525M]  SI072_10m_contig.fa
+    │   ├── [571M]  SI072_120m_contig.fa
+    │   ├── [505M]  SI072_135m_contig.fa
+    │   ├── [396M]  SI072_150m_contig.fa
+    │   ├── [748M]  SI072_165m_contig.fa
+    │   └── [219M]  SI072_200m_contig.fa
+    ├── [ 64G]  MetaG_Trim_QC_Reads
+    │   ├── [4.7G]  SI072_100m_pe.1.fq.gz
+    │   ├── [4.7G]  SI072_100m_pe.2.fq.gz
+    │   ├── [4.2G]  SI072_10m_pe.1.fq.gz
+    │   ├── [4.2G]  SI072_10m_pe.2.fq.gz
+    │   ├── [4.2G]  SI072_120m_pe.1.fq.gz
+    │   ├── [4.2G]  SI072_120m_pe.2.fq.gz
+    │   ├── [4.4G]  SI072_135m_pe.1.fq.gz
+    │   ├── [4.4G]  SI072_135m_pe.2.fq.gz
+    │   ├── [4.8G]  SI072_150m_pe.1.fq.gz
+    │   ├── [4.7G]  SI072_150m_pe.2.fq.gz
+    │   ├── [6.5G]  SI072_165m_pe.1.fq.gz
+    │   ├── [6.4G]  SI072_165m_pe.2.fq.gz
+    │   ├── [3.3G]  SI072_200m_pe.1.fq.gz
+    │   └── [3.3G]  SI072_200m_pe.2.fq.gz
+    ├── [ 54G]  MetaT_Raw_Reads
+    │   ├── [8.9G]  SI072_100m_MetaT_QC_Filtered.fastq.gz
+    │   ├── [6.4G]  SI072_10m_MetaT_QC_Filtered.fastq.gz
+    │   ├── [6.8G]  SI072_120m_MetaT_QC_Filtered.fastq.gz
+    │   ├── [7.2G]  SI072_135m_MetaT_QC_Filtered.fastq.gz
+    │   ├── [10.0G]  SI072_150m_MetaT_QC_Filtered.fastq.gz
+    │   ├── [8.7G]  SI072_165m_MetaT_QC_Filtered.fastq.gz
+    │   └── [6.0G]  SI072_200m_MetaT_QC_Filtered.fastq.gz
+    ├── [181M]  SAGs
+    │   └── [181M]  Concatenated_Med_Plus
+    │       └── [181M]  Saanich_Med_Plus_SAGs.fasta
+    └── [ 42K]  seq2lineage_Tables
+        ├── [ 17K]  Med_Plus_SAGs_GTDB_Taxonomies.tsv
+        └── [ 25K]  SI072_MAGs_All_GTDB_taxonomies.tsv
+
+ 122G used in 9 directories, 33 files

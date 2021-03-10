@@ -1,0 +1,94 @@
+# Use TreeSAPP abundance
+
+## Overview
+
+Genome assemblies are lossy. Whenever you assemble a (meta)genome from reads, the abundance information is effectively lost, even if it is noted in the FASTA headers by some assemblers. One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
+
+TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the FASTQ files of multiple different samples. This is only possible when the input contained nucleotide sequences from which ORFs were predicted within the pipeline.
+
+**Supported versions \>=0.10.0**
+
+------------------------------------------------------------------------
+
+## Usage
+
+The help statement from executaing `treesapp abundance -h`:
+
+    usage: treesapp abundance [--overwrite] [-v] [-h] [--metric {fpkm,tpm}]
+                              [-r READS] [-2 REVERSE] [-p {pe,se}]
+                              [-n NUM_THREADS] [--delete] --treesapp_output OUTPUT
+                              [--report {update,nothing}]
+                              [--stage {continue,align_map,sam_sum,summarise}]
+
+    Calculate classified sequence abundances from read coverage.
+
+    Required parameters:
+      --treesapp_output OUTPUT
+                            Path to the directory containing TreeSAPP outputs,
+                            including sequences to be used for the update.
+
+    Abundance options:
+      --metric {fpkm,tpm}   Selects which normalization metric to use, FPKM or
+                            TPM.
+      -r READS, --reads READS
+                            FASTQ file containing to be aligned to predicted genes
+                            using BWA MEM
+      -2 REVERSE, --reverse REVERSE
+                            FASTQ file containing to reverse mate-pair reads to be
+                            aligned using BWA MEM
+      -p {pe,se}, --pairing {pe,se}
+                            Indicating whether the reads are paired-end (pe) or
+                            single-end (se)
+
+    Optional options:
+      --report {update,nothing,append}
+                            What should be done with the abundance values? The
+                            TreeSAPP classification table can be overwritten
+                            (update), appended or left unchanged. [ DEFAULT =
+                            append ]
+      --stage {continue,align_map,sam_sum,summarise}
+                            The stage(s) for TreeSAPP to execute [DEFAULT =
+                            continue]
+
+    Miscellaneous options:
+      --overwrite           Overwrites previously written output files and
+                            directories
+      -v, --verbose         Prints a more verbose runtime log
+      -h, --help            Show this help message and exit
+      -n NUM_THREADS, --num_procs NUM_THREADS
+                            The number of CPU threads or parallel processes to use
+                            in various pipeline steps [ DEFAULT = 2 ]
+      --delete              Delete all intermediate files to save disk space.
+
+There are two required arguments for `treesapp abundance`:
+
+1.  **treesapp_output**: Path to the output directory from `treesapp assign`.
+2.  **reads**: Path to a FASTQ file containing single-end reads, or foward mates or interleaved reads from a paired-end sequencing library.
+
+Below are descriptions for the most important options:
+
+1.  **reverse**: Path to a FASTQ file containing reverse mates from a paired-end sequencing library.
+2.  **report**: This argument controls what `treesapp abundance` does with the resulting abundance values. The '*nothing*' option is most applicable to the Python API, and is used by `treesapp assign` to simply return the abundance object instances. '*update*' can be used when the abundance values in the classification table should be replaced with these newly calculated values. '*append*' should be used when reads of new samples are being used to calculate abundance (e.g. reads from a time-course experiment).
+3.  **metric**: Either Fragments per Kilobase per Mllion mappable reads (FPKM) or Transcripts per Million (TPM).
+
+## Workflow description
+
+The workflow employed by TreeSAPP is relatively simple and common to many bioinformatics pipelines:
+
+1.  Collect nucleotide sequences for the classified ORFs.
+2.  BWA @Li.2013 creates an index from these nucleotide sequences - this will be the reference database.
+3.  Align the short reads to the reference database with BWA MEM.
+4.  Calculate the relative abundance metrics using [samsum](https://github.com/hallamlab/samsum).
+
+There are potentially two common use cases for `treesapp abundance`.
+
+1.  Through `treesapp assign` where a single sample's read data are mapped to its corresponding assembly (i.e. contigs or scaffolds) and the relative abundances of these sequences are obtained.
+2.  A combined assembly was generated from multiple samples, classified with `treesapp assign`, then the reads of each sample were mapped individually to generate sample-specific relative abundance values with `treesapp abundance`.
+
+## Outputs
+
+The sole output of `treesapp abundance` is an edited classification table, previously generated by `treesapp assign`. No new files are generated, beyond intermediates.
+
+## Plotting abundances in iTOL
+
+Add steps

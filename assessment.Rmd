@@ -1,0 +1,56 @@
+# Assessment
+
+Reports will account for 30% of the course marks distributed as follows.
+
+## Peer evaluation (10%)
+
+**Total: 40 pts**
+
+Peer assessment will occur through [CATME](https://www.catme.org/) wherein everyone will assess themselves and their group members. Marks will be scaled to your evaluation score with 90%+ (or 0.9+ out of 1 within CATME) counting as full marks.
+
+Individuals who do not adequately contribute to their group will forfeit the 5% contributions mark and may be asked to complete the project on their own.
+
+Peer assessment includes:
+
+-   Contributing to the team's work
+-   Interacting with teammates
+-   Expecting quality
+-   Having related knowledge, skills, and abilities
+
+Individuals score themselves and all team members on a scale of 1 (unsatisfactory) -- 3 (satisfactory) -- 5 (excellent) in these categories. Scores are then averaged and scaled within team such that 1 corresponds to all team members contributing equally to all categories of assessment:
+
+-   1+ = Mostly 5s
+-   0.95 = Mostly 4s
+-   0.8 = Mostly 3s
+-   0.65 = Mostly 2s
+-   0.5 = Mostly 1s
+
+Marks will be scaled to your CATME score based on the following:
+
+-   0.9 - 1+ = 100% = 40
+-   0.8 - 0.89 = 90% = 36
+-   0.7 - 0.79 = 80% = 32
+-   0.6 - 0.69 = 70% = 28
+-   \<0.6 = Assessed on a case-by-case basis
+
+*Unwarranted blanketed low scoring of your team or high scoring of yourself will result in the removal of your scores from the average so that they do not unfairly impact you or your team members.*
+
+If issues occur within your group, please do not hesitate to contact Dr. Hallam ([shallam\@mail.ubc.ca](mailto:shallam@mail.ubc.ca){.email}), or Dr. Koenig ([stephan.koenig\@ubc.ca](mailto:stephan.koenig@ubc.ca){.email}) *at any point*.
+
+## Report (20%)
+
+**Total: 80 pts**
+
+Each group will submit an electronic copy of their group's final report (due **April 24**). Reports will be assessed on:
+
+-   Completion of relevant analyses toward answering biological questions
+-   Logic and completeness of conclusions made from these analyses
+-   Writing clarity, grammar, and style
+-   Figure clarity, effectiveness, and relevance
+
+```{r child = "child_Rmds/rubric.Rmd"}
+```
+
+## UJEMI submission
+
+Outstanding reports will be invited to submit to The Undergraduate Journal of Experimental Microbiology and Immunology ([UJEMI](https://jemi.microbiology.ubc.ca/)). More information on this will be provided near the end of the Finals Period.
