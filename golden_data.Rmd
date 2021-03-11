@@ -32,7 +32,7 @@ A table that maps each sequence identifier to its respective taxonomic lineage c
 
 ## Data access hazards
 
-Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in _E. coli_ widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea it would refer to the beta subunit of methyl-coenzyme M reductase - a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation.
+Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in _E. coli_ widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea, it would refer to the beta subunit of methyl-coenzyme M reductase - a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation.
 Another issue can be genes or proteins with synonyms, making the search for these data more complex. In these cases, you may need to search multiple databases with several queries in order to access all the sequences belonging to the same protein family.
 
 ## Validation
