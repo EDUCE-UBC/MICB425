@@ -1,6 +1,6 @@
 # Acquiring golden data
 
-Golden data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they what should be used to create all future reference packages. But what does 'well-curated' mean, and how can you identify data that would meet this gold standard?
+Golden data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they should be used to create all future reference packages. But what does "well-curated" mean, and how can you identify data that would meet this gold standard?
 
 ## The golden standard
 
