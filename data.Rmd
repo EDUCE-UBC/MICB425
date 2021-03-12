@@ -14,7 +14,7 @@ For more details about these data, see @Hallam.2017, and for more detailed infor
 
 ## Data on the server
 
-The data is located on the MICB425 server at `/mnt/datasets`.
+The data is located on the MICB425 server at `/mnt/datasets/saanich/`.
 
 ```{r echo = FALSE, comment = NA}
 cat(paste(readLines("data/directory_structure.txt"),
