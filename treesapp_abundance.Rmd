@@ -1,4 +1,4 @@
-# Use TreeSAPP abundance
+# Calculating relative abundance of meta'omic data
 
 ## Overview
 

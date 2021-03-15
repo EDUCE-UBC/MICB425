@@ -21,8 +21,9 @@ rmd_files:
   - instructions.Rmd
   - assessment.Rmd
   - data.Rmd
-  - shell.Rmd
-  - R.Rmd
+  # - shell.Rmd
+  # - R.Rmd
   - appendix.Rmd # separator for TOC navigation
+  - refpkgs.Rmd
   - cheat_sheet.Rmd
   - references.Rmd

@@ -38,8 +38,8 @@ You will be implementing a software application called Tree-based Sensitive and 
 
 TreeSAPP helps the user determine three things:
 
-A. What microorganism are represented in the metagenomic and metatranscriptomic data at different levels of taxonomic resolution?
-B. Which anchor genes do these taxa encode (metagenomic data) or express (metatranscriptomic data)?
-C. How does ancor gene abundance, expression or taxonomy change along material and energy gradients in the water column?
+A) What microorganism are represented in the metagenomic and metatranscriptomic data at different levels of taxonomic resolution?
+A) Which anchor genes do these taxa encode (metagenomic data) or express (metatranscriptomic data)?
+A) How does ancor gene abundance, expression or taxonomy change along material and energy gradients in the water column?
 
 Do these question look familiar? They are slightly different manifestations of the three foundational questions described in the Introduction section.
