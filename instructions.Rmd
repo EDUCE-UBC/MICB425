@@ -1,38 +1,56 @@
 # Project description
 
-In this project, you will work in teams to explore marine microbial communities and geochemical pathways, for example the nitrogen cycle in general or **denitrification** in particular. You will use metagenomic and metatranscriptomic data from Cruise 72 at 7 depths in [Saanich Inlet](#the-saanich-inlet-data-set), a seasonally anoxic fjord that serves as a model ecosystem for studying microbial community responses to changing levels of oxygen. Each group will explore a group of genes with TreeSAPP to assess microbial communities in terms of taxonomic rank, abundance, and expression along the redoxcline in Saanich Inlet.
+In this project, you will work in groups to conduct gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from the Saanich Inlet water column. Saanich Inlet is a seasonally anoxic fjord on the coast of Vancouver Island British Columbia that serves as a model ecosystem for studying microbial community responses to ocean deoxygenation. 
+
+Numerous studies from Saanich Inlet over the years have identified key microbial players mediating coupled biogeochemical cycling of carbon, nitrogen and sulfur extensible to expanding marine oxygen minimum zones throughout the global ocean. Here, you will use metagenomic and metatranscriptomic data sets generated from Cruise 72 spanning 7 depths in [Saanich Inlet](#the-saanich-inlet-data-set). In addition to fastq reads, the metagenomic data sets include assembled contigs, metagenome assembled genomes (MAGs) and single-cell amplified genomes (SAGs) spanning the genomic information hierarchy. 
+
+The Cruise 72 metagenomic and metatranscriptomic data sets can be evaluated in relation to geochemical parameter information to better resolve both the metabolic potential and gene expression patterns of microbial communities inhabiting the Saanich Inlet water column. Each capstone project group will have the opportunity to use TreeSAPP and iToL to chart the abundance, expression and taxonomic diversity of functional and phylogenetic anchor genes represented in the current reference package collection. Groups can augment this collection with new reference packages produced during the TreeSAPP tutorial or at any time during the project phase depending on their research interests. Reference packages can also be updated using taxonomic information associated with the MAGs and SAGs described above.   
+
+The underlying conceptual framework for this project is described in the three lectures associated with course Module 2 along with examples of data visualization approaches useful in developing a coherent scientific narrative. For a given gene encoding a biochemical transformation consider the extent to which this functionality is distributed within the community and how it is represented at different levels of biological information flow e.g. DNA versus RNA.    
 
 ## Guiding research questions
 
-You will need to decide on the scope and focus of your project:
+Several options are provided to help you develop your capstone project, although each group is free to come up with an original plan of action. Please consult with the teaching team if you have questions.
 
 1.  Select your genes for analysis based on one of the following options:
 
-    a.  Choose a pathway of a geochemical cycle and its associated genes with reference packages already available for TreeSAPP (see table).
+    a.  Choose a geochemical cycle e.g. nitrogen and its associated genes in pathways with reference packages already available for TreeSAPP (see table).
 
-    b.  Choose a pathway of a geochemical cycle and its associated genes which do NOT have reference packages available for TreeSAPP. As part of your project, you will create those reference packages.
+    b.  Create new reference packages to expand the TreeSAPP collection and analyze the results. You could select a pthway within a biogeocehmical cycle which does NOT have reference packages available covering the complete pathway e.g. sulfur cycle including sulfur oxidation and DMSP conversion, or a completely new pathway with no reference packages avaialble. 
 
-    c.  Look at all genes available as reference packages for TreeSAPP without a focus on any particular pathway.
+    c.  Select all reference packages in the collection including those developed by the class during the treesapp create tutorial and map the results. Focus on evaluating the purity of each reference package and update as needed to reflect diversity of genes endemic to the Saanich Inlet water column.
 
-2.  Perform a preliminary analysis the Saanich Inlet data for all depths.
+2.  Perform a preliminary analysis using the Saanich Inlet data for all depths.
 
-3.  Update ref packages based on preliminary analysis.
+3.  Update reference packages as needed based on preliminary analysis.
 
-4.  Look for pattern in abundance of genes across water column.
+4.  Look for patterns in abundance, gene expression and diversity as a function of water column geochemical information.
 
-### Questions for project with a focus on geochemical pathways (repeated in report structure below)
+### Questions for project with a focus on biogeochemical cycles (repeated in report structure below)
 
-1. How does abundance of those genes differ across the pathway? Are trends similar for both RNA and DNA?
+1. How does gene and transcript abundance vary across depths for each reference package for a given biogeochemical cycle?
 
-2. How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?
+2. How does microbial diversity differ among and between steps within a pathway e.g. denitrification? Are these trends similar for both genes and transcripts at different depths?
 
-3. What specific taxa are responsible for the geochemical cycle under investigation? Are they the same for all steps? For DNA versus RNA?
+3. What is the taxonomic breakdown of genes and transcripts within a given biogeochemcial cycle? 
 
-4. How does the abundance of those genes relate to nitrogen species in Saanich (use the geochemical data in Saanich_Data.csv from our previous data science sessions)?
+4. Can you identify evidence for distributed metabolism within one or more pathways? Are these trends similar for both genes and transcripts at different depths?  
+
+5. How do answers to questions 2 and 3 vary depending on the taxonomic rank used in the analysis?   
+
+6. How does the abundance, expression and taxonomy of identified genes relate to water column geochemical parameter information (use the geochemical data in Saanich_Data.csv from our previous data science sessions)?
 
 ### Questions for project with a focus on using all reference packages
 
-Add questions.
+In addition to the questions provided above for biogeochemical cycles consider quality control metrics in your analysis.
+
+1. How does the purity of each reference package impact your results? 
+
+2. How much information is discarded due to insufficient taxonomic resolution? 
+
+3. How much information is retained after updating reference packages with MAGs or SAGs?
+
+4. What is the impact on diversity metrics following the use of updated reference packages?
 
 ## Resources
 
