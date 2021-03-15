@@ -6,6 +6,12 @@ Add introduction and goal
 
 At this point you're able to use this reference package to classify sequences in any dataset. For this tutorial though, we're going to classify PmoA and AmoA sequences sourced from FunGene. The sequences are from genomes of isolates and, because of FunGene's quality annotation pipeline, can likely be trusted.
 
+-   Connect to your group's server, then move to the directory `/data/ts_tutorial`.
+
+```{bash eval = FALSE}
+cd /data/ts_tutorial/
+```
+
 The command `treesapp assign` is perhaps the most popular command and is described in detail [elsewhere](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).\
 For this command, we will use BMGE to trim the multiple sequence alignments prior to phylogenetic placement with the `--trim_align` flag. To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
 
@@ -82,3 +88,7 @@ Alright, it looks like 27 new sequences were introduced to the reference package
 ## Tree topology after update
 
 Add tree image and contrast with original topography
+
+## Use your group's reference package to classify unkown sequences then update your package
+
+Continue to work with your group's reference package in the directory `/data/<gene name>`. Visualize the appropriate outputs with iTOL.

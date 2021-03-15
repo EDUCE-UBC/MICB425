@@ -10,10 +10,10 @@ When building reference packages if you can source manually curated sequences---
 
 For this tutorial curated PmoA & AmoA sequences were downloaded from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi), [EggNOG v5.0](http://eggnog5.embl.de/#/app/home), and [FunGene](http://fungene.cme.msu.edu/). For now we'll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let's call this our seed reference package. The steps involved are:
 
--   Connect to the server. We will move to the folder `/root/data` (if it is not your working directory already). Then we will create a new folder called `ts_tutorial` and move into it.
+-   Connect to your group's server. We will move to the directory `/data` (if it is not your working directory already), create a new directory called `ts_tutorial` and then move into it.
 
 ```{bash eval = FALSE}
-cd /root/data/
+cd /data/
 mkdir ts_tutorial
 cd ts_tutorial
 ```
@@ -123,3 +123,7 @@ scp -r root@<server address>:data/ts_tutorial/p_amoA_FunGene9.5_isolates_assign/
 -   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to Figure \@ref(fig:xmoa).
 
 ![(\#fig:xmoa) Phylogenetic tree of XmoA <br> The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the Gammaproteobacteria order Methylococcales. Another 15 sequences were placed on the clade of Betaproteobacteria, represented by the genera Nitrosospira and Nitrosomonas](images/iTOL_XmoA2.jpg)
+
+## Building your group's reference package
+
+Now create a reference package for the gene that was assigned to your group. In the directory `/data`, create a new directory `<gene name>`, save your reference sequences and any TreeSAPP outputs in there. Visualize the appropriate outputs with iTOL.

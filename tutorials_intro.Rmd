@@ -1,6 +1,6 @@
 # A tutorial for using TreeSAPP
 
-You will work through a common workflow of TreeSAPP in a series of tutorials both with an example gene to familiarize yourself with the tools and then you will repeat the steps with a gene assigned to your group for which no reference package has ever been created.
+You will work through a common workflow of TreeSAPP in a series of tutorials both with an example gene (XmoA) to familiarize yourself with the tools and then you will repeat the steps with a gene assigned to your group for which no reference package has ever been created. You will document your steps for the new reference package in Problem Set 5.
 
 ## A typical TreeSAPP workflow
 
@@ -11,7 +11,7 @@ You will work through a common workflow of TreeSAPP in a series of tutorials bot
 
 ## Genes for used for creating reference packages
 
-### PmoA & AmoA
+### XmoA
 
 The protein family we will be focusing on is that of the copper-containing membrane-bound monooxygenases @Khadka.2018. This family contains particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) and well be building a reference package for the alpha subunits of these enzymes called XmoA. All groups will work through this example.
 
