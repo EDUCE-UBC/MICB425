@@ -37,3 +37,9 @@ You also provide you with a list of existing [TreeSAPP reference packages].
 ### iTOL
 
 Interactive Tree Of Life ([iTOL](https://itol.embl.de/)) @Letunic.2019 is a browser -based tool that allows you to visualize data generated in TreeSAPP as a phylogenetic tree with additional annotations.
+
+## Data
+
+Description of GORG data.
+
+Directory structure if necessary.
