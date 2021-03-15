@@ -12,8 +12,7 @@ rmd_files:
   - part_introduction.Rmd # separator for TOC navigation
   - introduction.Rmd
   - part_tutorials.Rmd # separator for TOC navigation
-  - tools.Rmd
-  - cheat_sheet.Rmd
+  - tutorials_intro.Rmd
   - golden_data.Rmd
   - treesapp_create.Rmd
   - treesapp_assign_and_update.Rmd
@@ -24,7 +23,6 @@ rmd_files:
   - data.Rmd
   - shell.Rmd
   - R.Rmd
-  # - summary.Rmd
-  # - gcp_setup.Rmd
   - appendix.Rmd # separator for TOC navigation
+  - cheat_sheet.Rmd
   - references.Rmd
