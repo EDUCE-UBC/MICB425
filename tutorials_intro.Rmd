@@ -4,10 +4,10 @@ You will work through a common workflow of TreeSAPP in a series of tutorials bot
 
 ## A typical TreeSAPP workflow
 
-- [Acquiring golden data].
-- [Creating a Reference Package For TreeSAPP].
-- [Classifying unknown sequences with TreeSAPP and updating a reference package].
-- [Calculating relative abundance of meta'omic data].
+-   [Acquiring golden data].
+-   [Creating a Reference Package For TreeSAPP].
+-   [Classifying unknown sequences with TreeSAPP and updating a reference package].
+-   [Calculating relative abundance of meta'omic data].
 
 ## Genes for used for creating reference packages
 
@@ -19,26 +19,9 @@ The protein family we will be focusing on is that of the copper-containing membr
 
 You will created a reference package and perform the other steps only for the gene that has been assigned to you.
 
-| RefPkg     | Full Protein Name                                                                           | Pathway                                | Cycle | TIGRFAM   | PFam     | EggNOG               | Other Database | EC number | Reading                                                                                                          |
-|------------|---------------------------------------------------------------------------------------------|----------------------------------------|-------|-----------|----------|----------------------|----------------|-----------|------------------------------------------------------------------------------------------------------------------|
-| PsbA       | photosystem II P680 reaction center D1 protein                                              | Photosynthesis                         | C     | TIGR01151 | PF00124  | ENOG502DBBD          | NA             | 1.10.3.9  | https://pubmed.ncbi.nlm.nih.gov/28785078/                                                                        |
-| PsbD       | photosystem II D2 protein (photosystem q(a) protein)                                        | Photosynthesis                         | C     | TIGR01152 | PF00124  | ENOG410XRUT          | NA             | 1.10.3.9  | https://pubmed.ncbi.nlm.nih.gov/28785078/                                                                        |
-| cbbS       | ribulose bisphosphate carboxylase, type III (Ribulose bisphosphate carboxylase small chain) | Carbon fixation                        | C     | TIGR03326 | PF00101  | COG4451              | NA             | 4.1.1.39  |                                                                                                                  |
-| ACoA       | ACoA_crb (acetylCoA carboxylase)                                                            | Carbon fixation                        | C     | TIGR03182 | PF00676  | COG1071              | NA             | 1.2.4.1   |                                                                                                                  |
-| Hao        | hydroxylamine dehydrogenase/Hydroxylamine oxidoreductase                                    | Nitrification                          | N     | NA        | NA       | NA                   | UniProt        | 1.7.2.6   | https://www.pnas.org/content/113/40/E5925                                                                        |
-| Hzs        | hydrazine synthase                                                                          | Annamox                                | N     | NA        | PF18582  | COG3391              | NA             | 1.7.2.7   | https://www.nature.com/articles/nature10453, https://www.frontiersin.org/articles/10.3389/fmars.2019.00027/full  |
-| Hdh        | hydrazine dehydrogenase                                                                     | Annamox                                | N     | NA        | NA       | NA                   | UniProt        | 1.7.2.8   | https://www.nature.com/articles/nature10453, https://www.frontiersin.org/articles/10.3389/fmars.2019.00027/full  |
-| NarH\|NarY | nitrate reductase, beta subunit                                                             | Denitrification                        | N     | TIGR01660 | NA       | COG1140\|ENOG501MW9Q | NA             | 1.7.5.1   |                                                                                                                  |
-| NarI       | respiratory nitrate reductase, gamma subunit                                                | Denitrification                        | N     | TIGR00351 | PF02665  | COG2181              | NA             | 1.7.5.1   |                                                                                                                  |
-| NirB       | nitrite reductase (NADH) large subunit                                                      | Dissimilitory nitrate reduction (DNRA) | N     | TIGR02374 | NA       | COG1251              | NA             | 1.7.1.15  |                                                                                                                  |
-| NirD       | nitrite reductase (NADH) small subunit                                                      | Dissimilitory nitrate reduction (DNRA) | N     | TIGR02378 | NA       | COG2146              | NA             | 1.7.1.15  |                                                                                                                  |
-| NrfA       | nitrite reductase (cytochrome c-552)                                                        | Dissimilitory nitrate reduction (DNRA) | N     | TIGR03152 | NA       | COG3303              | NA             | 1.7.2.2   |                                                                                                                  |
-| NrfH       | cytochrome c nitrite reductase, small subunit                                               | Dissimilitory nitrate reduction (DNRA) | N     | TIGR03153 | NA       | COG3005              | NA             | 1.7.2.2   |                                                                                                                  |
-| APS_red    | adenylylsulfate reductase, thioredoxin dependent                                            | Sulfur metabolism                      | S     | TIGR02055 | PF01507  | COG1404              | NA             | 1.8.99.2  |                                                                                                                  |
-| GH29       | Glycoside Hydrolase Family 29                                                               | Fucosidase degradation                 | C     | NA        | NA       | NA                   | CAZy           | 3.2.1.51  | https://www.nature.com/articles/s41564-020-0720-2                                                                |
-| GH95       | Glycoside Hydrolase Family 95                                                               | Fucosidase degradation                 | C     | NA        | NA       | NA                   | CAZy           | 3.2.1.51  | https://www.nature.com/articles/s41564-020-0720-2                                                                |
-| GH141      | Glycoside Hydrolase Family 141                                                              | Fucosidase degradation                 | C     | NA        | NA       | NA                   | CAZy           | 3.2.1.51  | https://www.nature.com/articles/s41564-020-0720-2                                                                |
-| BacRho     | Bacteriorhodopsin                                                                           | Energy production and conversion       | NA    | NA        | PF01036  | COG5524              | NA             | NA        | https://science.sciencemag.org/content/289/5486/1902/tab-pdf, https://www.nature.com/articles/s41467-018-07840-4 |
+```{r message = FALSE}
+readr::read_tsv("data/new_refpkgs.tsv")
+```
 
 ## Tools
 
@@ -48,10 +31,9 @@ Please review previous tutorials. Use this short [cheat sheet](#shell-cheat-shee
 
 ### TreeSAPP
 
-Tree-based Sensitive and Accurate Phylogenetic Profiler (TreeSAPP) @Morgan-Lang.2020 can be found on
-[GitHub](https://github.com/hallamlab/TreeSAPP) including an excellent [wiki](https://github.com/hallamlab/TreeSAPP/wiki) with additional information on each of the `treesapp` subcommands.
+Tree-based Sensitive and Accurate Phylogenetic Profiler (TreeSAPP) @Morgan-Lang.2020 can be found on [GitHub](https://github.com/hallamlab/TreeSAPP) including an excellent [wiki](https://github.com/hallamlab/TreeSAPP/wiki) with additional information on each of the `treesapp` subcommands.
 
-You also provide you with a list of existing [TreeSAPP reference packages].
+We also provide you with a list of existing [TreeSAPP reference packages].
 
 ### iTOL
 
@@ -59,6 +41,4 @@ Interactive Tree Of Life ([iTOL](https://itol.embl.de/)) @Letunic.2019 is a brow
 
 ## Data
 
-Description of GORG data.
-
-Directory structure if necessary.
+You will use [The Saanich Inlet data set].

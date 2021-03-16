@@ -10,6 +10,7 @@ output:
       toc:
         collapse: section
         scroll_highlight: yes
+    df_print: paged
 bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book
