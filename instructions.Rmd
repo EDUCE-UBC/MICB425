@@ -24,7 +24,7 @@ Several options are provided to help you develop your capstone project, although
 
 3.  Update reference packages as needed based on preliminary analysis.
 
-4.  Look for patterns in abundance, gene expression and diversity as a function of water column geochemical information.
+4.  Look for patterns in gene abundance, expression and diversity as a function of water column geochemical parameter information.
 
 ### Questions for project with a focus on biogeochemical cycles (repeated in report structure below)
 
@@ -32,7 +32,7 @@ Several options are provided to help you develop your capstone project, although
 
 2. How does microbial diversity differ among and between steps within a pathway e.g. denitrification? Are these trends similar for both genes and transcripts at different depths?
 
-3. What is the taxonomic breakdown of genes and transcripts within a given biogeochemcial cycle? 
+3. What is the taxonomic breakdown of genes and transcripts within a given biogeochemcial cycle? Can you discern evidence for horizontal gene transfer of one or more functional anchor genes?
 
 4. Can you identify evidence for distributed metabolism within one or more pathways? Are these trends similar for both genes and transcripts at different depths?  
 
