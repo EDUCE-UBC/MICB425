@@ -1,7 +1,7 @@
 ---
-title: "Gene-centric mapping of microbial metabolic functions"
-subtitle: "2020.21 MICB425 Capstone project"
-author: "Stephan Koenig, Kim Dill-McFarland, Ryan McLaughlin, Connor Morgan-Lang, Steven Hallam"
+title: "Gene-centric mapping of microbial community structure and function"
+subtitle: "2020.21 MICB425 Mirobial Ecological Genomics Capstone project"
+author: "Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Capron, Sean Crowe and Steven Hallam"
 date: "version `r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
 output:
@@ -27,8 +27,8 @@ default_chunk_options <- knitr::opts_chunk$get()
 
 # Overview {-}
 
-This document introduces metagenomic and metatranscriptomic workflows
+This document introduces bioinformatics workflows useful in gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from natural and engineered environments.  
 
--   Part I outlines the motivation and insights afforded by meta'omic workflows.
--   Part II provides hands-on tutorials to learn two important tools, TreeSAPP and iTOL.
--   Part III is a capstone project to explore the meta'omics data collected from the Saanich Inlet water column.
+-   Part I outlines the motivation and insights afforded by the use of these workflows to study uncultivated microbial community structure and function.
+-   Part II provides hands-on tutorials to learn two effective tools for gene-centric analysis, TreeSAPP and iTOL.
+-   Part III described your capstone project to explore primary metagenomic and metatranscriptomic data collected from the Saanich Inlet water column spanning a defined nutrient and energy gradient.
