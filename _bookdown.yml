@@ -21,10 +21,10 @@ rmd_files:
   - part_capstone.Rmd # separator for TOC navigation
   - instructions.Rmd
   - assessment.Rmd
-  - data.Rmd
   # - shell.Rmd
   # - R.Rmd
   - appendix.Rmd # separator for TOC navigation
+  - data.Rmd
   - refpkgs.Rmd
   - cheat_sheet.Rmd
   - references.Rmd
