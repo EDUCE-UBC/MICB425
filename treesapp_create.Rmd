@@ -2,7 +2,9 @@
 
 ## Introduction and Goals
 
-This tutorial is meant for users who would like to analyze a gene family lacking an associated TreeSAPP reference package (refpkg). It is also useful to those who would rather start over than use `treesapp update` to improve an existing refpkg. This tutorial will cover the following subcommand of `treesapp`: `create`, `package`, `purity` and `assign`. TreeSAPP will automatically determine the taxonomic lineage assigned to each sequence if these are NCBI accessions. For ways to provide lineage information for as-of-yet unaccessions sequences please refer to our Wiki page [Building reference packages with TreeSAPP](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#alternative-sources).
+This tutorial is meant for users who would like to analyze a gene family lacking an existing TreeSAPP reference package (refpkg). It is also useful to those who would rather start over than use `treesapp update` to improve an existing refpkg. This tutorial will cover the following subcommand of `treesapp`: `create`, `package`, `purity` and `assign`. TreeSAPP will automatically determine the taxonomic lineage assigned to each sequence if these are NCBI accessions. For ways to provide lineage information for as-of-yet unaccessioned sequences please refer to the TreeSAPP Wiki page [Building reference packages with TreeSAPP](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#alternative-sources). TreeSAPP does not currenty support GTDB taxonomies although efforts are being made to determine feasibility of this approach. 
+
+
 
 ## Making the reference package
 
@@ -108,21 +110,21 @@ To do: Assign reference sequences to reference package to generate tree with lab
 
 First off, we can quickly and easily view where the sequences were placed on the phylogeny using the interactive Tree of Life.
 
--   Transfer the directory containing the XmoA iTOL outputs `p_amoA_FunGene9.5_isolates_assign/iTOL_output/XmoA` to your desktop
+-   Transfer the nwk file in the 'treesapp create'  output directory  `XmoA_seed/final_outputs/XmoA.nwk` to your desktop
 
 ```{bash eval = FALSE}
-scp -r root@<server address>:data/ts_tutorial/p_amoA_FunGene9.5_isolates_assign/iTOL_output/XmoA  <path to your local directory>
+scp  root@<server address>:data/ts_tutorial/XmoA_seed/final_outputs/XmoA.nwk  <path to your local directory>
 ```
 
 -   Visit the [iTOL](https://itol.embl.de/) website.
 
--   Upload the file `XmoA_complete_profile.jplace` from the XmoA directory. This `jplace` file contains both the phylogeny and the location of the placements that will be visualized.
+-   Upload the file `XmoA.nwk` from the XmoA directory. This file contains both the phylogeny of the placements that will be visualized.
 
--   Navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
+-   Navigate to the page displaying the phylogeny in the iTOL window. Use the NCBI accessions option to convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
 
--   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to Figure \@ref(fig:xmoa).
+-   the figure should look identical to Figure \@ref(fig:xmoa).
 
-![(\#fig:xmoa) Phylogenetic tree of XmoA <br> The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the Gammaproteobacteria order Methylococcales. Another 15 sequences were placed on the clade of Betaproteobacteria, represented by the genera Nitrosospira and Nitrosomonas](images/iTOL_XmoA2.jpg)
+![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg.  There were 36 sequences classified that are part of the XmoA seed package ](images/XmoA_36_iTOL.png)
 
 ## Building your group's reference package
 
