@@ -42,6 +42,22 @@ EggNOG and FunGene are my favourite sources, though this leaves out the majority
 
 Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in *E. coli* widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea, it would refer to the beta subunit of methyl-coenzyme M reductase---a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation. Another issue can be genes or proteins with synonyms, making the search for these data more complex. In these cases, you may need to search multiple databases with several queries in order to access all the sequences belonging to the same protein family.
 
+-   On your local computer, create a new directory called `Xmoa_sequences` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). From the databases, download any reference sequences you identified and save them in `Xmoa_sequences`. 
+
+-   Connect to your group's server. We will move to the directory `/data` (if it is not your working directory already), create a new directory called `ts_tutorial` and then move into it.
+
+```{bash eval = FALSE}
+cd /data/
+mkdir ts_tutorial
+cd ts_tutorial
+```
+
+-   Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.
+
+```{bash eval = FALSE}
+scp -r <path to Xmoa_sequences> root@<server address>:/data/ts_tutorial 
+```
+
 ## Validation
 
 There are a number of quality control measures that can be taken to ensure the functional characteristics are as expected.
