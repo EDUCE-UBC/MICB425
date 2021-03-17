@@ -9,23 +9,22 @@ rmd_files:
 # Providing array as YAML sequence, so it's easier to comment out Rmd files that
 # are not needed.
   - index.Rmd
-  - under_construction.Rmd
-  # - part_introduction.Rmd # separator for TOC navigation
-  # - introduction.Rmd
-  # - part_tutorials.Rmd # separator for TOC navigation
-  # - tools.Rmd
-  # - cheat_sheet.Rmd
-  # - golden_data.Rmd
-  # - treesapp_create.Rmd
+  # - under_construction.Rmd
+  - part_introduction.Rmd # separator for TOC navigation
+  - introduction.Rmd
+  - part_tutorials.Rmd # separator for TOC navigation
+  - tutorials_intro.Rmd
+  - golden_data.Rmd
+  - treesapp_create.Rmd
   # - treesapp_assign_and_update.Rmd
   # - treesapp_abundance.Rmd
   # - part_capstone.Rmd # separator for TOC navigation
   # - instructions.Rmd
   # - assessment.Rmd
-  # - data.Rmd
   # - shell.Rmd
   # - R.Rmd
-  # - summary.Rmd
-  # - gcp_setup.Rmd
-  # - appendix.Rmd # separator for TOC navigation
-  # - references.Rmd
+  - appendix.Rmd # separator for TOC navigation
+  - data.Rmd
+  - refpkgs.Rmd
+  - cheat_sheet.Rmd
+  - references.Rmd
