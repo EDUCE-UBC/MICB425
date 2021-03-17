@@ -43,15 +43,19 @@ The resulting reads were processed and quality controlled at the Joint Genome In
 
 Quality filtering was performed with Trimmomatic (v.0.35, [documentation](http://www.usadellab.org/cms/?page=trimmomatic)) @Bolger.2014 with default parameters except:
 
-    LEADING:3 
-    TRAILING:3 
-    SLIDINGWINDOW:4:15 
-    MINLEN:36
+```
+LEADING:3 
+TRAILING:3 
+SLIDINGWINDOW:4:15 
+MINLEN:36
+```
 
 ### Assembly
 
 MEGAHIT (v.1.1.3, [documentation](https://github.com/voutcn/megahit/wiki/Assembly-Tips)) @Li.2015 assembled MAGs using with default parameters except for:
-    
-    --k-min 27 
-    --k-step 10 
-    --min-contig-len 500
+
+```
+--k-min 27 
+--k-step 10 
+--min-contig-len 500
+```
