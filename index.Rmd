@@ -10,7 +10,6 @@ output:
       toc:
         collapse: section
         scroll_highlight: yes
-    df_print: paged
 bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book
@@ -21,9 +20,12 @@ description: |
 # For further configuration, see `_bookdown.yml`
 ---
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
 # Saving the default settings for code chunks to use to reset settings.
 default_chunk_options <- knitr::opts_chunk$get()
+
+library(readr)
+library(kableExtra)
 ```
 
 # Overview {-}

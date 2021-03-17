@@ -19,8 +19,11 @@ The protein family we will be focusing on is that of the copper-containing membr
 
 You will created a reference package and perform the other steps only for the gene that has been assigned to you.
 
-```{r message = FALSE}
-readr::read_tsv("data/new_refpkgs.tsv")
+```{r message = FALSE, echo = FALSE}
+read_tsv("data/new_refpkgs.tsv") %>% 
+  kbl() %>% 
+  kable_paper() %>%
+  scroll_box(width = "100%")
 ```
 
 ## Tools
@@ -41,4 +44,7 @@ Interactive Tree Of Life ([iTOL](https://itol.embl.de/)) @Letunic.2019 is a brow
 
 ## Data
 
-You will use [The Saanich Inlet data set].
+Other than [The Saanich Inlet data set] already located on the server, you will download data from different databases:
+
+-   [FunGene](http://fungene.cme.msu.edu/), the functional gene pipeline and repository.
+-   [EggNOG](http://eggnog5.embl.de/#/app/home)
