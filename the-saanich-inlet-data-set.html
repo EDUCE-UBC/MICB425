@@ -212,7 +212,7 @@ FIGURE A.1: The Saanich Inlet
 </p>
 </div>
 <p>Figure <a href="the-saanich-inlet-data-set.html#fig:saanich-inlet">A.1</a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
-<p>For more details about these data, see <span class="citation">(<a href="#ref-Hallam.2017" role="doc-biblioref">6</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="#ref-Torres-Beltrán.2017" role="doc-biblioref">7</a>)</span>.</p>
+<p>For more details about these data, see <span class="citation">(<a href="references.html#ref-Hallam.2017" role="doc-biblioref">6</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="references.html#ref-Torres-Beltrán.2017" role="doc-biblioref">7</a>)</span>.</p>
 </div>
 <div id="data-on-the-server" class="section level2">
 <h2><span class="header-section-number">A.2</span> Data on the server</h2>
@@ -276,42 +276,24 @@ FIGURE A.1: The Saanich Inlet
 </div>
 <div id="methods" class="section level2">
 <h2><span class="header-section-number">A.4</span> Methods</h2>
-<p>Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with <strong>2x150bp</strong> technology. For more in-depth sampling and sequencing methods, please see <span class="citation">(<a href="#ref-Hawley.2017" role="doc-biblioref">8</a>)</span>.</p>
+<p>Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with <strong>2x150bp</strong> technology. For more in-depth sampling and sequencing methods, please see <span class="citation">(<a href="references.html#ref-Hawley.2017" role="doc-biblioref">8</a>)</span>.</p>
 <div id="quality-filtering-of-reads" class="section level3">
 <h3><span class="header-section-number">A.4.1</span> Quality filtering of reads</h3>
 <p>The resulting reads were processed and quality controlled at the Joint Genome Institute using the IMG/M pipeline.</p>
-<p>Quality filtering was performed with Trimmomatic (v.0.35, <a href="http://www.usadellab.org/cms/?page=trimmomatic">documentation</a>) <span class="citation">(<a href="#ref-Bolger.2014" role="doc-biblioref">9</a>)</span> with default parameters except:</p>
-<p>LEADING:3
-TRAILING:3
-SLIDINGWINDOW:4:15
-MINLEN:36</p>
+<p>Quality filtering was performed with Trimmomatic (v.0.35, <a href="http://www.usadellab.org/cms/?page=trimmomatic">documentation</a>) <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">9</a>)</span> with default parameters except:</p>
+<pre><code>LEADING:3 
+TRAILING:3 
+SLIDINGWINDOW:4:15 
+MINLEN:36</code></pre>
 </div>
 <div id="assembly" class="section level3">
 <h3><span class="header-section-number">A.4.2</span> Assembly</h3>
-<p>MEGAHIT (v.1.1.3, <a href="https://github.com/voutcn/megahit/wiki/Assembly-Tips">documentation</a>) <span class="citation">(<a href="#ref-Li.2015" role="doc-biblioref">10</a>)</span> assembled MAGs using with default parameters except for:</p>
-<p>–k-min 27
-–k-step 10
-–min-contig-len 500</p>
+<p>MEGAHIT (v.1.1.3, <a href="https://github.com/voutcn/megahit/wiki/Assembly-Tips">documentation</a>) <span class="citation">(<a href="references.html#ref-Li.2015" role="doc-biblioref">10</a>)</span> assembled MAGs using with default parameters except for:</p>
+<pre><code>--k-min 27 
+--k-step 10 
+--min-contig-len 500</code></pre>
 
 </div>
-</div>
-</div>
-<h3><span class="header-section-number">D</span> References</h3>
-<div id="refs" class="references">
-<div id="ref-Hallam.2017">
-<p>6. Hallam SJ, Torres-Beltrán M, Hawley AK. 2017. Monitoring microbial responses to ocean deoxygenation in a model oxygen minimum zone. Scientific Data 4:170158.</p>
-</div>
-<div id="ref-Torres-Beltrán.2017">
-<p>7. Torres-Beltrán M, Hawley AK, Capelle D, Zaikova E, Walsh DA, Mueller A, Scofield M, Payne C, Pakhomova L, Kheirandish S, Finke J, Bhatia M, Shevchuk O, Gies EA, Fairley D, Michiels C, Suttle CA, Whitney F, Crowe SA, Tortell PD, Hallam SJ. 2017. A compendium of geochemical information from the Saanich Inlet water column. Scientific Data 4:170159.</p>
-</div>
-<div id="ref-Hawley.2017">
-<p>8. Hawley AK, Torres-Beltrán M, Zaikova E, Walsh DA, Mueller A, Scofield M, Kheirandish S, Payne C, Pakhomova L, Bhatia M, Shevchuk O, Gies EA, Fairley D, Malfatti SA, Norbeck AD, Brewer HM, Pasa-Tolic L, Rio TG del, Suttle CA, Tringe S, Hallam SJ. 2017. A compendium of multi-omic sequence information from the Saanich Inlet water column. Scientific Data 4:170160.</p>
-</div>
-<div id="ref-Bolger.2014">
-<p>9. Bolger AM, Lohse M, Usadel B. 2014. Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics 30:2114–2120.</p>
-</div>
-<div id="ref-Li.2015">
-<p>10. Li D, Liu C-M, Luo R, Sadakane K, Lam T-W. 2015. MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics 31:1674–1676.</p>
 </div>
 </div>
             </section>
