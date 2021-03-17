@@ -20,7 +20,7 @@ cd /data/ts_tutorial
 
 ```{bash eval = FALSE}
 cd /data/ts_tutorial
-wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt`
+wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt
 wget -i xmoa_file_list.txt
 ```
 
@@ -44,7 +44,7 @@ less XmoA_seed.faa
 grep -c "^>" XmoA_seed.faa
 ```
 
--   Use submodule `treesapp create` to build the XmoA reference package with different arguments (see [visualization of the `create` workflow(https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients)). To speed things along we'll be using FastTree to infer the phylogeny and will skip bootstrapping with `--fast`. To remove potential redundant sequences, we'll cluster the candidate reference sequences at 97% similarity using the argument `-p`. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more the flag `--headless` will prevent these requests. This command will take \~2 minutes to complete.
+-   Use submodule `treesapp create` to build the XmoA reference package with different arguments (see [visualization of the `create` workflow](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients)). To speed things along we'll be using FastTree to infer the phylogeny and will skip bootstrapping with `--fast`. To remove potential redundant sequences, we'll cluster the candidate reference sequences at 97% similarity using the argument `-p`. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more the flag `--headless` will prevent these requests. This command will take \~2 minutes to complete.
 
 ```{bash eval = FALSE}
 treesapp create \
@@ -83,7 +83,7 @@ treesapp package edit \
 
 ## Testing the purity of the reference package
 
-We will determine whether there were any mis-annotated sequences that were included in our reference package with treesapp purity. To do this, we take a well-curated database and attempt to classify sequences in it using `treesapp assign`. The results are then analysed and displayed for the user to evaluate.The TIGRFAM database is fairly comprehensive, representing 4488 different groups in version 15, and by using just the TIGRFAM seed sequences (`TIGRFAM_seed_named.faa`) we can be fairly sure we won't be evaluating our classifications with mis-annotated sequences.
+We will determine whether there were any mis-annotated sequences that were included in our reference package with `treesapp purity`. To do this, we take a well-curated database and attempt to classify sequences in it using `treesapp assign`. The results are then analysed and displayed for the user to evaluate. The TIGRFAM database is fairly comprehensive, representing 4488 different groups in version 15, and by using just the TIGRFAM seed sequences (`TIGRFAM_seed_named.faa`) we can be fairly sure we won't be evaluating our classifications with mis-annotated sequences.
 
 ```{bash eval = FALSE}
 treesapp purity \
@@ -107,7 +107,7 @@ From this summary it appears that the reference package classified three homolog
 
 ## Looking at tree of reference package with iTOL
 
-We have now created a phyogenetic tree for XmoA, but if we would visualize it, we would only see Treesapp identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree  which y themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree we will use `treesapp assign` function.  
+We have now created a phyogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which y themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree we will use `treesapp assign` function.  
 
 -   Assign reference sequences to reference package to generate tree with labels.
 
@@ -121,10 +121,10 @@ treesapp assign \
   --output XmoA_seed_assign/
 ```
  
- -   Transfer the iTOL_output directory in the `treesapp assign`  output directory `XmoA_seed_assign/final_outputs/iTOL_output` to your local folder.
+ -   Transfer the iTOL_output directory in the `treesapp assign`  output directory `XmoA_seed_assign/iTOL_output` to your local folder.
  
 ```{bash eval = FALSE}
- scp -r root@<server address>:/data/ts_tutorial/XmoA_seed_assign/final_outputs/iTOL_output <path to your local directory>
+ scp -r root@<server address>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <path to your local directory>
 ```
 
 We can quickly and easily view the sequences phylogeny using iTOL.
