@@ -267,10 +267,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-7"><a href="treesapp-create.html#cb11-7"></a>  -i TIGRFAM_seed_named.faa \</span>
 <span id="cb11-8"><a href="treesapp-create.html#cb11-8"></a>  --output XmoA_purity</span></code></pre></div>
 <p>The important bit of the output should look like this</p>
-<p>Summarizing assignments for reference package XmoA
-Ortholog Hits Leaves Tree-coverage Description
-——————————————————————————–
-TIGR03080 3 4 11.1 methane monooxygenase/ammonia monooxygenase, subunit A</p>
+<pre><code>Summarizing assignments for reference package XmoA
+Ortholog        Hits    Leaves  Tree-coverage   Description
+--------------------------------------------------------------------------------
+TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygenase, subunit A</code></pre>
 <p>From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they’re closely related) and the sequences were all from the family “TIGR03080”, also known as “methane monooxygenase/ammonia monooxygenase, subunit A”. In all, we’re probably good to proceed!</p>
 </div>
 <div id="looking-at-tree-of-reference-package-with-itol" class="section level2">
@@ -279,17 +279,17 @@ TIGR03080 3 4 11.1 methane monooxygenase/ammonia monooxygenase, subunit A</p>
 <ul>
 <li>Assign reference sequences to reference package to generate tree with labels.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="treesapp-create.html#cb12-1"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb12-2"><a href="treesapp-create.html#cb12-2"></a>  -n 4 \</span>
-<span id="cb12-3"><a href="treesapp-create.html#cb12-3"></a>  -m prot \</span>
-<span id="cb12-4"><a href="treesapp-create.html#cb12-4"></a>  --trim_align <span class="dt">\ </span> </span>
-<span id="cb12-5"><a href="treesapp-create.html#cb12-5"></a>  <span class="ex">--refpkg_dir</span> XmoA_seed/final_outputs/ <span class="dt">\ </span></span>
-<span id="cb12-6"><a href="treesapp-create.html#cb12-6"></a>  <span class="ex">--fastx_input</span> XmoA_seed.faa \</span>
-<span id="cb12-7"><a href="treesapp-create.html#cb12-7"></a>  --output XmoA_seed_assign/</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="treesapp-create.html#cb13-1"></a><span class="ex">treesapp</span> assign \</span>
+<span id="cb13-2"><a href="treesapp-create.html#cb13-2"></a>  -n 4 \</span>
+<span id="cb13-3"><a href="treesapp-create.html#cb13-3"></a>  -m prot \</span>
+<span id="cb13-4"><a href="treesapp-create.html#cb13-4"></a>  --trim_align <span class="dt">\ </span> </span>
+<span id="cb13-5"><a href="treesapp-create.html#cb13-5"></a>  <span class="ex">--refpkg_dir</span> XmoA_seed/final_outputs/ <span class="dt">\ </span></span>
+<span id="cb13-6"><a href="treesapp-create.html#cb13-6"></a>  <span class="ex">--fastx_input</span> XmoA_seed.faa \</span>
+<span id="cb13-7"><a href="treesapp-create.html#cb13-7"></a>  --output XmoA_seed_assign/</span></code></pre></div>
 <ul>
 <li>Transfer the iTOL_output directory in the <code>treesapp assign</code> output directory <code>XmoA_seed_assign/iTOL_output</code> to your local folder.</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="treesapp-create.html#cb13-1"></a> <span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <span class="op">&lt;</span>path to your local directory<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="treesapp-create.html#cb14-1"></a> <span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <span class="op">&lt;</span>path to your local directory<span class="op">&gt;</span></span></code></pre></div>
 <p>We can quickly and easily view the sequences phylogeny using iTOL.</p>
 <ul>
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and upload the file <code>XmoA_complete_profile.jplace</code>. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.</p></li>
