@@ -218,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Optional, on the server:</strong> If you could not download the reference sequences of XmoA yourself, download <a href="https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a>—a list of the necessary fasta files—with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="treesapp-create.html#cb4-1"></a><span class="bu">cd</span> /data/ts_tutorial</span>
-<span id="cb4-2"><a href="treesapp-create.html#cb4-2"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt<span class="kw">`</span></span>
+<span id="cb4-2"><a href="treesapp-create.html#cb4-2"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt</span>
 <span id="cb4-3"><a href="treesapp-create.html#cb4-3"></a><span class="fu">wget</span> -i xmoa_file_list.txt</span></code></pre></div>
 <ul>
 <li>Create the input FASTA file by combining the EggNOG and TIGRFAM reference into a single file using <code>cat</code>. <code>cat</code> stands for concatentate, i.e. the files are pasted together. The output of <code>cat</code> is funneled with the <code>&gt;</code> symbol to a <code>&lt;new file&gt;</code>, i.e. <code>cat &lt;file 1&gt; &lt;file 2&gt; &gt; &lt;new file&gt;</code></li>
@@ -234,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="treesapp-create.html#cb7-1"></a><span class="fu">grep</span> -c <span class="st">&quot;^&gt;&quot;</span> XmoA_seed.faa</span></code></pre></div>
 <ul>
-<li>Use submodule <code>treesapp create</code> to build the XmoA reference package with different arguments (see [visualization of the <code>create</code> workflow(<a href="https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients" class="uri">https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients</a>)). To speed things along we’ll be using FastTree to infer the phylogeny and will skip bootstrapping with <code>--fast</code>. To remove potential redundant sequences, we’ll cluster the candidate reference sequences at 97% similarity using the argument <code>-p</code>. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more the flag <code>--headless</code> will prevent these requests. This command will take ~2 minutes to complete.</li>
+<li>Use submodule <code>treesapp create</code> to build the XmoA reference package with different arguments (see <a href="https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients">visualization of the <code>create</code> workflow</a>). To speed things along we’ll be using FastTree to infer the phylogeny and will skip bootstrapping with <code>--fast</code>. To remove potential redundant sequences, we’ll cluster the candidate reference sequences at 97% similarity using the argument <code>-p</code>. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more the flag <code>--headless</code> will prevent these requests. This command will take ~2 minutes to complete.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="treesapp-create.html#cb8-1"></a><span class="ex">treesapp</span> create \</span>
 <span id="cb8-2"><a href="treesapp-create.html#cb8-2"></a>  --fast \</span>
@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="testing-the-purity-of-the-reference-package" class="section level2">
 <h2><span class="header-section-number">4.3</span> Testing the purity of the reference package</h2>
-<p>We will determine whether there were any mis-annotated sequences that were included in our reference package with treesapp purity. To do this, we take a well-curated database and attempt to classify sequences in it using <code>treesapp assign</code>. The results are then analysed and displayed for the user to evaluate.The TIGRFAM database is fairly comprehensive, representing 4488 different groups in version 15, and by using just the TIGRFAM seed sequences (<code>TIGRFAM_seed_named.faa</code>) we can be fairly sure we won’t be evaluating our classifications with mis-annotated sequences.</p>
+<p>We will determine whether there were any mis-annotated sequences that were included in our reference package with <code>treesapp purity</code>. To do this, we take a well-curated database and attempt to classify sequences in it using <code>treesapp assign</code>. The results are then analysed and displayed for the user to evaluate. The TIGRFAM database is fairly comprehensive, representing 4488 different groups in version 15, and by using just the TIGRFAM seed sequences (<code>TIGRFAM_seed_named.faa</code>) we can be fairly sure we won’t be evaluating our classifications with mis-annotated sequences.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="treesapp-create.html#cb11-1"></a><span class="ex">treesapp</span> purity \</span>
 <span id="cb11-2"><a href="treesapp-create.html#cb11-2"></a>  --trim_align \</span>
 <span id="cb11-3"><a href="treesapp-create.html#cb11-3"></a>  -m prot \</span>
@@ -284,7 +284,7 @@ TIGR03080 3 4 11.1 methane monooxygenase/ammonia monooxygenase, subunit A</p>
 </div>
 <div id="looking-at-tree-of-reference-package-with-itol" class="section level2">
 <h2><span class="header-section-number">4.4</span> Looking at tree of reference package with iTOL</h2>
-<p>We have now created a phyogenetic tree for XmoA, but if we would visualize it, we would only see Treesapp identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which y themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree we will use <code>treesapp assign</code> function.</p>
+<p>We have now created a phyogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which y themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree we will use <code>treesapp assign</code> function.</p>
 <ul>
 <li>Assign reference sequences to reference package to generate tree with labels.</li>
 </ul>
@@ -296,9 +296,9 @@ TIGR03080 3 4 11.1 methane monooxygenase/ammonia monooxygenase, subunit A</p>
 <span id="cb12-6"><a href="treesapp-create.html#cb12-6"></a>  <span class="ex">--fastx_input</span> XmoA_seed.faa \</span>
 <span id="cb12-7"><a href="treesapp-create.html#cb12-7"></a>  --output XmoA_seed_assign/</span></code></pre></div>
 <ul>
-<li>Transfer the iTOL_output directory in the <code>treesapp assign</code> output directory <code>XmoA_seed_assign/final_outputs/iTOL_output</code> to your local folder.</li>
+<li>Transfer the iTOL_output directory in the <code>treesapp assign</code> output directory <code>XmoA_seed_assign/iTOL_output</code> to your local folder.</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="treesapp-create.html#cb13-1"></a> <span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed_assign/final_outputs/iTOL_output <span class="op">&lt;</span>path to your local directory<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="treesapp-create.html#cb13-1"></a> <span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <span class="op">&lt;</span>path to your local directory<span class="op">&gt;</span></span></code></pre></div>
 <p>We can quickly and easily view the sequences phylogeny using iTOL.</p>
 <ul>
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and upload the file <code>XmoA_complete_profile.jplace</code>. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.</p></li>
