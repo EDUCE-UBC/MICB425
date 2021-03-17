@@ -98,10 +98,12 @@ treesapp purity \
 
 The important bit of the output should look like this
 
-    Summarizing assignments for reference package XmoA
-    Ortholog        Hits    Leaves  Tree-coverage   Description
-    --------------------------------------------------------------------------------
-    TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygenase, subunit A
+```
+Summarizing assignments for reference package XmoA
+Ortholog        Hits    Leaves  Tree-coverage   Description
+--------------------------------------------------------------------------------
+TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygenase, subunit A
+```
 
 From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they're closely related) and the sequences were all from the family "TIGR03080", also known as "methane monooxygenase/ammonia monooxygenase, subunit A". In all, we're probably good to proceed!
 
