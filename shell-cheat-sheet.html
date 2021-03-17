@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gene-centric mapping of microbial community structure and function</title>
+  <title>C Shell cheat sheet | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="C Shell cheat sheet | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="C Shell cheat sheet | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="exploring-the-microcosmos.html"/>
+<link rel="prev" href="treesapp-reference-packages.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -200,24 +200,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gene-centric mapping of microbial community structure and function</h1>
-<h2 class="subtitle"><em>2020.21 MICB425 Mirobial Ecological Genomics Capstone project</em></h2>
-<p class="author"><em>Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam</em></p>
-<p class="date"><em>version March 17, 2021</em></p>
-</div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
-<p>This document introduces bioinformatics workflows useful in gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from natural and engineered environments.</p>
-<ul>
-<li>Part I outlines the motivation and insights afforded by the use of these workflows to study uncultivated microbial community structure and function.</li>
-<li>Part II provides hands-on tutorials to learn two effective tools for gene-centric analysis, TreeSAPP and iTOL.</li>
-<li>Part III described your capstone project to explore primary metagenomic and metatranscriptomic data collected from the Saanich Inlet water column spanning a defined nutrient and energy gradient.</li>
-</ul>
-
-</div>
-
-
+<div id="shell-cheat-sheet" class="section level1">
+<h1><span class="header-section-number">C</span> Shell cheat sheet</h1>
+<table>
+<caption><span id="tab:commands">TABLE C.1: </span> Shell cheat sheet</caption>
+<colgroup>
+<col width="23%" />
+<col width="76%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>cd</code></td>
+<td><p>Change directory</p>
+<p><code>..</code> to parent directory</p>
+<p><code>~</code> to home directory</p>
+<p><code>-</code> to last visited directory</p></td>
+</tr>
+<tr class="even">
+<td><code>ls</code></td>
+<td><p>List files in directory</p>
+<p><code>-l</code> as list</p></td>
+</tr>
+<tr class="odd">
+<td><code>ssh &lt;username&gt;@&lt;server address&gt;</code></td>
+<td>Make a secure connection to server</td>
+</tr>
+<tr class="even">
+<td><code>pwd</code></td>
+<td>Print working directory</td>
+</tr>
+<tr class="odd">
+<td><code>less &lt;filename&gt;</code></td>
+<td><p>Look at text file</p>
+<p>Press <kbd>H</kbd>elp for navigation</p>
+<p>Press <kbd>Q</kbd>uit to leave</p></td>
+</tr>
+<tr class="even">
+<td><code>scp &lt;source&gt; &lt;target&gt;</code></td>
+<td><p>Copy files between local and server</p>
+<p>Give file path on server as <code>&lt;user&gt;@&lt;server address&gt;:&lt;file path&gt;</code></p></td>
+</tr>
+<tr class="odd">
+<td><code>exit</code></td>
+<td>Close session (either to server or to local terminal)</td>
+</tr>
+<tr class="even">
+<td><code>history</code></td>
+<td><p>Get list of command history</p>
+<p>Follow with <code>!&lt;number&gt;</code> to execute that corresponding command again</p>
+<p><code>-a &lt;filename&gt;</code> save a history of your current session to a text file to document your work</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>man &lt;command&gt;</code></p>
+<p><code>help &lt;command&gt;</code></p>
+<p><code>&lt;command&gt; --help</code></p></td>
+<td>Unfortunately, it is impossible to predict how to get help for a <code>&lt;command&gt;</code>, try any one of these until one works</td>
+</tr>
+<tr class="even">
+<td><code>screen</code></td>
+<td><p>Create a virtual terminal that continues to run jobs even when your connection to server terminates</p>
+<p><code>-S &lt;session name&gt;</code> create a session with <code>&lt;session name&gt;</code></p>
+<p><code>-ls</code> list all running sessions</p>
+<p><code>-r &lt;session name&gt;</code> resume a session</p>
+<p>To leave a session but keep it running, first <kbd>ctrl</kbd>+<kbd>a</kbd>ctivate commands to <code>screen</code>, then</p>
+<p><kbd>d</kbd>etach</p></td>
+</tr>
+</tbody>
+</table>
 
 </div>
             </section>
@@ -225,8 +280,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="exploring-the-microcosmos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="treesapp-reference-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

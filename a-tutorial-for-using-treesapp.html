@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gene-centric mapping of microbial community structure and function</title>
+  <title>2 A tutorial for using TreeSAPP | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="2 A tutorial for using TreeSAPP | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="2 A tutorial for using TreeSAPP | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="exploring-the-microcosmos.html"/>
+<link rel="prev" href="exploring-the-microcosmos.html"/>
+<link rel="next" href="acquiring-golden-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -200,33 +200,402 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gene-centric mapping of microbial community structure and function</h1>
-<h2 class="subtitle"><em>2020.21 MICB425 Mirobial Ecological Genomics Capstone project</em></h2>
-<p class="author"><em>Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam</em></p>
-<p class="date"><em>version March 17, 2021</em></p>
-</div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
-<p>This document introduces bioinformatics workflows useful in gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from natural and engineered environments.</p>
+<div id="a-tutorial-for-using-treesapp" class="section level1">
+<h1><span class="header-section-number">2</span> A tutorial for using TreeSAPP</h1>
+<p>You will work through a common workflow of TreeSAPP in a series of tutorials both with an example gene (XmoA) to familiarize yourself with the tools and then you will repeat the steps with a gene assigned to your group for which no reference package has ever been created. You will document your steps for the new reference package in Problem Set 5.</p>
+<div id="a-typical-treesapp-workflow" class="section level2">
+<h2><span class="header-section-number">2.1</span> A typical TreeSAPP workflow</h2>
 <ul>
-<li>Part I outlines the motivation and insights afforded by the use of these workflows to study uncultivated microbial community structure and function.</li>
-<li>Part II provides hands-on tutorials to learn two effective tools for gene-centric analysis, TreeSAPP and iTOL.</li>
-<li>Part III described your capstone project to explore primary metagenomic and metatranscriptomic data collected from the Saanich Inlet water column spanning a defined nutrient and energy gradient.</li>
+<li><a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a>.</li>
+<li><a href="treesapp-create.html#treesapp-create">Creating a Reference Package For TreeSAPP</a>.</li>
+<li>[Classifying unknown sequences with TreeSAPP and updating a reference package].</li>
+<li>[Calculating relative abundance of meta’omic data].</li>
+</ul>
+</div>
+<div id="genes-for-used-for-creating-reference-packages" class="section level2">
+<h2><span class="header-section-number">2.2</span> Genes for used for creating reference packages</h2>
+<div id="xmoa" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> XmoA</h3>
+<p>The protein family we will be focusing on is that of the copper-containing membrane-bound monooxygenases <span class="citation">(<a href="#ref-Khadka.2018" role="doc-biblioref">3</a>)</span>. This family contains particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) and well be building a reference package for the alpha subunits of these enzymes called XmoA. All groups will work through this example.</p>
+</div>
+<div id="group-assigned-genes" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Group-assigned genes</h3>
+<p>You will created a reference package and perform the other steps only for the gene that has been assigned to you.</p>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class=" lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+RefPkg
+</th>
+<th style="text-align:left;">
+Full Protein Name
+</th>
+<th style="text-align:left;">
+Pathway
+</th>
+<th style="text-align:left;">
+Cycle
+</th>
+<th style="text-align:left;">
+TIGRFAM
+</th>
+<th style="text-align:left;">
+PFam
+</th>
+<th style="text-align:left;">
+EggNOG
+</th>
+<th style="text-align:left;">
+Other Database
+</th>
+<th style="text-align:left;">
+EC number
+</th>
+<th style="text-align:left;">
+Reading
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cbbS
+</td>
+<td style="text-align:left;">
+ribulose bisphosphate carboxylase, type III (Ribulose bisphosphate carboxylase small chain)
+</td>
+<td style="text-align:left;">
+Carbon fixation
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+TIGR03326
+</td>
+<td style="text-align:left;">
+PF00101
+</td>
+<td style="text-align:left;">
+COG4451
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+4.1.1.39
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ACoA
+</td>
+<td style="text-align:left;">
+ACoA_crb (acetylCoA carboxylase)
+</td>
+<td style="text-align:left;">
+Carbon fixation
+</td>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:left;">
+TIGR03182
+</td>
+<td style="text-align:left;">
+PF00676
+</td>
+<td style="text-align:left;">
+COG1071
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.2.4.1
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hzs
+</td>
+<td style="text-align:left;">
+hydrazine synthase
+</td>
+<td style="text-align:left;">
+Annamox
+</td>
+<td style="text-align:left;">
+N
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+PF18582
+</td>
+<td style="text-align:left;">
+COG3391
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.7.2.7
+</td>
+<td style="text-align:left;">
+<a href="https://www.nature.com/articles/nature10453" class="uri">https://www.nature.com/articles/nature10453</a> <a href="https://www.frontiersin.org/articles/10.3389/fmars.2019.00027/full" class="uri">https://www.frontiersin.org/articles/10.3389/fmars.2019.00027/full</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NirB
+</td>
+<td style="text-align:left;">
+nitrite reductase (NADH) large subunit
+</td>
+<td style="text-align:left;">
+Dissimilitory nitrate reduction (DNRA)
+</td>
+<td style="text-align:left;">
+N
+</td>
+<td style="text-align:left;">
+TIGR02374
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+COG1251
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.7.1.15
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NirD
+</td>
+<td style="text-align:left;">
+nitrite reductase (NADH) small subunit
+</td>
+<td style="text-align:left;">
+Dissimilitory nitrate reduction (DNRA)
+</td>
+<td style="text-align:left;">
+N
+</td>
+<td style="text-align:left;">
+TIGR02378
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+COG2146
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.7.1.15
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NrfA
+</td>
+<td style="text-align:left;">
+nitrite reductase (cytochrome c-552)
+</td>
+<td style="text-align:left;">
+Dissimilitory nitrate reduction (DNRA)
+</td>
+<td style="text-align:left;">
+N
+</td>
+<td style="text-align:left;">
+TIGR03152
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+COG3303
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.7.2.2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NrfH
+</td>
+<td style="text-align:left;">
+cytochrome c nitrite reductase, small subunit
+</td>
+<td style="text-align:left;">
+Dissimilitory nitrate reduction (DNRA)
+</td>
+<td style="text-align:left;">
+N
+</td>
+<td style="text-align:left;">
+TIGR03153
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+COG3005
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.7.2.2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+APS_red
+</td>
+<td style="text-align:left;">
+adenylylsulfate reductase, thioredoxin dependent
+</td>
+<td style="text-align:left;">
+Sulfur metabolism
+</td>
+<td style="text-align:left;">
+S
+</td>
+<td style="text-align:left;">
+TIGR02055
+</td>
+<td style="text-align:left;">
+PF01507
+</td>
+<td style="text-align:left;">
+COG1404
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.8.99.2
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BacRho
+</td>
+<td style="text-align:left;">
+Bacteriorhodopsin
+</td>
+<td style="text-align:left;">
+Energy production and conversion
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+PF01036
+</td>
+<td style="text-align:left;">
+COG5524
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+<a href="https://science.sciencemag.org/content/289/5486/1902/tab-pdf" class="uri">https://science.sciencemag.org/content/289/5486/1902/tab-pdf</a> <a href="https://www.nature.com/articles/s41467-018-07840-4" class="uri">https://www.nature.com/articles/s41467-018-07840-4</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tools" class="section level2">
+<h2><span class="header-section-number">2.3</span> Tools</h2>
+<div id="shell" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Shell</h3>
+<p>Please review previous tutorials. Use this short <a href="shell-cheat-sheet.html#shell-cheat-sheet">cheat sheet</a> for commonly used commands.</p>
+</div>
+<div id="treesapp-1" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> TreeSAPP</h3>
+<p>Tree-based Sensitive and Accurate Phylogenetic Profiler (TreeSAPP) <span class="citation">(<a href="#ref-Morgan-Lang.2020" role="doc-biblioref">4</a>)</span> can be found on <a href="https://github.com/hallamlab/TreeSAPP">GitHub</a> including an excellent <a href="https://github.com/hallamlab/TreeSAPP/wiki">wiki</a> with additional information on each of the <code>treesapp</code> subcommands.</p>
+<p>We also provide you with a list of existing <a href="treesapp-reference-packages.html#treesapp-reference-packages">TreeSAPP reference packages</a>.</p>
+</div>
+<div id="itol" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> iTOL</h3>
+<p>Interactive Tree Of Life (<a href="https://itol.embl.de/">iTOL</a>) <span class="citation">(<a href="#ref-Letunic.2019" role="doc-biblioref">5</a>)</span> is a browser -based tool that allows you to visualize data generated in TreeSAPP as a phylogenetic tree with additional annotations.</p>
+</div>
+</div>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">2.4</span> Data</h2>
+<p>Other than <a href="the-saanich-inlet-data-set.html#the-saanich-inlet-data-set">The Saanich Inlet data set</a> already located on the server, you will download data from different databases:</p>
+<ul>
+<li><a href="http://fungene.cme.msu.edu/">FunGene</a>, the functional gene pipeline and repository.</li>
+<li><a href="http://eggnog5.embl.de/#/app/home">EggNOG</a></li>
 </ul>
 
 </div>
-
-
-
+</div>
+<h3><span class="header-section-number">D</span> References</h3>
+<div id="refs" class="references">
+<div id="ref-Khadka.2018">
+<p>3. Khadka R, Clothier L, Wang L, Lim CK, Klotz MG, Dunfield PF. 2018. Evolutionary History of Copper Membrane Monooxygenases. Frontiers in Microbiology 9:2493.</p>
+</div>
+<div id="ref-Morgan-Lang.2020">
+<p>4. Morgan-Lang C, McLaughlin R, Armstrong Z, Zhang G, Chan K, Hallam SJ. 2020. TreeSAPP: The Tree-based Sensitive and Accurate Phylogenetic Profiler. Bioinformatics btaa588.</p>
+</div>
+<div id="ref-Letunic.2019">
+<p>5. Letunic I, Bork P. 2019. Interactive Tree Of Life (iTOL) v4: recent updates and new developments. Nucleic Acids Research 47:gkz239.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="exploring-the-microcosmos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exploring-the-microcosmos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="acquiring-golden-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gene-centric mapping of microbial community structure and function</title>
+  <title>3 Acquiring golden data | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="3 Acquiring golden data | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="3 Acquiring golden data | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="exploring-the-microcosmos.html"/>
+<link rel="prev" href="a-tutorial-for-using-treesapp.html"/>
+<link rel="next" href="treesapp-create.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -200,33 +200,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gene-centric mapping of microbial community structure and function</h1>
-<h2 class="subtitle"><em>2020.21 MICB425 Mirobial Ecological Genomics Capstone project</em></h2>
-<p class="author"><em>Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam</em></p>
-<p class="date"><em>version March 17, 2021</em></p>
+<div id="acquiring-golden-data" class="section level1">
+<h1><span class="header-section-number">3</span> Acquiring golden data</h1>
+<p>Golden data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they should be used to create all future reference packages. But what does “well-curated” mean, and how can you identify data that would meet this gold standard?</p>
+<div id="the-golden-standard" class="section level2">
+<h2><span class="header-section-number">3.1</span> The golden standard</h2>
+<p>The field of genomics is blessed with an abundance of reference data. In fact, it is not uncommon for biologists and bioinformaticians alike to gripe over the increased run-time of computational analyses caused by steps that include comparisons to such large reference databases. Not all of these data are, however, of the same quality. The vast majority have been automatically curated using algorithms with known shortcomings, and only a small portion have been manually curated with verified functional characterization. These latter data are the ones we consider well-curated or golden.</p>
 </div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
-<p>This document introduces bioinformatics workflows useful in gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from natural and engineered environments.</p>
+<div id="what-databases-can-i-retrieve-sequences-from" class="section level2">
+<h2><span class="header-section-number">3.2</span> What databases can I retrieve sequences from?</h2>
+<p>One of the most comprehensive and reputable biological sequence databases is SwissProt. The protein sequences curated within SwissProt can be accessed and downloaded through the <a href="https://www.uniprot.org/">UniProt Knowledgebase</a> by selecting “Swiss-Prot” under the “UniProtKB” panel on the left of the landing page. You can submit queries for a protein family through their search bar and add filters to the query using their <a href="https://www.uniprot.org/help/advanced_search">advanced search</a> options. For example, you can search for reviewed RuBisCO sequences by entering the query ‘rubisco taxonomy:“Bacteria [2]” AND reviewed:yes’.</p>
+<p>Throughout the development of TreeSAPP, I have frequented <a href="http://fungene.cme.msu.edu/">FunGene</a>, the functional gene pipeline and repository. This database provides curated sequences (of varying reliability) for many popular functional and taxonomic anchor genes. FunGene is also great since they have profile hidden Markov models (HMMs) for every gene available. In bioinformatics, HMMs are commonly used to represent a group of homologous amino acid sequences, often belonging to the same protein family, as a probabilistic model. They are inferred by modelling the amino acid character frequencies and motifs along the length of multiple aligned sequences. Additionally, by providing a sense of the full-length protein, they allow users to filter the sequences based on the percentage of an HMM covered. Since we’re building a <em>reference</em> tree, only include roughly full-length sequences by setting that minimum HMM coverage parameter between 60 and 90%.</p>
+<p><a href="http://eggnog5.embl.de/#/app/home">EggNOG</a> is another source of curated orthologous groups. The breadth of families available here is astounding and more often than not they do have the sequences you’re looking for. There are a couple of benefits to accessing data from EggNOG. The first is they use a common identifier format. Using the correct identifier for a protein family, a single search will yield all available amino acid sequences belonging to that protein family or COG. What I’ve found handy is first looking for the Clusters of Orthologous Gene (COG) identifier on NCBI’s <a href="https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml">Conserved Domains</a> database. Then I’d use that identifier to search for the sequences I’m interested in on EggNOG. The second benefit is the quality of their automated annotation pipeline. With every version of EggNOG, the entire set of protein sequences is clustered and the orthologous groups are defined <em>de novo</em>. This prevents incorrect legacy annotations from propagating to new sequences. Unfortunately, the breadth of taxa covered by EggNOG is limited to <em>just</em> 5,090 organisms. In many cases, this is good enough to build a “seed” reference package, especially if you’re building a reference package of a well-conserved—or housekeeping—gene. Yet, there are plenty of scenarios where the number of sequences downloaded is just too few for your objective, and a more comprehensive reference package is required—more on that below.</p>
+<p>In addition to these general and all-encompassing databases, there are smaller curated databases that are independently maintained. These tend to be gene- or function-specific and, as long as they’re still maintained, highly reliable. Perhaps the most notable of these is the <a href="http://www.cazy.org/">Carbohydrate Active enZYmes (CAZy)</a> database. The maintainers of CAZy constantly screen new sequenced from GenBank and sort any hits into different families based on their putative biochemical characterization.</p>
+</div>
+<div id="xmoa-example" class="section level2">
+<h2><span class="header-section-number">3.3</span> XmoA example</h2>
+<p>To show you how to access data from the FunGene database, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the <a href="treesapp-create.html#treesapp-create"><code>treesapp create</code> tutorial</a>. First, navigate to <a href="http://fungene.cme.msu.edu/" class="uri">http://fungene.cme.msu.edu/</a>. This front page organizes the genes into their respective functional groups. The sequences we’re interested in are involved in biogeochemical cycling, so look under that panel for “AmoA” and ‘PmoA’.</p>
+<p><img src="images/fungene_landing.png" /></p>
+<p>As you can see, AmoA are broken up into four different entries: “amoA_AOA”, “amoA_AOB”, “amoA_AOB_like”, and “amoa_comammox”. We will download the sequences from only “amoA_AOA” and “amoA_AOB”, so let’s begin alphabetically with “amoA_AOA”.</p>
+<p><img src="images/amoA_AOA_landing.png" /></p>
+<p>For these sequences, we will limit them to just sequences derived from isolate genomes of which the functional and taxonomic annotations are more reliable. To do this, go to “Display Options” in the top right. Click the “Isolate” option then “Update”. We also want the sequences that are more-or-less full-length. Click on “Show/Hide filter options”, fill the “Minimum HMM Coverage” parameter with “80” (or some other number between 60 and 90), then “Filter”. That’s all the filtering we’re going to do here. To add the sequences to your cart, click “Select All Sequences” then “Begin Analysis”.</p>
+<p><img src="images/amoA_AOA_download.png" /></p>
+<p>Deselect “Aligned” then click the “Download” button.</p>
+<p>Repeat with the above steps with the other genes <code>amoA_AOB</code> and <code>PmoA</code>.</p>
+</div>
+<div id="alternative-sources" class="section level2">
+<h2><span class="header-section-number">3.4</span> Alternative sources</h2>
+<p>EggNOG and FunGene are my favourite sources, though this leaves out the majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, PFam, and other similar databases are all great but they lack an API to retrieve lineage information, and therefore this needs to be provided in a separate table. Details on this table’s format and how to provide it can be found under the <a href="https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP"><code>treesapp create</code> wiki page</a>.</p>
+</div>
+<div id="data-access-hazards" class="section level2">
+<h2><span class="header-section-number">3.5</span> Data access hazards</h2>
+<p>Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in <em>E. coli</em> widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea, it would refer to the beta subunit of methyl-coenzyme M reductase—a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation. Another issue can be genes or proteins with synonyms, making the search for these data more complex. In these cases, you may need to search multiple databases with several queries in order to access all the sequences belonging to the same protein family.</p>
 <ul>
-<li>Part I outlines the motivation and insights afforded by the use of these workflows to study uncultivated microbial community structure and function.</li>
-<li>Part II provides hands-on tutorials to learn two effective tools for gene-centric analysis, TreeSAPP and iTOL.</li>
-<li>Part III described your capstone project to explore primary metagenomic and metatranscriptomic data collected from the Saanich Inlet water column spanning a defined nutrient and energy gradient.</li>
+<li><p>On your local computer, create a new directory called <code>Xmoa_sequences</code> inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). From the databases, download any reference sequences you identified and save them in <code>Xmoa_sequences</code>.</p></li>
+<li><p>Connect to your group’s server. We will move to the directory <code>/data</code> (if it is not your working directory already), create a new directory called <code>ts_tutorial</code> and then move into it.</p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="acquiring-golden-data.html#cb1-1"></a><span class="bu">cd</span> /data/</span>
+<span id="cb1-2"><a href="acquiring-golden-data.html#cb1-2"></a><span class="fu">mkdir</span> ts_tutorial</span>
+<span id="cb1-3"><a href="acquiring-golden-data.html#cb1-3"></a><span class="bu">cd</span> ts_tutorial</span></code></pre></div>
+<ul>
+<li>Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="acquiring-golden-data.html#cb2-1"></a><span class="fu">scp</span> -r <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial </span></code></pre></div>
+</div>
+<div id="validation" class="section level2">
+<h2><span class="header-section-number">3.6</span> Validation</h2>
+<p>There are a number of quality control measures that can be taken to ensure the functional characteristics are as expected.</p>
+<div id="basic" class="section level3">
+<h3><span class="header-section-number">3.6.1</span> Basic</h3>
+<ul>
+<li><p><strong>BLAST</strong>: The first method for validating a set of candidate reference sequences could be to use the web-based <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">Basic Local Alignment Search Tool</a> available through the NCBI. Submit a FASTA file containing your sequences to Protein BLAST (blastp) with an appropriate database. To further reduce the processing time, you can restrict the reference sequences to specific taxa or use different algorithms. One thing to note is the query size limit - blastp will accept only FASTA files containing fewer than 100,000 characters. So, it is a good idea to take a representative sample or cluster the sequences before submitting the job.</p></li>
+<li><p><strong>EggNOG-mapper</strong>: If you didn’t download your query sequences from the EggNOG database, a good resource to check your sequences is <a href="http://eggnog-mapper.embl.de/">EggNOG mapper</a>. It will annotate your query sequences against the EggNOG database and serve the result in several formats.</p></li>
+</ul>
+</div>
+<div id="advanced" class="section level3">
+<h3><span class="header-section-number">3.6.2</span> Advanced</h3>
+<ul>
+<li><strong>Phylogenetic inference</strong>: Try building a phylogeny from the candidate reference sequences and see whether there are any anomolously long branches between clades.</li>
+<li><strong>hmmsearch across PFam database</strong>: Got some time to kill? Try aligning your candidate reference sequences to all profile HMMs in the PFam database! This will need to be done on the command-line and you will need to download <code>Pfam-A.hmm.gz</code> from the <a href="http://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/">PFam ftp site</a>.</li>
 </ul>
 
 </div>
-
-
-
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="exploring-the-microcosmos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-tutorial-for-using-treesapp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="treesapp-create.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

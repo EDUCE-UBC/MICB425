@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gene-centric mapping of microbial community structure and function</title>
+  <title>A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="exploring-the-microcosmos.html"/>
+<link rel="prev" href="treesapp-create.html"/>
+<link rel="next" href="treesapp-reference-packages.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -200,33 +200,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gene-centric mapping of microbial community structure and function</h1>
-<h2 class="subtitle"><em>2020.21 MICB425 Mirobial Ecological Genomics Capstone project</em></h2>
-<p class="author"><em>Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam</em></p>
-<p class="date"><em>version March 17, 2021</em></p>
+<div id="the-saanich-inlet-data-set" class="section level1">
+<h1><span class="header-section-number">A</span> The Saanich Inlet data set</h1>
+<div id="description" class="section level2">
+<h2><span class="header-section-number">A.1</span> Description</h2>
+<p>We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:</p>
+<div class="figure"><span id="fig:saanich-inlet"></span>
+<img src="images/saanich_inlet_map.png" alt="The Saanich Inlet"  />
+<p class="caption">
+FIGURE A.1: The Saanich Inlet
+</p>
 </div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
-<p>This document introduces bioinformatics workflows useful in gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from natural and engineered environments.</p>
+<p>Figure <a href="the-saanich-inlet-data-set.html#fig:saanich-inlet">A.1</a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
+<p>For more details about these data, see <span class="citation">(<a href="#ref-Hallam.2017" role="doc-biblioref">6</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="#ref-Torres-Beltrán.2017" role="doc-biblioref">7</a>)</span>.</p>
+</div>
+<div id="data-on-the-server" class="section level2">
+<h2><span class="header-section-number">A.2</span> Data on the server</h2>
+<p>The data is located on the MICB425 server at <code>/mnt/datasets/saanich/</code>.</p>
+<pre><code>/mnt/datasets/saanich/
+├── [   0]  directory_structure.txt
+├── [492M]  MAGs
+│   └── [492M]  Concatenated
+│       └── [492M]  All_SI072_Metawrap_MAGs.fa
+├── [3.5G]  MetaG_Assemblies
+│   ├── [630M]  SI072_100m_contig.fa
+│   ├── [525M]  SI072_10m_contig.fa
+│   ├── [571M]  SI072_120m_contig.fa
+│   ├── [505M]  SI072_135m_contig.fa
+│   ├── [396M]  SI072_150m_contig.fa
+│   ├── [748M]  SI072_165m_contig.fa
+│   └── [219M]  SI072_200m_contig.fa
+├── [ 64G]  MetaG_Trim_QC_Reads
+│   ├── [4.7G]  SI072_100m_pe.1.fq.gz
+│   ├── [4.7G]  SI072_100m_pe.2.fq.gz
+│   ├── [4.2G]  SI072_10m_pe.1.fq.gz
+│   ├── [4.2G]  SI072_10m_pe.2.fq.gz
+│   ├── [4.2G]  SI072_120m_pe.1.fq.gz
+│   ├── [4.2G]  SI072_120m_pe.2.fq.gz
+│   ├── [4.4G]  SI072_135m_pe.1.fq.gz
+│   ├── [4.4G]  SI072_135m_pe.2.fq.gz
+│   ├── [4.8G]  SI072_150m_pe.1.fq.gz
+│   ├── [4.7G]  SI072_150m_pe.2.fq.gz
+│   ├── [6.5G]  SI072_165m_pe.1.fq.gz
+│   ├── [6.4G]  SI072_165m_pe.2.fq.gz
+│   ├── [3.3G]  SI072_200m_pe.1.fq.gz
+│   └── [3.3G]  SI072_200m_pe.2.fq.gz
+├── [ 54G]  MetaT_Raw_Reads
+│   ├── [8.9G]  SI072_100m_MetaT_QC_Filtered.fastq.gz
+│   ├── [6.4G]  SI072_10m_MetaT_QC_Filtered.fastq.gz
+│   ├── [6.8G]  SI072_120m_MetaT_QC_Filtered.fastq.gz
+│   ├── [7.2G]  SI072_135m_MetaT_QC_Filtered.fastq.gz
+│   ├── [10.0G]  SI072_150m_MetaT_QC_Filtered.fastq.gz
+│   ├── [8.7G]  SI072_165m_MetaT_QC_Filtered.fastq.gz
+│   └── [6.0G]  SI072_200m_MetaT_QC_Filtered.fastq.gz
+├── [181M]  SAGs
+│   └── [181M]  Concatenated_Med_Plus
+│       └── [181M]  Saanich_Med_Plus_SAGs.fasta
+└── [ 42K]  seq2lineage_Tables
+    ├── [ 17K]  Med_Plus_SAGs_GTDB_Taxonomies.tsv
+    └── [ 25K]  SI072_MAGs_All_GTDB_taxonomies.tsv
+
+ 122G used in 8 directories, 33 files</code></pre>
+</div>
+<div id="description-of-input-data" class="section level2">
+<h2><span class="header-section-number">A.3</span> Description of input data</h2>
+<p>List of directories and their contents</p>
 <ul>
-<li>Part I outlines the motivation and insights afforded by the use of these workflows to study uncultivated microbial community structure and function.</li>
-<li>Part II provides hands-on tutorials to learn two effective tools for gene-centric analysis, TreeSAPP and iTOL.</li>
-<li>Part III described your capstone project to explore primary metagenomic and metatranscriptomic data collected from the Saanich Inlet water column spanning a defined nutrient and energy gradient.</li>
+<li><code>MAGs</code></li>
+<li><code>MetaG_Assemblies</code></li>
+<li><code>MetaG_Trim_QC_Reads</code></li>
+<li><code>MetaT_Raw_Reads</code></li>
+<li><code>SAGs</code></li>
+<li><code>seq2lineage_Tables</code></li>
 </ul>
+</div>
+<div id="methods" class="section level2">
+<h2><span class="header-section-number">A.4</span> Methods</h2>
+<p>Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with <strong>2x150bp</strong> technology. For more in-depth sampling and sequencing methods, please see <span class="citation">(<a href="#ref-Hawley.2017" role="doc-biblioref">8</a>)</span>.</p>
+<div id="quality-filtering-of-reads" class="section level3">
+<h3><span class="header-section-number">A.4.1</span> Quality filtering of reads</h3>
+<p>The resulting reads were processed and quality controlled at the Joint Genome Institute using the IMG/M pipeline.</p>
+<p>Quality filtering was performed with Trimmomatic (v.0.35, <a href="http://www.usadellab.org/cms/?page=trimmomatic">documentation</a>) <span class="citation">(<a href="#ref-Bolger.2014" role="doc-biblioref">9</a>)</span> with default parameters except:</p>
+<p>LEADING:3
+TRAILING:3
+SLIDINGWINDOW:4:15
+MINLEN:36</p>
+</div>
+<div id="assembly" class="section level3">
+<h3><span class="header-section-number">A.4.2</span> Assembly</h3>
+<p>MEGAHIT (v.1.1.3, <a href="https://github.com/voutcn/megahit/wiki/Assembly-Tips">documentation</a>) <span class="citation">(<a href="#ref-Li.2015" role="doc-biblioref">10</a>)</span> assembled MAGs using with default parameters except for:</p>
+<p>–k-min 27
+–k-step 10
+–min-contig-len 500</p>
 
 </div>
-
-
-
+</div>
+</div>
+<h3><span class="header-section-number">D</span> References</h3>
+<div id="refs" class="references">
+<div id="ref-Hallam.2017">
+<p>6. Hallam SJ, Torres-Beltrán M, Hawley AK. 2017. Monitoring microbial responses to ocean deoxygenation in a model oxygen minimum zone. Scientific Data 4:170158.</p>
+</div>
+<div id="ref-Torres-Beltrán.2017">
+<p>7. Torres-Beltrán M, Hawley AK, Capelle D, Zaikova E, Walsh DA, Mueller A, Scofield M, Payne C, Pakhomova L, Kheirandish S, Finke J, Bhatia M, Shevchuk O, Gies EA, Fairley D, Michiels C, Suttle CA, Whitney F, Crowe SA, Tortell PD, Hallam SJ. 2017. A compendium of geochemical information from the Saanich Inlet water column. Scientific Data 4:170159.</p>
+</div>
+<div id="ref-Hawley.2017">
+<p>8. Hawley AK, Torres-Beltrán M, Zaikova E, Walsh DA, Mueller A, Scofield M, Kheirandish S, Payne C, Pakhomova L, Bhatia M, Shevchuk O, Gies EA, Fairley D, Malfatti SA, Norbeck AD, Brewer HM, Pasa-Tolic L, Rio TG del, Suttle CA, Tringe S, Hallam SJ. 2017. A compendium of multi-omic sequence information from the Saanich Inlet water column. Scientific Data 4:170160.</p>
+</div>
+<div id="ref-Bolger.2014">
+<p>9. Bolger AM, Lohse M, Usadel B. 2014. Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics 30:2114–2120.</p>
+</div>
+<div id="ref-Li.2015">
+<p>10. Li D, Liu C-M, Luo R, Sadakane K, Lam T-W. 2015. MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics 31:1674–1676.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="exploring-the-microcosmos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="treesapp-create.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="treesapp-reference-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
