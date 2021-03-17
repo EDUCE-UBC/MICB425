@@ -1,7 +1,7 @@
 ---
 title: "Gene-centric mapping of microbial community structure and function"
 subtitle: "2020.21 MICB425 Mirobial Ecological Genomics Capstone project"
-author: "Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Capron, Sean Crowe and Steven Hallam"
+author: "Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam"
 date: "version `r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
 output:
@@ -20,9 +20,12 @@ description: |
 # For further configuration, see `_bookdown.yml`
 ---
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
 # Saving the default settings for code chunks to use to reset settings.
 default_chunk_options <- knitr::opts_chunk$get()
+
+library(readr)
+library(kableExtra)
 ```
 
 # Overview {-}

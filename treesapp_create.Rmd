@@ -1,4 +1,4 @@
-# Creating a Reference Package For TreeSAPP
+# Creating a Reference Package For TreeSAPP {#treesapp-create}
 
 ## Introduction and Goals
 
@@ -8,7 +8,7 @@ This tutorial is meant for users who would like to analyze a gene family lacking
 
 ## Making the reference package
 
-When building reference packages if you can source manually curated sequences---such as those hosted by SwissProt---always use those. More details on choosing databases for retrieving sequences can be found [here](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#step-1-reference-sequences).
+When building reference packages if you can source manually curated sequences---such as those hosted by SwissProt---always use those. There are plenty of sources for curated PmoA & AmoA sequences. More details on choosing databases for retrieving sequences can be found on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#step-1-reference-sequences).
 
 For this tutorial curated PmoA & AmoA sequences were downloaded from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi), [EggNOG v5.0](http://eggnog5.embl.de/#/app/home), and [FunGene](http://fungene.cme.msu.edu/). For now we'll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let's call this our seed reference package. The steps involved are:
 
