@@ -1,6 +1,8 @@
 # Classifying unknown sequences with TreeSAPP and updating a reference package
 
-Add introduction and goal
+## Introduction and Goals
+
+The goal of this tutorial is to use the new updated reference package to classify the XmoA protein family with particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) sequences sourced from FunGene. 
 
 ## Classify new sequences
 
@@ -36,9 +38,11 @@ Next, navigate to the page displaying the phylogeny and click-and-drag the file 
 
 Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to this figure on the right.
 
-![](images/P_AmoA_tutorial_iTOL.png)
+-   the figure should look identical to Figure \@ref(fig:XmoA-FunGene).
 
-The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the *Gammaproteobacteria* order *Methylococcales*. Another 15 sequences were placed on the clade of *Betaproteobacteria*, represented by the genera *Nitrosospira* and *Nitrosomonas*.
+![(\#fig:XmoA-FunGene)The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the *Gammaproteobacteria* order *Methylococcales*. Another 15 sequences were placed on the clade of *Betaproteobacteria*, represented by the genera *Nitrosospira* and *Nitrosomonas*.](images/P_AmoA_tutorial_iTOL.png)
+
+
 
 ### Classification table
 
@@ -87,7 +91,62 @@ Alright, it looks like 27 new sequences were introduced to the reference package
 
 ## Tree topology after update
 
-Add tree image and contrast with original topography
+-   the figure should look identical to Figure \@ref(fig:XmoA-Updated-tree)
+
+![(\#fig:XmoA-Updated-tree)Updated tree topology with added 27 new sequences including Archae and Bacteria ](images/XmoA_update_ref_tree_iTOL.png)
+
+## Annotate clades
+
+Protein families vary in their evolutionary complexity; many, especially genes involved in scavenging and metabolizing nutrients, have often been involved in some gene duplication and/or lateral gene transfer event while others have remained sessile within their host. Moreover, even highly related enzymes in a phylogeny do vary in their activities and it is often valuable to annotate such features.If you are not familiar with the evolution of a protein family it may be helpful to find reference sequences for the activity, function, or other feature you're interested in and place them on the tree with treesapp assign. Then, guided by these sequences, it should be easier to colour the clades. As an example, let's place some sequences of ammonia-oxidizing Bacteria (AOB) on the phylogeny.
+```{bash eval = FALSE}
+treesapp assign \
+  -n 4 -m prot --trim_align \
+  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
+  --fastx_input uniprot-AmoA.fasta \
+  --output AmoA_assign/
+```
+Creating your own annotations involves scouring the literature to identify the phenotypes associated with each organism or taxon.For this tutorial you can use the annotations already created for the XmoA reference package.
+```{bash eval = FALSE}
+wget https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/XmoA_taxonomy-phenotype_map.tsv
+```
+To create a file compatible with iTOL you will need to convert the taxonomy-phenotype mapping file with treesapp colour, 
+```{bash eval = FALSE}
+treesapp colour \
+  -r XmoA_FunGene_update/final_outputs/XmoA_build.pkl \
+  -o XmoA_colours/ \
+  -n Function \
+  --taxa_map XmoA_taxonomy-phenotype_map.tsv
+```
+The two output files -- `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt` -- can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with `treesapp layer`.Let's make copies of the two text files in  XmoA_colours/ into the AmoA_assign/iTOL output directory  and transfer them to desktop.
+```{bash eval = FALSE}
+cp -r XmoA_colours   AmoA_assign/iTOL_output/
+scp -r  root@10.19.139.201:/data/ts_tutor/AmoA_assign/iTOL_output  < path_to_your_folder> 
+```
+ upload the file XmoA_complete_profile.jplace. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
+Next, navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.The two files XmoA_Function_colours_style.txt and XmoA_Function_colour_strip.txt  can be dragged into iTOL browser window to bring colour to the XmoA tree.Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look like  this figure on the right.
+
+-   the figure should look identical to Figure \@ref(fig:XmoA-Classified)
+
+![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](Images/XmoA_classified.png )
+
+## Reclassify and layer annotations onto classification table
+
+First, let's reclassify the isolate sequences from FunGene.
+```{bash eval = FALSE}
+treesapp assign \
+  -n 4 -m prot --trim_align \
+  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
+  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \
+  --output p_amoA_FunGene9.5_isolates_update_assign/
+```
+With the clade colours file in the tutorial directory, it is now simple to assign each of the classified query sequences to its respective functional guild with treesapp layer.
+```{bash eval = FALSE}
+treesapp layer \
+  --colours_style XmoA_colours/XmoA_Function_colours_style.txt \
+  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
+  --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/
+```
+The output of this command is p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv. It is identical to the original marker_contig_map.tsv file, but contains an extra column for the functional annotations
 
 ## Use your group's reference package to classify unkown sequences then update your package
 
