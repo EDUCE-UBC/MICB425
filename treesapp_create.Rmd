@@ -27,18 +27,19 @@ wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_
 wget -i xmoa_file_list.txt
 ```
 
-There are 72 well curated PmoA and AmoA fasta sequences in these files
-
--   Confirm the number of sequences in the fasta file
-
-```{bash eval = FALSE}
-grep -c "^>" *faa
-```
 
 -   Create the input FASTA file
 
 ```{bash eval = FALSE}
 cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa > XmoA_seed.faa
+```
+
+There are 76 well curated PmoA and AmoA fasta sequences in this file
+
+-   Confirm the number of sequences in the fasta file
+
+```{bash eval = FALSE}
+grep -c "^>" XmoA_seed.faa
 ```
 
 -   Use submodule `treesapp create` to build the XmoA refpkg with argument. Visualize the subcommand's workflow [here](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients).
@@ -106,25 +107,37 @@ From this summary it appears that the reference package classified three homolog
 
 ## Looking at tree of reference package with iTOL
 
-To do: Assign reference sequences to reference package to generate tree with labels
+We can use the XmoA.nwk file in the output folder `XmoA_seed/final_outputs/`to visualize the XmoA_seed refpkg using the interactive Tree of Life (iTOL) [@Letunic.2019].Treesapp identifiers (such as 1_XmoA, 2_XmoA)by themselves on the tree labels are not meaningful. In order to assign leaf labels to the refpkg iTOL tree we will use `treesapp assign` function.  
 
-First off, we can quickly and easily view where the sequences were placed on the phylogeny using the interactive Tree of Life.
-
--   Transfer the nwk file in the 'treesapp create'  output directory  `XmoA_seed/final_outputs/XmoA.nwk` to your desktop
+-   Assign reference sequences to reference package to generate tree with labels
 
 ```{bash eval = FALSE}
-scp  root@<server address>:data/ts_tutorial/XmoA_seed/final_outputs/XmoA.nwk  <path to your local directory>
+treesapp assign \
+  -n 4 \
+  -m prot \
+  --trim_align \  
+  --refpkg_dir XmoA_seed/final_outputs/ \ 
+  --fastx_input XmoA_seed.faa \
+  --output XmoA_seed_assign/
+```
+ 
+ -   Transfer the iTOL_output directory in the 'treesapp assign'  output directory `XmoA_seed_assign/final_outputs/iTOL_output to your local folder.
+ 
+ 
+```{bash eval = FALSE}
+ scp -r root@<server address>:data/ts_tutorial/XmoA_seed_assign/final_outputs/iTOL_output   <path_to_your_local_folder>
 ```
 
--   Visit the [iTOL](https://itol.embl.de/) website.
+we can quickly and easily view the sequences phylogeny using the interactive Tree of Life.
 
--   Upload the file `XmoA.nwk` from the XmoA directory. This file contains both the phylogeny of the placements that will be visualized.
+-   Navigate to <https://itol.embl.de/> using a web browser and upload the file XmoA_complete_profile.jplace. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
 
--   Navigate to the page displaying the phylogeny in the iTOL window. Use the NCBI accessions option to convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
+-   Next, navigate to the page displaying the phylogeny and click-and-drag the file `XmoA_labels.txt` into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
 
--   the figure should look identical to Figure \@ref(fig:xmoa).
+-   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to this figure below Figure \@ref(fig:xmoa).
 
-![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg.  There were 36 sequences classified that are part of the XmoA seed package ](images/XmoA_36_iTOL.png)
+![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes. ](images/XmoA_seed_iTOLtree.svg)
+
 
 ## Building your group's reference package
 
