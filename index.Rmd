@@ -26,6 +26,7 @@ description: |
 default_chunk_options <- knitr::opts_chunk$get()
 
 library(readr)
+library(dplyr)
 library(kableExtra)
 ```
 

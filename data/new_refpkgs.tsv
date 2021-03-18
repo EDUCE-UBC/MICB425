@@ -1,10 +1,19 @@
 RefPkg	Full Protein Name	Pathway	Cycle	TIGRFAM	PFam	EggNOG	Other Database	EC number	Reading
+PsbA	photosystem II P680 reaction center D1 protein	Photosynthesis	C	TIGR01151	PF00124	ENOG502DBBD	NA	1.10.3.9	https://pubmed.ncbi.nlm.nih.gov/28785078/
+PsbD	photosystem II D2 protein (photosystem q(a) protein)	Photosynthesis	C	TIGR01152	PF00124	ENOG410XRUT	NA	1.10.3.9	https://pubmed.ncbi.nlm.nih.gov/28785078/
 cbbS	ribulose bisphosphate carboxylase, type III (Ribulose bisphosphate carboxylase small chain)	Carbon fixation	C	TIGR03326	PF00101	COG4451	NA	4.1.1.39	NA
 ACoA	ACoA_crb (acetylCoA carboxylase)	Carbon fixation	C	TIGR03182	PF00676	COG1071	NA	1.2.4.1	NA
+Hao	hydroxylamine dehydrogenase/Hydroxylamine oxidoreductase	Nitrification	N	NA	NA	NA	UniProt	1.7.2.6	https://www.pnas.org/content/113/40/E5925
 Hzs	hydrazine synthase	Annamox	N	NA	PF18582	COG3391	NA	1.7.2.7	https://www.nature.com/articles/nature10453 https://www.frontiersin.org/articles/10.3389/fmars.2019.00027/full
+Hdh	hydrazine dehydrogenase	Annamox	N	NA	NA	NA	UniProt	1.7.2.8	https://www.nature.com/articles/nature10453 https://www.frontiersin.org/articles/10.3389/fmars.2019.00027/full
+NarH|NarY	nitrate reductase, beta subunit	Denitrification	N	TIGR01660	NA	COG1140|ENOG501MW9Q	NA	1.7.5.1	NA
+NarI	respiratory nitrate reductase, gamma subunit	Denitrification	N	TIGR00351	PF02665	COG2181	NA	1.7.5.1	NA
 NirB	nitrite reductase (NADH) large subunit	Dissimilitory nitrate reduction (DNRA)	N	TIGR02374	NA	COG1251	NA	1.7.1.15	NA
 NirD	nitrite reductase (NADH) small subunit	Dissimilitory nitrate reduction (DNRA)	N	TIGR02378	NA	COG2146	NA	1.7.1.15	NA
 NrfA	nitrite reductase (cytochrome c-552)	Dissimilitory nitrate reduction (DNRA)	N	TIGR03152	NA	COG3303	NA	1.7.2.2	NA
 NrfH	cytochrome c nitrite reductase, small subunit	Dissimilitory nitrate reduction (DNRA)	N	TIGR03153	NA	COG3005	NA	1.7.2.2	NA
 APS_red	adenylylsulfate reductase, thioredoxin dependent	Sulfur metabolism	S	TIGR02055	PF01507	COG1404	NA	1.8.99.2	NA
+GH29	Glycoside Hydrolase Family 29	Fucosidase degradation	C	NA	NA	NA	CAZy	3.2.1.51	https://www.nature.com/articles/s41564-020-0720-2
+GH95	Glycoside Hydrolase Family 95	Fucosidase degradation	C	NA	NA	NA	CAZy	3.2.1.51	https://www.nature.com/articles/s41564-020-0720-2
+GH141	Glycoside Hydrolase Family 141	Fucosidase degradation	C	NA	NA	NA	CAZy	3.2.1.51	https://www.nature.com/articles/s41564-020-0720-2
 BacRho	Bacteriorhodopsin	Energy production and conversion	NA	NA	PF01036	COG5524	NA	NA	https://science.sciencemag.org/content/289/5486/1902/tab-pdf https://www.nature.com/articles/s41467-018-07840-4

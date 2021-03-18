@@ -21,6 +21,9 @@ You will created a reference package and perform the other steps only for the ge
 
 ```{r message = FALSE, echo = FALSE}
 read_tsv("data/new_refpkgs.tsv") %>% 
+  # For 2020W2 focused on these genes
+  filter(RefPkg %in% c("cbbS", "ACoA", "Hzs", "NirB", "NirD",
+                       "NrfA", "NrfH", "APS_red", "BacRho")) %>% 
   kbl() %>% 
   kable_paper() %>%
   scroll_box(width = "100%")
