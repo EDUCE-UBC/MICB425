@@ -2,14 +2,13 @@
 
 ## Introduction and Goals
 
-We will be using the new particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) alpha subunit, or XmoA, reference package from the previous chapter.
-XmoA amino acid sequences sourced from FunGene will be used to update the reference package. These have already been downloaded if you completed the previous chapter.
+We will be using the new particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) alpha subunit, or XmoA, reference package and update it with XmoA amino acid sequences sourced from FunGene. You already created the reference package ([Creating a Reference Package For TreeSAPP]) and downloaded the sequences ([Acquiring golden data]).
 
 There are three goals of this tutorial:
 
-1) learn how to update a TreeSAPP reference package
-2) learn how to use `treesapp colour` to colour a phylogeny in iTOL
-3) learn how to annotate features of phylogenetic clades with `treesapp layer`
+1) Learn how to update a TreeSAPP reference package.
+1) Learn how to use `treesapp colour` to colour a phylogeny in iTOL.
+1) Learn how to annotate features of phylogenetic clades with `treesapp layer`.
 
 The first step involves using `treesapp assign` to classify the FunGene XmoA sequences. The second step is to use `treesapp update` to add the new sequences to the original XmoA reference package.
 
@@ -17,16 +16,15 @@ The first step involves using `treesapp assign` to classify the FunGene XmoA seq
 
 Before we can begin using TreeSAPP, we must log onto the server and make sure we're in the same directory as all our data.
 
--   Connect to your group's server, then move to the directory `/data/ts_tutorial`.
-
 ```{bash eval = FALSE}
 cd /data/ts_tutorial/
 ```
 
-According to `treesapp purity` in the last chapter, and all other sanity checks, the XmoA reference package (located relative to your current working directory at `XmoA_seed/final_outputs/XmoA_build.pkl`) looks functional and only contains XmoA sequences. At this point you're able to use this reference package to classify sequences in any dataset.
-For this tutorial though, we're going to classify PmoA and AmoA sequences sourced from FunGene. The sequences are from genomes of isolates and, because of FunGene's quality annotation pipeline, can likely be trusted. Environmental sequences (i.e. those from metagenomes and amplicon studies) have been excluded as they're more difficult to determine what organism they're from, and so the taxonomic labels are less trustworthy. 
+According to `treesapp purity` in the [last chapter](#treesapp-create), and all other sanity checks, the XmoA reference package (contained in your working directory, `/data/ts_tutorial`, at `XmoA_seed/final_outputs/XmoA_build.pkl`) looks functional and only contains XmoA sequences. At this point, you're able to use this reference package to classify sequences in any dataset.
+For this tutorial, though, we're going to classify PmoA and AmoA sequences sourced from FunGene. The sequences are from genomes of isolates and, because of FunGene's quality annotation pipeline, can likely be trusted. Environmental sequences (i.e. those from metagenomes and amplicon studies) have been excluded as they're more difficult to determine what organism they're from, and so the taxonomic labels are less trustworthy. 
 
-The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).\
+The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).
+
 For this command, we will use BMGE to trim the multiple sequence alignments prior to phylogenetic placement with the `--trim_align` flag. To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
 
 As usual, if you're unclear as to what any arguments are, you can use `treesapp assign -h` to get the complete usage and descriptions of each argument.
@@ -47,16 +45,15 @@ The command should take a few seconds to run and if you see a 'TreeSAPP has fini
 
 ### The interactive Tree of Life
 
-Before proceeding to update the reference package we should view where the sequences were placed on the phylogeny. By just looking at where the query sequences were placed you can get a good idea of how closely related they are to the sequences in the reference package.
+Before updating the reference package, we should view where the sequences were placed on the phylogeny. The placement of query sequences gives you a good idea of how closely related they are to the reference package sequences.
 We will again use the interactive Tree of Life (iTOL) to visualize the JPlace file that is produced by TreeSAPP [@Letunic.2019].
 
 You will need to copy the files to be uploaded to iTOL from the server to your local computer (i.e. laptop or desktop) using `scp`. From your local computer, run the following command to copy the 'iTOL_output' directory in the TreeSAPP outputs to your Desktop.
 
-```
-scp root@<ip address>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_assign/iTOL_output ~/Desktop/
+```{bash eval = FALSE}
+scp - r root@<ip address>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_assign/iTOL_output <path to Xmoa_sequences>
 ```
 
-If you would like to copy the 'iTOL_output' elsewhere on your local computer, simply replace `~/Desktop/` with the path to a different directory.
 
 To visualize the phylogenetic placements for the FunGene query sequences and show proper labels for each leaf, follow these instructions:
 
@@ -70,15 +67,14 @@ To visualize the phylogenetic placements for the FunGene query sequences and sho
 
 ![(\#fig:XmoA-FunGene)The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the *Gammaproteobacteria* order *Methylococcales*. Another 15 sequences were placed on the clade of *Betaproteobacteria*, represented by the genera *Nitrosospira* and *Nitrosomonas*.](images/P_AmoA_tutorial_iTOL.png)
 
-As you can see in the above figure, many of the sequences were placed more deeply in the phylogeny (close to the root and away from the tips of the tree). This is very different from when we classified the sequences that were used to build the reference package, if you remember from the last chapter where the sequences were placed at the tips.
-These new XmoA sequences look like they'd fill in some gaps in the tree!
+As you can see in the above figure, many of the sequences were placed more deeply in the phylogeny (close to the three's root and away from its tips). This is very different from when we classified the sequences used to build the reference package if you remember the [`treesapp create` chapter](#treesapp-create) where the sequences were placed at the tips. These new XmoA sequences look like they'd fill in some gaps in the tree, so we should use them to update it!
 
 ## Update the reference package with new sequences
 
 The initial XmoA_seed reference package was pretty small with just 36 sequences (information was retrieved using `treesapp package view num_seqs -r XmoA_seed/final_outputs/XmoA_build.pkl`). Also, there were only bacterial sequences included in this version and we know there are archaeal ammonia oxidizers too! Let's see if we can expand on this seed reference package using the sequences from FunGene.
 
-You have already seen many of these flags and arguments before and they're used again here just to remind TreeSAPP that we want results fast. A couple of new ones are used though.\
-`treesapp update` relies on the outputs produced by `treesapp assign`, it won't take just any old FASTA file. So we'll guide it to the relevant output directory with `--treesapp_output p_amoA_FunGene9.5_isolates_assign/`. From there it will figure out what sequences were classified and what their assigned lineages were.\
+You have already seen many of these flags and arguments before, and they're used again here just to remind TreeSAPP that we want results fast. A couple of new ones are used, though. `treesapp update` won't take just any old FASTA file but relies on the outputs produced by `treesapp assign`. So we'll guide it to the relevant output directory with `--treesapp_output p_amoA_FunGene9.5_isolates_assign/`. From there, it will figure out what sequences were classified and what their assigned lineages were.
+
 By default TreeSAPP will use the lineage that was assigned to each classified query sequence from the `treesapp assign` outputs. Since these sequences are from FunGene (and originally GenBank) they have NCBI accessions, meaning we can use this information to download their true taxonomic lineages. To turn on that behaviour we use the `--skip_assign` flag.\
 Lastly, we must give it the path to the reference package to update with `--refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl`.
 
@@ -127,7 +123,7 @@ treesapp assign \
   --trim_align 
 ```
 
-On your local computer follow the steps for downloading the 'iTOL_outputs' directory from the server and uploading the files to iTOL as we did previously.
+On your local computer follow the steps for downloading the `iTOL_outputs` directory from the server and uploading the files to iTOL as we did previously.
 
 **TODO: Link to relevant section, or copy commands here**
 
@@ -151,7 +147,7 @@ treesapp assign \
   --output AmoA_assign/
 ```
 
-Creating your own annotations involves scouring the literature to identify the phenotypes associated with each organism or taxon.For this tutorial you can use the annotations already created for the XmoA reference package.
+Creating your own annotations involves scouring the literature to identify the phenotypes associated with each organism or taxon. For this tutorial, you can use the annotations already created for the XmoA reference package.
 
 ```{bash eval = FALSE}
 wget https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/XmoA_taxonomy-phenotype_map.tsv
@@ -167,15 +163,15 @@ treesapp colour \
   --taxa_map XmoA_taxonomy-phenotype_map.tsv
 ```
 
-The two output files -- `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt` -- can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with `treesapp layer`.Let's make copies of the two text files in  XmoA_colours/ into the AmoA_assign/iTOL output directory  and transfer them to desktop.
+The two output files---`XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`---can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with `treesapp layer`. Let's make copies of the two text files in  XmoA_colours/ into the AmoA_assign/iTOL output directory and transfer them to `<path to Xmoa_sequences>`.
 
 ```{bash eval = FALSE}
-cp -r XmoA_colours   AmoA_assign/iTOL_output/
-scp -r  root@10.19.139.201:/data/ts_tutor/AmoA_assign/iTOL_output  < path_to_your_folder> 
+cp -r XmoA_colours AmoA_assign/iTOL_output/
+scp -r root@10.19.139.201:/data/ts_tutor/AmoA_assign/iTOL_output <path to Xmoa_sequences>
 ```
 
  upload the file XmoA_complete_profile.jplace. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
-Next, navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.The two files XmoA_Function_colours_style.txt and XmoA_Function_colour_strip.txt  can be dragged into iTOL browser window to bring colour to the XmoA tree.Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look like  this figure on the right.
+Next, navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with each leaf node's organism name and accession. The two files `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`  can be dragged into the iTOL browser window to bring colour to the XmoA tree. Finally, turn on the "Phylogenetic Placements" dataset (right of the screen), and the figure should look like this figure.
 
 -   the figure should look identical to Figure \@ref(fig:XmoA-Classified)
 
@@ -202,7 +198,7 @@ treesapp layer \
   --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/
 ```
 
-The output of this command is p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv. It is identical to the original marker_contig_map.tsv file, but contains an extra column for the functional annotations
+The output of this command is `p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv`. It contains an extra column for the functional annotations but is otherwise identical to the original `marker_contig_map.tsv` file.
 
 ## Use your group's reference package to classify unkown sequences then update your package
 
