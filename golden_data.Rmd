@@ -18,11 +18,11 @@ In addition to these general and all-encompassing databases, there are smaller c
 
 ## XmoA example
 
-To show you how to access data from the FunGene database, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the [`treesapp create` tutorial](#treesapp-create). First, navigate to <http://fungene.cme.msu.edu/>. This front page organizes the genes into their respective functional groups. The sequences we're interested in are involved in biogeochemical cycling, so look under that panel for "AmoA" and 'PmoA'.
+To show you how to access data from the FunGene database, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the [`treesapp create` tutorial](#treesapp-create). First, navigate to <http://fungene.cme.msu.edu/>. This front page organizes the genes into their respective functional groups. The sequences we're interested in are involved in biogeochemical cycling, so look under that panel for "AmoA" and "PmoA".
 
 ![](images/fungene_landing.png)
 
-As you can see, AmoA are broken up into four different entries: "amoA_AOA", "amoA_AOB", "amoA_AOB_like", and "amoa_comammox". We will download the sequences from only "amoA_AOA" and "amoA_AOB", so let's begin alphabetically with "amoA_AOA".
+As you can see, AmoA are broken up into four different entries: "amoA_AOA", "amoA_AOB", "amoA_AOB_like", and "amoA_comammox". We will download the sequences from only "amoA_AOA" and "amoA_AOB", so let's begin alphabetically with "amoA_AOA".
 
 ![](images/amoA_AOA_landing.png)
 
@@ -32,7 +32,29 @@ For these sequences, we will limit them to just sequences derived from isolate g
 
 Deselect "Aligned" then click the "Download" button.
 
-Repeat with the above steps with the other genes `amoA_AOB` and `PmoA`.
+Repeat with the above steps with the other genes "amoA_AOB" and "PmoA".
+
+-   **On your computer:** Create a new directory called `Xmoa_sequences` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). Place any reference sequences in `Xmoa_sequences` that you identified and downloaded from the databases.
+
+    Next, connect to your personal server using the terminal app, i.e. PowerShell (Windows 10) or Terminal (macOS).
+    
+    ```{bash eval = FALSE}
+    ssh root@<server address>
+    ```
+
+-   **On the server:** Move to the directory `/data` (if it is not your working directory already), create a new directory called `ts_tutorial` and then move into it.
+
+    ```{bash eval = FALSE}
+    cd /data/
+    mkdir ts_tutorial
+    cd ts_tutorial
+    ```
+
+-   **On your computer:** Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.
+
+    ```{bash eval = FALSE}
+    scp -r <path to Xmoa_sequences> root@<server address>:/data/ts_tutorial 
+    ```
 
 ## Alternative sources
 
@@ -41,22 +63,6 @@ EggNOG and FunGene are my favourite sources, though this leaves out the majority
 ## Data access hazards
 
 Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in *E. coli* widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea, it would refer to the beta subunit of methyl-coenzyme M reductase---a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation. Another issue can be genes or proteins with synonyms, making the search for these data more complex. In these cases, you may need to search multiple databases with several queries in order to access all the sequences belonging to the same protein family.
-
--   On your local computer, create a new directory called `Xmoa_sequences` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). From the databases, download any reference sequences you identified and save them in `Xmoa_sequences`. 
-
--   Connect to your group's server. We will move to the directory `/data` (if it is not your working directory already), create a new directory called `ts_tutorial` and then move into it.
-
-```{bash eval = FALSE}
-cd /data/
-mkdir ts_tutorial
-cd ts_tutorial
-```
-
--   Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.
-
-```{bash eval = FALSE}
-scp -r <path to Xmoa_sequences> root@<server address>:/data/ts_tutorial 
-```
 
 ## Validation
 
