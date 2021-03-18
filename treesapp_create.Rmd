@@ -129,11 +129,13 @@ treesapp assign \
  scp -r root@<server address>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <path to your local directory>
 ```
 
-We can quickly and easily view the sequences phylogeny using iTOL.
+We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the JPlace file produced by TreeSAPP. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
 
--   Navigate to <https://itol.embl.de/> using a web browser and upload the file `XmoA_complete_profile.jplace`. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
+-   Navigate to <https://itol.embl.de/> using a web browser and sign in using the group's username and password that were provided to you.
 
--   Next, navigate to the page displaying the phylogeny and click-and-drag the file `XmoA_labels.txt` into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
+- Upload the file `XmoA_complete_profile.jplace`. You can do this using either your computer's file browser then navigating to the 'iTOL_output' directory and clicking-and-dragging the file, or iTOL's file uploader -- the "Upload tree files" button. 
+
+-   Next, navigate to the page displaying the phylogeny and click-and-drag the file `XmoA_labels.txt` from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
 
 -   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to this figure below Figure \@ref(fig:xmoa).
 
