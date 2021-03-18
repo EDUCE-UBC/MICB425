@@ -171,9 +171,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.5</b> Building your group’s reference package</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="treesapp-reference-packages.html"><a href="treesapp-reference-packages.html"><i class="fa fa-check"></i><b>A</b> TreeSAPP reference packages</a></li>
-<li class="chapter" data-level="B" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>B</b> Shell cheat sheet</a></li>
-<li class="chapter" data-level="C" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>C</b> References</a></li>
+<li class="chapter" data-level="A" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html"><i class="fa fa-check"></i><b>A</b> The Saanich Inlet data set</a><ul>
+<li class="chapter" data-level="A.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description"><i class="fa fa-check"></i><b>A.1</b> Description</a></li>
+<li class="chapter" data-level="A.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#data-on-the-server"><i class="fa fa-check"></i><b>A.2</b> Data on the server</a></li>
+<li class="chapter" data-level="A.3" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description-of-input-data"><i class="fa fa-check"></i><b>A.3</b> Description of input data</a></li>
+<li class="chapter" data-level="A.4" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#methods"><i class="fa fa-check"></i><b>A.4</b> Methods</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#quality-filtering-of-reads"><i class="fa fa-check"></i><b>A.4.1</b> Quality filtering of reads</a></li>
+<li class="chapter" data-level="A.4.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#assembly"><i class="fa fa-check"></i><b>A.4.2</b> Assembly</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="treesapp-reference-packages.html"><a href="treesapp-reference-packages.html"><i class="fa fa-check"></i><b>B</b> TreeSAPP reference packages</a></li>
+<li class="chapter" data-level="C" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>C</b> Shell cheat sheet</a></li>
+<li class="chapter" data-level="D" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>D</b> References</a></li>
 </ul>
 
       </nav>
@@ -207,14 +216,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="xmoa-example" class="section level2">
 <h2><span class="header-section-number">3.3</span> XmoA example</h2>
-<p>To show you how to access data from the FunGene database, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the <a href="treesapp-create.html#treesapp-create"><code>treesapp create</code> tutorial</a>. First, navigate to <a href="http://fungene.cme.msu.edu/" class="uri">http://fungene.cme.msu.edu/</a>. This front page organizes the genes into their respective functional groups. The sequences we’re interested in are involved in biogeochemical cycling, so look under that panel for “AmoA” and ‘PmoA’.</p>
+<p>To show you how to access data from the FunGene database, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the <a href="treesapp-create.html#treesapp-create"><code>treesapp create</code> tutorial</a>. First, navigate to <a href="http://fungene.cme.msu.edu/" class="uri">http://fungene.cme.msu.edu/</a>. This front page organizes the genes into their respective functional groups. The sequences we’re interested in are involved in biogeochemical cycling, so look under that panel for “AmoA” and “PmoA”.</p>
 <p><img src="images/fungene_landing.png" /></p>
-<p>As you can see, AmoA are broken up into four different entries: “amoA_AOA”, “amoA_AOB”, “amoA_AOB_like”, and “amoa_comammox”. We will download the sequences from only “amoA_AOA” and “amoA_AOB”, so let’s begin alphabetically with “amoA_AOA”.</p>
+<p>As you can see, AmoA are broken up into four different entries: “amoA_AOA”, “amoA_AOB”, “amoA_AOB_like”, and “amoA_comammox”. We will download the sequences from only “amoA_AOA” and “amoA_AOB”, so let’s begin alphabetically with “amoA_AOA”.</p>
 <p><img src="images/amoA_AOA_landing.png" /></p>
 <p>For these sequences, we will limit them to just sequences derived from isolate genomes of which the functional and taxonomic annotations are more reliable. To do this, go to “Display Options” in the top right. Click the “Isolate” option then “Update”. We also want the sequences that are more-or-less full-length. Click on “Show/Hide filter options”, fill the “Minimum HMM Coverage” parameter with “80” (or some other number between 60 and 90), then “Filter”. That’s all the filtering we’re going to do here. To add the sequences to your cart, click “Select All Sequences” then “Begin Analysis”.</p>
 <p><img src="images/amoA_AOA_download.png" /></p>
 <p>Deselect “Aligned” then click the “Download” button.</p>
-<p>Repeat with the above steps with the other genes <code>amoA_AOB</code> and <code>PmoA</code>.</p>
+<p>Repeat with the above steps with the other genes “amoA_AOB” and “PmoA”.</p>
+<ul>
+<li><p><strong>On your computer:</strong> Create a new directory called <code>Xmoa_sequences</code> inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). Place any reference sequences in <code>Xmoa_sequences</code> that you identified and downloaded from the databases.</p>
+<p>Next, connect to your personal server using the terminal app, i.e. PowerShell (Windows 10) or Terminal (macOS).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="acquiring-golden-data.html#cb1-1"></a><span class="fu">ssh</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span></span></code></pre></div></li>
+<li><p><strong>On the server:</strong> Move to the directory <code>/data</code> (if it is not your working directory already), create a new directory called <code>ts_tutorial</code> and then move into it.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="acquiring-golden-data.html#cb2-1"></a><span class="bu">cd</span> /data/</span>
+<span id="cb2-2"><a href="acquiring-golden-data.html#cb2-2"></a><span class="fu">mkdir</span> ts_tutorial</span>
+<span id="cb2-3"><a href="acquiring-golden-data.html#cb2-3"></a><span class="bu">cd</span> ts_tutorial</span></code></pre></div></li>
+<li><p><strong>On your computer:</strong> Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="acquiring-golden-data.html#cb3-1"></a><span class="fu">scp</span> -r <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial </span></code></pre></div></li>
+</ul>
 </div>
 <div id="alternative-sources" class="section level2">
 <h2><span class="header-section-number">3.4</span> Alternative sources</h2>
@@ -223,17 +243,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-access-hazards" class="section level2">
 <h2><span class="header-section-number">3.5</span> Data access hazards</h2>
 <p>Accessing the fraction of well-curated data from multiple databases is not trivial. Perhaps the most obvious reason for this are unrelated genes with shared names. For example, the gene product of mcrB in <em>E. coli</em> widely refers to 5-methylcytosine-specific restriction enzyme B, but in the Archaea, it would refer to the beta subunit of methyl-coenzyme M reductase—a completely unrelated protein. This is an inevitability in a field of science as broad as biology, where scientists that are responsible for naming genes cannot possibly be aware of all gene names in circulation. Another issue can be genes or proteins with synonyms, making the search for these data more complex. In these cases, you may need to search multiple databases with several queries in order to access all the sequences belonging to the same protein family.</p>
-<ul>
-<li><p>On your local computer, create a new directory called <code>Xmoa_sequences</code> inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). From the databases, download any reference sequences you identified and save them in <code>Xmoa_sequences</code>.</p></li>
-<li><p>Connect to your group’s server. We will move to the directory <code>/data</code> (if it is not your working directory already), create a new directory called <code>ts_tutorial</code> and then move into it.</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="acquiring-golden-data.html#cb1-1"></a><span class="bu">cd</span> /data/</span>
-<span id="cb1-2"><a href="acquiring-golden-data.html#cb1-2"></a><span class="fu">mkdir</span> ts_tutorial</span>
-<span id="cb1-3"><a href="acquiring-golden-data.html#cb1-3"></a><span class="bu">cd</span> ts_tutorial</span></code></pre></div>
-<ul>
-<li>Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="acquiring-golden-data.html#cb2-1"></a><span class="fu">scp</span> -r <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial </span></code></pre></div>
 </div>
 <div id="validation" class="section level2">
 <h2><span class="header-section-number">3.6</span> Validation</h2>
