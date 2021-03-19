@@ -6,8 +6,9 @@ background
 using-multi-omic-data-to-reconstruct-distributed-networks-of-metabolite-exchange
 treesapp
 a-tutorial-for-using-treesapp
+introduction-and-goals
 a-typical-treesapp-workflow
-genes-for-used-for-creating-reference-packages
+genes-for-creating-reference-packages
 xmoa
 group-assigned-genes
 tools
@@ -25,7 +26,6 @@ validation
 basic
 advanced
 treesapp-create
-introduction-and-goals
 making-the-reference-package
 testing-the-purity-of-the-reference-package
 looking-at-tree-of-reference-package-with-itol
