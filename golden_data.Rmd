@@ -4,7 +4,7 @@ Golden data in the context of biological sequence analysis are those that come f
 
 ## The golden standard
 
-The field of genomics is blessed with an abundance of reference data. In fact, it is not uncommon for biologists and bioinformaticians alike to gripe over the increased run-time of computational analyses caused by steps that include comparisons to such large reference databases. Not all of these data are, however, of the same quality. The vast majority have been automatically curated using algorithms with known shortcomings, and only a small portion have been manually curated with verified functional characterization. These latter data are the ones we consider well-curated or golden.
+The field of genomics is blessed with an abundance of reference data. In fact, it is not uncommon for biologists and bioinformaticians alike to gripe over the increased run-time of computational analyses caused by steps that include comparisons to such large reference databases. Not all of these data are, however, of the same quality. The vast majority have been automatically curated using algorithms with known shortcomings, and only a small portion have been manually curated with verified functional characterization. These latter data are the ones we consider well-curated or golden. More details on choosing databases for retrieving sequences can be found on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#step-1-reference-sequences).
 
 ## What databases can I retrieve sequences from?
 
