@@ -111,8 +111,8 @@ We have now created a phylogenetic tree for XmoA, but if we would visualize it, 
     treesapp assign \
       -n 4 \
       -m prot \
-      --trim_align \  
-      --refpkg_dir XmoA_seed/final_outputs/ \ 
+      --trim_align \
+      --refpkg_dir XmoA_seed/final_outputs/ \
       --fastx_input XmoA_seed.faa \
       --output XmoA_seed_assign/
     ```
