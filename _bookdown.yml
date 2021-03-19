@@ -16,15 +16,15 @@ rmd_files:
   - tutorials_intro.Rmd
   - golden_data.Rmd
   - treesapp_create.Rmd
-  - treesapp_assign_and_update.Rmd
-  - treesapp_abundance.Rmd
-  - part_capstone.Rmd # separator for TOC navigation
-  - instructions.Rmd
-  - assessment.Rmd
+  # - treesapp_assign_and_update.Rmd
+  # - treesapp_abundance.Rmd
+  # - part_capstone.Rmd # separator for TOC navigation
+  # - instructions.Rmd
+  # - assessment.Rmd
   # - shell.Rmd
   # - R.Rmd
   - appendix.Rmd # separator for TOC navigation
-  - data.Rmd
-  - refpkgs.Rmd
+  # - data.Rmd
+  # - refpkgs.Rmd
   - cheat_sheet.Rmd
   - references.Rmd
