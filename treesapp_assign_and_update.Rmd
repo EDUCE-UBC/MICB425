@@ -48,10 +48,10 @@ The command should take a few seconds to run and if you see a 'TreeSAPP has fini
 Before updating the reference package, we should view where the sequences were placed on the phylogeny. The placement of query sequences gives you a good idea of how closely related they are to the reference package sequences.
 We will again use the interactive Tree of Life (iTOL) to visualize the JPlace file that is produced by TreeSAPP [@Letunic.2019].
 
-You will need to copy the files to be uploaded to iTOL from the server to your local computer (i.e. laptop or desktop) using `scp`. From your local computer, run the following command to copy the 'iTOL_output' directory in the TreeSAPP outputs to your Desktop.
+You will need to copy the files to be uploaded to iTOL from the server to your local computer (i.e. laptop or desktop) using `scp`. From your local computer, run the following command to copy the 'iTOL_output' directory in the TreeSAPP outputs to your Desktop.`scp -r` will copy all the directory contents.
 
 ```{bash eval = FALSE}
-scp - r root@<ip address>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_assign/iTOL_output <path to Xmoa_sequences>
+scp -r root@<ip address>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_assign/iTOL_output <path to Xmoa_sequences>
 ```
 
 
@@ -61,11 +61,11 @@ To visualize the phylogenetic placements for the FunGene query sequences and sho
 
 - Upload the file `XmoA_complete_profile.jplace`. You can do this using either your computer's file browser then navigating to the 'iTOL_output' directory and clicking-and-dragging the file, or iTOL's file uploader -- the `Upload tree files` button. 
 
-- Next, navigate to the page displaying the phylogeny and click-and-drag the file `XmoA_labels.txt` from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
+- Next, navigate to the page displaying the phylogeny by clicking the .jplace file you want to visualize and click-and-drag the file `XmoA_labels.txt` from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
 
 - Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to Figure \@ref(fig:XmoA-FunGene).
 
-![(\#fig:XmoA-FunGene)The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 74 sequences classified, 34 of which were placed on the clade representing members of the *Gammaproteobacteria* order *Methylococcales*. Another 15 sequences were placed on the clade of *Betaproteobacteria*, represented by the genera *Nitrosospira* and *Nitrosomonas*.](images/P_AmoA_tutorial_iTOL.png)
+![(\#fig:XmoA-FunGene)The XmoA phylogeny with FunGene sequences placed onto it. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. There were 81 sequences classified, 36 of which were placed on the clade representing members of the *Gammaproteobacteria* order *Methylococcales*. Another 15 sequences were placed on the clade of *Betaproteobacteria*, represented by the genera *Nitrosospira* and *Nitrosomonas*.](images/P_AmoA_tutorial_iTOL.png)
 
 As you can see in the above figure, many of the sequences were placed more deeply in the phylogeny (close to the three's root and away from its tips). This is very different from when we classified the sequences used to build the reference package if you remember the [`treesapp create` chapter](#treesapp-create) where the sequences were placed at the tips. These new XmoA sequences look like they'd fill in some gaps in the tree, so we should use them to update it!
 
@@ -95,7 +95,7 @@ treesapp update \
   --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl
 ```
 
-It looks like 54 new sequences were introduced into the reference package, bringing the total to 90 sequences! And judging from the taxonomic rank summary printed during runtime both Archaea and Bacteria are now included:
+It looks like 28 new sequences were introduced into the reference package, bringing the total to 63 sequences! And judging from the taxonomic rank summary printed during runtime both Archaea and Bacteria are now included:
 
 ```
 Number of unique lineages:
@@ -105,8 +105,8 @@ Number of unique lineages:
 	class      6
 	order     10
 	family    13
-	genus     29
-	species   52
+	genus     25
+	species   38
 ```
 
 ## Tree topology after update
@@ -129,7 +129,7 @@ On your local computer follow the steps for downloading the `iTOL_outputs` direc
 
 -   the figure should look identical to Figure \@ref(fig:XmoA-Updated-tree)
 
-![(\#fig:XmoA-Updated-tree)Updated tree topology with added 54 new sequences including Archaea and Bacteria ](images/XmoA_update_ref_tree_iTOL.png)
+![(\#fig:XmoA-Updated-tree)Updated tree topology with added 28 new sequences including Archaea and Bacteria ](images/XmoA_update_ref_tree_iTOL.png)
 
 The red bubbles show where the FunGene isolate sequences were placed on the phylogeny. This also indicates which leaves and clades were potentially introduced to the reference package through this update.
 
