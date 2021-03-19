@@ -1,4 +1,4 @@
-RefPkg	RefPkg_code	Full Protein Name	Pathway	Cycle	TIGRFAM	PFam	EggNOG	Other Database	EC number	Reading
+RefPkg	refpkg_code	Full Protein Name	Pathway	Cycle	TIGRFAM	PFam	EggNOG	Other Database	EC number	Reading
 PsbA	C0001	photosystem II P680 reaction center D1 protein	Photosynthesis	C	TIGR01151	PF00124	ENOG502DBBD	NA	1.10.3.9	https://pubmed.ncbi.nlm.nih.gov/28785078/
 PsbD	C0002	photosystem II D2 protein (photosystem q(a) protein)	Photosynthesis	C	TIGR01152	PF00124	ENOG410XRUT	NA	1.10.3.9	https://pubmed.ncbi.nlm.nih.gov/28785078/
 cbbS	C0003	ribulose bisphosphate carboxylase, type III (Ribulose bisphosphate carboxylase small chain)	Carbon fixation	C	TIGR03326	PF00101	COG4451	NA	4.1.1.39	NA
