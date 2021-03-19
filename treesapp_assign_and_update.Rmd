@@ -153,9 +153,13 @@ Creating your own annotations involves scouring the literature to identify the p
 wget https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/XmoA_taxonomy-phenotype_map.tsv
 ```
 
-You can view the contents of this file with the Unix command `cat`:
+You can view the contents of this file with the Unix command `less`:
+
 ```{bash eval = FALSE}
-cat XmoA_taxonomy-phenotype_map.tsv
+less XmoA_taxonomy-phenotype_map.tsv
+```
+
+```
 d__Archaea	AmoA_AOA
 Methylococcaceae	EmoA
 g__Haliea	EmoA
@@ -175,7 +179,7 @@ treesapp colour \
   --taxa_map XmoA_taxonomy-phenotype_map.tsv
 ```
 
-The two output files --`XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`-- can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with `treesapp layer`. Let's make copies of the two text files in  XmoA_colours/ into the AmoA_assign/iTOL output directory and transfer them to `<path to Xmoa_sequences>`.
+The two output files---`XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`---can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with `treesapp layer`. Let's make copies of the two text files in  XmoA_colours/ into the AmoA_assign/iTOL output directory and transfer them to `<path to Xmoa_sequences>`.
 
 ```{bash eval = FALSE}
 cp -r XmoA_colours AmoA_assign/iTOL_output/
@@ -184,7 +188,7 @@ cp -r XmoA_colours AmoA_assign/iTOL_output/
 Now from your local computer use `scp` to download the iTOL_output directory to a folder.
 
 ```{bash eval = FALSE}
-scp -r root@10.19.139.201:/data/ts_tutorial/AmoA_assign/iTOL_output <path to Xmoa_sequences>
+scp -r root@<server address>:/data/ts_tutorial/AmoA_assign/iTOL_output <path to Xmoa_sequences>
 ```
 
 Now upload the file XmoA_complete_profile.jplace to iTOL.
