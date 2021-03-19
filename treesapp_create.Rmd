@@ -61,7 +61,7 @@ In the [Aquiring golden data] tutorial, PmoA & AmoA sequences were downloaded fr
       --output XmoA_seed
     ```
 
-The final reference package file is located in `XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule `treesapp package`.
+     The final reference package file is located in `XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule `treesapp package`.
 
 -   Replace the current refpkg_code `Z1111` with unique identifier `N0102`.
 
@@ -141,7 +141,7 @@ We have now created a phyogenetic tree for XmoA, but if we would visualize it, w
 
 -   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to this figure below Figure \@ref(fig:xmoa).
 
-![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes. ](images/XmoA_seed_iTOLtree.svg)
+    ![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes. ](images/XmoA_seed_iTOLtree.svg)
 
 ## Building your group's reference package
 
