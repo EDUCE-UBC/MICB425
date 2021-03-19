@@ -167,7 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="treesapp-create.html"><a href="treesapp-create.html"><i class="fa fa-check"></i><b>4</b> Creating a reference package for TreeSAPP</a><ul>
 <li class="chapter" data-level="4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#making-the-reference-package"><i class="fa fa-check"></i><b>4.1</b> Making the reference package</a></li>
 <li class="chapter" data-level="4.2" data-path="treesapp-create.html"><a href="treesapp-create.html#testing-the-purity-of-the-reference-package"><i class="fa fa-check"></i><b>4.2</b> Testing the purity of the reference package</a></li>
-<li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#looking-at-tree-of-reference-package-with-itol"><i class="fa fa-check"></i><b>4.3</b> Looking at tree of reference package with iTOL</a></li>
+<li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#viewing-the-reference-package-tree-with-itol"><i class="fa fa-check"></i><b>4.3</b> Viewing the reference package tree with iTOL</a></li>
 <li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.4</b> Building your group’s reference package</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -194,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</h1>
 <div id="making-the-reference-package" class="section level2">
 <h2><span class="header-section-number">4.1</span> Making the reference package</h2>
-<p>In the [Aquiring golden data] tutorial, PmoA &amp; AmoA sequences were downloaded from <a href="http://tigrfams.jcvi.org/cgi-bin/index.cgi">TIGRFAM</a>, <a href="http://eggnog5.embl.de/#/app/home">EggNOG</a>, and <a href="http://fungene.cme.msu.edu/">FunGene</a>. For now we’ll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let’s call this our seed reference package. The steps involved are:</p>
+<p>In the <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a> tutorial, PmoA &amp; AmoA sequences were downloaded from <a href="http://tigrfams.jcvi.org/cgi-bin/index.cgi">TIGRFAM</a>, <a href="http://eggnog5.embl.de/#/app/home">EggNOG</a>, and <a href="http://fungene.cme.msu.edu/">FunGene</a>. For now we’ll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let’s call this our seed reference package. The steps involved are:</p>
 <ul>
 <li><p><strong>All steps are executed on the server unless stated otherwise!!</strong> Connect to your personal server and continue to work in the <code>/data/ts_tutorial</code> directory.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="treesapp-create.html#cb4-1"></a><span class="bu">cd</span> /data/ts_tutorial</span></code></pre></div></li>
@@ -253,9 +253,9 @@ Ortholog        Hits    Leaves  Tree-coverage   Description
 TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygenase, subunit A</code></pre>
 <p>From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they’re closely related) and the sequences were all from the family “TIGR03080”, also known as “methane monooxygenase/ammonia monooxygenase, subunit A”. In all, we are probably good to proceed!</p>
 </div>
-<div id="looking-at-tree-of-reference-package-with-itol" class="section level2">
-<h2><span class="header-section-number">4.3</span> Looking at tree of reference package with iTOL</h2>
-<p>We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use <code>treesapp assign</code> function.</p>
+<div id="viewing-the-reference-package-tree-with-itol" class="section level2">
+<h2><span class="header-section-number">4.3</span> Viewing the reference package tree with iTOL</h2>
+<p>We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use the <code>treesapp assign</code> function.</p>
 <ul>
 <li><p>Assign reference sequences to reference package to generate tree with labels.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="treesapp-create.html#cb14-1"></a><span class="ex">treesapp</span> assign \</span>

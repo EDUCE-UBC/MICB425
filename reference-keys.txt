@@ -28,7 +28,7 @@ advanced
 treesapp-create
 making-the-reference-package
 testing-the-purity-of-the-reference-package
-looking-at-tree-of-reference-package-with-itol
+viewing-the-reference-package-tree-with-itol
 building-your-groups-reference-package
 shell-cheat-sheet
 references
