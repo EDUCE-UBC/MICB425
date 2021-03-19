@@ -1,16 +1,10 @@
-# Creating a Reference Package For TreeSAPP {#treesapp-create}
-
-## Introduction and Goals
-
-This tutorial is meant for users who would like to analyze a gene family lacking an existing TreeSAPP reference package (refpkg). It is also useful to those who would rather start over than use `treesapp update` to improve an existing refpkg. This tutorial will cover the following subcommand of `treesapp`: `create`, `package`, `purity` and `assign`. TreeSAPP will automatically determine the taxonomic lineage assigned to each sequence if these are NCBI accessions. For ways to provide lineage information for as-of-yet unaccessioned sequences please refer to the TreeSAPP Wiki page [Building reference packages with TreeSAPP](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#alternative-sources). TreeSAPP does not currenty support GTDB taxonomies although efforts are being made to determine feasibility of this approach. 
+# Creating a reference package for TreeSAPP {#treesapp-create}
 
 ## Making the reference package
 
-When building reference packages if you can source manually curated sequences---such as those hosted by SwissProt---always use those. There are plenty of sources for curated PmoA & AmoA sequences. More details on choosing databases for retrieving sequences can be found on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#step-1-reference-sequences).
-
 In the [Aquiring golden data] tutorial, PmoA & AmoA sequences were downloaded from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi), [EggNOG](http://eggnog5.embl.de/#/app/home), and [FunGene](http://fungene.cme.msu.edu/). For now we'll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let's call this our seed reference package. The steps involved are:
 
--   **All steps are executed on the server unless stated oterwise!!** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
+-   **All steps are executed on the server unless stated otherwise!!** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
 
     ```{bash eval = FALSE}
     cd /data/ts_tutorial
@@ -109,7 +103,7 @@ From this summary it appears that the reference package classified three homolog
 
 ## Looking at tree of reference package with iTOL
 
-We have now created a phyogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree we will use `treesapp assign` function.  
+We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use `treesapp assign` function.  
 
 -   Assign reference sequences to reference package to generate tree with labels.
 
@@ -145,7 +139,7 @@ We have now created a phyogenetic tree for XmoA, but if we would visualize it, w
 
 ## Building your group's reference package
 
-Now create a reference package for the gene that was assigned to your group using the **group's** server.
+Now create a reference package for the gene assigned to your group using your **group's** server.
 
 1) **On your computer:** create a directory `<gene_name_sequences>` in your home directory and download any reference sequences for your gene you can find on the databases.
 

@@ -1,6 +1,8 @@
 # A tutorial for using TreeSAPP
 
-You will work through a common workflow of TreeSAPP in a series of tutorials both with an example gene (XmoA) to familiarize yourself with the tools and then you will repeat the steps with a gene assigned to your group for which no reference package has ever been created. You will document your steps for the new reference package in Problem Set 5.
+## Introduction and goals
+
+In this series of tutorials, users will analyze a gene family lacking an existing TreeSAPP reference package (refpkg). You will work through a typical workflow of TreeSAPP both with an example gene (XmoA) to familiarize yourself with the tools, and then you will repeat the steps with a gene assigned to your group for which no reference package exists. You will document your efforts for the new reference package in Problem Set 5.
 
 ## A typical TreeSAPP workflow
 
@@ -9,15 +11,15 @@ You will work through a common workflow of TreeSAPP in a series of tutorials bot
 -   [Classifying unknown sequences with TreeSAPP and updating a reference package].
 -   [Calculating relative abundance of meta'omic data].
 
-## Genes for used for creating reference packages
+## Genes for creating reference packages
 
 ### XmoA
 
-The protein family we will be focusing on is that of the copper-containing membrane-bound monooxygenases @Khadka.2018. This family contains particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) and well be building a reference package for the alpha subunits of these enzymes called XmoA. All groups will work through this example.
+The protein family we will be focusing on is that of the copper-containing membrane-bound monooxygenases @Khadka.2018. This family contains particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) and well be building a reference package for the alpha subunits of these enzymes called XmoA. All students will work through this example individually.
 
 ### Group-assigned genes
 
-You will created a reference package and perform the other steps only for the gene that has been assigned to you.
+You will create a reference package and perform the other steps only for the gene that has been assigned to you.
 
 ```{r message = FALSE, echo = FALSE}
 read_tsv("data/new_refpkgs.tsv") %>% 
@@ -33,17 +35,15 @@ read_tsv("data/new_refpkgs.tsv") %>%
 
 ### Shell
 
-Please review previous tutorials. Use this short [cheat sheet](#shell-cheat-sheet) for commonly used commands.
+Please use this short [Shell cheat sheet] for commonly used commands and review previous tutorials on Canvas. 
 
 ### TreeSAPP
 
 Tree-based Sensitive and Accurate Phylogenetic Profiler (TreeSAPP) @Morgan-Lang.2020 can be found on [GitHub](https://github.com/hallamlab/TreeSAPP) including an excellent [wiki](https://github.com/hallamlab/TreeSAPP/wiki) with additional information on each of the `treesapp` subcommands.
 
-We also provide you with a list of existing [TreeSAPP reference packages].
-
 ### iTOL
 
-Interactive Tree Of Life ([iTOL](https://itol.embl.de/)) @Letunic.2019 is a browser -based tool that allows you to visualize data generated in TreeSAPP as a phylogenetic tree with additional annotations.
+Interactive Tree Of Life ([iTOL](https://itol.embl.de/)) @Letunic.2019 is a browser-based tool that allows you to visualize data generated in TreeSAPP as a phylogenetic tree with additional annotations.
 
 ## Data
 
