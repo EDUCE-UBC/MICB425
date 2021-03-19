@@ -1,7 +1,5 @@
 fig:N-cycle-genes
 fig:xmoa
-fig:saanich-inlet
-tab:reference-packages
 tab:commands
 exploring-the-microcosmos
 background
@@ -32,13 +30,5 @@ making-the-reference-package
 testing-the-purity-of-the-reference-package
 looking-at-tree-of-reference-package-with-itol
 building-your-groups-reference-package
-the-saanich-inlet-data-set
-description
-data-on-the-server
-description-of-input-data
-methods
-quality-filtering-of-reads
-assembly
-treesapp-reference-packages
 shell-cheat-sheet
 references

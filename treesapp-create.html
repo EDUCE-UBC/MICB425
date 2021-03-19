@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="acquiring-golden-data.html"/>
-<link rel="next" href="the-saanich-inlet-data-set.html"/>
+<link rel="next" href="shell-cheat-sheet.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -171,18 +171,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.5</b> Building your group’s reference package</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html"><i class="fa fa-check"></i><b>A</b> The Saanich Inlet data set</a><ul>
-<li class="chapter" data-level="A.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description"><i class="fa fa-check"></i><b>A.1</b> Description</a></li>
-<li class="chapter" data-level="A.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#data-on-the-server"><i class="fa fa-check"></i><b>A.2</b> Data on the server</a></li>
-<li class="chapter" data-level="A.3" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description-of-input-data"><i class="fa fa-check"></i><b>A.3</b> Description of input data</a></li>
-<li class="chapter" data-level="A.4" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#methods"><i class="fa fa-check"></i><b>A.4</b> Methods</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#quality-filtering-of-reads"><i class="fa fa-check"></i><b>A.4.1</b> Quality filtering of reads</a></li>
-<li class="chapter" data-level="A.4.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#assembly"><i class="fa fa-check"></i><b>A.4.2</b> Assembly</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="treesapp-reference-packages.html"><a href="treesapp-reference-packages.html"><i class="fa fa-check"></i><b>B</b> TreeSAPP reference packages</a></li>
-<li class="chapter" data-level="C" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>C</b> Shell cheat sheet</a></li>
-<li class="chapter" data-level="D" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>D</b> References</a></li>
+<li class="chapter" data-level="A" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>A</b> Shell cheat sheet</a></li>
+<li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a></li>
 </ul>
 
       </nav>
@@ -236,10 +226,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-9"><a href="treesapp-create.html#cb9-9"></a>  -p 0.97 \</span>
 <span id="cb9-10"><a href="treesapp-create.html#cb9-10"></a>  --fastx_input XmoA_seed.faa \</span>
 <span id="cb9-11"><a href="treesapp-create.html#cb9-11"></a>  -c XmoA \</span>
-<span id="cb9-12"><a href="treesapp-create.html#cb9-12"></a>  --output XmoA_seed</span></code></pre></div></li>
-</ul>
-<p>The final reference package file is located in <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule <code>treesapp package</code>.</p>
-<ul>
+<span id="cb9-12"><a href="treesapp-create.html#cb9-12"></a>  --output XmoA_seed</span></code></pre></div>
+<p>The final reference package file is located in <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule <code>treesapp package</code>.</p></li>
 <li><p>Replace the current refpkg_code <code>Z1111</code> with unique identifier <code>N0102</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="treesapp-create.html#cb10-1"></a><span class="ex">treesapp</span> package edit \</span>
 <span id="cb10-2"><a href="treesapp-create.html#cb10-2"></a>  refpkg_code N0102 \</span>
@@ -289,12 +277,12 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and sign in using the group’s username and password.</p></li>
 <li><p>Upload the file <code>XmoA_complete_profile.jplace</code>. You can do this using either your computer’s file browser then navigating to the <code>iTOL_output</code> directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
 <li><p>Next, navigate to the page displaying the phylogeny and click-and-drag the file <code>XmoA_labels.txt</code> from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.</p></li>
-<li><p>Finally, turn on the “Phylogenetic Placements” dataset (right of the screen) and the figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p></li>
-</ul>
+<li><p>Finally, turn on the “Phylogenetic Placements” dataset (right of the screen) and the figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p>
 <div class="figure"><span id="fig:xmoa"></span>
 <img src="images/XmoA_seed_iTOLtree.svg" alt="" />
 <p class="caption">FIGURE 4.1:  Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes.</p>
-</div>
+</div></li>
+</ul>
 </div>
 <div id="building-your-groups-reference-package" class="section level2">
 <h2><span class="header-section-number">4.5</span> Building your group’s reference package</h2>
@@ -319,7 +307,7 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
         </div>
       </div>
 <a href="acquiring-golden-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-saanich-inlet-data-set.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="shell-cheat-sheet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
