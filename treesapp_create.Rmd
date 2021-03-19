@@ -2,7 +2,7 @@
 
 ## Making the reference package
 
-In the [Aquiring golden data] tutorial, PmoA & AmoA sequences were downloaded from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi), [EggNOG](http://eggnog5.embl.de/#/app/home), and [FunGene](http://fungene.cme.msu.edu/). For now we'll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let's call this our seed reference package. The steps involved are:
+In the [Acquiring golden data] tutorial, PmoA & AmoA sequences were downloaded from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi), [EggNOG](http://eggnog5.embl.de/#/app/home), and [FunGene](http://fungene.cme.msu.edu/). For now we'll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let's call this our seed reference package. The steps involved are:
 
 -   **All steps are executed on the server unless stated otherwise!!** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
 
@@ -101,9 +101,9 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 
 From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they're closely related) and the sequences were all from the family "TIGR03080", also known as "methane monooxygenase/ammonia monooxygenase, subunit A". In all, we are probably good to proceed!
 
-## Looking at tree of reference package with iTOL
+## Viewing the reference package tree with iTOL
 
-We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use `treesapp assign` function.  
+We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use the `treesapp assign` function.  
 
 -   Assign reference sequences to reference package to generate tree with labels.
 
