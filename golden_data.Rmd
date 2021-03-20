@@ -36,7 +36,7 @@ Repeat with the above steps with the other genes "amoA_AOB" and "PmoA".
 
 -   **On your computer:** Create a new directory called `Xmoa_sequences` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). Place any reference sequences in `Xmoa_sequences` that you identified and downloaded from the databases.
 
-    Next, connect to your personal server using the terminal app, i.e. PowerShell (Windows 10) or Terminal (macOS).
+    Next, connect to your personal server using the terminal app, i.e. Windows Terminal (Windows 10) or Terminal (macOS).
     
     ```{bash eval = FALSE}
     ssh root@<server address>
