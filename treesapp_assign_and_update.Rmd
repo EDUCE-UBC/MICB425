@@ -123,9 +123,7 @@ treesapp assign \
   --trim_align 
 ```
 
-On your local computer follow the steps for downloading the `iTOL_outputs` directory from the server and uploading the files to iTOL as we did previously.
-
-**TODO: Link to relevant section, or copy commands here**
+On your local computer follow the steps for downloading the `iTOL_outputs` directory from the server and uploading the files to iTOL as we did [previously](#the-interactive-tree-of-life).
 
 -   the figure should look identical to Figure \@ref(fig:XmoA-Updated-tree)
 
@@ -147,10 +145,28 @@ treesapp assign \
   --output AmoA_assign/
 ```
 
-Creating your own annotations involves scouring the literature to identify the phenotypes associated with each organism or taxon. For this tutorial, you can use the annotations already created for the XmoA reference package.
+We will visualize these with our annotations as a sort of sanity check.
+
+Creating your own annotations involves scouring the literature to identify the phenotypes associated with each organism or taxon. For example, you would need to determine what paralogs or substrates are used by each organism in the reference package. Often though, these phenotypes are conserved across larger taxonomic groups, such as whole genera, families, orders, etc. Seeing as a literature review can't be accomplished within the time span of this tutorial, you can use the annotations already created for the XmoA reference package.
 
 ```{bash eval = FALSE}
 wget https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/XmoA_taxonomy-phenotype_map.tsv
+```
+
+You can view the contents of this file with the Unix command `less`:
+
+```{bash eval = FALSE}
+less XmoA_taxonomy-phenotype_map.tsv
+```
+
+```
+d__Archaea	AmoA_AOA
+Methylococcaceae	EmoA
+g__Haliea	EmoA
+f__Nitrosomonadaceae	AmoA_AOB
+o__Chromatiales	AmoA_AOB
+g__Methylobacter	PmoA
+g__Methylacidiphilum	PmoA
 ```
 
 To create a file compatible with iTOL you will need to convert the taxonomy-phenotype mapping file with `treesapp colour`. 
@@ -167,15 +183,21 @@ The two output files---`XmoA_Function_colours_style.txt` and `XmoA_Function_colo
 
 ```{bash eval = FALSE}
 cp -r XmoA_colours AmoA_assign/iTOL_output/
-scp -r root@10.19.139.201:/data/ts_tutor/AmoA_assign/iTOL_output <path to Xmoa_sequences>
 ```
 
- upload the file XmoA_complete_profile.jplace. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
+Now from your local computer use `scp` to download the iTOL_output directory to a folder.
+
+```{bash eval = FALSE}
+scp -r root@<server address>:/data/ts_tutorial/AmoA_assign/iTOL_output <path to Xmoa_sequences>
+```
+
+Now upload the file XmoA_complete_profile.jplace to iTOL.
+ 
 Next, navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with each leaf node's organism name and accession. The two files `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`  can be dragged into the iTOL browser window to bring colour to the XmoA tree. Finally, turn on the "Phylogenetic Placements" dataset (right of the screen), and the figure should look like this figure.
 
 -   the figure should look identical to Figure \@ref(fig:XmoA-Classified)
 
-![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](Images/XmoA_classified.png )
+![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](images/XmoA_update_coloured.png )
 
 ## Reclassify and layer annotations onto classification table
 
@@ -198,7 +220,11 @@ treesapp layer \
   --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/
 ```
 
-The output of this command is `p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv`. It contains an extra column for the functional annotations but is otherwise identical to the original `marker_contig_map.tsv` file.
+The output of this command is `p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv`. It contains an extra column for the functional annotations but is otherwise identical to the original `marker_contig_map.tsv` file. You can view the first 10 lines by using the Unix command `head`:
+
+```{bash eval = FALSE}
+head p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv
+```
 
 ## Use your group's reference package to classify unkown sequences then update your package
 
