@@ -25,7 +25,7 @@ For this tutorial, though, we're going to classify PmoA and AmoA sequences sourc
 
 The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).
 
-For this command, we will use BMGE to trim the multiple sequence alignments prior to phylogenetic placement with the `--trim_align` flag. To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
+For this command, we will use BMGE (Block Mapping and Gathering with Entropy: filters out regions of questionable homology from the alignment,please see the [BMGE publication](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210) for more information) to trim the multiple sequence alignments prior to phylogenetic placement with the `--trim_align` flag [@Criscuolo.2010]. To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
 
 As usual, if you're unclear as to what any arguments are, you can use `treesapp assign -h` to get the complete usage and descriptions of each argument.
 
@@ -41,7 +41,6 @@ treesapp assign \
 
 The command should take a few seconds to run and if you see a 'TreeSAPP has finished successfully.' at the end then you're good to move on.
 
-## Analyze the classifications
 
 ### The interactive Tree of Life
 
@@ -108,28 +107,6 @@ Number of unique lineages:
 	genus     25
 	species   38
 ```
-
-## Tree topology after update
-
-As before, let's view the phylogeny with the XmoA isolate sequences used to update the reference package mapped onto it. We will first need to run `treesapp assign`, then download the outputs to your local computer.
-
-```{bash eval = FALSE}
-treesapp assign \
-  -i p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \
-  -o XmoA_FunGene_update_isolates_assign/ \
-  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
-  -n 4 \
-  -m prot \
-  --trim_align 
-```
-
-On your local computer follow the steps for downloading the `iTOL_outputs` directory from the server and uploading the files to iTOL as we did [previously](#the-interactive-tree-of-life).
-
--   the figure should look identical to Figure \@ref(fig:XmoA-Updated-tree)
-
-![(\#fig:XmoA-Updated-tree)Updated tree topology with added 28 new sequences including Archaea and Bacteria ](images/XmoA_update_ref_tree_iTOL.png)
-
-The red bubbles show where the FunGene isolate sequences were placed on the phylogeny. This also indicates which leaves and clades were potentially introduced to the reference package through this update.
 
 ## Annotate clades
 
@@ -199,32 +176,7 @@ Next, navigate to the page displaying the phylogeny and click-and-drag the file 
 
 ![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](images/XmoA_update_coloured.png )
 
-## Reclassify and layer annotations onto classification table
 
-First, let's reclassify the isolate sequences from FunGene.
-
-```{bash eval = FALSE}
-treesapp assign \
-  -n 4 -m prot --trim_align \
-  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
-  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \
-  --output p_amoA_FunGene9.5_isolates_update_assign/
-```
-
-With the clade colours file in the tutorial directory, it is now simple to assign each of the classified query sequences to its respective functional guild with treesapp layer.
-
-```{bash eval = FALSE}
-treesapp layer \
-  --colours_style XmoA_colours/XmoA_Function_colours_style.txt \
-  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
-  --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/
-```
-
-The output of this command is `p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv`. It contains an extra column for the functional annotations but is otherwise identical to the original `marker_contig_map.tsv` file. You can view the first 10 lines by using the Unix command `head`:
-
-```{bash eval = FALSE}
-head p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv
-```
 
 ## Use your group's reference package to classify unkown sequences then update your package
 
