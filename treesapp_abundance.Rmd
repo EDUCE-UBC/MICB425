@@ -100,7 +100,7 @@ cd /data/ts_tutorial/
 ## Plotting abundances in iTOL
 
 Add steps
-
+## Analyze the classifications
 
 ### Classification table
 
@@ -118,7 +118,32 @@ p_amoA_FunGene9.5_isolates_C65S300_uclust99	BAH22839  coded_by=2160..2948,organi
 ```
 
 A description of each of the fields can be found under the [`treesapp assign` documentation page](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table).
+## Reclassify and layer annotations onto classification table
 
+First, let's reclassify the isolate sequences from FunGene.
+
+```{bash eval = FALSE}
+treesapp assign \
+  -n 4 -m prot --trim_align \
+  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
+  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \
+  --output p_amoA_FunGene9.5_isolates_update_assign/
+```
+
+With the clade colours file in the tutorial directory, it is now simple to assign each of the classified query sequences to its respective functional guild with treesapp layer.
+
+```{bash eval = FALSE}
+treesapp layer \
+  --colours_style XmoA_colours/XmoA_Function_colours_style.txt \
+  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
+  --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/
+```
+
+The output of this command is `p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv`. It contains an extra column for the functional annotations but is otherwise identical to the original `marker_contig_map.tsv` file. You can view the first 10 lines by using the Unix command `head`:
+
+```{bash eval = FALSE}
+head p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv
+```
 
 ## Use your group's reference package to calculate abundances
 
