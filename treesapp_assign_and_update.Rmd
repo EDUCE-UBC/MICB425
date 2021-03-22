@@ -24,7 +24,7 @@ According to `treesapp purity` in the [last chapter](#treesapp-create), and all 
 
 The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).
 
-For these commands we will use Block Mapping and Gathering with Entropy (BMGE) which filters out regions of questionable homology from the alignment [@Criscuolo2010-sr]. Please see the [BMGE publication](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210) for more information. To trim the multiple sequence alignments prior to phylogenetic placement use the `--trim_align` flag.
+For these commands we will use Block Mapping and Gathering with Entropy (BMGE) which filters out regions of questionable homology from the alignment [@Criscuolo.2010]. Please see the [BMGE publication](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210) for more information. To trim the multiple sequence alignments prior to phylogenetic placement use the `--trim_align` flag.
 To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
 
 As usual, if you're unclear as to what any arguments are, you can use `treesapp assign -h` to get the complete usage and descriptions of each argument.
@@ -123,7 +123,7 @@ Number of unique lineages:
 
 ### Updating with MAG sequences
 
-We are now going to update the reference package that we just updated using the MAG sequences to demonstrate how to iteratively update reference packages. A key difference between using sequences accessioned in the NCBI and here is we must provide the taxonomic labels for each MAG. The MAGs were assigned taxonomic labels using the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/) toolkit (GTDB-tk)[@Chaumeil2019-ld].
+We are now going to update the reference package that we just updated using the MAG sequences to demonstrate how to iteratively update reference packages. A key difference between using sequences accessioned in the NCBI and here is we must provide the taxonomic labels for each MAG. The MAGs were assigned taxonomic labels using the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/) toolkit (GTDB-tk)[@Chaumeil.2019].
 
 We first need to reformat the table containing the taxonomic labels of the MAGs. We will employ the shell functions `awk` and `sed` to pull out the two columns we need and find-and-replace words and characters.
 
