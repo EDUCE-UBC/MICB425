@@ -173,6 +173,18 @@ ReferencePackage instance of XmoA (N0102):
 
 For supplementary reading on how to integrate sequences from SAGs and MAGs into reference packages please visit the [TreeSAPP Wiki](https://github.com/hallamlab/TreeSAPP/wiki/Integrating-MAGs-and-SAGs-in-reference-packages).
 
+Just to finish this off, let's map the PmoA and AmoA sequences from FunGene onto the MAG-updated reference package with `treesapp assign` to view later.
+
+```{bash eval = FALSE}
+treesapp assign \
+  -n 4 \
+  -m prot \
+  --trim_align \
+  --refpkg_dir XmoA_MAG_update/final_outputs/ \
+  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \
+  --output p_amoA_FunGene9.5_isolates_update_assign/
+```
+
 ## Annotate clades
 
 Protein families vary in their evolutionary complexity; many, especially genes involved in scavenging and metabolizing nutrients, have often been involved in some gene duplication and/or lateral gene transfer event while others have remained anchored to their host. Moreover, closely related enzymes can vary in their activities and it is often valuable, though not necessary, to annotate such features.
@@ -205,7 +217,7 @@ To create a file compatible with iTOL you will need to convert the taxonomy-phen
 
 ```{bash eval = FALSE}
 treesapp colour \
-  -r XmoA_FunGene_update/final_outputs/XmoA_build.pkl \
+  -r XmoA_MAG_update/final_outputs/XmoA_build.pkl \
   -o XmoA_colours/ \
   -n Function \
   --taxa_map XmoA_taxonomy-phenotype_map.tsv
@@ -214,41 +226,36 @@ treesapp colour \
 The two output files---`XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`---can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with `treesapp layer`. Let's make copies of the two text files in  XmoA_colours/ into the AmoA_assign/iTOL output directory and transfer them to `<path to Xmoa_sequences>`.
 
 ```{bash eval = FALSE}
-cp -r XmoA_colours AmoA_assign/iTOL_output/
+cp -r XmoA_colours p_amoA_FunGene9.5_isolates_update_assign/iTOL_output/
 ```
-
-Now from your local computer use `scp` to download the iTOL_output directory to a folder.
+    
+ -  **On your computer:** Transfer `XmoA_seed_assign/iTOL_output` from the server to your local directory `Xmoa_sequences`.
 
 ```{bash eval = FALSE}
-scp -r root@<server address>:/data/ts_tutorial/AmoA_assign/iTOL_output <path to Xmoa_sequences>
+scp -r root@<server address>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_update_assign/iTOL_output <path to Xmoa_sequences>
 ```
 
-Now upload the file XmoA_complete_profile.jplace to iTOL.
- 
-Next, navigate to the page displaying the phylogeny and click-and-drag the file XmoA_labels.txt into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with each leaf node's organism name and accession. The two files `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`  can be dragged into the iTOL browser window to bring colour to the XmoA tree. Finally, turn on the "Phylogenetic Placements" dataset (right of the screen), and the figure should look like this figure.
+-   Navigate to <https://itol.embl.de/> using a web browser and sign in using the group's username and password.
 
--   the figure should look identical to Figure \@ref(fig:XmoA-Classified)
+-   Upload the file `XmoA_complete_profile.jplace`. You can do this using either your computer's file browser then navigating to the `iTOL_output` directory and clicking-and-dragging the file, or iTOL's file uploader---the "Upload tree files" button. 
+
+-   Next, navigate to the page displaying the phylogeny and click-and-drag the file `XmoA_labels.txt` from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.
+
+-   The two files `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`  can be dragged into the iTOL browser window to bring colour to the XmoA tree. The figure should look identical to Figure \@ref(fig:XmoA-Classified)
 
 ![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](images/XmoA_update_coloured.png )
 
+-   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen).
+ 
+
 ## Reclassify and layer annotations onto classification table
 
-First, let's reclassify the isolate sequences from FunGene.
-
-```{bash eval = FALSE}
-treesapp assign \
-  -n 4 -m prot --trim_align \
-  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
-  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \
-  --output p_amoA_FunGene9.5_isolates_update_assign/
-```
-
-With the clade colours file in the tutorial directory, it is now simple to assign each of the classified query sequences to its respective functional guild with treesapp layer.
+With the clade colours file in the tutorial directory, it is now simple to assign each of the classified query sequences to its respective functional guild with `treesapp layer`.
 
 ```{bash eval = FALSE}
 treesapp layer \
   --colours_style XmoA_colours/XmoA_Function_colours_style.txt \
-  --refpkg_dir XmoA_FunGene_update/final_outputs/ \
+  --refpkg_dir XmoA_MAG_update/final_outputs/ \
   --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/
 ```
 
