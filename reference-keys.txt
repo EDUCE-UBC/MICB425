@@ -1,5 +1,6 @@
 fig:N-cycle-genes
 fig:xmoa
+fig:XmoA-Classified
 tab:commands
 exploring-the-microcosmos
 background
@@ -20,6 +21,9 @@ acquiring-golden-data
 the-golden-standard
 what-databases-can-i-retrieve-sequences-from
 xmoa-example
+fungene
+eggnog
+copying-data-onto-the-server
 alternative-sources
 data-access-hazards
 validation
@@ -30,5 +34,16 @@ making-the-reference-package
 testing-the-purity-of-the-reference-package
 viewing-the-reference-package-tree-with-itol
 building-your-groups-reference-package
+classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package
+introduction-and-goals-1
+classify-new-sequences
+classifying-amino-acid-sequences
+classifying-orfs-predicted-from-genomes
+update-the-reference-package-with-new-sequences
+updating-with-publicly-available-sequences
+updating-with-mag-sequences
+annotate-clades
+reclassify-and-layer-annotations-onto-classification-table
+use-your-groups-reference-package-to-classify-unkown-sequences-then-update-your-package
 shell-cheat-sheet
 references
