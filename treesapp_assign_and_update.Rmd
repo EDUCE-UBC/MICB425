@@ -6,9 +6,9 @@ We will be using the new particulate methane monooxygenase (pMMO) and ammonia mo
 
 There are three goals of this tutorial:
 
-1) Learn how to update a TreeSAPP reference package.
+1) Learn how to update a TreeSAPP reference package with `treesapp update`.
 1) Learn how to use `treesapp colour` to colour a phylogeny in iTOL.
-1) Learn how to annotate features of phylogenetic clades with `treesapp layer`.
+1) Learn how to annotate features of phylogenetic clades using `treesapp layer`.
 
 The first step involves using `treesapp assign` to classify the FunGene XmoA sequences. The second step is to use `treesapp update` to add the new sequences to the original XmoA reference package.
 
