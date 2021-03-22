@@ -18,7 +18,11 @@ In addition to these general and all-encompassing databases, there are smaller c
 
 ## XmoA example
 
-To show you how to access data from the FunGene database, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the [`treesapp create` tutorial](#treesapp-create). First, navigate to <http://fungene.cme.msu.edu/>. This front page organizes the genes into their respective functional groups. The sequences we're interested in are involved in biogeochemical cycling, so look under that panel for "AmoA" and "PmoA".
+To show you how to access these data, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the [`treesapp create` tutorial](#treesapp-create) from the FunGene and EggNOG databases.
+
+### FunGene
+
+First, navigate to <http://fungene.cme.msu.edu/>. This front page organizes the genes into their respective functional groups. The sequences we're interested in are involved in biogeochemical cycling, so look under that panel for "AmoA" and "PmoA".
 
 ![](images/fungene_landing.png)
 
@@ -33,6 +37,18 @@ For these sequences, we will limit them to just sequences derived from isolate g
 Deselect "Aligned" then click the "Download" button.
 
 Repeat with the above steps with the other genes "amoA_AOB" and "PmoA".
+
+### EggNOG
+
+Go to the EggNOG website at http://eggnog5.embl.de/#/app/home and search for either "ENOG5028JPK" or "arCOG08676" in the search bar at the top of the page. These EggNOG ortholog identifiers correspond to PmoA/AmoA from Bacteria and AmoA from Archaea, respectively. In the image below, we've searched for "ENOG5028JPK".
+
+![](images/EggNOG_xmoa_1.png)
+
+Click "Download" at the bottom-left of the panel and select "All _XX_ sequences (FASTA)", where _XX_ is the number of sequences belonging to the orthologous group (OG). This will open a new window with all sequences from that OG in FASTA format. Download this file to a file on your computer following the format &lt;OG name&gt;_EggNOGv5.faa where &lt;OG name&gt; is the EggNOG ortholog identifier.
+
+Repeat the above steps with the other EggNOG identifier.
+
+### Copying data onto the server
 
 -   **On your computer:** Create a new directory called `Xmoa_sequences` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). Place any reference sequences in `Xmoa_sequences` that you identified and downloaded from the databases.
 
