@@ -1,6 +1,7 @@
 fig:N-cycle-genes
 fig:xmoa
 fig:XmoA-Classified
+fig:saanich-inlet
 tab:commands
 exploring-the-microcosmos
 background
@@ -45,5 +46,12 @@ updating-with-mag-sequences
 annotate-clades
 reclassify-and-layer-annotations-onto-classification-table
 use-your-groups-reference-package-to-classify-unkown-sequences-then-update-your-package
+the-saanich-inlet-data-set
+description
+data-on-the-server
+description-of-input-data
+methods
+quality-filtering-of-reads
+assembly
 shell-cheat-sheet
 references

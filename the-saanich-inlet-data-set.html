@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>B Shell cheat sheet | Gene-centric mapping of microbial community structure and function</title>
+  <title>A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="B Shell cheat sheet | Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B Shell cheat sheet | Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-saanich-inlet-data-set.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"/>
+<link rel="next" href="shell-cheat-sheet.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -217,88 +217,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="shell-cheat-sheet" class="section level1">
-<h1><span class="header-section-number">B</span> Shell cheat sheet</h1>
-<table>
-<caption><span id="tab:commands">TABLE B.1: </span> Shell cheat sheet</caption>
-<colgroup>
-<col width="23%" />
-<col width="76%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>cd</code></td>
-<td><p>Change directory</p>
-<p><code>..</code> to parent directory</p>
-<p><code>~</code> to home directory</p>
-<p><code>-</code> to last visited directory</p></td>
-</tr>
-<tr class="even">
-<td><code>ls</code></td>
-<td><p>List files in directory</p>
-<p><code>-l</code> as list</p></td>
-</tr>
-<tr class="odd">
-<td><code>ssh &lt;username&gt;@&lt;server address&gt;</code></td>
-<td>Make a secure connection to server</td>
-</tr>
-<tr class="even">
-<td><code>pwd</code></td>
-<td>Print working directory</td>
-</tr>
-<tr class="odd">
-<td><code>less &lt;filename&gt;</code></td>
-<td><p>Look at text file</p>
-<p>Press <kbd>H</kbd>elp for navigation</p>
-<p>Press <kbd>Q</kbd>uit to leave</p></td>
-</tr>
-<tr class="even">
-<td><code>scp &lt;source&gt; &lt;target&gt;</code></td>
-<td><p>Copy files between local and server</p>
-<p>Give file path on server as <code>&lt;user&gt;@&lt;server address&gt;:&lt;file path&gt;</code></p></td>
-</tr>
-<tr class="odd">
-<td><code>exit</code></td>
-<td>Close session (either to server or to local terminal)</td>
-</tr>
-<tr class="even">
-<td><code>history</code></td>
-<td><p>Get list of command history</p>
-<p>Follow with <code>!&lt;number&gt;</code> to execute that corresponding command again</p>
-<p><code>-a &lt;filename&gt;</code> save a history of your current session to a text file to document your work</p></td>
-</tr>
-<tr class="odd">
-<td><p><code>man &lt;command&gt;</code></p>
-<p><code>help &lt;command&gt;</code></p>
-<p><code>&lt;command&gt; --help</code></p></td>
-<td>Unfortunately, it is impossible to predict how to get help for a <code>&lt;command&gt;</code>, try any one of these until one works</td>
-</tr>
-<tr class="even">
-<td><code>screen</code></td>
-<td><p>Create a virtual terminal that continues to run jobs even when your connection to server terminates</p>
-<p><code>-S &lt;session name&gt;</code> create a session with <code>&lt;session name&gt;</code></p>
-<p><code>-ls</code> list all running sessions</p>
-<p><code>-r &lt;session name&gt;</code> resume a session</p>
-<p>To leave a session but keep it running, first <kbd>ctrl</kbd>+<kbd>a</kbd>ctivate commands to <code>screen</code>, then</p>
-<p><kbd>d</kbd>etach</p></td>
-</tr>
-</tbody>
-</table>
+<div id="the-saanich-inlet-data-set" class="section level1">
+<h1><span class="header-section-number">A</span> The Saanich Inlet data set</h1>
+<div id="description" class="section level2">
+<h2><span class="header-section-number">A.1</span> Description</h2>
+<p>We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:</p>
+<div class="figure"><span id="fig:saanich-inlet"></span>
+<img src="images/saanich_inlet_map.png" alt="The Saanich Inlet"  />
+<p class="caption">
+FIGURE A.1: The Saanich Inlet
+</p>
+</div>
+<p>Figure <a href="the-saanich-inlet-data-set.html#fig:saanich-inlet">A.1</a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
+<p>For more details about these data, see <span class="citation">(<a href="references.html#ref-Hallam.2017" role="doc-biblioref">8</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="references.html#ref-Torres-Beltrán.2017" role="doc-biblioref">9</a>)</span>.</p>
+</div>
+<div id="data-on-the-server" class="section level2">
+<h2><span class="header-section-number">A.2</span> Data on the server</h2>
+<p>The data is located on the MICB425 server at <code>/mnt/datasets/saanich/</code>.</p>
+<pre><code>/mnt/datasets/saanich/
+├── [   0]  directory_structure.txt
+├── [492M]  MAGs
+│   └── [492M]  Concatenated
+│       └── [492M]  All_SI072_Metawrap_MAGs.fa
+├── [3.5G]  MetaG_Assemblies
+│   ├── [630M]  SI072_100m_contig.fa
+│   ├── [525M]  SI072_10m_contig.fa
+│   ├── [571M]  SI072_120m_contig.fa
+│   ├── [505M]  SI072_135m_contig.fa
+│   ├── [396M]  SI072_150m_contig.fa
+│   ├── [748M]  SI072_165m_contig.fa
+│   └── [219M]  SI072_200m_contig.fa
+├── [ 64G]  MetaG_Trim_QC_Reads
+│   ├── [4.7G]  SI072_100m_pe.1.fq.gz
+│   ├── [4.7G]  SI072_100m_pe.2.fq.gz
+│   ├── [4.2G]  SI072_10m_pe.1.fq.gz
+│   ├── [4.2G]  SI072_10m_pe.2.fq.gz
+│   ├── [4.2G]  SI072_120m_pe.1.fq.gz
+│   ├── [4.2G]  SI072_120m_pe.2.fq.gz
+│   ├── [4.4G]  SI072_135m_pe.1.fq.gz
+│   ├── [4.4G]  SI072_135m_pe.2.fq.gz
+│   ├── [4.8G]  SI072_150m_pe.1.fq.gz
+│   ├── [4.7G]  SI072_150m_pe.2.fq.gz
+│   ├── [6.5G]  SI072_165m_pe.1.fq.gz
+│   ├── [6.4G]  SI072_165m_pe.2.fq.gz
+│   ├── [3.3G]  SI072_200m_pe.1.fq.gz
+│   └── [3.3G]  SI072_200m_pe.2.fq.gz
+├── [ 54G]  MetaT_Raw_Reads
+│   ├── [8.9G]  SI072_100m_MetaT_QC_Filtered.fastq.gz
+│   ├── [6.4G]  SI072_10m_MetaT_QC_Filtered.fastq.gz
+│   ├── [6.8G]  SI072_120m_MetaT_QC_Filtered.fastq.gz
+│   ├── [7.2G]  SI072_135m_MetaT_QC_Filtered.fastq.gz
+│   ├── [10.0G]  SI072_150m_MetaT_QC_Filtered.fastq.gz
+│   ├── [8.7G]  SI072_165m_MetaT_QC_Filtered.fastq.gz
+│   └── [6.0G]  SI072_200m_MetaT_QC_Filtered.fastq.gz
+├── [181M]  SAGs
+│   └── [181M]  Concatenated_Med_Plus
+│       └── [181M]  Saanich_Med_Plus_SAGs.fasta
+└── [ 42K]  seq2lineage_Tables
+    ├── [ 17K]  Med_Plus_SAGs_GTDB_Taxonomies.tsv
+    └── [ 25K]  SI072_MAGs_All_GTDB_taxonomies.tsv
 
+ 122G used in 8 directories, 33 files</code></pre>
+</div>
+<div id="description-of-input-data" class="section level2">
+<h2><span class="header-section-number">A.3</span> Description of input data</h2>
+<p>List of directories and their contents</p>
+<ul>
+<li><p><code>MAGs</code></p>
+<p>Within the <code>Concatonated</code> subdirectory, there is a single <code>All_SI072_Metawrap_MAGs.fa</code> fasta file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the MetaWrap pipeline <span class="citation">(<a href="references.html#ref-Uritskiy.2018" role="doc-biblioref">10</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p></li>
+<li><p><code>MetaG_Assemblies</code></p>
+<p>This directory contains the seven assembled metagenomic contigs for each SI072 sample depth. These files will be used for the <code>treesapp assign</code> and <code>abundance</code> tutorials. These files were generated by assembling the trimmed and quality controlled reads that were generated by the Illumina Sequencer.</p></li>
+<li><p><code>MetaG_Trim_QC_Reads</code></p>
+<p>This directory contains fourteen fastq files which contain the paired-end forward and reverse metagenomic reads for each SI072 sample depth. These trimmed and QC’d fastqs were generated by processing the raw reads through the Megahit workflow described below. You will use these files for treesapp abundance to get the metagenomic abundance of your assigned genes.</p></li>
+<li><p><code>MetaT_Raw_Reads</code></p>
+<p>This directory contains seven filtered and QC’d metatranscriptome fastq files for each SI072 Sample depth. These files are paired end and interleaved. These files we provided by the the JGI and generated based on the methodology below. You will use these files in <code>treesapp abundance</code> to calculate the metatransciptomic abundances of each gene of interest.</p></li>
+<li><p><code>SAGs</code></p>
+<p>Within the <code>Concatenated_Med_Plus</code> subdirectory, there is a single <code>Saanich_Med_Plus_SAGs.fasta</code> file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the SAG Assembly and Decontamination Workflow <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">11</a>–<a href="references.html#ref-Tennessen.2016" role="doc-biblioref">14</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p></li>
+<li><p><code>seq2lineage_Tables</code></p>
+<p>This directory contains two files that will be used for treesapp update. One file contains the lineage information from the MAGs, and the other contains information for the SAGs. These tables were generated by taking each separate MAG and SAG respectively and passing them through the Genome Taxonomic Database Toolkit classify workflow (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>). Then, the first two columns of the archaeal and bacterial summary files were taken and combined into each of these files.</p></li>
+</ul>
+</div>
+<div id="methods" class="section level2">
+<h2><span class="header-section-number">A.4</span> Methods</h2>
+<p>Water was collected from various depths at Saanich Inlet and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with <strong>2x150bp</strong> technology. For more in-depth sampling and sequencing methods, please see <span class="citation">(<a href="references.html#ref-Hawley.2017" role="doc-biblioref">15</a>)</span>.</p>
+<div id="quality-filtering-of-reads" class="section level3">
+<h3><span class="header-section-number">A.4.1</span> Quality filtering of reads</h3>
+<p>The resulting reads were processed and quality controlled at the Joint Genome Institute using the IMG/M pipeline.</p>
+<p>Quality filtering was performed with Trimmomatic (v.0.35, <a href="http://www.usadellab.org/cms/?page=trimmomatic">documentation</a>) <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">11</a>)</span> with default parameters except:</p>
+<pre><code>LEADING:3 
+TRAILING:3 
+SLIDINGWINDOW:4:15 
+MINLEN:36</code></pre>
+</div>
+<div id="assembly" class="section level3">
+<h3><span class="header-section-number">A.4.2</span> Assembly</h3>
+<p>MEGAHIT (v.1.1.3, <a href="https://github.com/voutcn/megahit/wiki/Assembly-Tips">documentation</a>) <span class="citation">(<a href="references.html#ref-Li.2015" role="doc-biblioref">16</a>)</span> assembled MAGs using with default parameters except for:</p>
+<pre><code>--k-min 27 
+--k-step 10 
+--min-contig-len 500</code></pre>
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="the-saanich-inlet-data-set.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="shell-cheat-sheet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
