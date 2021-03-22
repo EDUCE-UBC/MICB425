@@ -6,59 +6,6 @@ Genome assemblies are lossy. Whenever you assemble a (meta)genome from reads, th
 
 TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the FASTQ files of multiple different samples. This is only possible when the input contained nucleotide sequences from which ORFs were predicted within the pipeline.
 
-**Supported versions \>=0.10.0**
-
-------------------------------------------------------------------------
-
-## Usage
-
-The help statement from executaing `treesapp abundance -h`:
-
-    usage: treesapp abundance [--overwrite] [-v] [-h] [--metric {fpkm,tpm}]
-                              [-r READS] [-2 REVERSE] [-p {pe,se}]
-                              [-n NUM_THREADS] [--delete] --treesapp_output OUTPUT
-                              [--report {update,nothing}]
-                              [--stage {continue,align_map,sam_sum,summarise}]
-
-    Calculate classified sequence abundances from read coverage.
-
-    Required parameters:
-      --treesapp_output OUTPUT
-                            Path to the directory containing TreeSAPP outputs,
-                            including sequences to be used for the update.
-
-    Abundance options:
-      --metric {fpkm,tpm}   Selects which normalization metric to use, FPKM or
-                            TPM.
-      -r READS, --reads READS
-                            FASTQ file containing to be aligned to predicted genes
-                            using BWA MEM
-      -2 REVERSE, --reverse REVERSE
-                            FASTQ file containing to reverse mate-pair reads to be
-                            aligned using BWA MEM
-      -p {pe,se}, --pairing {pe,se}
-                            Indicating whether the reads are paired-end (pe) or
-                            single-end (se)
-
-    Optional options:
-      --report {update,nothing,append}
-                            What should be done with the abundance values? The
-                            TreeSAPP classification table can be overwritten
-                            (update), appended or left unchanged. [ DEFAULT =
-                            append ]
-      --stage {continue,align_map,sam_sum,summarise}
-                            The stage(s) for TreeSAPP to execute [DEFAULT =
-                            continue]
-
-    Miscellaneous options:
-      --overwrite           Overwrites previously written output files and
-                            directories
-      -v, --verbose         Prints a more verbose runtime log
-      -h, --help            Show this help message and exit
-      -n NUM_THREADS, --num_procs NUM_THREADS
-                            The number of CPU threads or parallel processes to use
-                            in various pipeline steps [ DEFAULT = 2 ]
-      --delete              Delete all intermediate files to save disk space.
 
 There are two required arguments for `treesapp abundance`:
 
