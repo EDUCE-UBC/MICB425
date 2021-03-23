@@ -6,59 +6,6 @@ Genome assemblies are lossy. Whenever you assemble a (meta)genome from reads, th
 
 TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the FASTQ files of multiple different samples. This is only possible when the input contained nucleotide sequences from which ORFs were predicted within the pipeline.
 
-**Supported versions \>=0.10.0**
-
-------------------------------------------------------------------------
-
-## Usage
-
-The help statement from executaing `treesapp abundance -h`:
-
-    usage: treesapp abundance [--overwrite] [-v] [-h] [--metric {fpkm,tpm}]
-                              [-r READS] [-2 REVERSE] [-p {pe,se}]
-                              [-n NUM_THREADS] [--delete] --treesapp_output OUTPUT
-                              [--report {update,nothing}]
-                              [--stage {continue,align_map,sam_sum,summarise}]
-
-    Calculate classified sequence abundances from read coverage.
-
-    Required parameters:
-      --treesapp_output OUTPUT
-                            Path to the directory containing TreeSAPP outputs,
-                            including sequences to be used for the update.
-
-    Abundance options:
-      --metric {fpkm,tpm}   Selects which normalization metric to use, FPKM or
-                            TPM.
-      -r READS, --reads READS
-                            FASTQ file containing to be aligned to predicted genes
-                            using BWA MEM
-      -2 REVERSE, --reverse REVERSE
-                            FASTQ file containing to reverse mate-pair reads to be
-                            aligned using BWA MEM
-      -p {pe,se}, --pairing {pe,se}
-                            Indicating whether the reads are paired-end (pe) or
-                            single-end (se)
-
-    Optional options:
-      --report {update,nothing,append}
-                            What should be done with the abundance values? The
-                            TreeSAPP classification table can be overwritten
-                            (update), appended or left unchanged. [ DEFAULT =
-                            append ]
-      --stage {continue,align_map,sam_sum,summarise}
-                            The stage(s) for TreeSAPP to execute [DEFAULT =
-                            continue]
-
-    Miscellaneous options:
-      --overwrite           Overwrites previously written output files and
-                            directories
-      -v, --verbose         Prints a more verbose runtime log
-      -h, --help            Show this help message and exit
-      -n NUM_THREADS, --num_procs NUM_THREADS
-                            The number of CPU threads or parallel processes to use
-                            in various pipeline steps [ DEFAULT = 2 ]
-      --delete              Delete all intermediate files to save disk space.
 
 There are two required arguments for `treesapp abundance`:
 
@@ -97,10 +44,55 @@ The sole output of `treesapp abundance` is an edited classification table, previ
 cd /data/ts_tutorial/
 ```
 
+```{bash eval=FALSE}
+treesapp abundance \
+ -n 4 \
+ --reads ~/Bioinformatics/Hallam_projects/MICB425/data/*_pe.1.fq.gz \
+ --reverse ~/Bioinformatics/Hallam_projects/MICB425/data/*_pe.2.fq.gz \
+ --treesapp_output SI072_XmoA_contigs_assign/
+```
+
 ## Plotting abundances in iTOL
 
 Add steps
 ## Analyze the classifications
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+dat <- read.table(file="data/marker_contig_map.tsv",
+                  header=TRUE,
+                  sep="\t", quote="") %>% 
+  mutate(Length=End_pos-Start_pos) %>% 
+  separate(col = Taxonomy, into = c('r', 'd', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
+  separate(col = Sample, into = c("Cruise", "Depth"), extra = "drop") %>% 
+  mutate(Depth.m = as.numeric(gsub('m', '', Depth)))
+
+dat %>%
+  group_by(Depth.m, f) %>%
+  summarise(sum = sum(Abundance)) %>%
+  ungroup() %>%
+  ggplot(aes(x=Depth.m, y=sum, colour=f)) +
+  geom_line() +
+  coord_flip() +
+  labs(x="Depth (m)",
+       y="Relative abundance (FPKM)")
+
+dat %>% 
+  group_by(Depth, Depth.m) %>% 
+  mutate(Proportion = Abundance/sum(Abundance)) %>% 
+  group_by(Depth, Depth.m, o) %>% 
+  summarise(sum = sum(Proportion)) %>% 
+  ungroup() %>% 
+  mutate(Depth = reorder(Depth, Depth.m)) %>% 
+  ggplot(aes(x=Depth, y=sum, fill=o)) +
+  geom_bar(stat = "identity") +
+  labs(x="Depth",
+       y="Relative abundance")
+
+```
 
 ### Classification table
 

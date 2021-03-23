@@ -141,7 +141,7 @@ We have now created a phylogenetic tree for XmoA, but if we would visualize it, 
 
 ## Building your group's reference package
 
-Now create a reference package for the gene assigned to your group using your **group's** server.
+Now we have covered the first steps of creating a reference package for TreeSAPP and visualizing the outputs. Adapt and repeat the steps for [Acquiring golden data] and creating the reference package (this chapter) for the gene assigned to your group using your **group's** server.
 
 1) **On your computer:** create a directory `<gene_name_sequences>` in your home directory and download any reference sequences for your gene you can find on the databases.
 
@@ -149,6 +149,6 @@ Now create a reference package for the gene assigned to your group using your **
 
 1) **On your computer:** Copy the reference sequences from your computer to the directory `/data/<gene name>` on the server.
 
-1) **On the server:** Work in `/data/<gene name>` as you are creating your TreeSAPP outputs.
+1) **On the server:** Work in `/data/<gene name>` as you are creating your TreeSAPP referenc package and outputs.
 
 1) **On your computer:** Whenever you have TreeSAPP outputs that can be visualized with iTOL, copy the files from the server to your computer to do so.
