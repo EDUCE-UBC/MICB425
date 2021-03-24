@@ -87,7 +87,7 @@ A description of each of the fields can be found under the [`treesapp assign` do
 
 Modify marker_contig_map.tsv to split the sample name into 'cruise' and 'depth'. Two new columns are added 'Length'(End_pos-Start_pos) and 'Depth.m'(Depth in meters). Taxonomy is split into a separate column for each level.
 
-```{r setup, include=FALSE}
+```{r setup, eval=F}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -100,8 +100,10 @@ dat <- read.table(file="data/marker_contig_map.tsv",
   separate(col = Sample, into = c("Cruise", "Depth"), extra = "drop") %>% 
   mutate(Depth.m = as.numeric(gsub('m', '', Depth)))
 ```
+
 Distribution of abundances of  XmoA taxonomic orders  at different depths
-```{r setup, include=FALSE}
+
+```{r, eval=F}
 dat %>%
   group_by(Depth.m, o) %>%
   summarise(sum = sum(Abundance)) %>%
@@ -112,7 +114,8 @@ dat %>%
        y="Relative abundance (FPKM)")
 ```
 Distribution of abundances of XmoA taxonomic families  at different depths
-```{r, echo = FALSE, results='hide'}
+
+```{r, echo=FALSE, eval=F}
 
 dat %>%
   group_by(Depth.m, f) %>%
@@ -123,9 +126,10 @@ dat %>%
   labs(x="Relative abundance (FPKM)",
        y="Depth (m)")
 ```
+
 Barplot demonstrates relative change in proportions at different depths
 
-```{r setup, include=FALSE}
+```{r, eval=F}
 dat %>% 
   group_by(Depth, Depth.m) %>% 
   mutate(Proportion = Abundance/sum(Abundance)) %>% 
