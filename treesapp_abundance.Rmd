@@ -2,7 +2,7 @@
 
 ## Overview
 
-Genome assemblies are lousy. Whenever you assemble a (meta)genome from reads, the abundance information is effectively lost, even if it is noted in the FASTA headers by some assemblers. One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
+The genome assembly process fails to retain all information from the inputs. Whenever you assemble a (meta)genome from reads, the abundance information is effectively lost, even if it is noted in the FASTA headers by some assemblers. One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
 
 TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the FASTQ files of multiple different samples. This is only possible when the input contained nucleotide sequences from which ORFs were predicted within the pipeline.
 
