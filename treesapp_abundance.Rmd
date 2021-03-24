@@ -2,7 +2,7 @@
 
 ## Overview
 
-Genome assemblies are lossy. Whenever you assemble a (meta)genome from reads, the abundance information is effectively lost, even if it is noted in the FASTA headers by some assemblers. One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
+The genome assembly process fails to retain all information from the inputs. Whenever you assemble a (meta)genome from reads, the abundance information is effectively lost, even if it is noted in the FASTA headers by some assemblers. One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
 
 TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the FASTQ files of multiple different samples. This is only possible when the input contained nucleotide sequences from which ORFs were predicted within the pipeline.
 
@@ -43,6 +43,16 @@ The sole output of `treesapp abundance` is an edited classification table, previ
 ```{bash eval = FALSE}
 cd /data/ts_tutorial/
 ```
+Assign taxonomic labels to Saanich Inlet metagenomic contigs using the updated XmoA refpkg?
+
+```{bash eval=FALSE}
+treesapp assign \
+  -n 4 \
+  --trim_align \
+  --refpkg_dir XmoA_MAG_update/final_outputs/ \
+  --fastx_input data/SI072_MetaG_contigs.fasta \
+  --output SI072_XmoA_contigs_assign/ \
+```
 
 ```{bash eval=FALSE}
 treesapp abundance \
@@ -53,8 +63,31 @@ treesapp abundance \
 ```
 
 ## Plotting abundances in iTOL
+Drag and drop `XmoA_abundance_simplebar.txt` in the /final_outputs/iTOL_output folder into iTOL window to add abundance bar plot to ITOL phylogenic trees
 
-```{r setup, include=FALSE}
+### Classification table
+
+Back on the server, let's look at TreeSAPP's classification table for these FunGene XmoA sequences.
+ 
+The classification table contains detailed information corresponding to each classified query sequence. It is a tab-delimited table that can be read by a variety of tools. I tend to analyze most data in R and so the classification table was designed to be compatible with the tidyverse's extensive toolset. Likewise, it should be similarly easy to use Python to analyze these data with its rich suite of visualization libraries, e.g., `plotly` and `matplotlib`.
+
+Here are the first few lines from `p_amoA_FunGene9.5_isolates_assign/final_outputs/marker_contig_map.tsv`:
+
+```
+Sample	Query	Marker	Start_pos	End_pos	Taxonomy	Abundance	iNode	E-value	LWR	EvoDist	Distances
+p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAL86638  coded_by=1..825,organism=Nitrosomonas sp. JL21,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae; g__Nitrosomonas; s__Nitrosomonas sp. Is79A3	1.0	13	1.4e-114	0.9234534156	0.0404	0.0227,0.0177,0.0
+p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAG60667  coded_by=824..1645,organism=Nitrosomonas cryotolerans ATCC 49181,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae	1.0	16	3.7e-114	1.0	0.1305	0.0128,0.0205,0.0972
+p_amoA_FunGene9.5_isolates_C65S300_uclust99	BAH22839  coded_by=2160..2948,organism=Methylococcaceae bacterium ET-HIRO,definition=methane monooxygenase protein A2	XmoA	2	253	r__Root	1.0	61	7.1e-104	1.0	1.3677	0.083,0.5314,0.7534
+```
+
+A description of each of the fields can be found under the [`treesapp assign` documentation page](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table).
+
+
+## Analyze the classifications
+
+Modify marker_contig_map.tsv to split the sample name into 'cruise' and 'depth'. Two new columns are added 'Length'(End_pos-Start_pos) and 'Depth.m'(Depth in meters). Taxonomy is split into a separate column for each level.
+
+```{r setup, eval=F}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -66,17 +99,37 @@ dat <- read.table(file="data/marker_contig_map.tsv",
   separate(col = Taxonomy, into = c('r', 'd', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
   separate(col = Sample, into = c("Cruise", "Depth"), extra = "drop") %>% 
   mutate(Depth.m = as.numeric(gsub('m', '', Depth)))
+```
+
+Distribution of abundances of  XmoA taxonomic orders  at different depths
+
+```{r, eval=F}
+dat %>%
+  group_by(Depth.m, o) %>%
+  summarise(sum = sum(Abundance)) %>%
+  ungroup() %>%
+  ggplot(aes(x=Depth.m, y=sum, colour=o)) +
+  geom_line() +
+  labs(x="Depth (m)",
+       y="Relative abundance (FPKM)")
+```
+Distribution of abundances of XmoA taxonomic families  at different depths
+
+```{r, echo=FALSE, eval=F}
 
 dat %>%
   group_by(Depth.m, f) %>%
   summarise(sum = sum(Abundance)) %>%
   ungroup() %>%
   ggplot(aes(x=Depth.m, y=sum, colour=f)) +
-  geom_line() +
-  coord_flip() +
-  labs(x="Depth (m)",
-       y="Relative abundance (FPKM)")
+  geom_line() +coord_flip() +
+  labs(x="Relative abundance (FPKM)",
+       y="Depth (m)")
+```
 
+Barplot demonstrates relative change in proportions at different depths
+
+```{r, eval=F}
 dat %>% 
   group_by(Depth, Depth.m) %>% 
   mutate(Proportion = Abundance/sum(Abundance)) %>% 
@@ -90,23 +143,6 @@ dat %>%
        y="Relative abundance")
 
 ```
-
-### Classification table
-
-Back on the server, let's look at TreeSAPP's classification table for these FunGene XmoA sequences.
-
-The classification table contains detailed information corresponding to each classified query sequence. It is a tab-delimited table that can be read by a variety of tools. I tend to analyze most data in R and so the classification table was designed to be compatible with the tidyverse's extensive toolset. Likewise, it should be similarly easy to use Python to analyze these data with its rich suite of visualization libraries, e.g., `plotly` and `matplotlib`.
-
-Here are the first few lines from `p_amoA_FunGene9.5_isolates_assign/final_outputs/marker_contig_map.tsv`:
-
-```
-Sample	Query	Marker	Start_pos	End_pos	Taxonomy	Abundance	iNode	E-value	LWR	EvoDist	Distances
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAL86638  coded_by=1..825,organism=Nitrosomonas sp. JL21,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae; g__Nitrosomonas; s__Nitrosomonas sp. Is79A3	1.0	13	1.4e-114	0.9234534156	0.0404	0.0227,0.0177,0.0
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAG60667  coded_by=824..1645,organism=Nitrosomonas cryotolerans ATCC 49181,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae	1.0	16	3.7e-114	1.0	0.1305	0.0128,0.0205,0.0972
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	BAH22839  coded_by=2160..2948,organism=Methylococcaceae bacterium ET-HIRO,definition=methane monooxygenase protein A2	XmoA	2	253	r__Root	1.0	61	7.1e-104	1.0	1.3677	0.083,0.5314,0.7534
-```
-
-A description of each of the fields can be found under the [`treesapp assign` documentation page](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table).
 
 
 ## Use your group's reference package to calculate abundances
