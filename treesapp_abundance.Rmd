@@ -1,11 +1,30 @@
 # Calculating relative abundance of meta'omic data
 
-## Overview
+## Introduction and goals
 
-The genome assembly process fails to retain all information from the inputs. Whenever you assemble a (meta)genome from reads, the abundance information is effectively lost, even if it is noted in the FASTA headers by some assemblers. One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
+Genome assemblies contain less information than the sequence reads and recovering it is not always possible.
+The shotgun DNA sequencing technique samples subsequences from the genomes that comprise a microbial community. Sequencing bias, while present, is subtle enough that we can assume that each subsequence's frequency in the reads approximates its abundance in the underlying community. Whenever a (meta)genome is assembled from reads, however, sequences that are tricky to assemble (due to repetitive motifs or low coverage) are removed and the abundance information is effectively lost.
+One way to recover these read-level abundances is by aligning the reads back to the contigs and calculating the number of reads that mapped to each. One can go a step further still and use relative abundance normalization measures popular in transcriptomics, such as fragments per kilobase per million mappable reads (FPKM) or transcripts per million (TPM) @Wagner.2012.
 
-TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the FASTQ files of multiple different samples. This is only possible when the input contained nucleotide sequences from which ORFs were predicted within the pipeline.
+TreeSAPP's subcommand `abundance` is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the reads in the FASTQ files of multiple different samples. This is only possible when the input fasta are nucleotide sequences from which ORFs were predicted within the pipeline (i.e. this thisn't possible with amino acid sequences).
 
+The goal of this tutorial is to show you how to use `treesapp abundance` to calculate TPM for metagenome-derived ORF sequences.
+
+## Workflow description
+
+The workflow employed by TreeSAPP is common to many bioinformatics pipelines:
+
+1.  Collect nucleotide sequences for the classified ORFs.
+2.  BWA @Li.2013 creates an index from these nucleotide sequences - this will be the reference database.
+3.  Align the short reads to the reference database with BWA MEM.
+4.  Calculate the relative abundance metrics. TreeSAPP uses [samsum](https://github.com/hallamlab/samsum).
+
+There are potentially two common use cases for `treesapp abundance`.
+
+1.  Through `treesapp assign` where a single sample's read data are mapped to its corresponding assembly (i.e. contigs or scaffolds) and the relative abundances of these sequences are obtained.
+2.  A combined assembly was generated from multiple samples, classified with `treesapp assign`, then the reads of each sample were mapped individually to generate sample-specific relative abundance values with `treesapp abundance`.
+
+## Usage
 
 There are two required arguments for `treesapp abundance`:
 
@@ -18,23 +37,9 @@ Below are descriptions for the most important options:
 2.  **report**: This argument controls what `treesapp abundance` does with the resulting abundance values. The '*nothing*' option is most applicable to the Python API, and is used by `treesapp assign` to simply return the abundance object instances. '*update*' can be used when the abundance values in the classification table should be replaced with these newly calculated values. '*append*' should be used when reads of new samples are being used to calculate abundance (e.g. reads from a time-course experiment).
 3.  **metric**: Either Fragments per Kilobase per Mllion mappable reads (FPKM) or Transcripts per Million (TPM).
 
-## Workflow description
-
-The workflow employed by TreeSAPP is relatively simple and common to many bioinformatics pipelines:
-
-1.  Collect nucleotide sequences for the classified ORFs.
-2.  BWA @Li.2013 creates an index from these nucleotide sequences - this will be the reference database.
-3.  Align the short reads to the reference database with BWA MEM.
-4.  Calculate the relative abundance metrics using [samsum](https://github.com/hallamlab/samsum).
-
-There are potentially two common use cases for `treesapp abundance`.
-
-1.  Through `treesapp assign` where a single sample's read data are mapped to its corresponding assembly (i.e. contigs or scaffolds) and the relative abundances of these sequences are obtained.
-2.  A combined assembly was generated from multiple samples, classified with `treesapp assign`, then the reads of each sample were mapped individually to generate sample-specific relative abundance values with `treesapp abundance`.
-
 ## Outputs
 
-The sole output of `treesapp abundance` is an edited classification table, previously generated by `treesapp assign`. No new files are generated, beyond intermediates.
+The sole output of `treesapp abundance` is an edited classification table, previously generated by `treesapp assign`. No new files are generated, beyond intermediate files (e.g. SAM files). The values are in the 'Abundance' field of `final_outputs/marker_contig_map.tsv`.
 
 ## Tutorial steps
 
@@ -43,7 +48,27 @@ The sole output of `treesapp abundance` is an edited classification table, previ
 ```{bash eval = FALSE}
 cd /data/ts_tutorial/
 ```
-Assign taxonomic labels to Saanich Inlet metagenomic contigs using the updated XmoA refpkg?
+
+This tutorial requires many fastq and fasta formatted files, that are subsetted versions of the originals. They were created by searching metagenome assemblies and reads for XmoA then pulling out all sequences that matched into new files. We are going to save them in a new directory to keep `ts_tutorial` organized.
+
+-  Create a new directory called `SI072_data` and download the data to it.
+
+```{bash eval=F}
+mkdir SI072_data
+cd SI072_data
+wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/cml-dev/data/SI072_abundance_files.txt
+wget -i SI072_abundance_files.txt
+```
+
+We can move back out into the `/data/ts_tutorial/` directory again to run the TreeSAPP commands.
+
+```{bash eval=F}
+cd /data/ts_tutorial
+```
+
+We will begin by classifying XmoA sequences found in the metagenome contigs.
+
+-  Assign taxonomic labels to Saanich Inlet metagenomic contigs using the updated XmoA refpkg with `treesapp assign`.
 
 ```{bash eval=FALSE}
 treesapp assign \
@@ -51,99 +76,18 @@ treesapp assign \
   --trim_align \
   --refpkg_dir XmoA_MAG_update/final_outputs/ \
   --fastx_input data/SI072_MetaG_contigs.fasta \
-  --output SI072_XmoA_contigs_assign/ \
+  --output SI072_MetaG_contigs_XmoA_assign/ \
 ```
+
 
 ```{bash eval=FALSE}
 treesapp abundance \
- -n 4 \
- --reads ~/Bioinformatics/Hallam_projects/MICB425/data/*_pe.1.fq.gz \
- --reverse ~/Bioinformatics/Hallam_projects/MICB425/data/*_pe.2.fq.gz \
- --treesapp_output SI072_XmoA_contigs_assign/
+  -n 4 \
+  --treesapp_output SI072_MetaG_contigs_XmoA_assign/ \
+  --reads SI072_data/SI072_*m_pe.1.fq.gz \
+  --reverse SI072_data/SI072_*m_pe.2.fq.gz \
+  --metric tpm
 ```
-
-## Plotting abundances in iTOL
-Drag and drop `XmoA_abundance_simplebar.txt` in the /final_outputs/iTOL_output folder into iTOL window to add abundance bar plot to ITOL phylogenic trees
-
-### Classification table
-
-Back on the server, let's look at TreeSAPP's classification table for these FunGene XmoA sequences.
- 
-The classification table contains detailed information corresponding to each classified query sequence. It is a tab-delimited table that can be read by a variety of tools. I tend to analyze most data in R and so the classification table was designed to be compatible with the tidyverse's extensive toolset. Likewise, it should be similarly easy to use Python to analyze these data with its rich suite of visualization libraries, e.g., `plotly` and `matplotlib`.
-
-Here are the first few lines from `p_amoA_FunGene9.5_isolates_assign/final_outputs/marker_contig_map.tsv`:
-
-```
-Sample	Query	Marker	Start_pos	End_pos	Taxonomy	Abundance	iNode	E-value	LWR	EvoDist	Distances
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAL86638  coded_by=1..825,organism=Nitrosomonas sp. JL21,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae; g__Nitrosomonas; s__Nitrosomonas sp. Is79A3	1.0	13	1.4e-114	0.9234534156	0.0404	0.0227,0.0177,0.0
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAG60667  coded_by=824..1645,organism=Nitrosomonas cryotolerans ATCC 49181,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae	1.0	16	3.7e-114	1.0	0.1305	0.0128,0.0205,0.0972
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	BAH22839  coded_by=2160..2948,organism=Methylococcaceae bacterium ET-HIRO,definition=methane monooxygenase protein A2	XmoA	2	253	r__Root	1.0	61	7.1e-104	1.0	1.3677	0.083,0.5314,0.7534
-```
-
-A description of each of the fields can be found under the [`treesapp assign` documentation page](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table).
-
-
-## Analyze the classifications
-
-Modify marker_contig_map.tsv to split the sample name into 'cruise' and 'depth'. Two new columns are added 'Length'(End_pos-Start_pos) and 'Depth.m'(Depth in meters). Taxonomy is split into a separate column for each level.
-
-```{r setup, eval=F}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-
-dat <- read.table(file="data/marker_contig_map.tsv",
-                  header=TRUE,
-                  sep="\t", quote="") %>% 
-  mutate(Length=End_pos-Start_pos) %>% 
-  separate(col = Taxonomy, into = c('r', 'd', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
-  separate(col = Sample, into = c("Cruise", "Depth"), extra = "drop") %>% 
-  mutate(Depth.m = as.numeric(gsub('m', '', Depth)))
-```
-
-Distribution of abundances of  XmoA taxonomic orders  at different depths
-
-```{r, eval=F}
-dat %>%
-  group_by(Depth.m, o) %>%
-  summarise(sum = sum(Abundance)) %>%
-  ungroup() %>%
-  ggplot(aes(x=Depth.m, y=sum, colour=o)) +
-  geom_line() +
-  labs(x="Depth (m)",
-       y="Relative abundance (FPKM)")
-```
-Distribution of abundances of XmoA taxonomic families  at different depths
-
-```{r, echo=FALSE, eval=F}
-
-dat %>%
-  group_by(Depth.m, f) %>%
-  summarise(sum = sum(Abundance)) %>%
-  ungroup() %>%
-  ggplot(aes(x=Depth.m, y=sum, colour=f)) +
-  geom_line() +coord_flip() +
-  labs(x="Relative abundance (FPKM)",
-       y="Depth (m)")
-```
-
-Barplot demonstrates relative change in proportions at different depths
-
-```{r, eval=F}
-dat %>% 
-  group_by(Depth, Depth.m) %>% 
-  mutate(Proportion = Abundance/sum(Abundance)) %>% 
-  group_by(Depth, Depth.m, o) %>% 
-  summarise(sum = sum(Proportion)) %>% 
-  ungroup() %>% 
-  mutate(Depth = reorder(Depth, Depth.m)) %>% 
-  ggplot(aes(x=Depth, y=sum, fill=o)) +
-  geom_bar(stat = "identity") +
-  labs(x="Depth",
-       y="Relative abundance")
-
-```
-
 
 ## Use your group's reference package to calculate abundances
 
