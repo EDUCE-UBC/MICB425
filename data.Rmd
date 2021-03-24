@@ -79,16 +79,16 @@ The resulting trimmed fastq files were also deposited into the MICB425 server in
 
 #### Contig Assembly
 
-MEGAHIT (v.1.1.3, [documentation](https://github.com/voutcn/megahit/wiki/Assembly-Tips)) @Li.2015 was used to assembled the filtered metagenomic reads into contigs.
+MEGAHIT (v.1.1.3, [documentation](https://github.com/voutcn/megahit/wiki/Assembly-Tips)) @Li.2015 was used to assemble the filtered metagenomic reads into contigs.
 
 ```
 megahit -1 Path_To/SI072_200m//trim/SI072_XXXm_pe.1.fq  -2 Path_To/SI072_200m//trim/SI072_XXXm_pe.2.fq  -m 0.5  -t 12  -o megahit_result --k-min 27 --k-step 10 --min-contig-len 500
 ```
 The resulting assemblies can be found in `/mnt/datasets/saanich/MetaG_Assemblies`.
 
-#### Binning and MAG Genration
+#### Binning and MAG Generation
 
-MetaWRAP (v1.2.4, [documentation](https://github.com/bxlab/metaWRAP))[ref] was used to generate the MAGs from the metagenome assemblies and filtered reads for this project. MetaWRAP leverages high-quality draft genomes (bins) from metagenomic data by using a variety of software (we chose to use MetaBAT2 v2.12.1 [ref] and MaxBin v2.2.7[ref]). Quality of the resulting bins was calculated with MetaWRAP's implementation of CheckM (v1.0.12)[ref]. The command used to invoke MetaWRAP is as follows:
+MetaWRAP (v1.2.4, [documentation](https://github.com/bxlab/metaWRAP))[ref] was used to generate the MAGs from the metagenome assemblies and filtered reads for this project. MetaWRAP leverages multiple binning software (we chose to use MetaBAT2 v2.12.1 [ref] and MaxBin v2.2.7[ref]) to create a non-redundant set of MAGs that are better quality than those from any single software. The quality of the resulting bins -- assessed by their completeness, contamination, and strain-heterogeneity -- was calculated with MetaWRAP's implementation of CheckM (v1.0.12)[ref]. The command used to invoke MetaWRAP is as follows:
 
 ```
 metawrap binning -a SI072_Assembly.fa -o output_directory -t 16 -m 64 -l 1500 --metabat2 --maxbin2 --universal Path_To/SI072_200m//trimSI072_XXXm_pe.1.fastq Path_To/SI072_200m//trimSI072_XXXm_pe.2.fastq
@@ -101,15 +101,15 @@ The resulting MAGs were then passed through GTDB-TK v1.4.0 classify workflow wit
 gtdbtk classify_wf --genome_dir Path_To_SI072/MAGs/ -x .fa --out_dir Path_To_SI072/MAG_GTDB_Outputs/ --cpus 8 --pplacer_cpus 8
 
 ```
-The after updating the headers for resulting bins with the sample IDs, the bins were concatenated and deposited into: `/mnt/datasets/saanich/MAGs/Concatonated/` 
+After updating the headers for resulting bins with the sample IDs, the bins were concatenated and deposited into: `/mnt/datasets/saanich/MAGs/Concatenated/` 
 
 ### Single-Cell Amplified Genomes
 
 #### Sample Collection
-Water was collected at 10, 100, 120, 135, 150, 165, and 200m at Saanich Inlet on August 9th, 2011. 900 µL of seawater was alequoted into 100 µL of glycerol-TE buffer, then stored at -80 degrees Celsius. Samples were thawed and had their microbial cells sorted at the Bigelow Laboratory for Ocean Sciences’ Single Cell Genomics Center (scgc.bigelow.org). 
+Water was collected at 10, 100, 120, 135, 150, 165, and 200m at Saanich Inlet on August 9th, 2011. 900 µL of seawater was aliquoted into 100 µL of glycerol-TE buffer, then stored at -80 degrees Celsius. Samples were thawed and had their microbial cells sorted at the Bigelow Laboratory for Ocean Sciences’ Single Cell Genomics Center (scgc.bigelow.org). 
 
 
-#### Flourecence Activated Cell Sorting
+#### Florescence Activated Cell Sorting
 Samples were passed through a sterile 40 𝜇m size mesh before microorganisms were sorted by a non-targeted isolation procedure. For non-target isolation, the microbial particles were labeled with a 5 𝜇M final concentration of the DNA stain SYTO-9 (Thermo Fisher Scientific). Microbial cells were individually sorted using a MoFloTM (Beckman Coulter) or an InFluxTM (BD Biosciences) flow cytometer system equipped with a 488 nm laser for excitation and a 70 μm nozzle orifice30. The gates for the untargeted isolation of microbial cells stained with SYTO-9 were defined based on the green fluorescence of particles as a proxy for nucleic acid content, and side scattered light as a proxy for particle size. All microbial single cells were sorted into 384-well plates containing 600 nL of 1X TE buffer per well and then stored at -80 degrees Celsius. The microbial single-cells sorted into TE buffer were lysed as described previously by adding  cold KOH[ref].The microbial nucleic acids were then amplified in each individual wells through Multiple Displacement Amplification (MDA)[ref]. 
 
 
@@ -121,7 +121,7 @@ SAGs generated through the MDA methodology were taxonomically characterized by s
 ```
 
 #### SAG Sequencing and Assembly
-MDA products for the SAGs were sequenced as described previously [16,30] on an Illumina HiSeq 2000. The resulting raw reads were then filtered and trimmed to remove adapotrs with Trimmomatic v0.35.
+MDA products for the SAGs were sequenced as described previously [16,30] on an Illumina HiSeq 2000. The resulting raw reads were then filtered and trimmed to remove adaptors with Trimmomatic v0.35.
 
 ```
 trimmomatic -threads 8 -phred33 \
@@ -161,9 +161,9 @@ Quality of the SAGs was assessed using CheckM(v1.0.5) with the following command
 checkm lineage_wf --tab_table -x .fna --threads 8 --pplacer_threads 8
 ```
 
-If a SAG was >5% contamination, then the SAGs were passed through ProDeGe v2.3.0[ref].The resulting decontaminated SAG was re-assesed with CheckM. If the SAG still exceeded 5% contamination after several iterations, then short contigs <2000bp were removed from the assembly and re-assessed with CheckM. 
+SAGs found to have >5% contamination were passed through ProDeGe v2.3.0[ref].The resulting decontaminated SAGs were re-assesed with CheckM and those that still exceeded 5% contamination had all of their short contigs (i.e. <2000 bp) removed from the assembly. These were again re-assessed with CheckM to ensure they met our standards. 
 
-For this project, Based on the resulting CheckM scores, SAGs that were >50% Complete with <10% contamination were selected.
+For this project, SAGs that were estimated by CheckM to have >50% completeness and <10% contamination were selected.
 
 #### Final Taxonomic Assignment of SAGs
 
@@ -173,5 +173,4 @@ The resulting SAGs were then passed through GTDB-TK v1.4.0 [ref]classify workflo
 gtdbtk classify_wf --genome_dir Path_To_SI_SAGs/ -x .fna --out_dir Path_To_SI_SAGs/GTDB_1.4.0/ --cpus 8 --pplacer_cpus 8
 
 ```
-The After updating the headers for resulting SAGs with the sample IDs, the SAGs were concatenated and deposited into: `/mnt/datasets/saanich/SAGs/Concatonated_Med_Plus/`
-
+After updating the headers for resulting SAGs with the sample IDs, the SAGs were concatenated and deposited into: `/mnt/datasets/saanich/SAGs/Concatenated_Med_Plus/`
