@@ -1,3 +1,4 @@
+https://raw.githubusercontent.com/EDUCE-UBC/MICB425/cml-dev/data/SI072_MetaG_contigs.fasta
 https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_10m_pe.1.fq.gz
 https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_10m_pe.2.fq.gz
 https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_100m_pe.1.fq.gz
@@ -12,4 +13,10 @@ https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_165m_pe.1.fq.gz
 https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_165m_pe.2.fq.gz
 https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_200m_pe.1.fq.gz
 https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_200m_pe.2.fq.gz
-https://raw.githubusercontent.com/EDUCE-UBC/MICB425/cml-dev/data/SI072_MetaG_contigs.fasta
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_10m_MetaT_QC_Filtered.fq.gz
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_100m_MetaT_QC_Filtered.fq.gz
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_120m_MetaT_QC_Filtered.fq.gz
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_135m_MetaT_QC_Filtered.fq.gz
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_150m_MetaT_QC_Filtered.fq.gz
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_165m_MetaT_QC_Filtered.fq.gz
+https://github.com/EDUCE-UBC/MICB425/raw/cml-dev/data/SI072_200m_MetaT_QC_Filtered.fq.gz
