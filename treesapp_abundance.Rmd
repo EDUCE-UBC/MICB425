@@ -63,7 +63,7 @@ wget -i SI072_abundance_files.txt
 We can move back out into the `/data/ts_tutorial/` directory again to run the TreeSAPP commands.
 
 ```{bash eval=F}
-cd /data/ts_tutorial
+cd ..
 ```
 
 We will begin by classifying XmoA sequences found in the metagenome contigs.
