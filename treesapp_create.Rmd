@@ -7,74 +7,74 @@ In the [Acquiring golden data] tutorial, PmoA & AmoA sequences were downloaded f
 
 -   **All steps are executed on the server unless stated otherwise!!** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
 
-    ```{bash eval = FALSE}
-    cd /data/ts_tutorial
-    ```
+```{bash eval = FALSE}
+cd /data/ts_tutorial
+```
 
 -   **Optional:** If you could not download the reference sequences of XmoA yourself (see [Acquiring golden data]), download [`xmoa_file_list.txt`](https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt)---a list of the necessary fasta files---with `wget` to the `ts_tutorial` directory, then run `wget` again to retrieve each file within this list.
 
-    ```{bash eval = FALSE}
-    cd /data/ts_tutorial
-    wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt
-    wget -i xmoa_file_list.txt
-    ```
+```{bash eval = FALSE}
+cd /data/ts_tutorial
+wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt
+wget -i xmoa_file_list.txt
+```
 
 -   Create the input FASTA file by combining the EggNOG and TIGRFAM reference into a single file using `cat`. `cat` stands for concatentate, i.e. the files are pasted together. The output of `cat` is funneled with the `>` symbol to a `<new file>`, i.e.  `cat <file 1> <file 2> > <new file>` 
 
-    ```{bash eval = FALSE}
-    cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa > XmoA_seed.faa
-    ```
+```{bash eval = FALSE}
+cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa > XmoA_seed.faa
+```
 
-    There are 76 well curated PmoA and AmoA fasta sequences in this file.
+There are 76 well curated PmoA and AmoA fasta sequences in this file.
 
 -   Let's look briefly at the newly generated fasta file.
 
-    ```{bash eval = FALSE}
-    less XmoA_seed.faa
-    ```
+```{bash eval = FALSE}
+less XmoA_seed.faa
+```
 
 -   You will notice, that they are lines that start with a `>` that gives the name of a sequence followed by a line containing the actual nucleotide sequence itself. We can count and confirm the number of sequences in the fasta file by counting those `>` using `grep`. `grep` is an incredibly powerful tool to find matching text patterns (using a format called "regular expression") and is beyond the scope of this tutorial. The code below searches for a `>` at the beginning of the line (defined with `"^>"`) of the file `XmoA_seed.faa` and counts each occurrence due to the option `-c`.
 
-    ```{bash eval = FALSE}
-    grep -c "^>" XmoA_seed.faa
-    ```
+```{bash eval = FALSE}
+grep -c "^>" XmoA_seed.faa
+```
 
 -   Use submodule `treesapp create` to build the XmoA reference package with different arguments (see [visualization of the `create` workflow](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients)). To speed things along, we will use FastTree to infer the phylogeny and will skip bootstrapping with `--fast`. To remove potential redundant sequences, we will cluster the candidate reference sequences at 97% similarity using the argument `-p`. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more, the flag `--headless` will prevent these requests. This command will take \~2 minutes to complete.
 
-    ```{bash eval = FALSE}
-    treesapp create \
-      --fast \
-      --headless \
-      --overwrite \
-      --cluster \
-      --trim_align \
-      -n 4 \
-      -m prot \
-      -p 0.97 \
-      --fastx_input XmoA_seed.faa \
-      -c XmoA \
-      --output XmoA_seed
-    ```
+```{bash eval = FALSE}
+treesapp create \
+  --fast \
+  --headless \
+  --overwrite \
+  --cluster \
+  --trim_align \
+  -n 4 \
+  -m prot \
+  -p 0.97 \
+  --fastx_input XmoA_seed.faa \
+  -c XmoA \
+  --output XmoA_seed
+```
 
-     The final reference package file is located in `XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule `treesapp package`.
+   The final reference package file is located in `XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule `treesapp package`.
 
 -   Replace the current refpkg_code `Z1111` with unique identifier `N0102`.
 
-    ```{bash eval = FALSE}
-    treesapp package edit \
-      refpkg_code N0102 \
-      --overwrite \
-      --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl
-    ```
+```{bash eval = FALSE}
+treesapp package edit \
+  refpkg_code N0102 \
+  --overwrite \
+  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl
+```
 
 -   We can also modify the reference package's description while we're here.
 
-    ```{bash eval = FALSE}
-    treesapp package edit \
-      description "Alpha subunits of copper membrane monooxygenase enzymes" \
-      --overwrite \
-      --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl
-    ```
+```{bash eval = FALSE}
+treesapp package edit \
+  description "Alpha subunits of copper membrane monooxygenase enzymes" \
+  --overwrite \
+  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl
+```
 
 ## Testing the purity of the reference package
 
