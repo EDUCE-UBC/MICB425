@@ -24,6 +24,7 @@ According to `treesapp purity` in the [last chapter](#treesapp-create), and all 
 
 The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).
 
+
 For these commands we will use Block Mapping and Gathering with Entropy (BMGE) which filters out regions of questionable homology from the alignment [@Criscuolo.2010]. Please see the [BMGE publication](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210) for more information. To trim the multiple sequence alignments prior to phylogenetic placement use the `--trim_align` flag.
 To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
 
@@ -46,6 +47,7 @@ treesapp assign \
 The command should take a few seconds to run and if you see a 'TreeSAPP has finished successfully.' at the end then you're good to move on.
 
 ### Classifying ORFs predicted from genomes
+
 
 The second batch of sequences that we will classify XmoA from are metagenome-assembled genomes (MAGs). MAGs are derived from assembled metagenome datasets (i.e. contigs or scaffolds) and represent the genome of a closely related microbial population. You can think of them as representing a single strain present in a microbial community.
 
@@ -120,6 +122,8 @@ Number of unique lineages:
 	genus     25
 	species   38
 ```
+
+## Annotate clades
 
 ### Updating with MAG sequences
 
