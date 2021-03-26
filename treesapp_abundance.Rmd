@@ -56,7 +56,7 @@ This tutorial requires many fastq and fasta formatted files, that are subsetted 
 ```{bash eval=F}
 mkdir SI072_data
 cd SI072_data
-wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/cml-dev/data/SI072_abundance_files.txt
+wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/SI072_abundance_files.txt
 wget -i SI072_abundance_files.txt
 ```
 
