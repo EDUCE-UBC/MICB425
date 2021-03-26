@@ -107,27 +107,27 @@ From this summary it appears that the reference package classified three homolog
 
 We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use the `treesapp assign` function.  
 
-  Assign reference sequences to reference package to generate tree with labels.
+-  Assign reference sequences to reference package to generate tree with labels.
 
-    ```{bash eval = FALSE}
-    treesapp assign \
-      -n 4 \
-      -m prot \
-      --trim_align \
-      --refpkg_dir XmoA_seed/final_outputs/ \
-      --fastx_input XmoA_seed.faa \
-      --output XmoA_seed_assign/
-    ```
+```{bash eval = FALSE}
+treesapp assign \
+  -n 4 \
+  -m prot \
+  --trim_align \
+  --refpkg_dir XmoA_seed/final_outputs/ \
+  --fastx_input XmoA_seed.faa \
+  --output XmoA_seed_assign/
+```
 
-    The `treesapp assign` output directory (defined by the flag `--output`, i.e. in this case `XmoA_seed_assign`) contains the `iTOL_output` directory.
-    
+The `treesapp assign` output directory (defined by the flag `--output`, i.e. in this case `XmoA_seed_assign`) contains the `iTOL_output` directory.
+  
  -  **On your computer:** Transfer `XmoA_seed_assign/iTOL_output` from the server to your local directory `Xmoa_sequences`.
  
-    ```{bash eval = FALSE}
-     scp -r root@<server address>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <path to Xmoa_sequences>
-    ```
+```{bash eval = FALSE}
+ scp -r root@<server address>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <path to Xmoa_sequences>
+```
 
-    We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the JPlace file produced by TreeSAPP. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
+  We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the JPlace file produced by TreeSAPP. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.
 
 -   Navigate to <https://itol.embl.de/> using a web browser and sign in using the group's username and password.
 

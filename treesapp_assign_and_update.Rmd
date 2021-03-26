@@ -123,8 +123,6 @@ Number of unique lineages:
 	species   38
 ```
 
-## Annotate clades
-
 ### Updating with MAG sequences
 
 We are now going to update the reference package that we just updated using the MAG sequences to demonstrate how to iteratively update reference packages. A key difference between using sequences accessioned in the NCBI and here is we must provide the taxonomic labels for each MAG. The MAGs were assigned taxonomic labels using the [Genome Taxonomy Database](https://gtdb.ecogenomic.org/) toolkit (GTDB-tk)[@Chaumeil.2019].
