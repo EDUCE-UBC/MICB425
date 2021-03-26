@@ -97,7 +97,7 @@ treesapp abundance \
 treesapp abundance \
  -n 4 \
  --treesapp_output SI072_MetaG_contigs_XmoA_assign/ \
- --reads SI072_data/SI072_*m_MetaT_QC_Filtered.fastq.gz \
+ --reads SI072_data/SI072_*m_MetaT_QC_Filtered.fq.gz \
  --pairing pe \
  --metric tpm \
  --report append
