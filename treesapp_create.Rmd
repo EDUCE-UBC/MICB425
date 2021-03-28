@@ -152,3 +152,37 @@ Now we have covered the first steps of creating a reference package for TreeSAPP
 1) **On the server:** Work in `/data/<gene name>` as you are creating your TreeSAPP referenc package and outputs.
 
 1) **On your computer:** Whenever you have TreeSAPP outputs that can be visualized with iTOL, copy the files from the server to your computer to do so.
+
+### Booster shot
+
+The reference package for XmoA is relatively small, and ideal for an in-class tutorial. However, many protein families are much more complex with members spread broadly across the tree of life. In these cases, you may need to use other tactics to reduce the size of your reference package so `treesapp create` can finish in under a few hours. Using any or all of the following options are __not__ required, but may be useful. 
+
+1) Remove more candidate reference sequences from the final reference package by decreasing the percent similarity used during sequence clustering. In the tutorial we set "-p"/"---similarity" to 0.97 but this is going to be too high in many cases. Try something between 0.80 and 0.95 to get between 100 and 2000 sequences.
+
+2) A profile HMM can be used to accomplish two things: first it can be used to remove sequences with remote homology to the protein family you're building a reference package for; each HMM alignment can be used to trim the input sequences to just the conserved regions improving the quality of the multiple sequence alignment and phylogeny.
+You can download a profile HMM from EggNOG by going to your gene's EggNOG page, clicking  `Download ᐁ` and then "HMM model". This will typically only be available for subgroups such as "Bacteria", "Archaea", "Proteobacteria", etc. (i.e. not 'root').
+
+3) Metagenomic data from Saanich Inlet were generated from biomass where larger Eukaryotic cells had been physically removed prior to sequencing. Therefore, these organisms do not need to be present in the reference packages. You can remove sequences that are Eukaryotic in origin by using either "--screen" or "--filter" arguments. For example, to only include Bacteria and Archaea use `--screen Bacteria,Archaea` or `--filter Eukaryota`.
+
+4) The "--min_taxonomic_rank" argument specifies the minimum taxonomic rank a sequence's taxonomic lineage must be resolved to. For example, using `--min_taxonomic_rank g` will ensure that all sequences in the reference package have been annotated to the genus, species or strain taxonomic rank. To specify others ranks , use the lowercase first letter of that taxonomic rank.
+If your reference package is still very large after using the above options, setting this argument to a highly resolved taxonomic rank can be a potent way to remove candidate reference sequences.
+
+To bring all of these arguments together for you here is an example command:
+
+```{bash eval=FALSE}
+treesapp create
+  --fast \
+  --headless \
+  --overwrite \
+  --cluster \
+  --trim_align \
+  -n 4 \
+  -m prot \
+  --similarity 0.90 \
+  --screen Bacteria,Archaea \
+  --min_taxonomic_rank g \
+  --profile arCOG08676_hmm.txt \
+  --fastx_input XmoA_seed.faa \
+  -c XmoA \
+  --output XmoA_seed
+```
