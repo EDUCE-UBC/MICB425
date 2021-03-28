@@ -172,7 +172,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#making-the-reference-package"><i class="fa fa-check"></i><b>4.1</b> Making the reference package</a></li>
 <li class="chapter" data-level="4.2" data-path="treesapp-create.html"><a href="treesapp-create.html#testing-the-purity-of-the-reference-package"><i class="fa fa-check"></i><b>4.2</b> Testing the purity of the reference package</a></li>
 <li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#viewing-the-reference-package-tree-with-itol"><i class="fa fa-check"></i><b>4.3</b> Viewing the reference package tree with iTOL</a></li>
-<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.4</b> Building your group’s reference package</a></li>
+<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.4</b> Building your group’s reference package</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#booster-shot"><i class="fa fa-check"></i><b>4.4.1</b> Booster shot</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><i class="fa fa-check"></i><b>5</b> Classifying unknown sequences with TreeSAPP and updating a reference package</a><ul>
 <li class="chapter" data-level="5.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#introduction-and-goals-1"><i class="fa fa-check"></i><b>5.1</b> Introduction and Goals</a></li>
@@ -241,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="classify-new-sequences" class="section level2">
 <h2><span class="header-section-number">5.2</span> Classify new sequences</h2>
 <p>Before we can begin using TreeSAPP, we must log onto the server and make sure we’re in the same directory as all our data.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb16-1"></a><span class="bu">cd</span> /data/ts_tutorial/</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-1"></a><span class="bu">cd</span> /data/ts_tutorial/</span></code></pre></div>
 <p>According to <code>treesapp purity</code> in the <a href="treesapp-create.html#treesapp-create">last chapter</a>, and all other sanity checks, the XmoA reference package (contained in your working directory, <code>/data/ts_tutorial</code>, at <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>) looks functional and only contains XmoA sequences. At this point, you’re able to use this reference package to classify sequences in any dataset using <code>treesapp assign</code>.</p>
 <p>The command <code>treesapp assign</code> is perhaps the most popular command and is described in detail on the <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign">TreeSAPP wiki</a>.</p>
 <p>For these commands we will use Block Mapping and Gathering with Entropy (BMGE) which filters out regions of questionable homology from the alignment <span class="citation">(<a href="references.html#ref-Criscuolo.2010" role="doc-biblioref">6</a>)</span>. Please see the <a href="https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210">BMGE publication</a> for more information. To trim the multiple sequence alignments prior to phylogenetic placement use the <code>--trim_align</code> flag.
@@ -250,13 +252,13 @@ To use the PmoA and AmoA reference package we’ve built instead of any other re
 <div id="classifying-amino-acid-sequences" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Classifying amino acid sequences</h3>
 <p>We’re first going to classify PmoA and AmoA sequences sourced from FunGene. The sequences are from genomes of isolated bacteria and archaea and, because of FunGene’s quality annotation pipeline, can likely be trusted. Environmental sequences (i.e. those from metagenomes and amplicon studies) have been excluded as they’re more difficult to determine what organism they’re from, and so the taxonomic labels are less trustworthy.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-1"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb17-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-2"></a>  -n 4 \</span>
-<span id="cb17-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-3"></a>  -m prot \</span>
-<span id="cb17-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-4"></a>  --trim_align \</span>
-<span id="cb17-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-5"></a>  --refpkg_dir XmoA_seed/final_outputs/ \</span>
-<span id="cb17-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-6"></a>  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \</span>
-<span id="cb17-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb17-7"></a>  --output p_amoA_FunGene9.5_isolates_assign/</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-1"></a><span class="ex">treesapp</span> assign \</span>
+<span id="cb18-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-2"></a>  -n 4 \</span>
+<span id="cb18-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-3"></a>  -m prot \</span>
+<span id="cb18-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-4"></a>  --trim_align \</span>
+<span id="cb18-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-5"></a>  --refpkg_dir XmoA_seed/final_outputs/ \</span>
+<span id="cb18-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-6"></a>  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \</span>
+<span id="cb18-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb18-7"></a>  --output p_amoA_FunGene9.5_isolates_assign/</span></code></pre></div>
 <p>The command should take a few seconds to run and if you see a ‘TreeSAPP has finished successfully.’ at the end then you’re good to move on.</p>
 </div>
 <div id="classifying-orfs-predicted-from-genomes" class="section level3">
@@ -266,18 +268,18 @@ To use the PmoA and AmoA reference package we’ve built instead of any other re
 <pre><code>wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/SI072_MAGs.fa ./
 wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/SI072_MAGs_gtdbtk.bac120.summary.tsv ./</code></pre>
 <p>The first file was created by concatenating twelve different MAGs into a single file and prepending each sequence name (i.e. header) with the MAG name using the software <a href="https://bioinf.shenwei.me/seqkit/">seqkit</a>. Concatenating multiple genomes into a single file saves time since you only need to run <code>treesapp assign</code> once instead of classifying each MAG individually. Prepending the header with its respective MAG name is necessary to properly map the names of the query sequences back to their original genome names during the update process. Here is the shell command used (do not run):</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb19-1"></a><span class="kw">for</span> <span class="ex">f</span> in *fa</span>
-<span id="cb19-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb19-2"></a><span class="kw">do</span></span>
-<span id="cb19-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb19-3"></a>  <span class="va">mag_name=$(</span> <span class="fu">basename</span> <span class="va">$f</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">&#39;s/.fa//g&#39;</span> <span class="va">)</span></span>
-<span id="cb19-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb19-4"></a>  <span class="fu">cat</span> <span class="va">$f</span> <span class="kw">|</span> <span class="ex">seqkit</span> replace -p <span class="st">&quot;^&quot;</span> -r <span class="st">&quot;</span><span class="va">${mag_name}</span><span class="st">_&quot;</span> <span class="op">&gt;&gt;</span>SI072_MAGs.fa</span>
-<span id="cb19-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb19-5"></a><span class="kw">done</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-1"></a><span class="kw">for</span> <span class="ex">f</span> in *fa</span>
+<span id="cb20-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-2"></a><span class="kw">do</span></span>
+<span id="cb20-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-3"></a>  <span class="va">mag_name=$(</span> <span class="fu">basename</span> <span class="va">$f</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">&#39;s/.fa//g&#39;</span> <span class="va">)</span></span>
+<span id="cb20-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-4"></a>  <span class="fu">cat</span> <span class="va">$f</span> <span class="kw">|</span> <span class="ex">seqkit</span> replace -p <span class="st">&quot;^&quot;</span> -r <span class="st">&quot;</span><span class="va">${mag_name}</span><span class="st">_&quot;</span> <span class="op">&gt;&gt;</span>SI072_MAGs.fa</span>
+<span id="cb20-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-5"></a><span class="kw">done</span></span></code></pre></div>
 <p>The <code>treesapp assign</code> command we use is very similar from those we’ve used in the past. The main difference is we do not need to include <code>-m prot</code> as TreeSAPP assumes the input is comprised of nucleotide sequences by default.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-1"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb20-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-2"></a>  -n 4 \</span>
-<span id="cb20-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-3"></a>  --trim_align \</span>
-<span id="cb20-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-4"></a>  --refpkg_dir XmoA_seed/final_outputs/ \</span>
-<span id="cb20-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-5"></a>  --fastx_input SI072_MAGs.fa \</span>
-<span id="cb20-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb20-6"></a>  --output SI072_MAGs_assign/</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-1"></a><span class="ex">treesapp</span> assign \</span>
+<span id="cb21-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-2"></a>  -n 4 \</span>
+<span id="cb21-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-3"></a>  --trim_align \</span>
+<span id="cb21-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-4"></a>  --refpkg_dir XmoA_seed/final_outputs/ \</span>
+<span id="cb21-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-5"></a>  --fastx_input SI072_MAGs.fa \</span>
+<span id="cb21-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-6"></a>  --output SI072_MAGs_assign/</span></code></pre></div>
 <p>This command should take less than a minute to complete.</p>
 </div>
 </div>
@@ -289,20 +291,20 @@ wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/SI072_MAGs_gt
 <p>You have already seen many of these flags and arguments before, and they’re used again here just to remind TreeSAPP that we want results fast. A couple of new ones are used, though. <code>treesapp update</code> won’t take just any old FASTA file but relies on the outputs produced by <code>treesapp assign</code>. So we’ll guide it to the relevant output directory with <code>--treesapp_output p_amoA_FunGene9.5_isolates_assign/</code>. From there, it will figure out what sequences were classified and what their assigned lineages were.</p>
 <p>By default TreeSAPP will use the lineage that was assigned to each classified query sequence from the <code>treesapp assign</code> outputs. Since these sequences are from FunGene (and originally GenBank) they have NCBI accessions, meaning we can use this information to download their true taxonomic lineages. To turn on that behaviour we use the <code>--skip_assign</code> flag.<br />
 Lastly, we must give it the path to the reference package to update with <code>--refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-1"></a><span class="ex">treesapp</span> update \</span>
-<span id="cb21-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-2"></a>  --fast \</span>
-<span id="cb21-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-3"></a>  --headless \</span>
-<span id="cb21-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-4"></a>  --overwrite \</span>
-<span id="cb21-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-5"></a>  --delete \</span>
-<span id="cb21-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-6"></a>  --cluster \</span>
-<span id="cb21-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-7"></a>  --trim_align \</span>
-<span id="cb21-8"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-8"></a>  -n 4 \</span>
-<span id="cb21-9"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-9"></a>  -m prot \</span>
-<span id="cb21-10"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-10"></a>  --fastx_input XmoA_seed.faa \</span>
-<span id="cb21-11"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-11"></a>  --output XmoA_FunGene_update/ \</span>
-<span id="cb21-12"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-12"></a>  --skip_assign \</span>
-<span id="cb21-13"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-13"></a>  --treesapp_output p_amoA_FunGene9.5_isolates_assign/ \</span>
-<span id="cb21-14"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb21-14"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-1"></a><span class="ex">treesapp</span> update \</span>
+<span id="cb22-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-2"></a>  --fast \</span>
+<span id="cb22-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-3"></a>  --headless \</span>
+<span id="cb22-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-4"></a>  --overwrite \</span>
+<span id="cb22-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-5"></a>  --delete \</span>
+<span id="cb22-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-6"></a>  --cluster \</span>
+<span id="cb22-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-7"></a>  --trim_align \</span>
+<span id="cb22-8"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-8"></a>  -n 4 \</span>
+<span id="cb22-9"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-9"></a>  -m prot \</span>
+<span id="cb22-10"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-10"></a>  --fastx_input XmoA_seed.faa \</span>
+<span id="cb22-11"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-11"></a>  --output XmoA_FunGene_update/ \</span>
+<span id="cb22-12"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-12"></a>  --skip_assign \</span>
+<span id="cb22-13"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-13"></a>  --treesapp_output p_amoA_FunGene9.5_isolates_assign/ \</span>
+<span id="cb22-14"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb22-14"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
 <p>It looks like 28 new sequences were introduced into the reference package, bringing the total to 63 sequences! And judging from the taxonomic rank summary printed during runtime both Archaea and Bacteria are now included:</p>
 <pre><code>Number of unique lineages:
     root       1
@@ -318,26 +320,26 @@ Lastly, we must give it the path to the reference package to update with <code>-
 <h3><span class="header-section-number">5.3.2</span> Updating with MAG sequences</h3>
 <p>We are now going to update the reference package that we just updated using the MAG sequences to demonstrate how to iteratively update reference packages. A key difference between using sequences accessioned in the NCBI and here is we must provide the taxonomic labels for each MAG. The MAGs were assigned taxonomic labels using the <a href="https://gtdb.ecogenomic.org/">Genome Taxonomy Database</a> toolkit (GTDB-tk)<span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span>.</p>
 <p>We first need to reformat the table containing the taxonomic labels of the MAGs. We will employ the shell functions <code>awk</code> and <code>sed</code> to pull out the two columns we need and find-and-replace words and characters.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb23-1"></a><span class="fu">awk</span> -F<span class="st">&quot;\t&quot;</span> <span class="st">&#39;{ OFS=&quot;\t&quot;; print $1,$2 }&#39;</span> SI072_MAGs_gtdbtk.bac120.summary.tsv <span class="kw">|</span> <span class="kw">\</span></span>
-<span id="cb23-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb23-2"></a><span class="fu">sed</span> <span class="st">&#39;s/user_genome/Organism/g&#39;</span> <span class="kw">|</span> <span class="kw">\</span></span>
-<span id="cb23-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb23-3"></a><span class="fu">sed</span> <span class="st">&#39;s/classification/Lineage/g&#39;</span> <span class="kw">|</span> <span class="kw">\</span></span>
-<span id="cb23-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb23-4"></a><span class="fu">sed</span> <span class="st">&#39;s/;/; /g&#39;</span> <span class="op">&gt;</span>gtdb_classifications.tsv</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-1"></a><span class="fu">awk</span> -F<span class="st">&quot;\t&quot;</span> <span class="st">&#39;{ OFS=&quot;\t&quot;; print $1,$2 }&#39;</span> SI072_MAGs_gtdbtk.bac120.summary.tsv <span class="kw">|</span> <span class="kw">\</span></span>
+<span id="cb24-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-2"></a><span class="fu">sed</span> <span class="st">&#39;s/user_genome/Organism/g&#39;</span> <span class="kw">|</span> <span class="kw">\</span></span>
+<span id="cb24-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-3"></a><span class="fu">sed</span> <span class="st">&#39;s/classification/Lineage/g&#39;</span> <span class="kw">|</span> <span class="kw">\</span></span>
+<span id="cb24-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-4"></a><span class="fu">sed</span> <span class="st">&#39;s/;/; /g&#39;</span> <span class="op">&gt;</span>gtdb_classifications.tsv</span></code></pre></div>
 <p>Now that we have everything we need we can proceed to run <code>treesapp update</code> to add the MAG sequences to the reference package.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-1"></a><span class="ex">treesapp</span> update \</span>
-<span id="cb24-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-2"></a>  --fast \</span>
-<span id="cb24-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-3"></a>  --headless \</span>
-<span id="cb24-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-4"></a>  --overwrite \</span>
-<span id="cb24-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-5"></a>  --delete \</span>
-<span id="cb24-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-6"></a>  --cluster \</span>
-<span id="cb24-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-7"></a>  --trim_align \</span>
-<span id="cb24-8"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-8"></a>  -n 4 \</span>
-<span id="cb24-9"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-9"></a>  -m prot \</span>
-<span id="cb24-10"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-10"></a>  --fastx_input XmoA_seed.faa \</span>
-<span id="cb24-11"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-11"></a>  --output XmoA_MAG_update/ \</span>
-<span id="cb24-12"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-12"></a>  --skip_assign \</span>
-<span id="cb24-13"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-13"></a>  --seqs2lineage gtdb_classifications.tsv \</span>
-<span id="cb24-14"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-14"></a>  --treesapp_output SI072_MAGs_assign/ \</span>
-<span id="cb24-15"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb24-15"></a>  --refpkg_path XmoA_FunGene_update/final_outputs/XmoA_build.pkl</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-1"></a><span class="ex">treesapp</span> update \</span>
+<span id="cb25-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-2"></a>  --fast \</span>
+<span id="cb25-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-3"></a>  --headless \</span>
+<span id="cb25-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-4"></a>  --overwrite \</span>
+<span id="cb25-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-5"></a>  --delete \</span>
+<span id="cb25-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-6"></a>  --cluster \</span>
+<span id="cb25-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-7"></a>  --trim_align \</span>
+<span id="cb25-8"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-8"></a>  -n 4 \</span>
+<span id="cb25-9"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-9"></a>  -m prot \</span>
+<span id="cb25-10"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-10"></a>  --fastx_input XmoA_seed.faa \</span>
+<span id="cb25-11"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-11"></a>  --output XmoA_MAG_update/ \</span>
+<span id="cb25-12"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-12"></a>  --skip_assign \</span>
+<span id="cb25-13"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-13"></a>  --seqs2lineage gtdb_classifications.tsv \</span>
+<span id="cb25-14"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-14"></a>  --treesapp_output SI072_MAGs_assign/ \</span>
+<span id="cb25-15"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb25-15"></a>  --refpkg_path XmoA_FunGene_update/final_outputs/XmoA_build.pkl</span></code></pre></div>
 <p>One of the XmoA sequences from the MAGs should have been added to the reference package bringing the total to 64 reference sequences.</p>
 <p>A summary of the reference package will have been printed to the screen if <code>treesapp update</code> completed properly, and it should look like this:</p>
 <pre><code>Summary of the updated reference package:
@@ -352,13 +354,13 @@ ReferencePackage instance of XmoA (N0102):
     Description:                                        &#39;Alpha subunits of copper membrane monooxygenase enzymes&#39;</code></pre>
 <p>For supplementary reading on how to integrate sequences from SAGs and MAGs into reference packages please visit the <a href="https://github.com/hallamlab/TreeSAPP/wiki/Integrating-MAGs-and-SAGs-in-reference-packages">TreeSAPP Wiki</a>.</p>
 <p>Just to finish this off, let’s map the PmoA and AmoA sequences from FunGene onto the MAG-updated reference package with <code>treesapp assign</code> to view later.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-1"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb26-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-2"></a>  -n 4 \</span>
-<span id="cb26-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-3"></a>  -m prot \</span>
-<span id="cb26-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-4"></a>  --trim_align \</span>
-<span id="cb26-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-5"></a>  --refpkg_dir XmoA_MAG_update/final_outputs/ \</span>
-<span id="cb26-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-6"></a>  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \</span>
-<span id="cb26-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb26-7"></a>  --output p_amoA_FunGene9.5_isolates_update_assign/</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-1"></a><span class="ex">treesapp</span> assign \</span>
+<span id="cb27-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-2"></a>  -n 4 \</span>
+<span id="cb27-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-3"></a>  -m prot \</span>
+<span id="cb27-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-4"></a>  --trim_align \</span>
+<span id="cb27-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-5"></a>  --refpkg_dir XmoA_MAG_update/final_outputs/ \</span>
+<span id="cb27-6"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-6"></a>  --fastx_input p_amoA_FunGene9.5_isolates_C65S300_uclust99.faa \</span>
+<span id="cb27-7"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-7"></a>  --output p_amoA_FunGene9.5_isolates_update_assign/</span></code></pre></div>
 </div>
 </div>
 <div id="annotate-clades" class="section level2">
@@ -367,9 +369,9 @@ ReferencePackage instance of XmoA (N0102):
 <p>Creating your own annotations involves scouring the literature to identify the phenotypes associated with each organism or taxon. For example, you would need to determine what paralogs or substrates are used by each organism in the reference package. Often though, these phenotypes are conserved across larger taxonomic groups, such as whole genera, families, orders, etc.
 If you are not familiar with the evolution of a protein family it may be helpful to find reference sequences for the activity, function, or other feature you’re interested in and place them on the tree with <code>treesapp assign</code>. Then, guided by these sequences, it should be easier to annotate the clades.
 Seeing as a literature review can’t be accomplished within the time span of this tutorial, you can use the annotations already created for the XmoA reference package.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb27-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/XmoA_taxonomy-phenotype_map.tsv</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb28-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/XmoA_taxonomy-phenotype_map.tsv</span></code></pre></div>
 <p>You can view the contents of this file with the Unix command <code>less</code>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb28-1"></a><span class="fu">less</span> XmoA_taxonomy-phenotype_map.tsv</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb29-1"></a><span class="fu">less</span> XmoA_taxonomy-phenotype_map.tsv</span></code></pre></div>
 <pre><code>d__Archaea  AmoA_AOA
 Methylococcaceae    EmoA
 g__Haliea   EmoA
@@ -378,17 +380,17 @@ o__Chromatiales AmoA_AOB
 g__Methylobacter    PmoA
 g__Methylacidiphilum    PmoA</code></pre>
 <p>To create a file compatible with iTOL you will need to convert the taxonomy-phenotype mapping file with <code>treesapp colour</code>.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb30-1"></a><span class="ex">treesapp</span> colour \</span>
-<span id="cb30-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb30-2"></a>  -r XmoA_MAG_update/final_outputs/XmoA_build.pkl \</span>
-<span id="cb30-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb30-3"></a>  -o XmoA_colours/ \</span>
-<span id="cb30-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb30-4"></a>  -n Function \</span>
-<span id="cb30-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb30-5"></a>  --taxa_map XmoA_taxonomy-phenotype_map.tsv</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb31-1"></a><span class="ex">treesapp</span> colour \</span>
+<span id="cb31-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb31-2"></a>  -r XmoA_MAG_update/final_outputs/XmoA_build.pkl \</span>
+<span id="cb31-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb31-3"></a>  -o XmoA_colours/ \</span>
+<span id="cb31-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb31-4"></a>  -n Function \</span>
+<span id="cb31-5"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb31-5"></a>  --taxa_map XmoA_taxonomy-phenotype_map.tsv</span></code></pre></div>
 <p>The two output files—<code>XmoA_Function_colours_style.txt</code> and <code>XmoA_Function_colour_strip.txt</code>—can be used to bring colour to the JPlace file in iTOL and also be used for adding phenotype-level annotations to the classification table with <code>treesapp layer</code>. Let’s make copies of the two text files in XmoA_colours/ into the AmoA_assign/iTOL output directory and transfer them to <code>&lt;path to Xmoa_sequences&gt;</code>.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb31-1"></a><span class="fu">cp</span> -r XmoA_colours p_amoA_FunGene9.5_isolates_update_assign/iTOL_output/</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb32-1"></a><span class="fu">cp</span> -r XmoA_colours p_amoA_FunGene9.5_isolates_update_assign/iTOL_output/</span></code></pre></div>
 <ul>
 <li><strong>On your computer:</strong> Transfer <code>XmoA_seed_assign/iTOL_output</code> from the server to your local directory <code>Xmoa_sequences</code>.</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb32-1"></a><span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_update_assign/iTOL_output <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb33-1"></a><span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_update_assign/iTOL_output <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span></span></code></pre></div>
 <ul>
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and sign in using the group’s username and password.</p></li>
 <li><p>Upload the file <code>XmoA_complete_profile.jplace</code>. You can do this using either your computer’s file browser then navigating to the <code>iTOL_output</code> directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
@@ -406,12 +408,12 @@ g__Methylacidiphilum    PmoA</code></pre>
 <div id="reclassify-and-layer-annotations-onto-classification-table" class="section level2">
 <h2><span class="header-section-number">5.5</span> Reclassify and layer annotations onto classification table</h2>
 <p>With the clade colours file in the tutorial directory, it is now simple to assign each of the classified query sequences to its respective functional guild with <code>treesapp layer</code>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb33-1"></a><span class="ex">treesapp</span> layer \</span>
-<span id="cb33-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb33-2"></a>  --colours_style XmoA_colours/XmoA_Function_colours_style.txt \</span>
-<span id="cb33-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb33-3"></a>  --refpkg_dir XmoA_MAG_update/final_outputs/ \</span>
-<span id="cb33-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb33-4"></a>  --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb34-1"></a><span class="ex">treesapp</span> layer \</span>
+<span id="cb34-2"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb34-2"></a>  --colours_style XmoA_colours/XmoA_Function_colours_style.txt \</span>
+<span id="cb34-3"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb34-3"></a>  --refpkg_dir XmoA_MAG_update/final_outputs/ \</span>
+<span id="cb34-4"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb34-4"></a>  --treesapp_output p_amoA_FunGene9.5_isolates_update_assign/</span></code></pre></div>
 <p>The output of this command is <code>p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv</code>. It contains an extra column for the functional annotations but is otherwise identical to the original <code>marker_contig_map.tsv</code> file. You can view the first 10 lines by using the Unix command <code>head</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb34-1"></a><span class="fu">head</span> p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb35-1"></a><span class="fu">head</span> p_amoA_FunGene9.5_isolates_update_assign/final_outputs/extra_annotated_marker_contig_map.tsv</span></code></pre></div>
 </div>
 <div id="use-your-groups-reference-package-to-classify-unkown-sequences-then-update-your-package" class="section level2">
 <h2><span class="header-section-number">5.6</span> Use your group’s reference package to classify unkown sequences then update your package</h2>

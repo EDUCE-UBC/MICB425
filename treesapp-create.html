@@ -172,7 +172,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#making-the-reference-package"><i class="fa fa-check"></i><b>4.1</b> Making the reference package</a></li>
 <li class="chapter" data-level="4.2" data-path="treesapp-create.html"><a href="treesapp-create.html#testing-the-purity-of-the-reference-package"><i class="fa fa-check"></i><b>4.2</b> Testing the purity of the reference package</a></li>
 <li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#viewing-the-reference-package-tree-with-itol"><i class="fa fa-check"></i><b>4.3</b> Viewing the reference package tree with iTOL</a></li>
-<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.4</b> Building your group’s reference package</a></li>
+<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.4</b> Building your group’s reference package</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#booster-shot"><i class="fa fa-check"></i><b>4.4.1</b> Booster shot</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><i class="fa fa-check"></i><b>5</b> Classifying unknown sequences with TreeSAPP and updating a reference package</a><ul>
 <li class="chapter" data-level="5.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#introduction-and-goals-1"><i class="fa fa-check"></i><b>5.1</b> Introduction and Goals</a></li>
@@ -342,7 +344,35 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 <li><p><strong>On the server:</strong> Work in <code>/data/&lt;gene name&gt;</code> as you are creating your TreeSAPP referenc package and outputs.</p></li>
 <li><p><strong>On your computer:</strong> Whenever you have TreeSAPP outputs that can be visualized with iTOL, copy the files from the server to your computer to do so.</p></li>
 </ol>
+<div id="booster-shot" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Booster shot</h3>
+<p>The reference package for XmoA is relatively small, and ideal for an in-class tutorial. However, many protein families are much more complex with members spread broadly across the tree of life. In these cases, you may need to use other tactics to reduce the size of your reference package so <code>treesapp create</code> can finish in under a few hours. Using any or all of the following options are <strong>not</strong> required, but may be useful.</p>
+<ol style="list-style-type: decimal">
+<li><p>Remove more candidate reference sequences from the final reference package by decreasing the percent similarity used during sequence clustering. In the tutorial we set “-p”/“—similarity” to 0.97 but this is going to be too high in many cases. Try something between 0.80 and 0.95 to get between 100 and 2000 sequences.</p></li>
+<li><p>A profile HMM can be used to accomplish two things: first it can be used to remove sequences with remote homology to the protein family you’re building a reference package for; each HMM alignment can be used to trim the input sequences to just the conserved regions improving the quality of the multiple sequence alignment and phylogeny.
+You can download a profile HMM from EggNOG by going to your gene’s EggNOG page, clicking <code>Download ᐁ</code> and then “HMM model”. This will typically only be available for subgroups such as “Bacteria”, “Archaea”, “Proteobacteria”, etc. (i.e. not ‘root’).</p></li>
+<li><p>Metagenomic data from Saanich Inlet were generated from biomass where larger Eukaryotic cells had been physically removed prior to sequencing. Therefore, these organisms do not need to be present in the reference packages. You can remove sequences that are Eukaryotic in origin by using either “–screen” or “–filter” arguments. For example, to only include Bacteria and Archaea use <code>--screen Bacteria,Archaea</code> or <code>--filter Eukaryota</code>.</p></li>
+<li><p>The “–min_taxonomic_rank” argument specifies the minimum taxonomic rank a sequence’s taxonomic lineage must be resolved to. For example, using <code>--min_taxonomic_rank g</code> will ensure that all sequences in the reference package have been annotated to the genus, species or strain taxonomic rank. To specify others ranks , use the lowercase first letter of that taxonomic rank.
+If your reference package is still very large after using the above options, setting this argument to a highly resolved taxonomic rank can be a potent way to remove candidate reference sequences.</p></li>
+</ol>
+<p>To bring all of these arguments together for you here is an example command:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="treesapp-create.html#cb16-1"></a><span class="ex">treesapp</span> create</span>
+<span id="cb16-2"><a href="treesapp-create.html#cb16-2"></a>  <span class="ex">--fast</span> \</span>
+<span id="cb16-3"><a href="treesapp-create.html#cb16-3"></a>  --headless \</span>
+<span id="cb16-4"><a href="treesapp-create.html#cb16-4"></a>  --overwrite \</span>
+<span id="cb16-5"><a href="treesapp-create.html#cb16-5"></a>  --cluster \</span>
+<span id="cb16-6"><a href="treesapp-create.html#cb16-6"></a>  --trim_align \</span>
+<span id="cb16-7"><a href="treesapp-create.html#cb16-7"></a>  -n 4 \</span>
+<span id="cb16-8"><a href="treesapp-create.html#cb16-8"></a>  -m prot \</span>
+<span id="cb16-9"><a href="treesapp-create.html#cb16-9"></a>  --similarity 0.90 \</span>
+<span id="cb16-10"><a href="treesapp-create.html#cb16-10"></a>  --screen Bacteria,Archaea \</span>
+<span id="cb16-11"><a href="treesapp-create.html#cb16-11"></a>  --min_taxonomic_rank g \</span>
+<span id="cb16-12"><a href="treesapp-create.html#cb16-12"></a>  --profile arCOG08676_hmm.txt \</span>
+<span id="cb16-13"><a href="treesapp-create.html#cb16-13"></a>  --fastx_input XmoA_seed.faa \</span>
+<span id="cb16-14"><a href="treesapp-create.html#cb16-14"></a>  -c XmoA \</span>
+<span id="cb16-15"><a href="treesapp-create.html#cb16-15"></a>  --output XmoA_seed</span></code></pre></div>
 
+</div>
 </div>
 </div>
             </section>

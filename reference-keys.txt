@@ -35,6 +35,7 @@ making-the-reference-package
 testing-the-purity-of-the-reference-package
 viewing-the-reference-package-tree-with-itol
 building-your-groups-reference-package
+booster-shot
 classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package
 introduction-and-goals-1
 classify-new-sequences
