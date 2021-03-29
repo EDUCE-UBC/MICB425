@@ -1,178 +1,256 @@
-# Analysing the TreeSAPP output in R
+# Analysing the TreeSAPP classifications in R
 
 ```{r setup-R, echo = FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-These instructions will help you to complete the script template `treesapp_analysis.R` to complete the initial analysis of your TreeSAPP output. To adjust the code examples below and in the script template, replace any angle brackets, e.g. `<SOME TEXT>`, with the missing code.
+## Introduction and Objectives
+
+These instructions will help you to complete the script template `treesapp_analysis.R` to complete the initial analysis of your TreeSAPP classifications.
+The following code chunks will show you how to load, aggregate, subset and transform continuous and discrete variables in R using the `tidyverse`.
+You will also be provided with examples for plotting TreeSAPP classification data using the `ggplot2` library.
 
 ## Resources for analysis of TreeSAPP output in R
 
--   Both TreeSAPP output files `marker_contig_map.tsv` (one each for the metagenomic and metatranscriptomic analysis) you generated with [TreeSAPP](#running-treesapp on a server).
+-   The TreeSAPP output file `extra_annotated_marker_contig_map.tsv` with the metagenome and metatranscriptome abundances and gene functions you generated with [TreeSAPP](#running-treesapp on a server). If you are unable to retrieve this file, it can be downloaded from [here](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/extra_annotated_marker_contig_map.tsv).
 -   An R script template called `treesapp_analysis.R` on Canvas.
--   `Saanich_Data.csv` file containing geochemical measurements.
+-   `Saanich_TimeSeries_Chemical_DATA.csv` file containing geochemical measurements on Canvas.
 
 ## Checklist to write and run R script
 
--   [ ] Place `treesapp_analysis.R` and both `marker_contig_map.tsv` files into a single folder and create a new RStudio project in that folder on your local computer.
--   [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#writing-the-r-script).
+- [ ] Place `treesapp_analysis.R`, `extra_annotated_marker_contig_map.tsv` and `Saanich_TimeSeries_Chemical_DATA.csv` files into a single folder and create a new RStudio project in that folder on your local computer.
+- [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#writing-the-r-script).
 
 ## Writing the R script
 
-In the `treesapp_analysis.R` script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then combine the metagenomic and metatranscriptomic data into a single data frame and then break the taxonomic information into taxonomic ranks. You will also load the `Saanich_Data.csv` file for geochemical measurements to learn more about the conditions at your assigned depth. Further process your data sets to address [the four main research questions](#results).
+In the `treesapp_analysis.R` script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then break the one taxonomic information column into multiple taxonomic ranks. You will also load the `Saanich_TimeSeries_Chemical_DATA.csv` file for geochemical measurements to learn more about the conditions at your assigned depth.
+Finally, you will visualize the taxonomic, functional and chemical data using the `ggplot2` library.
+
+To complete this, replace all instances of test between angle brackets, like `<SOME TEXT>`, with the code in each section.
 
 ## Load any required packages
 
 ```{r}
-<Load packages>
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 ```
 
 ## Load metagenomic and metatranscriptomic TreeSAPP data
 
 ```{r}
-<Load data sets>
+ts_dat <- read.table(file="extra_annotated_marker_contig_map.tsv",
+                     header=TRUE,
+                     sep="\t")
 ```
-
-## Combine the metagenomic and metatranscriptomic data
-
-Look at the documentation of `rbind()` on how to combine two data sets that contain the same variables. Before you do that, you should add a variable that tells you if a particular row comes from the metagenomic or metatranscriptomic source.
-
-```{r}
-<Add variable to data frame indicating source>
-<Combine data sets>
-```
-
-
-## Plotting abundances in iTOL
-Drag and drop `XmoA_abundance_simplebar.txt` in the /final_outputs/iTOL_output folder into iTOL window to add abundance bar plot to ITOL phylogenic trees
 
 ### Classification table
 
-Back on the server, let's look at TreeSAPP's classification table for these FunGene XmoA sequences.
- 
-The classification table contains detailed information corresponding to each classified query sequence. It is a tab-delimited table that can be read by a variety of tools. I tend to analyze most data in R and so the classification table was designed to be compatible with the tidyverse's extensive toolset. Likewise, it should be similarly easy to use Python to analyze these data with its rich suite of visualization libraries, e.g., `plotly` and `matplotlib`.
-
-Here are the first few lines from `p_amoA_FunGene9.5_isolates_assign/final_outputs/marker_contig_map.tsv`:
-
-```
-Sample	Query	Marker	Start_pos	End_pos	Taxonomy	Abundance	iNode	E-value	LWR	EvoDist	Distances
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAL86638  coded_by=1..825,organism=Nitrosomonas sp. JL21,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae; g__Nitrosomonas; s__Nitrosomonas sp. Is79A3	1.0	13	1.4e-114	0.9234534156	0.0404	0.0227,0.0177,0.0
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	AAG60667  coded_by=824..1645,organism=Nitrosomonas cryotolerans ATCC 49181,definition=ammonia monooxygenase subunit A	XmoA	4	251	r__Root; d__Bacteria; p__Proteobacteria; c__Betaproteobacteria; o__Nitrosomonadales; f__Nitrosomonadaceae	1.0	16	3.7e-114	1.0	0.1305	0.0128,0.0205,0.0972
-p_amoA_FunGene9.5_isolates_C65S300_uclust99	BAH22839  coded_by=2160..2948,organism=Methylococcaceae bacterium ET-HIRO,definition=methane monooxygenase protein A2	XmoA	2	253	r__Root	1.0	61	7.1e-104	1.0	1.3677	0.083,0.5314,0.7534
-```
+Let's look at TreeSAPP's classification table for these FunGene XmoA sequences. In RStudio, you are able to click on a variable name under the "Environment" tab in the top-right panel. Optionally, you can use the `View` function in the R-console to view an object. For example, you could run `View(ts_dat)`.
 
 A description of each of the fields can be found under the [`treesapp assign` documentation page](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table).
 
+## Subset your data to the variables and marker genes of interest
 
-## Analyze the classifications
+Determine which variables and marker genes you will need and subset your data to them. The only "Marker" in these data is XmoA, so we will filter to XmoA.
 
-Modify marker_contig_map.tsv to split the sample name into 'cruise' and 'depth'. Two new columns are added 'Length'(End_pos-Start_pos) and 'Depth.m'(Depth in meters). Taxonomy is split into a separate column for each level.
-
-```{r setup, eval=F}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-
-dat <- read.table(file="data/marker_contig_map.tsv",
-                  header=TRUE,
-                  sep="\t", quote="") %>% 
-  mutate(Length=End_pos-Start_pos) %>% 
-  separate(col = Taxonomy, into = c('r', 'd', 'p', 'c', 'o', 'f', 'g', 's'), sep = "; ", fill = "right", remove = T) %>% 
-  separate(col = Sample, into = c("Cruise", "Depth"), extra = "drop") %>% 
-  mutate(Depth.m = as.numeric(gsub('m', '', Depth)))
+```{r}
+ts_df <- ts_dat %>%
+  filter(Marker == "XmoA")
 ```
 
-Distribution of abundances of  XmoA taxonomic orders  at different depths
+When working with real data you may be analyzing multiple reference package's worth of data. If you want to subset those data to a couple of reference packages you will find the '%in%' operator handy. In the following example we are keeping data where the Marker variable is equal to any of "XmoA", "PmoA" or "AmoA". In reality, they will only match "XmoA".
 
-```{r, eval=F}
-dat %>%
-  group_by(Depth.m, o) %>%
-  summarise(sum = sum(Abundance)) %>%
+```{r}
+ts_df <- ts_df %>%
+  filter(Marker %in% c("XmoA", "PmoA", "AmoA"))
+```
+
+## Reformat variables
+
+### Processing taxonomic information
+
+Your taxonomic information contains information from the highest to lowest available rank. Look at a few rows containing taxonomic information and determine the separator between each rank. We can use a function in the tidyverse called `separate` that allows you split a character object at each of these separators. As a result, your initial single taxonomic variable will be split into multiple new variables, one for each rank. Use the R object `taxa_ranks` to assign the names for those new variables.
+
+```{r}
+taxa_ranks <- c("Root", "Domain", "Phylum", "Class",
+                "Order", "Family", "Genus", "Species")
+ts_df <- ts_df %>%
+  separate(col = Taxonomy,
+           into = taxa_ranks,
+           sep = "; ", fill = "right", remove = T)
+```
+
+### Distinguishing metagenomes from metatranscriptomes
+
+```{r}
+ts_df <- ts_df %>% 
+  mutate(Sample = gsub("_pe", "_MetaG", Sample)) %>% 
+  separate(col = Sample,
+           into = c("Cruise", "Depth", "SeqType"),
+           extra = "drop")
+```
+
+### Processing depth data
+
+Modify the data frame to split the sample name into "Cruise" and "Depth" variables. Then, remove the 'm' character from the "Depth" variable to create a numeric variable called "Depth.m".
+
+```{r}
+ts_df <- ts_df %>%
+  mutate(Depth.m = as.numeric(gsub('m', '', Depth))) %>% 
+  mutate(Cruise = as.numeric(gsub('SI0', '', Cruise)))
+```
+
+## Load the geochemical data
+
+Geochemical data for the Saanich Inlet time series is in another file called `Saanich_TimeSeries_Chemical_DATA.csv`. We will first load it into its own data frame called `geochem_df`, and subset it to just the samples we are interested in.
+
+```{r}
+geochem_df <- read.table("Saanich_TimeSeries_Chemical_DATA.csv",
+                          header=TRUE, sep=',') %>% 
+  filter(Cruise == 72) %>% 
+  select(Cruise, Depth,
+         CTD_O2, NO3,
+         Mean_NH4, Mean_NO2, Mean_H2S, Mean_CH4) %>% 
+  mutate(Mean_CH4 = Mean_CH4*1E-3) %>% 
+  mutate(across(.fns=as.numeric))
+```
+
+We are going to use the function `left_join` from the `dplyr` library to merge the geochemical data for cruise 72 with the TreeSAPP classifications for XmoA by Sample. The combined data will be saved to a new data frame called `ts_geo_df`.
+
+```{r}
+ts_geo_df <- left_join(ts_df,
+                       geochem_df,
+                       by=c("Cruise",
+                            "Depth.m" = "Depth"))
+```
+
+## Visualize the taxonomic, functional and chemical data from Saanich Inlet
+
+### Analyze TreeSAPP's taxonomic classifications
+
+We're going to begin with making a line plot to show the distribution of abundances of taxonomic orders at different depths. The only taxa that will be shown are those with an XmoA gene and these are _not_ the only organisms in Saanich Inlet!
+We will create a new variable called `Sum` that sums all the `Abundance` (TPM values) for each taxonomic order at each depth. Without the `group_by()` function, it would return a single value but since we're grouping by Depth and Order, `sum` yields a value for each taxon at each depth.
+
+```{r}
+ts_geo_df %>%
+  filter(SeqType == "MetaG") %>% 
+  group_by(Depth.m, Order) %>%
+  summarise(Sum = sum(Abundance)) %>%
   ungroup() %>%
-  ggplot(aes(x=Depth.m, y=sum, colour=o)) +
+  ggplot(aes(x=Depth.m, y=Sum, colour=Order)) +
   geom_line() +
+  coord_flip() +
+  scale_x_reverse() +
   labs(x="Depth (m)",
-       y="Relative abundance (FPKM)")
-```
-Distribution of abundances of XmoA taxonomic families  at different depths
+       y="Relative abundance (TPM)")
 
-```{r, echo=FALSE, eval=F}
-
-dat %>%
-  group_by(Depth.m, f) %>%
-  summarise(sum = sum(Abundance)) %>%
-  ungroup() %>%
-  ggplot(aes(x=Depth.m, y=sum, colour=f)) +
-  geom_line() +coord_flip() +
-  labs(x="Relative abundance (FPKM)",
-       y="Depth (m)")
+ggsave("taxonomic_order_lineplot.png")
 ```
 
-Barplot demonstrates relative change in proportions at different depths
+The above plot gives us an idea of the absolute TPM values, but what is each taxon's share of the total abundance at each depth? To answer this we will create a stacked barplot to show the relative change in proportions at different depths.
+Instead of creating a variable to hold each taxon's total TPM we will create a new variable to store the proportion of TPM called `Proportion`. This could easily be changed to a percentage by multiplying it by 100.
 
-```{r, eval=F}
-dat %>% 
-  group_by(Depth, Depth.m) %>% 
+In the `ts_geo_df` dataframe there are two variables storing the sample depth: one is a numeric type and the other is a character type. We will be plotting the character type depth (`Depth`) on the x-axis but by default R's alphabetical ordering makes '100m' precede '10m'. The `reorder` function is used here to ensure that the depth is sorted numerically by ordering `Depth` (character type) by `Depth.m` (numeric type).
+
+Additionally, we are faceting this plot by the sequence type: 'MetaG' (metagenome) and 'MetaT' (metatranscriptome).
+
+```{r}
+ts_geo_df %>% 
+  group_by(Depth, Depth.m, SeqType) %>% 
   mutate(Proportion = Abundance/sum(Abundance)) %>% 
-  group_by(Depth, Depth.m, o) %>% 
+  group_by(Depth, Depth.m, Order, SeqType) %>% 
   summarise(sum = sum(Proportion)) %>% 
   ungroup() %>% 
   mutate(Depth = reorder(Depth, Depth.m)) %>% 
-  ggplot(aes(x=Depth, y=sum, fill=o)) +
+  ggplot(aes(x=Depth, y=sum, fill=Order)) +
   geom_bar(stat = "identity") +
+  facet_wrap(~SeqType) +
   labs(x="Depth",
-       y="Relative abundance")
+       y="Relative abundance") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+ggsave("taxonomic_order_barplot.png")
 ```
 
+### Analyze the functional data
 
-## Subset your data to the variables and marker genes of interest.
-
-Determine which variables and marker genes you will need and subset your data to them. NarG is an ortholog of NxrA and cannot be distinguished by TreeSAPP. Any sequences that are identified as NxrA by TreeSAPP could be either NarG or NxrA. As a consequence, determine if your data contains NxrA as a marker. If your depth has anoxic conditions (O_2 \< 20 µM, true for all depths \<= 150 m), interpret NxrA assignments by TreeSAPP as NarG instead.
+In the following figure we are instead going to visualize the abundance of each classified XmoA's `Function` across the water column.
+We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (`Abundance`). We are colouring the bubbles according to their assigned `Function`.
+We are again faceting this plot by the sequence type.
 
 ```{r}
-<If your depth is <= 150, change "NxrA" entries to "NarG">
-<Subset data>
+ts_geo_df %>% 
+  group_by(Depth, Depth.m, SeqType, Order, Function) %>% 
+  summarise(Sum = sum(Abundance)) %>% 
+  ungroup() %>%
+  mutate(Depth = reorder(Depth, desc(Depth.m))) %>% 
+  ggplot(aes(x=Depth, y=Order, colour=Function)) +
+  geom_point(aes(size=Sum)) +
+  facet_wrap(~SeqType) +
+  coord_flip() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave("functional_bubbleplot.png")
 ```
 
-## Processing taxonomic information
+Can you see any discrepancies between the metagenome and metatranscriptome abundances?
 
-Your taxonomic information contains information from the highest to lowest available rank. Look at a few rows containing taxonomic information anddetermine the separator between each rank. Google a function that allows you split a character object at each of these separator (Hint: there is a function in the tidyverse with that we did not cover). As a result, your initial single taxonomic variable will be split into multiple new variables, one for each rank. Use the R object `rank` to assign the names for those new variables.
+### Analyze the chemical measurements 
+
+The following plot is for visualizing the chemical profiles for each depth. This is not exhaustive but does include most of the molecules we're interested in.
+
+To generate this plot, we've had to perform a common data manipulation technique called pivoting. Essentially, instead of having a separate variable for each of the chemical measurements, we have combined them into two columns: one for the name of the molecule (which was previously the variable name) and another for their value.
 
 ```{r}
-rank <- c("root", "kingdom", "phylum", "class",
-          "order", "family", "genus", "species")
+ts_geo_df %>% 
+  pivot_longer(cols=c(starts_with("Mean"), NO3, CTD_O2),
+               values_to = "Value.uM",
+               names_to = "Molecule") %>%
+  ggplot(aes(x=Depth.m, y=Value.uM)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~Molecule, scales = "free_x") +
+  coord_flip() +
+  scale_x_reverse()
 
-<split the taxonomic information in the data frame into separate ranks>
+ggsave("geochemical_lineplot.png")
 ```
 
-## Load the geochemical data set into a new data frame.
+Notice that the x-axis scales all differ. This was enabled with `scales = "free_x"` in the function `facet_wrap` and was essential to observe the trends across the water column. Without it many of the values would be squished against the y-axis as their values are close to zero and the oxygen concentration gets up to ~200 micromolar.
+
+### Bringing them all together
+
+In this final figure we are going to combine the methane concentration data with the TPM values for the two orders, _Methylococcales_ and _Nitrosomonadales_.
 
 ```{r}
-<Load geochemicals>
+ts_geo_df %>%
+  filter(SeqType=="MetaT") %>%
+  filter(!is.na(Order)) %>% 
+  mutate(Depth = reorder(Depth, Depth.m)) %>% 
+  ggplot(aes(x=Depth, y=Abundance, colour=Mean_CH4)) +
+  geom_boxplot() +
+  geom_point() +
+  facet_wrap(~Order) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave("taxonomic_order_boxplot.png")
 ```
 
-## Additional Hints for each guiding question
+How does the abundance of these two groups change with methane concentration?
 
-### How does abundance of denitrification genes differ across the pathway? Are trends similar for both RNA and DNA?
+## Analyzing classifications for your group's reference package
 
--   You will need to sum the abundance for each gene. What functions do you know that allow you to summarize data for multiple groups (in this case each marker gene constitutes a group).
+- How does abundance of your gene vary with depth? Are trends similar for both RNA and DNA?
 
-### How does microbial diversity differ across the pathway? Are trends similar for both RNA and DNA?
+- How does microbial diversity vary with depth? Are trends similar for both RNA and DNA?
+You will need to make a decision at what taxonomic rank you will calculate diversity. Why might you not be able to use the lowest possible? Why should your taxonomic rank not be too high?
 
--   You will need to make a decision at what taxonomic rank you will calculate diversity. Why might you not be able to use the lowest possible? Why should your taxonomic rank not be too high?
--   You will need to calculate the total abundance for each taxon (for whichever rank you chose).
--   What R package did you use before to calculate diversity?
+- How does the abundance of your gene relate to water column geochemistry in Saanich Inlet (use the chemical measurement data in `Saanich_TimeSeries_Chemical_DATA.csv`)?
 
-### What specific taxa are responsible for denitrification? Are they the same for all steps? For DNA versus RNA?
-
--   You will need to count how many genes each taxa possess/expresses.
-
-### How does the abundance of denitrification genes relate to nitrogen species in Saanich (use the geochemical data in `Saanich_Data.csv` from our previous data science sessions)?
-
--   Determine the geochemical conditions at your given depths. Which is the best available terminal electron acceptor?
+- Determine the geochemical conditions at your given depths. Which is the best available terminal electron acceptor?
 
 ```{r eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
 # Reset code chunk settings to `default_chunk_options` (defined in `index.Rmd`)
-knitr::opts_chunk$set(default_chunk_options)
+# knitr::opts_chunk$set(default_chunk_options)
 ```
