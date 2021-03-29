@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"/>
-<link rel="next" href="the-saanich-inlet-data-set.html"/>
+<link rel="next" href="analysing-the-treesapp-classifications-in-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -198,6 +198,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#tutorial-steps"><i class="fa fa-check"></i><b>6.5</b> Tutorial steps</a></li>
 <li class="chapter" data-level="6.6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#use-your-groups-reference-package-to-calculate-abundances"><i class="fa fa-check"></i><b>6.6</b> Use your group’s reference package to calculate abundances</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html"><i class="fa fa-check"></i><b>7</b> Analysing the TreeSAPP classifications in R</a><ul>
+<li class="chapter" data-level="7.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#introduction-and-objectives"><i class="fa fa-check"></i><b>7.1</b> Introduction and Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#resources-for-analysis-of-treesapp-output-in-r"><i class="fa fa-check"></i><b>7.2</b> Resources for analysis of TreeSAPP output in R</a></li>
+<li class="chapter" data-level="7.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#checklist-to-write-and-run-r-script"><i class="fa fa-check"></i><b>7.3</b> Checklist to write and run R script</a></li>
+<li class="chapter" data-level="7.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script"><i class="fa fa-check"></i><b>7.4</b> Writing the R script</a></li>
+<li class="chapter" data-level="7.5" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-any-required-packages"><i class="fa fa-check"></i><b>7.5</b> Load any required packages</a></li>
+<li class="chapter" data-level="7.6" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fa fa-check"></i><b>7.6</b> Load metagenomic and metatranscriptomic TreeSAPP data</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#classification-table"><i class="fa fa-check"></i><b>7.6.1</b> Classification table</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fa fa-check"></i><b>7.7</b> Subset your data to the variables and marker genes of interest</a></li>
+<li class="chapter" data-level="7.8" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#reformat-variables"><i class="fa fa-check"></i><b>7.8</b> Reformat variables</a><ul>
+<li class="chapter" data-level="7.8.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-taxonomic-information"><i class="fa fa-check"></i><b>7.8.1</b> Processing taxonomic information</a></li>
+<li class="chapter" data-level="7.8.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#distinguishing-metagenomes-from-metatranscriptomes"><i class="fa fa-check"></i><b>7.8.2</b> Distinguishing metagenomes from metatranscriptomes</a></li>
+<li class="chapter" data-level="7.8.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-depth-data"><i class="fa fa-check"></i><b>7.8.3</b> Processing depth data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-the-geochemical-data"><i class="fa fa-check"></i><b>7.9</b> Load the geochemical data</a></li>
+<li class="chapter" data-level="7.10" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><i class="fa fa-check"></i><b>7.10</b> Visualize the taxonomic, functional and chemical data from Saanich Inlet</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-treesapps-taxonomic-classifications"><i class="fa fa-check"></i><b>7.10.1</b> Analyze TreeSAPP’s taxonomic classifications</a></li>
+<li class="chapter" data-level="7.10.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-functional-data"><i class="fa fa-check"></i><b>7.10.2</b> Analyze the functional data</a></li>
+<li class="chapter" data-level="7.10.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-chemical-measurements"><i class="fa fa-check"></i><b>7.10.3</b> Analyze the chemical measurements</a></li>
+<li class="chapter" data-level="7.10.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#bringing-them-all-together"><i class="fa fa-check"></i><b>7.10.4</b> Bringing them all together</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyzing-classifications-for-your-groups-reference-package"><i class="fa fa-check"></i><b>7.11</b> Analyzing classifications for your group’s reference package</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html"><i class="fa fa-check"></i><b>A</b> The Saanich Inlet data set</a><ul>
 <li class="chapter" data-level="A.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description"><i class="fa fa-check"></i><b>A.1</b> Description</a></li>
@@ -341,17 +365,13 @@ Another key difference is we’re setting the ‘--report’ parameter to ‘app
 
 </div>
 </div>
-
-
-
-</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-saanich-inlet-data-set.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="analysing-the-treesapp-classifications-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
