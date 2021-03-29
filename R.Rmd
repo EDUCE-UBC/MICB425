@@ -41,7 +41,7 @@ library(tidyr)
 ```{r}
 ts_dat <- read.table(file="extra_annotated_marker_contig_map.tsv",
                      header=TRUE,
-                     sep="\t", quote="")
+                     sep="\t")
 ```
 
 ### Classification table
@@ -139,9 +139,9 @@ ts_geo_df %>%
   summarise(Sum = sum(Abundance)) %>%
   ungroup() %>%
   ggplot(aes(x=Depth.m, y=Sum, colour=Order)) +
+  geom_line() +
   coord_flip() +
   scale_x_reverse() +
-  geom_line() +
   labs(x="Depth (m)",
        y="Relative abundance (TPM)")
 
@@ -164,8 +164,8 @@ ts_geo_df %>%
   ungroup() %>% 
   mutate(Depth = reorder(Depth, Depth.m)) %>% 
   ggplot(aes(x=Depth, y=sum, fill=Order)) +
-  facet_wrap(~SeqType) +
   geom_bar(stat = "identity") +
+  facet_wrap(~SeqType) +
   labs(x="Depth",
        y="Relative abundance") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -186,9 +186,9 @@ ts_geo_df %>%
   ungroup() %>%
   mutate(Depth = reorder(Depth, desc(Depth.m))) %>% 
   ggplot(aes(x=Depth, y=Order, colour=Function)) +
-  coord_flip() +
-  facet_wrap(~SeqType) +
   geom_point(aes(size=Sum)) +
+  facet_wrap(~SeqType) +
+  coord_flip() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggsave("functional_bubbleplot.png")
@@ -198,7 +198,7 @@ Can you see any discrepancies between the metagenome and metatranscriptome abund
 
 ### Analyze the chemical measurements 
 
-The following plot is for visualing the chemical profiles for each depth. This is not exhaustive but does include most of the molecules we're interested in.
+The following plot is for visualizing the chemical profiles for each depth. This is not exhaustive but does include most of the molecules we're interested in.
 
 To generate this plot, we've had to perform a common data manipulation technique called pivoting. Essentially, instead of having a separate variable for each of the chemical measurements, we have combined them into two columns: one for the name of the molecule (which was previously the variable name) and another for their value.
 
@@ -229,9 +229,9 @@ ts_geo_df %>%
   filter(!is.na(Order)) %>% 
   mutate(Depth = reorder(Depth, Depth.m)) %>% 
   ggplot(aes(x=Depth, y=Abundance, colour=Mean_CH4)) +
-  facet_wrap(~Order) +
   geom_boxplot() +
   geom_point() +
+  facet_wrap(~Order) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggsave("taxonomic_order_boxplot.png")
