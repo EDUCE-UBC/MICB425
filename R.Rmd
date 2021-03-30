@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-## Introduction and Objectives
+## Introduction and goals
 
 These instructions will help you to complete the script template `treesapp_analysis.R` to complete the initial analysis of your TreeSAPP classifications.
 The following code chunks will show you how to load, aggregate, subset and transform continuous and discrete variables in R using the `tidyverse`.

@@ -1,5 +1,15 @@
 # Creating a reference package for TreeSAPP {#treesapp-create}
 
+## Introduction and goals
+
+In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product.
+
+The goals of this tutorial are:
+
+1) To learn how to use `treesapp create` to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial
+2) Learn how to assess whether the reference package contains only homologous sequences using `treesapp purity`
+3) Learn how to view a reference package's phylogenetic tree using the interactive Tree of Life (iTOL)
+
 ## Making the reference package
 
 
