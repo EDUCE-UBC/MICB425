@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Gene-centric mapping of microbial community structure and function</title>
+  <title>8 Project description | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="8 Project description | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="8 Project description | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="exploring-the-microcosmos.html"/>
+<link rel="prev" href="analysing-the-treesapp-classifications-in-r.html"/>
+<link rel="next" href="assessment.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -269,33 +269,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Gene-centric mapping of microbial community structure and function</h1>
-<h2 class="subtitle"><em>2020.21 MICB425 Mirobial Ecological Genomics Capstone project</em></h2>
-<p class="author"><em>Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam</em></p>
-<p class="date"><em>version March 30, 2021</em></p>
+<div id="project-description" class="section level1">
+<h1><span class="header-section-number">8</span> Project description</h1>
+<p>In this project, you will work in groups to conduct gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from the Saanich Inlet water column. Saanich Inlet is a seasonally anoxic fjord on the coast of Vancouver Island British Columbia that serves as a model ecosystem for studying microbial community responses to ocean deoxygenation.</p>
+<p>Numerous studies from Saanich Inlet over the years have identified key microbial players mediating coupled biogeochemical cycling of carbon, nitrogen and sulfur extensible to expanding marine oxygen minimum zones throughout the global ocean. Here, you will use metagenomic and metatranscriptomic data sets generated from Cruise 72 spanning 7 depths in <a href="the-saanich-inlet-data-set.html#the-saanich-inlet-data-set">Saanich Inlet</a>. In addition to fastq reads, the metagenomic data sets include assembled contigs, metagenome assembled genomes (MAGs) and single-cell amplified genomes (SAGs) spanning the genomic information hierarchy.</p>
+<p>The Cruise 72 metagenomic and metatranscriptomic data sets can be evaluated in relation to geochemical parameter information to better resolve both the metabolic potential and gene expression patterns of microbial communities inhabiting the Saanich Inlet water column. Each capstone project group will have the opportunity to use TreeSAPP and iToL to chart the abundance, expression and taxonomic diversity of functional and phylogenetic anchor genes represented in the current reference package collection. Groups can augment this collection with new reference packages produced during the TreeSAPP tutorial or at any time during the project phase depending on their research interests. Reference packages can also be updated using taxonomic information associated with the MAGs and SAGs described above.</p>
+<p>The underlying conceptual framework for this project is described in the three lectures associated with course Module 2 along with examples of data visualization approaches useful in developing a coherent scientific narrative. For a given gene encoding a biochemical transformation consider the extent to which this functionality is distributed within the community and how it is represented at different levels of biological information flow e.g. DNA versus RNA.</p>
+<div id="guiding-research-questions" class="section level2">
+<h2><span class="header-section-number">8.1</span> Guiding research questions</h2>
+<p>Several options are provided to help you develop your capstone project, although each group is free to come up with an original plan of action. Please consult with the teaching team if you have questions.</p>
+<ol style="list-style-type: decimal">
+<li><p>Select your genes for analysis based on one of the following options:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Choose a geochemical cycle e.g. nitrogen and its associated genes in pathways with reference packages already available for TreeSAPP (see table).</p></li>
+<li><p>Create new reference packages to expand the TreeSAPP collection and analyze the results. You could select a pthway within a biogeocehmical cycle which does NOT have reference packages available covering the complete pathway e.g. sulfur cycle including sulfur oxidation and DMSP conversion, or a completely new pathway with no reference packages avaialble.</p></li>
+<li><p>Select all reference packages in the collection including those developed by the class during the treesapp create tutorial and map the results. Focus on evaluating the purity of each reference package and update as needed to reflect diversity of genes endemic to the Saanich Inlet water column.</p></li>
+</ol></li>
+<li><p>Perform a preliminary analysis using the Saanich Inlet data for all depths.</p></li>
+<li><p>Update reference packages as needed based on preliminary analysis.</p></li>
+<li><p>Look for patterns in gene abundance, expression and diversity as a function of water column geochemical parameter information.</p></li>
+</ol>
+<div id="questions-for-project-with-a-focus-on-biogeochemical-cycles-repeated-in-report-structure-below" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Questions for project with a focus on biogeochemical cycles (repeated in report structure below)</h3>
+<ol style="list-style-type: decimal">
+<li><p>How does gene and transcript abundance vary across depths for each reference package for a given biogeochemical cycle?</p></li>
+<li><p>How does microbial diversity differ among and between steps within a pathway e.g. denitrification? Are these trends similar for both genes and transcripts at different depths?</p></li>
+<li><p>What is the taxonomic breakdown of genes and transcripts within a given biogeochemcial cycle? Can you discern evidence for horizontal gene transfer of one or more functional anchor genes?</p></li>
+<li><p>Can you identify evidence for distributed metabolism within one or more pathways? Are these trends similar for both genes and transcripts at different depths?</p></li>
+<li><p>How do answers to questions 2 and 3 vary depending on the taxonomic rank used in the analysis?</p></li>
+<li><p>How does the abundance, expression and taxonomy of identified genes relate to water column geochemical parameter information (use the geochemical data in Saanich_Data.csv from our previous data science sessions)?</p></li>
+</ol>
 </div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
-<p>This document introduces bioinformatics workflows useful in gene-centric mapping of functional and phylogenetic anchors encoded in microbial genomes sourced from natural and engineered environments.</p>
-<ul>
-<li>Part I outlines the motivation and insights afforded by the use of these workflows to study uncultivated microbial community structure and function.</li>
-<li>Part II provides hands-on tutorials to learn two effective tools for gene-centric analysis, TreeSAPP and iTOL.</li>
-<li>Part III described your capstone project to explore primary metagenomic and metatranscriptomic data collected from the Saanich Inlet water column spanning a defined nutrient and energy gradient.</li>
-</ul>
+<div id="questions-for-project-with-a-focus-on-using-all-reference-packages" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Questions for project with a focus on using all reference packages</h3>
+<p>In addition to the questions provided above for biogeochemical cycles consider quality control metrics in your analysis.</p>
+<ol style="list-style-type: decimal">
+<li><p>How does the purity of each reference package impact your results?</p></li>
+<li><p>How much information is discarded due to insufficient taxonomic resolution?</p></li>
+<li><p>How much information is retained after updating reference packages with MAGs or SAGs?</p></li>
+<li><p>What is the impact on diversity metrics following the use of updated reference packages?</p></li>
+</ol>
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2><span class="header-section-number">8.2</span> Resources</h2>
+<p>You will be provided with a script template for both the shell and R portion of your analysis (<code>treesapp_analysis.sh</code> and <code>treesapp_analysis.R</code>) that will guide you as you develop your code.</p>
+</div>
+<div id="your-submission" class="section level2">
+<h2><span class="header-section-number">8.3</span> Your submission</h2>
+<p>Your final submission will consist of 3 separate files: the report itself (<code>docx</code> or <code>pdf</code>), one shell script <code>treesapp_analysis.sh</code>, and one R script <code>treesapp_analysis.R</code> (both script files must be in plain text format). The report should not contain any code, but should contain versions of software tools used and a high-level description of your workflow (i.e describe <em>what</em> was done and NOT <em>how</em>).</p>
+</div>
+<div id="timeline" class="section level2">
+<h2><span class="header-section-number">8.4</span> Timeline</h2>
+<p>The following provides an outline as well as some specific milestones within the project.</p>
+</div>
+<div id="reports" class="section level2">
+<h2><span class="header-section-number">8.5</span> Reports</h2>
+<p>Reports should be formatted as per the <a href="https://jb.asm.org/sites/default/files/additional-assets/JB-ITA.pdf">Instructions to Authors</a> for the <a href="https://jb.asm.org/">Journal of Bacteriology</a>.</p>
+<p>Each group will submit <strong>one</strong> report with the sections below.</p>
 
 </div>
-
-
-
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="exploring-the-microcosmos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="analysing-the-treesapp-classifications-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assessment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
