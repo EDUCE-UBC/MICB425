@@ -252,5 +252,5 @@ You will need to make a decision at what taxonomic rank you will calculate diver
 
 ```{r eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
 # Reset code chunk settings to `default_chunk_options` (defined in `index.Rmd`)
-# knitr::opts_chunk$set(default_chunk_options)
+knitr::opts_chunk$set(default_chunk_options)
 ```
