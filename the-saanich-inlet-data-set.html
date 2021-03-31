@@ -275,12 +275,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="description" class="section level2">
 <h2><span class="header-section-number">A.1</span> Description</h2>
 <p>We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:</p>
-<p>Figure <a href="#fig:saanich-inlet"><strong>??</strong></a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
+<div class="figure"><span id="fig:saanich-inlet"></span>
+<img src="images/saanich_inlet_map.png" alt="The Saanich Inlet"  />
+<p class="caption">
+FIGURE A.1: The Saanich Inlet
+</p>
+</div>
+<p>Figure <a href="the-saanich-inlet-data-set.html#fig:saanich-inlet">A.1</a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
 <p>For more details about these data, see <span class="citation">(<a href="references.html#ref-Hallam.2017" role="doc-biblioref">10</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="references.html#ref-Torres-Beltrán.2017" role="doc-biblioref">11</a>)</span>.</p>
 </div>
 <div id="data-on-the-server" class="section level2">
 <h2><span class="header-section-number">A.2</span> Data on the server</h2>
 <p>The data is located on the MICB425 server at <code>/mnt/datasets/saanich/</code>.</p>
+<pre><code>/mnt/datasets/saanich/
+├── [   0]  directory_structure.txt
+├── [492M]  MAGs
+│   └── [492M]  Concatenated
+│       └── [492M]  All_SI072_Metawrap_MAGs.fa
+├── [3.5G]  MetaG_Assemblies
+│   ├── [630M]  SI072_100m_contig.fa
+│   ├── [525M]  SI072_10m_contig.fa
+│   ├── [571M]  SI072_120m_contig.fa
+│   ├── [505M]  SI072_135m_contig.fa
+│   ├── [396M]  SI072_150m_contig.fa
+│   ├── [748M]  SI072_165m_contig.fa
+│   └── [219M]  SI072_200m_contig.fa
+├── [ 64G]  MetaG_Trim_QC_Reads
+│   ├── [4.7G]  SI072_100m_pe.1.fq.gz
+│   ├── [4.7G]  SI072_100m_pe.2.fq.gz
+│   ├── [4.2G]  SI072_10m_pe.1.fq.gz
+│   ├── [4.2G]  SI072_10m_pe.2.fq.gz
+│   ├── [4.2G]  SI072_120m_pe.1.fq.gz
+│   ├── [4.2G]  SI072_120m_pe.2.fq.gz
+│   ├── [4.4G]  SI072_135m_pe.1.fq.gz
+│   ├── [4.4G]  SI072_135m_pe.2.fq.gz
+│   ├── [4.8G]  SI072_150m_pe.1.fq.gz
+│   ├── [4.7G]  SI072_150m_pe.2.fq.gz
+│   ├── [6.5G]  SI072_165m_pe.1.fq.gz
+│   ├── [6.4G]  SI072_165m_pe.2.fq.gz
+│   ├── [3.3G]  SI072_200m_pe.1.fq.gz
+│   └── [3.3G]  SI072_200m_pe.2.fq.gz
+├── [ 54G]  MetaT_Raw_Reads
+│   ├── [8.9G]  SI072_100m_MetaT_QC_Filtered.fastq.gz
+│   ├── [6.4G]  SI072_10m_MetaT_QC_Filtered.fastq.gz
+│   ├── [6.8G]  SI072_120m_MetaT_QC_Filtered.fastq.gz
+│   ├── [7.2G]  SI072_135m_MetaT_QC_Filtered.fastq.gz
+│   ├── [10.0G]  SI072_150m_MetaT_QC_Filtered.fastq.gz
+│   ├── [8.7G]  SI072_165m_MetaT_QC_Filtered.fastq.gz
+│   └── [6.0G]  SI072_200m_MetaT_QC_Filtered.fastq.gz
+├── [181M]  SAGs
+│   └── [181M]  Concatenated_Med_Plus
+│       └── [181M]  Saanich_Med_Plus_SAGs.fasta
+└── [ 42K]  seq2lineage_Tables
+    ├── [ 17K]  Med_Plus_SAGs_GTDB_Taxonomies.tsv
+    └── [ 25K]  SI072_MAGs_All_GTDB_taxonomies.tsv
+
+ 122G used in 8 directories, 33 files</code></pre>
 </div>
 <div id="description-of-input-data" class="section level2">
 <h2><span class="header-section-number">A.3</span> Description of input data</h2>

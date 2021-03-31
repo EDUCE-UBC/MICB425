@@ -1,6 +1,7 @@
 fig:N-cycle-genes
 fig:xmoa
 fig:XmoA-Classified
+fig:saanich-inlet
 tab:reference-packages
 tab:commands
 exploring-the-microcosmos
