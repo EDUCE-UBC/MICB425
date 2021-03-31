@@ -25,6 +25,6 @@ rmd_files:
   # - shell.Rmd
   - appendix.Rmd # separator for TOC navigation
   - data.Rmd
-  # - refpkgs.Rmd
+  - refpkgs.Rmd
   - cheat_sheet.Rmd
   - references.Rmd
