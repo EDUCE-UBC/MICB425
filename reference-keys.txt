@@ -1,6 +1,7 @@
 fig:N-cycle-genes
 fig:xmoa
 fig:XmoA-Classified
+tab:reference-packages
 tab:commands
 exploring-the-microcosmos
 background
@@ -105,5 +106,6 @@ amplicon-taxonomic-screening
 sag-sequencing-and-assembly
 sag-assembly-quality-control-and-decontamination
 final-taxonomic-assignment-of-sags
+treesapp-reference-packages
 shell-cheat-sheet
 references
