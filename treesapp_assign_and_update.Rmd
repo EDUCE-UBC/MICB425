@@ -1,6 +1,6 @@
 # Classifying unknown sequences with TreeSAPP and updating a reference package
 
-## Introduction and Goals
+## Introduction and goals
 
 We will be using the new particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) alpha subunit, or XmoA, reference package and update it with XmoA amino acid sequences sourced from FunGene. You already created the reference package ([Creating a Reference Package For TreeSAPP]) and downloaded the sequences ([Acquiring golden data]).
 
@@ -11,6 +11,10 @@ There are three goals of this tutorial:
 1) Learn how to annotate features of phylogenetic clades using `treesapp layer`.
 
 The first step involves using `treesapp assign` to classify the FunGene XmoA sequences. The second step is to use `treesapp update` to add the new sequences to the original XmoA reference package.
+
+## Change notes
+
+* With TreeSAPP version 0.10.4, `treesapp update` no longer automatically retrains the reference package. Therefore, it doesn't require a FASTA file and the commands have been updated to reflect this change. This will save a significant amount of time!
 
 ## Classify new sequences
 
@@ -23,6 +27,7 @@ cd /data/ts_tutorial/
 According to `treesapp purity` in the [last chapter](#treesapp-create), and all other sanity checks, the XmoA reference package (contained in your working directory, `/data/ts_tutorial`, at `XmoA_seed/final_outputs/XmoA_build.pkl`) looks functional and only contains XmoA sequences. At this point, you're able to use this reference package to classify sequences in any dataset using `treesapp assign`.
 
 The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).
+
 
 For these commands we will use Block Mapping and Gathering with Entropy (BMGE) which filters out regions of questionable homology from the alignment [@Criscuolo.2010]. Please see the [BMGE publication](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210) for more information. To trim the multiple sequence alignments prior to phylogenetic placement use the `--trim_align` flag.
 To use the PmoA and AmoA reference package we've built instead of any other reference packages that come with TreeSAPP we can use the argument `--refpkg_dir` with the path to a directory containing reference packages we want to use.
@@ -46,6 +51,7 @@ treesapp assign \
 The command should take a few seconds to run and if you see a 'TreeSAPP has finished successfully.' at the end then you're good to move on.
 
 ### Classifying ORFs predicted from genomes
+
 
 The second batch of sequences that we will classify XmoA from are metagenome-assembled genomes (MAGs). MAGs are derived from assembled metagenome datasets (i.e. contigs or scaffolds) and represent the genome of a closely related microbial population. You can think of them as representing a single strain present in a microbial community.
 
@@ -90,6 +96,8 @@ You have already seen many of these flags and arguments before, and they're used
 By default TreeSAPP will use the lineage that was assigned to each classified query sequence from the `treesapp assign` outputs. Since these sequences are from FunGene (and originally GenBank) they have NCBI accessions, meaning we can use this information to download their true taxonomic lineages. To turn on that behaviour we use the `--skip_assign` flag.\
 Lastly, we must give it the path to the reference package to update with `--refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl`.
 
+__NOTE:__ `--fastx_input XmoA_seed.faa` has been removed from all `treesapp update` commands as of TreeSAPP 0.10.4 being installed on the server. See [above](#change-notes) for more details.
+
 ```{bash eval = FALSE}
 treesapp update \
   --fast \
@@ -100,7 +108,6 @@ treesapp update \
   --trim_align \
   -n 4 \
   -m prot \
-  --fastx_input XmoA_seed.faa \
   --output XmoA_FunGene_update/ \
   --skip_assign \
   --treesapp_output p_amoA_FunGene9.5_isolates_assign/ \
@@ -146,7 +153,6 @@ treesapp update \
   --trim_align \
   -n 4 \
   -m prot \
-  --fastx_input XmoA_seed.faa \
   --output XmoA_MAG_update/ \
   --skip_assign \
   --seqs2lineage gtdb_classifications.tsv \
