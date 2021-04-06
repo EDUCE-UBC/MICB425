@@ -11,7 +11,6 @@
 │   ├── [396M]  SI072_150m_contig.fa
 │   ├── [748M]  SI072_165m_contig.fa
 │   └── [219M]  SI072_200m_contig.fa
-│   └── [3.5G]  SI072_All_contigs.fa
 ├── [ 64G]  MetaG_Trim_QC_Reads
 │   ├── [4.7G]  SI072_100m_pe.1.fq.gz
 │   ├── [4.7G]  SI072_100m_pe.2.fq.gz
