@@ -10,7 +10,6 @@ In this series of tutorials, users will analyze a gene family lacking an existin
 -   [Creating a Reference Package For TreeSAPP].
 -   [Classifying unknown sequences with TreeSAPP and updating a reference package].
 -   [Calculating relative abundance of meta'omic data].
--   [Analysing the TreeSAPP classifications in R].
 
 ## Genes for creating reference packages
 

@@ -14,7 +14,7 @@ Several options are provided to help you develop your capstone project, although
 
 1.  Select your genes for analysis based on one of the following options:
 
-    a.  Choose a geochemical cycle e.g. nitrogen and its associated genes in pathways with reference packages already available for TreeSAPP (see table of available [TreeSAPP reference packages]).
+    a.  Choose a geochemical cycle e.g. nitrogen and its associated genes in pathways with reference packages already available for TreeSAPP (see table).
 
     b.  Create new reference packages to expand the TreeSAPP collection and analyze the results. You could select a pthway within a biogeocehmical cycle which does NOT have reference packages available covering the complete pathway e.g. sulfur cycle including sulfur oxidation and DMSP conversion, or a completely new pathway with no reference packages avaialble. 
 
