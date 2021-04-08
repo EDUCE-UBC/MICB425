@@ -107,6 +107,7 @@ amplicon-taxonomic-screening
 sag-sequencing-and-assembly
 sag-assembly-quality-control-and-decontamination
 final-taxonomic-assignment-of-sags
+installing-and-running-gtdb-tk
 treesapp-reference-packages
 shell-cheat-sheet
 references
