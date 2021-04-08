@@ -12,9 +12,9 @@ The underlying conceptual framework for this project is described in the three l
 
 Several options are provided to help you develop your capstone project, although each group is free to come up with an original plan of action. Please consult with the teaching team if you have questions.
 
-1.  Select your genes for analysis based on one of the following options:
+1.  Select your reference package(s) for analysis based on one of the following options:
 
-    a.  Choose a geochemical cycle e.g. nitrogen and its associated genes in pathways with reference packages already available for TreeSAPP (see table).
+    a.  Choose one or more pathways of a geochemical cycle e.g. nitrogen with reference packages already available for TreeSAPP (see table). For example, you could select NapA, NirK, NirS, NorB, NorC and NosZ to investigate denitrification in the Saanich Inlet water column.
 
     b.  Create new reference packages to expand the TreeSAPP collection and analyze the results. You could select a pthway within a biogeocehmical cycle which does NOT have reference packages available covering the complete pathway e.g. sulfur cycle including sulfur oxidation and DMSP conversion, or a completely new pathway with no reference packages avaialble. 
 
