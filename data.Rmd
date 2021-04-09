@@ -109,11 +109,11 @@ After updating the headers for resulting bins with the sample IDs, the bins were
 ### Single-Cell Amplified Genomes
 
 #### Sample Collection
-Water was collected at 10, 100, 120, 135, 150, 165, and 200m at Saanich Inlet on August 9th, 2011. 900 µL of seawater was aliquoted into 100 µL of glycerol-TE buffer, then stored at -80 degrees Celsius. Samples were thawed and had their microbial cells sorted at the Bigelow Laboratory for Ocean Sciences’ Single Cell Genomics Center (scgc.bigelow.org). 
+Water was collected at across the water column at Saanich Inlet on August 9th, 2011. 900 µL of seawater was aliquoted into 100 µL of glycerol-TE buffer, then stored at -80 degrees Celsius. Samples from 100m, 150m, and 185m were selected for sorting and sequencing. The selected samples were thawed and had their microbial cells sorted at the Bigelow Laboratory for Ocean Sciences’ Single Cell Genomics Center (scgc.bigelow.org). 
 
 
 #### Florescence Activated Cell Sorting
-Samples were passed through a sterile 40 𝜇m size mesh before microorganisms were sorted by a non-targeted isolation procedure. For non-target isolation, the microbial particles were labeled with a 5 𝜇M final concentration of the DNA stain SYTO-9 (Thermo Fisher Scientific). Microbial cells were individually sorted using a MoFloTM (Beckman Coulter) or an InFluxTM (BD Biosciences) flow cytometer system equipped with a 488 nm laser for excitation and a 70 μm nozzle orifice30. The gates for the untargeted isolation of microbial cells stained with SYTO-9 were defined based on the green fluorescence of particles as a proxy for nucleic acid content, and side scattered light as a proxy for particle size. All microbial single cells were sorted into 384-well plates containing 600 nL of 1X TE buffer per well and then stored at -80 degrees Celsius. The microbial single-cells sorted into TE buffer were lysed as described previously by adding  cold KOH.The microbial nucleic acids were then amplified in each individual wells through Multiple Displacement Amplification (MDA) @Raghunathan.2005, @Rinke.2014 . 
+Samples were passed through a sterile 40 𝜇m size mesh before microorganisms were sorted by a non-targeted isolation procedure. For non-target isolation, the microbial particles were labeled with a 5 𝜇M final concentration of the DNA stain SYTO-9 (Thermo Fisher Scientific). Microbial cells were individually sorted using a MoFloTM (Beckman Coulter) or an InFluxTM (BD Biosciences) flow cytometer system equipped with a 488 nm laser for excitation and a 70 μm nozzle orifice30. The gates for the untargeted isolation of microbial cells stained with SYTO-9 were defined based on the green fluorescence of particles as a proxy for nucleic acid content, and side scattered light as a proxy for particle size. All microbial single cells were sorted into 384-well plates containing 600 nL of 1X TE buffer per well and then stored at -80 degrees Celsius. The microbial single-cells sorted into TE buffer were lysed as described previously by adding  cold KOH.The microbial nucleic acids were then amplified in each individual wells through Multiple Displacement Amplification (MDA) @Raghunathan.2005, @Rinke.2014. 
 
 
 #### Amplicon Taxonomic Screening
@@ -168,6 +168,8 @@ SAGs found to have >5% contamination were passed through ProDeGe v2.3.0 @Tenness
 
 For this project, SAGs that were estimated by CheckM to have >50% completeness and <10% contamination were selected.
 
+
+
 #### Final Taxonomic Assignment of SAGs
 
 The resulting SAGs were then passed through GTDB-TK v1.4.0 classify workflow [documentation](https://ecogenomics.github.io/GTDBTk/commands/classify_wf.html) @Chaumeil.2019.
@@ -177,6 +179,19 @@ gtdbtk classify_wf --genome_dir Path_To_SI_SAGs/ -x .fna --out_dir Path_To_SI_SA
 
 ```
 After updating the headers for resulting SAGs with the sample IDs, the SAGs were concatenated and deposited into: `/mnt/datasets/saanich/SAGs/Concatenated_Med_Plus/`
+
+
+**Note:** The identifier for each SAG consists of a combination of the plate ID and the well location it was sorted into. The identifiers take the form (AB-7XX_YYY). These identifiers were incorporated into the headers of the final SAG assemblies. Each plate corresponds to a specific depth as shown below:
+
+| Plate ID | Sample Depth (m) |
+| :-------------: |:-------------:| 
+| AB-746 | 100 | 
+| AB-747 | 100 |  
+| AB-750 | 150 |  
+| AB-751 | 150 |  
+| AB-754 | 185 |  
+| AB-755 | 185 |  
+
 
 ## Installing and running GTDB-Tk
 
