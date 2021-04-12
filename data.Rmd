@@ -104,7 +104,7 @@ The resulting MAGs were then passed through GTDB-TK v1.4.0 classify workflow wit
 gtdbtk classify_wf --genome_dir Path_To_SI072/MAGs/ -x .fa --out_dir Path_To_SI072/MAG_GTDB_Outputs/ --cpus 8 --pplacer_cpus 8
 
 ```
-After updating the headers for resulting bins with the sample IDs, the bins were concatenated and deposited into: `/mnt/datasets/saanich/MAGs/Concatenated/` 
+After updating the headers for resulting 219 bins with the sample IDs, the bins were concatenated and deposited into: `/mnt/datasets/saanich/MAGs/Concatenated/` 
 
 ### Single-Cell Amplified Genomes
 
@@ -166,7 +166,7 @@ checkm lineage_wf --tab_table -x .fna --threads 8 --pplacer_threads 8
 
 SAGs found to have >5% contamination were passed through ProDeGe v2.3.0 @Tennessen.2016. The resulting decontaminated SAGs were re-assesed with CheckM and those that still exceeded 5% contamination had all of their short contigs (i.e. <2000 bp) removed from the assembly. These were again re-assessed with CheckM to ensure they met our standards. 
 
-For this project, SAGs that were estimated by CheckM to have >50% completeness and <10% contamination were selected.
+For this project, of the 376 SAGs recovered, 154 SAGs that were estimated to have >50% completeness and <10% contamination were selected for the remainder of the analysis.
 
 
 
