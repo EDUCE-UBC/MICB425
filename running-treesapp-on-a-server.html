@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function</title>
+  <title>10 Running TreeSAPP on a server | Gene-centric mapping of microbial community structure and function</title>
   <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
+  <meta property="og:title" content="10 Running TreeSAPP on a server | Gene-centric mapping of microbial community structure and function" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
+  <meta name="twitter:title" content="10 Running TreeSAPP on a server | Gene-centric mapping of microbial community structure and function" />
   
   <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="running-treesapp-on-a-server.html"/>
-<link rel="next" href="treesapp-reference-packages.html"/>
+<link rel="prev" href="assessment.html"/>
+<link rel="next" href="the-saanich-inlet-data-set.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -288,264 +288,130 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-saanich-inlet-data-set" class="section level1">
-<h1><span class="header-section-number">A</span> The Saanich Inlet data set</h1>
-<div id="description" class="section level2">
-<h2><span class="header-section-number">A.1</span> Description</h2>
-<p>We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:</p>
-<div class="figure"><span id="fig:saanich-inlet"></span>
-<img src="images/saanich_inlet_map.png" alt="The Saanich Inlet"  />
-<p class="caption">
-FIGURE A.1: The Saanich Inlet
-</p>
-</div>
-<p>Figure <a href="the-saanich-inlet-data-set.html#fig:saanich-inlet">A.1</a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
-<p>For more details about these data, see <span class="citation">(<a href="references.html#ref-Hallam.2017" role="doc-biblioref">10</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="references.html#ref-Torres-Beltrán.2017" role="doc-biblioref">11</a>)</span>.</p>
-</div>
-<div id="data-on-the-server" class="section level2">
-<h2><span class="header-section-number">A.2</span> Data on the server</h2>
-<p>The Saanich data is located on the MICB425 server at <code>/mnt/datasets/saanich/</code>.</p>
-<pre><code>/mnt/datasets/saanich/
-├── [   0]  directory_structure.txt
-├── [492M]  MAGs
-│   └── [492M]  Concatenated
-│       └── [492M]  All_SI072_Metawrap_MAGs.fa
-├── [3.5G]  MetaG_Assemblies
-│   ├── [630M]  SI072_100m_contig.fa
-│   ├── [525M]  SI072_10m_contig.fa
-│   ├── [571M]  SI072_120m_contig.fa
-│   ├── [505M]  SI072_135m_contig.fa
-│   ├── [396M]  SI072_150m_contig.fa
-│   ├── [748M]  SI072_165m_contig.fa
-│   └── [219M]  SI072_200m_contig.fa
-│   └── [3.5G]  SI072_All_contigs.fa
-├── [ 64G]  MetaG_Trim_QC_Reads
-│   ├── [4.7G]  SI072_100m_pe.1.fq.gz
-│   ├── [4.7G]  SI072_100m_pe.2.fq.gz
-│   ├── [4.2G]  SI072_10m_pe.1.fq.gz
-│   ├── [4.2G]  SI072_10m_pe.2.fq.gz
-│   ├── [4.2G]  SI072_120m_pe.1.fq.gz
-│   ├── [4.2G]  SI072_120m_pe.2.fq.gz
-│   ├── [4.4G]  SI072_135m_pe.1.fq.gz
-│   ├── [4.4G]  SI072_135m_pe.2.fq.gz
-│   ├── [4.8G]  SI072_150m_pe.1.fq.gz
-│   ├── [4.7G]  SI072_150m_pe.2.fq.gz
-│   ├── [6.5G]  SI072_165m_pe.1.fq.gz
-│   ├── [6.4G]  SI072_165m_pe.2.fq.gz
-│   ├── [3.3G]  SI072_200m_pe.1.fq.gz
-│   └── [3.3G]  SI072_200m_pe.2.fq.gz
-├── [ 54G]  MetaT_Raw_Reads
-│   ├── [8.9G]  SI072_100m_MetaT_QC_Filtered.fastq.gz
-│   ├── [6.4G]  SI072_10m_MetaT_QC_Filtered.fastq.gz
-│   ├── [6.8G]  SI072_120m_MetaT_QC_Filtered.fastq.gz
-│   ├── [7.2G]  SI072_135m_MetaT_QC_Filtered.fastq.gz
-│   ├── [10.0G]  SI072_150m_MetaT_QC_Filtered.fastq.gz
-│   ├── [8.7G]  SI072_165m_MetaT_QC_Filtered.fastq.gz
-│   └── [6.0G]  SI072_200m_MetaT_QC_Filtered.fastq.gz
-├── [181M]  SAGs
-│   └── [181M]  Concatenated_Med_Plus
-│       └── [181M]  Saanich_Med_Plus_SAGs.fasta
-└── [ 42K]  seq2lineage_Tables
-    ├── [ 17K]  Med_Plus_SAGs_GTDB_Taxonomies.tsv
-    └── [ 25K]  SI072_MAGs_All_GTDB_taxonomies.tsv
-
- 122G used in 8 directories, 33 files</code></pre>
-<p>Additionally, if you would like to run GTDB-TK, the path to the GTDB refrence directory is located at <code>/mnt/datasets/GTDB-Tk/release95/</code></p>
-</div>
-<div id="description-of-input-data" class="section level2">
-<h2><span class="header-section-number">A.3</span> Description of input data</h2>
-<p>List of directories and their contents</p>
+<div id="running-treesapp-on-a-server" class="section level1">
+<h1><span class="header-section-number">10</span> Running TreeSAPP on a server</h1>
+<p>These instructions will help you to complete the script template <code>treesapp_analysis.sh</code> to run your TreeSAPP analysis of the Saanich Inlet data of your assigned depth on the server and copy the output files to your local machine. To adjust the code examples below and in the script template, replace any angle brackets, e.g. <code>&lt;SOME TEXT&gt;</code>, with the missing code.</p>
+<div id="resources-for-treesapp-analysis" class="section level2">
+<h2><span class="header-section-number">10.1</span> Resources for TreeSAPP analysis</h2>
 <ul>
-<li><p><code>MAGs</code></p>
-<p>Within the <code>Concatonated</code> subdirectory, there is a single <code>All_SI072_Metawrap_MAGs.fa</code> fasta file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the MetaWrap pipeline <span class="citation">(<a href="references.html#ref-Uritskiy.2018" role="doc-biblioref">12</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p></li>
-<li><p><code>MetaG_Assemblies</code></p>
-<p>This directory contains seven assembled metagenomic contigs for each SI072 sample depth, and one file where each of these has been concatonated into a single file. These files will be used for the <code>treesapp assign</code> and <code>abundance</code> tutorials. These files were generated by assembling the trimmed and quality controlled reads that were generated by the Illumina HiSeq platform (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>).</p></li>
-<li><p><code>MetaG_Trim_QC_Reads</code></p>
-<p>This directory contains fourteen fastq files which contain the paired-end forward and reverse metagenomic reads for each SI072 sample depth. These trimmed and QC’d fastqs were generated by processing the raw reads through the Megahit workflow described below. You will use these files for treesapp abundance to get the metagenomic abundance of your assigned genes.</p></li>
-<li><p><code>MetaT_Raw_Reads</code></p>
-<p>This directory contains seven filtered and QC’d metatranscriptome fastq files for each SI072 Sample depth. These files are paired end and interleaved. These files we provided by the the JGI and generated based on the methodology below. You will use these files in <code>treesapp abundance</code> to calculate the metatransciptomic abundances of each gene of interest.</p></li>
-<li><p><code>SAGs</code></p>
-<p>Within the <code>Concatenated_Med_Plus</code> subdirectory, there is a single <code>Saanich_Med_Plus_SAGs.fasta</code> file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the SAG Assembly and Decontamination Workflow <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>–<a href="references.html#ref-Tennessen.2016" role="doc-biblioref">16</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p></li>
-<li><p><code>seq2lineage_Tables</code></p>
-<p>This directory contains two files that will be used for treesapp update. One file contains the lineage information from the MAGs, and the other contains information for the SAGs. These tables were generated by taking each separate MAG and SAG respectively and passing them through the Genome Taxonomic Database Toolkit v1.4.0 classify workflow <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>). Then, the first two columns of the archaeal and bacterial summary files were taken and combined into each of these files.</p></li>
+<li>A shell script template called <code>treesapp_analysis.sh</code> on Canvas.</li>
+<li>Access to a server and <code>&lt;server address&gt;</code>.</li>
+<li>The Saanich Inlet data located in <code>/mnt/datasets</code></li>
 </ul>
 </div>
-<div id="methods" class="section level2">
-<h2><span class="header-section-number">A.4</span> Methods</h2>
-<div id="metagenomes-and-metatransriptopmes" class="section level3">
-<h3><span class="header-section-number">A.4.1</span> Metagenomes and metatransriptopmes</h3>
-<div id="sample-collection" class="section level4">
-<h4><span class="header-section-number">A.4.1.1</span> Sample Collection</h4>
-<p>Water was collected at 10, 100, 120, 135, 150, 165, and 200m at Saanich Inlet on August 1st, 2012 and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with <strong>2x150bp</strong> technology. For more in-depth sampling and sequencing methods, please see <span class="citation">(<a href="references.html#ref-Hawley.2017" role="doc-biblioref">17</a>)</span>.</p>
+<div id="checklist-to-write-and-run-shell-script" class="section level2">
+<h2><span class="header-section-number">10.2</span> Checklist to write and run shell script</h2>
+<ul>
+<li><p><input type="checkbox" disabled="" />
+Edit the <code>treesapp_analysis.sh</code> script following <a href="running-treesapp-on-a-server.html#shell-writing">the instructions below</a>.</p></li>
+<li><p><input type="checkbox" disabled="" />
+Using the terminal on your computer, copy the script to your group’s server using:</p><div class="sourceCode" id="cb59"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb59-1"><a href="running-treesapp-on-a-server.html#cb59-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>path to file on your computer<span class="op">&gt;</span> <span class="op">&lt;</span>user<span class="op">&gt;</span>@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:<span class="op">&lt;</span>destination<span class="op">&gt;</span></span></code></pre></div></li>
+<li><p><input type="checkbox" disabled="" />
+Make the script executable on the server (otherwise you won’t be able to run it). In the CLI and while in the directory containing your script, run the following command:</p><div class="sourceCode" id="cb60"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb60-1"><a href="running-treesapp-on-a-server.html#cb60-1"></a><span class="fu">chmod</span> u+x treesapp_analysis.sh</span></code></pre></div></li>
+<li><p><input type="checkbox" disabled="" />
+Still in the CLI, start a new session with <code>screen -S &lt;session name&gt;</code>.</p></li>
+<li><p><input type="checkbox" disabled="" />
+In the new session, start the script with <code>./treesapp_analysis.sh</code>.</p></li>
+<li><p><input type="checkbox" disabled="" />
+After the script has run (will take at most 8 hours), locate the <code>final_output/marker_contig_map.tsv</code> files in the TreeSAPP output directories and copy each one to your local computer using <code>scp</code>.</p></li>
+</ul>
+<p>After these steps, you will continue with the analysis of your results in R on your local computer using R and the provided <code>treesapp_analysis.R</code> script template.</p>
 </div>
-<div id="quality-filtering-of-reads" class="section level4">
-<h4><span class="header-section-number">A.4.1.2</span> Quality filtering of reads</h4>
-<p>The resulting reads were processed, quality controlled and filtered with Trimmomatic (v.0.35, <a href="http://www.usadellab.org/cms/?page=trimmomatic">documentation</a>) <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>)</span>. Trimmomatic command is as follows, where SI072_XXX represents the same command being applied to each of the seven depths.</p>
-<pre><code>trimmomatic -threads 8 -phred33 \
-Path_to/SI072_XXXm/Raw/forward_dir/SI072_XXXm_R1.fastq \
-Path_To/SI072_200m/Raw/reverse_dir/SI072_XXXm_R2.fastq \
-
-Path_To/SI072_200m//trim/SI072_XXXm_pe.1.fq \
-
-Path_To/SI072_200m//trim/SI072_XXXm_pe.2.fq \
-
-ILLUMINACLIP:/usr/local/share/Trimmomatic-0.35/adapters/TruSeq3-PE.fa:2:3:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36</code></pre>
-<p>The resulting trimmed fastq files were also deposited into the MICB425 server in <code>/mnt/datasets/saanich/MetaG_Trim_QC_Reads</code></p>
+<div id="shell-writing" class="section level2">
+<h2><span class="header-section-number">10.3</span> Writing the shell script</h2>
+<p>In the <code>treesapp_analysis.sh</code> script, we will define some variables to make our code more readable when running commands, give some feedback to the user as the script runs, and finally run the TreeSAPP workflow. Edit the script either on your local computer or after you have copied it to the server using the text editor of your choice (e.g. RStudio on your local machine or <code>nano</code> on the server).</p>
+<div id="defining-the-shell" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Defining the shell</h3>
+<p>The script template starts with:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb61-1"><a href="running-treesapp-on-a-server.html#cb61-1"></a><span class="co">#! bin/bash</span></span></code></pre></div>
+<p>and defines the shell used to interpret this script and where the shell is located (i.e. the <code>bash</code> shell in the <code>/bin</code> directory). You do not need to modify anything about that step.</p>
 </div>
-<div id="contig-assembly" class="section level4">
-<h4><span class="header-section-number">A.4.1.3</span> Contig Assembly</h4>
-<p>MEGAHIT (v.1.1.3, <a href="https://github.com/voutcn/megahit/wiki/Assembly-Tips">documentation</a>) <span class="citation">(<a href="references.html#ref-Li.2015" role="doc-biblioref">18</a>)</span> was used to assemble the filtered metagenomic reads into contigs.</p>
-<pre><code>megahit -1 Path_To/SI072_200m//trim/SI072_XXXm_pe.1.fq  -2 Path_To/SI072_200m//trim/SI072_XXXm_pe.2.fq  -m 0.5  -t 12  -o megahit_result --k-min 27 --k-step 10 --min-contig-len 500</code></pre>
-<p>The resulting assemblies can be found in <code>/mnt/datasets/saanich/MetaG_Assemblies</code>.</p>
+<div id="setting-a-variable-for-your-depth" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Setting a variable for your depth</h3>
+<p>Let’s define our first variable with the name “depth”. Replace <code>&lt;your depth&gt;</code> with the depth your group has been assigned to (e.g. <code>100</code>).</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb62-1"><a href="running-treesapp-on-a-server.html#cb62-1"></a><span class="va">depth=</span><span class="st">&quot;&lt;your  depth&gt;&quot;</span></span></code></pre></div>
 </div>
-<div id="binning-and-mag-generation" class="section level4">
-<h4><span class="header-section-number">A.4.1.4</span> Binning and MAG Generation</h4>
-<p>MetaWRAP (v1.2.4, <a href="https://github.com/bxlab/metaWRAP">documentation</a>) <span class="citation">(<a href="references.html#ref-Uritskiy.2018" role="doc-biblioref">12</a>)</span> was used to generate the MAGs from the metagenome assemblies and filtered reads for this project. MetaWRAP leverages multiple binning software (we chose to use MetaBAT2 v2.12.1 <span class="citation">(<a href="references.html#ref-kang.2019" role="doc-biblioref">19</a>)</span> and MaxBin v2.2.7 <span class="citation">(<a href="references.html#ref-Wu.2014" role="doc-biblioref">20</a>)</span>, <span class="citation">(<a href="references.html#ref-Wu.2016" role="doc-biblioref">21</a>)</span>) to create a non-redundant set of MAGs that are better quality than those from any single software. The quality of the resulting bins – assessed by their completeness, contamination, and strain-heterogeneity – was calculated with MetaWRAP’s implementation of CheckM (v1.0.12) <span class="citation">(<a href="references.html#ref-Parks.2015" role="doc-biblioref">15</a>)</span>. The command used to invoke MetaWRAP is as follows:</p>
-<pre><code>metawrap binning -a SI072_Assembly.fa -o output_directory -t 16 -m 64 -l 1500 --metabat2 --maxbin2 --universal Path_To/SI072_200m//trimSI072_XXXm_pe.1.fastq Path_To/SI072_200m//trimSI072_XXXm_pe.2.fastq</code></pre>
+<div id="providing-user-feedback" class="section level3">
+<h3><span class="header-section-number">10.3.3</span> Providing user feedback</h3>
+<p>It is good practice to provide feedback to the user while a script is running by printing messages to the terminal. Let’s print a welcome message to the terminal using the <code>echo</code> command to informing the user what the script is going to do. This is a great opportunity to call the <code>depth</code> variable that we have just defined.</p>
+<p><em>Hint</em>: Remember, to call a variable, you have to prepend its name with a <code>$</code>, e.g. if the variable’s name is <code>some_variable</code> then you call it with <code>$some_variable</code>.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb63-1"><a href="running-treesapp-on-a-server.html#cb63-1"></a><span class="bu">echo</span> <span class="st">&quot;TreeSAPP analysis of Saanich Inlet Data at Depth &lt;call depth variable&gt; m&quot;</span></span></code></pre></div>
 </div>
-<div id="taxonomic-assignment-of-mags" class="section level4">
-<h4><span class="header-section-number">A.4.1.5</span> Taxonomic Assignment of MAGs</h4>
-<p>The resulting MAGs were then passed through GTDB-TK v1.4.0 classify workflow with the reference data version r95 <a href="https://ecogenomics.github.io/GTDBTk/commands/classify_wf.html">documentation</a> <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span>.</p>
-<pre><code>gtdbtk classify_wf --genome_dir Path_To_SI072/MAGs/ -x .fa --out_dir Path_To_SI072/MAG_GTDB_Outputs/ --cpus 8 --pplacer_cpus 8
-</code></pre>
-<p>After updating the headers for resulting bins with the sample IDs, the bins were concatenated and deposited into: <code>/mnt/datasets/saanich/MAGs/Concatenated/</code></p>
+<div id="defining-variable-for-input-directory" class="section level3">
+<h3><span class="header-section-number">10.3.4</span> Defining variable for input directory</h3>
+<p>Define a variable for path to the input data directory. Let’s call the variable <code>input_dir</code>.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb64-1"><a href="running-treesapp-on-a-server.html#cb64-1"></a><span class="op">&lt;</span><span class="ex">variable_name</span><span class="op">&gt;</span>=<span class="st">&quot;&lt;path to data directory&gt;&quot;</span></span></code></pre></div>
 </div>
+<div id="creating-output-directory" class="section level3">
+<h3><span class="header-section-number">10.3.5</span> Creating output directory</h3>
+<p>Define a variable for the TreeSAPP output directory and choose a name for it yourself. The directory should be located in your home directory (which is also shared between your host and container). To refer to your home directory, use the environmental variable <code>HOME</code> which is automatically defined by the shell (i.e. you do not need to first define it yourself). Finally, create the output directory.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb65-1"><a href="running-treesapp-on-a-server.html#cb65-1"></a><span class="op">&lt;</span><span class="kw">set</span> <span class="ex">output</span> directory variable<span class="op">&gt;</span></span>
+<span id="cb65-2"><a href="running-treesapp-on-a-server.html#cb65-2"></a><span class="op">&lt;</span><span class="ex">create</span> the ouput directory<span class="op">&gt;</span></span></code></pre></div>
 </div>
-<div id="single-cell-amplified-genomes" class="section level3">
-<h3><span class="header-section-number">A.4.2</span> Single-Cell Amplified Genomes</h3>
-<div id="sample-collection-1" class="section level4">
-<h4><span class="header-section-number">A.4.2.1</span> Sample Collection</h4>
-<p>Water was collected at across the water column at Saanich Inlet on August 9th, 2011. 900 µL of seawater was aliquoted into 100 µL of glycerol-TE buffer, then stored at -80 degrees Celsius. Samples from 100m, 150m, and 185m were selected for sorting and sequencing. The selected samples were thawed and had their microbial cells sorted at the Bigelow Laboratory for Ocean Sciences’ Single Cell Genomics Center (scgc.bigelow.org).</p>
+<div id="reporting-variables-to-user" class="section level3">
+<h3><span class="header-section-number">10.3.6</span> Reporting variables to user</h3>
+<p>Let’s provide the user some feedback where TreeSAPP is going to save its output and what bind paths have been set.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb66-1"><a href="running-treesapp-on-a-server.html#cb66-1"></a><span class="op">&lt;</span><span class="ex">print</span> command<span class="op">&gt;</span> <span class="st">&quot;&lt;Some text explaining what variables have been set&gt;&quot;</span></span></code></pre></div>
 </div>
-<div id="florescence-activated-cell-sorting" class="section level4">
-<h4><span class="header-section-number">A.4.2.2</span> Florescence Activated Cell Sorting</h4>
-<p>Samples were passed through a sterile 40 𝜇m size mesh before microorganisms were sorted by a non-targeted isolation procedure. For non-target isolation, the microbial particles were labeled with a 5 𝜇M final concentration of the DNA stain SYTO-9 (Thermo Fisher Scientific). Microbial cells were individually sorted using a MoFloTM (Beckman Coulter) or an InFluxTM (BD Biosciences) flow cytometer system equipped with a 488 nm laser for excitation and a 70 μm nozzle orifice30. The gates for the untargeted isolation of microbial cells stained with SYTO-9 were defined based on the green fluorescence of particles as a proxy for nucleic acid content, and side scattered light as a proxy for particle size. All microbial single cells were sorted into 384-well plates containing 600 nL of 1X TE buffer per well and then stored at -80 degrees Celsius. The microbial single-cells sorted into TE buffer were lysed as described previously by adding cold KOH.The microbial nucleic acids were then amplified in each individual wells through Multiple Displacement Amplification (MDA) <span class="citation">(<a href="references.html#ref-Raghunathan.2005" role="doc-biblioref">22</a>)</span>, <span class="citation">(<a href="references.html#ref-Rinke.2014" role="doc-biblioref">23</a>)</span>.</p>
+<div id="listing-treesapp-version" class="section level3">
+<h3><span class="header-section-number">10.3.7</span> Listing TreeSAPP version</h3>
+<p>Let’s print the information about the configuration of TreeSAPP.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb67-1"><a href="running-treesapp-on-a-server.html#cb67-1"></a> <span class="ex">treesapp</span> info</span></code></pre></div>
+<p><em>Hint</em>: When we have very long commands in a script, we can introduce line breaks using <code>\</code> which are best used right after a space in the command (see example above after the word “following”).</p>
 </div>
-<div id="amplicon-taxonomic-screening" class="section level4">
-<h4><span class="header-section-number">A.4.2.3</span> Amplicon Taxonomic Screening</h4>
-<p>SAGs generated through the MDA methodology were taxonomically characterized by sequencing a determined phylogenetic marker using an amplification based approach. SAGs were screened for their small subunit ribosomal rRNA gene (SSU rRNA) using primers for bacterial (27-F: 5’- AGAGTTTGATCMTGGCTCAG -3’37, 907-R: 5’- CCGTCAATTCMTTTRAGTTT -3’38 and archaeal sequences (Arc_344F: 5’- ACGGGGYGCAGCAGGCGCGA -3’39, Arch_915R: 5’- GTGCTCCCCCGCCAATTCCT -3’40). The real-time PCR and sequencing procedure of the resulting amplicons was performed as previously described <span class="citation">(<a href="references.html#ref-Tyson.2004" role="doc-biblioref">24</a>)</span>, <span class="citation">(<a href="references.html#ref-Swan.2011" role="doc-biblioref">25</a>)</span>. The partial SSU rRNA gene sequences were then queried against the SILVA database v138.1 <span class="citation">(<a href="references.html#ref-Quast.2013" role="doc-biblioref">26</a>)</span> with blastn, from BLAST+ v2.9.0 <span class="citation">(<a href="references.html#ref-Camacho.2009" role="doc-biblioref">27</a>)</span>.</p>
-<pre><code> blastn -query -db -outfmt &quot;6 qacc sacc stitle staxid pident bitscore&quot; -max_target_seqs 1 -num_threads 4 -out </code></pre>
-</div>
-<div id="sag-sequencing-and-assembly" class="section level4">
-<h4><span class="header-section-number">A.4.2.4</span> SAG Sequencing and Assembly</h4>
-<p>MDA products for the SAGs were sequenced as described previously <span class="citation">(<a href="references.html#ref-Tyson.2004" role="doc-biblioref">24</a>)</span>, <span class="citation">(<a href="references.html#ref-Swan.2011" role="doc-biblioref">25</a>)</span> on an Illumina HiSeq 2000. The resulting raw reads were then filtered and trimmed to remove adaptors with Trimmomatic v0.35 <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>)</span>.</p>
-<pre><code>trimmomatic -threads 8 -phred33 \
-Path_to/SI072_XXXm/Raw/forward_dir/SI072_XXXm_R1.fastq \
-Path_To/SI072_200m/Raw/reverse_dir/SI072_XXXm_R2.fastq \
-
-Path_To/SI072_200m//trim/SI072_XXXm_pe.1.fq \
-Path_To/SI072_200m//trim/SI072_XXXm_se.1.fq \
-Path_To/SI072_200m//trim/SI072_XXXm_pe.2.fq \
-Path_To/SI072_200m//trim/SI072_XXXm_se.2.fq \
-
-ILLUMINACLIP:/usr/local/share/Trimmomatic-0.35/adapters/TruSeq3-PE.fa:2:3:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36</code></pre>
-<p>Trimmed and quality controlled reads were the then assembled with SPAdes v3.9.0 <span class="citation">(<a href="references.html#ref-Bankevich.2012" role="doc-biblioref">28</a>)</span> with standard parameters.</p>
-<pre><code>spades.py \
---sc \
--o Path_To_assembly_dir/ \
--1 Path_To_trim_dir/SI072_XXXm_pe.1.fq \
--2 Path_To_trim_dir/SI072_XXXm_pe.1.fq \
--s Path_To_trim_dir/$sample\_unpaired.fq \
--k $k_series \
---memory 90 \
---threads $threads \
---careful \
---cov-cutoff auto
-</code></pre>
-</div>
-<div id="sag-assembly-quality-control-and-decontamination" class="section level4">
-<h4><span class="header-section-number">A.4.2.5</span> SAG Assembly Quality Control and Decontamination</h4>
-<p>Quality of the SAGs was assessed using CheckM (v1.0.5) <span class="citation">(<a href="references.html#ref-Parks.2015" role="doc-biblioref">15</a>)</span> with the following command:</p>
-<pre><code>checkm lineage_wf --tab_table -x .fna --threads 8 --pplacer_threads 8</code></pre>
-<p>SAGs found to have &gt;5% contamination were passed through ProDeGe v2.3.0 <span class="citation">(<a href="references.html#ref-Tennessen.2016" role="doc-biblioref">16</a>)</span>. The resulting decontaminated SAGs were re-assesed with CheckM and those that still exceeded 5% contamination had all of their short contigs (i.e. &lt;2000 bp) removed from the assembly. These were again re-assessed with CheckM to ensure they met our standards.</p>
-<p>For this project, SAGs that were estimated by CheckM to have &gt;50% completeness and &lt;10% contamination were selected.</p>
-</div>
-<div id="final-taxonomic-assignment-of-sags" class="section level4">
-<h4><span class="header-section-number">A.4.2.6</span> Final Taxonomic Assignment of SAGs</h4>
-<p>The resulting SAGs were then passed through GTDB-TK v1.4.0 classify workflow <a href="https://ecogenomics.github.io/GTDBTk/commands/classify_wf.html">documentation</a> <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span>.</p>
-<pre><code>gtdbtk classify_wf --genome_dir Path_To_SI_SAGs/ -x .fna --out_dir Path_To_SI_SAGs/GTDB_1.4.0/ --cpus 8 --pplacer_cpus 8
-</code></pre>
-<p>After updating the headers for resulting SAGs with the sample IDs, the SAGs were concatenated and deposited into: <code>/mnt/datasets/saanich/SAGs/Concatenated_Med_Plus/</code></p>
-<p><strong>Note:</strong> The identifier for each SAG consists of a combination of the plate ID and the well location it was sorted into. The identifiers take the form (AB-7XX_YYY). These identifiers were incorporated into the headers of the final SAG assemblies. Each plate corresponds to a specific depth as shown below:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">Plate ID</th>
-<th align="center">Sample Depth (m)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">AB-746</td>
-<td align="center">100</td>
-</tr>
-<tr class="even">
-<td align="center">AB-747</td>
-<td align="center">100</td>
-</tr>
-<tr class="odd">
-<td align="center">AB-750</td>
-<td align="center">150</td>
-</tr>
-<tr class="even">
-<td align="center">AB-751</td>
-<td align="center">150</td>
-</tr>
-<tr class="odd">
-<td align="center">AB-754</td>
-<td align="center">185</td>
-</tr>
-<tr class="even">
-<td align="center">AB-755</td>
-<td align="center">185</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="installing-and-running-gtdb-tk" class="section level2">
-<h2><span class="header-section-number">A.5</span> Installing and running GTDB-Tk</h2>
-<p>If you would like to use additional genomes or MAGs for you capstone project, you can also classify them with GTDB-Tk.</p>
-<p>If you would like to install GTDB-TK with conda, you will first need to create a new conda environment. First, deactivate the treesapp environment:</p>
-<pre><code>conda deactivate treesapp_cenv</code></pre>
-<p>follow the instructions below (originally from: <a href="https://ecogenomics.github.io/GTDBTk/installing/bioconda.html">GTDB</a>)</p>
-<p>To install GTDB with conda:</p>
-<pre><code># specific version (replace 1.4.1 with the version you wish to install, recommended)
-conda create -n gtdbtk-1.4.1 -c conda-forge -c bioconda gtdbtk=1.4.1
-</code></pre>
-<p>Once you have made your new GTDB environment, you will need to add a path to the latest GTDB reference data.</p>
-<pre><code>conda activate gtdbtk-1.4.1</code></pre>
-<p>Next, determine the GTDB-Tk environment path</p>
-<pre><code>which gtdbtk
-</code></pre>
-<p>It should be <code>root/miniconda3/envs/gtdbtk-1.4.1/bin/gtdbtk</code></p>
-<p>Next, edit the activate file</p>
-<pre><code>echo &quot;export GTDBTK_DATA_PATH=/mnt/datasets/GTDB-Tk/release95/&quot; &gt; /root/miniconda3/envs/gtdbtk-1.4.1/etc/conda/activate.d/gtdbtk.sh</code></pre>
-<p>You are now ready to use the classify workflow command listed above. You will need to substitute the directory name that you would like to write out to, as well as the extension of the fasta files for your genomes.</p>
-<p><strong>It is very important you set the cpus and pplacer_cpus flags to 4 threads to make sure you do not tie up all of the server’s resources!</strong></p>
-<pre><code>gtdbtk classify_wf --genome_dir Path_To_Genomes/ \
-    -x [Choose either .fa, .fasta, or .fna depending on the file extension] \
-    --out_dir [Path_To_New_Genome_Output/here] \
-    --cpus 4 \
-    --pplacer_cpus 4</code></pre>
-<p>After running GTDB, you can deactivate the environment with:</p>
-<pre><code>conda deactivate</code></pre>
-<p>You can then turn the treesapp environment back and continue with your treesapp analysis.</p>
-<pre><code>conda activate treesapp_cenv</code></pre>
-<p>We recommend concatenating your new genomes together with <code>cat</code> into a single file for ease of use. For example:</p>
-<pre><code>cat *.fasta &gt; All_Genomes.fasta
-</code></pre>
+<div id="executing-treesapp-analysis" class="section level3">
+<h3><span class="header-section-number">10.3.8</span> Executing TreeSAPP analysis</h3>
+<p>In the terminal (i.e. not as part of this script), check the documentation for <code>treesapp assign</code>, the command you will use for the automated reconstruction of a nutrient cycle (visit its <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign">wikipage</a> to learn more).</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb68-1"><a href="running-treesapp-on-a-server.html#cb68-1"></a><span class="ex">treesapp</span> assign -h</span></code></pre></div>
+<p>Looking at the TreeSAPP documentation, determine the flags you need in addition to the ones already included below.</p>
+<p>Time to run our analysis! You will have to identify the input file(s) that you need to process. You will run the analysis once for metagenomic (two files, forward reads are in the file that contains <code>.1</code> in its name, and reverse reads in file the with <code>.2</code>) and once for metatranscriptomic reads (a single file that contains both forward and reverse reads) and align them to the assembled contigs. All reads are pair-end.</p>
+<p>You will need to provide the following settings using flags:</p>
+<ul>
+<li>Which assembly file to use.</li>
+<li>To use 8 CPUs for the analysis.</li>
+<li>To do the analysis for all marker genes provided in TreeSAPP.</li>
+<li>To output a verbose runtime log.</li>
+<li>Where to save the results.</li>
+<li>To calculate the rpkm values for detected sequences.</li>
+<li>Which reads to use and what type they are (i.e. pair-end or single-end).</li>
+<li>To delete any intermediate files generated by the analysis.</li>
+<li>To use position masking of multiple sequence alignment.</li>
+</ul>
+<p><em>Hints</em>:</p>
+<ul>
+<li>Will you ouput the data for metagenomic and metatranscriptomic analysis to the same folder? Does the folder already exist?</li>
+<li>If you want the default value of a flag, then you do not need to provide it.</li>
+<li>Where is the input data located in the singularity container?</li>
+<li>Metatrascriptomic reads are <strong>NOT</strong> rRNA.</li>
+<li>In scripts you often refer to variables while combined with additional text. Let’s say you have defined the variable <code>file_name="some_file"</code> to refer to the file <code>some_file</code>. Now you want to save a modified version of the file as <code>some_file_modified</code>. If you would write <code>$file_name_modified</code>, then the shell does not know that you just want to call a variable called <code>$file_name</code> and instead will assume you are calling a variable called <code>$file_name_modified</code> and will return an empty string. To indicate the beginning and end of a variable name, use curly braces. In the above example, you would use <code>${file_name}_modified</code>.</li>
+</ul>
+<p>Optional bonus challenge:<br />
+Earlier we defined the <code>depth</code> variable. Could you use it in some way when you define which assembly and reads you are using in the analysis?</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb69-1"><a href="running-treesapp-on-a-server.html#cb69-1"></a><span class="co"># Metagenomic analysis</span></span>
+<span id="cb69-2"><a href="running-treesapp-on-a-server.html#cb69-2"></a><span class="ex">treesapp</span> assign \</span>
+<span id="cb69-3"><a href="running-treesapp-on-a-server.html#cb69-3"></a>-i <span class="op">&lt;</span>input data dir<span class="op">&gt;&lt;</span>file path to your assembly<span class="op">&gt;</span> \</span>
+<span id="cb69-4"><a href="running-treesapp-on-a-server.html#cb69-4"></a>-m <span class="op">&lt;</span>choose the correct option<span class="op">&gt;</span> \</span>
+<span id="cb69-5"><a href="running-treesapp-on-a-server.html#cb69-5"></a><span class="op">&lt;</span>number of CPU threads, set to <span class="op">8&gt;</span></span>
+<span id="cb69-6"><a href="running-treesapp-on-a-server.html#cb69-6"></a><span class="op">&lt;</span><span class="ex">your</span> output directory<span class="op">&gt;</span> \</span>
+<span id="cb69-7"><a href="running-treesapp-on-a-server.html#cb69-7"></a><span class="op">&lt;</span>your remaining settings<span class="op">&gt;</span></span>
+<span id="cb69-8"><a href="running-treesapp-on-a-server.html#cb69-8"></a></span>
+<span id="cb69-9"><a href="running-treesapp-on-a-server.html#cb69-9"></a><span class="co"># Metatranscriptomic analysis</span></span>
+<span id="cb69-10"><a href="running-treesapp-on-a-server.html#cb69-10"></a><span class="op">&lt;</span><span class="ex">you</span> are on your own now :)<span class="op">&gt;</span></span></code></pre></div>
 
 </div>
+</div>
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="running-treesapp-on-a-server.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="treesapp-reference-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assessment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-saanich-inlet-data-set.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
