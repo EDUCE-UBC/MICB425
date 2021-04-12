@@ -22,7 +22,7 @@ rmd_files:
   - part_capstone.Rmd # separator for TOC navigation
   - instructions.Rmd
   - assessment.Rmd
-  # - shell.Rmd
+  - shell.Rmd
   - appendix.Rmd # separator for TOC navigation
   - data.Rmd
   - refpkgs.Rmd
