@@ -1,493 +1,326 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function</title>
-  <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function" />
-  
-  <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  
-
-<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="calculating-relative-abundance-of-metaomic-data.html"/>
-<link rel="next" href="project-description.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-
-
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function</title>
+<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam">
+<meta name="description" content="7.1 Introduction and goals These instructions will help you to complete the script template treesapp_analysis.R to complete the initial analysis of your TreeSAPP classifications. The following...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function">
+<meta property="og:type" content="book">
+<meta property="og:description" content="7.1 Introduction and goals These instructions will help you to complete the script template treesapp_analysis.R to complete the initial analysis of your TreeSAPP classifications. The following...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function">
+<meta name="twitter:description" content="7.1 Introduction and goals These instructions will help you to complete the script template treesapp_analysis.R to complete the initial analysis of your TreeSAPP classifications. The following...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
-<li class="part"><span><b>I Introduction</b></span></li>
-<li class="chapter" data-level="1" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html"><i class="fa fa-check"></i><b>1</b> Exploring the microcosmos</a><ul>
-<li class="chapter" data-level="1.1" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a></li>
-<li class="chapter" data-level="1.2" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#using-multi-omic-data-to-reconstruct-distributed-networks-of-metabolite-exchange"><i class="fa fa-check"></i><b>1.2</b> Using multi-omic data to reconstruct distributed networks of metabolite exchange</a></li>
-<li class="chapter" data-level="1.3" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#treesapp"><i class="fa fa-check"></i><b>1.3</b> TreeSAPP</a></li>
-</ul></li>
-<li class="part"><span><b>II Tutorials</b></span></li>
-<li class="chapter" data-level="2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html"><i class="fa fa-check"></i><b>2</b> A tutorial for using TreeSAPP</a><ul>
-<li class="chapter" data-level="2.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#introduction-and-goals"><i class="fa fa-check"></i><b>2.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="2.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#a-typical-treesapp-workflow"><i class="fa fa-check"></i><b>2.2</b> A typical TreeSAPP workflow</a></li>
-<li class="chapter" data-level="2.3" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#genes-for-creating-reference-packages"><i class="fa fa-check"></i><b>2.3</b> Genes for creating reference packages</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#xmoa"><i class="fa fa-check"></i><b>2.3.1</b> XmoA</a></li>
-<li class="chapter" data-level="2.3.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#group-assigned-genes"><i class="fa fa-check"></i><b>2.3.2</b> Group-assigned genes</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#tools"><i class="fa fa-check"></i><b>2.4</b> Tools</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#shell"><i class="fa fa-check"></i><b>2.4.1</b> Shell</a></li>
-<li class="chapter" data-level="2.4.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#treesapp-1"><i class="fa fa-check"></i><b>2.4.2</b> TreeSAPP</a></li>
-<li class="chapter" data-level="2.4.3" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#itol"><i class="fa fa-check"></i><b>2.4.3</b> iTOL</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#data"><i class="fa fa-check"></i><b>2.5</b> Data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html"><i class="fa fa-check"></i><b>3</b> Acquiring golden data</a><ul>
-<li class="chapter" data-level="3.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#the-golden-standard"><i class="fa fa-check"></i><b>3.1</b> The golden standard</a></li>
-<li class="chapter" data-level="3.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#what-databases-can-i-retrieve-sequences-from"><i class="fa fa-check"></i><b>3.2</b> What databases can I retrieve sequences from?</a></li>
-<li class="chapter" data-level="3.3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#xmoa-example"><i class="fa fa-check"></i><b>3.3</b> XmoA example</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#fungene"><i class="fa fa-check"></i><b>3.3.1</b> FunGene</a></li>
-<li class="chapter" data-level="3.3.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#eggnog"><i class="fa fa-check"></i><b>3.3.2</b> EggNOG</a></li>
-<li class="chapter" data-level="3.3.3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#copying-data-onto-the-server"><i class="fa fa-check"></i><b>3.3.3</b> Copying data onto the server</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#alternative-sources"><i class="fa fa-check"></i><b>3.4</b> Alternative sources</a></li>
-<li class="chapter" data-level="3.5" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#data-access-hazards"><i class="fa fa-check"></i><b>3.5</b> Data access hazards</a></li>
-<li class="chapter" data-level="3.6" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#validation"><i class="fa fa-check"></i><b>3.6</b> Validation</a><ul>
-<li class="chapter" data-level="3.6.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#basic"><i class="fa fa-check"></i><b>3.6.1</b> Basic</a></li>
-<li class="chapter" data-level="3.6.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#advanced"><i class="fa fa-check"></i><b>3.6.2</b> Advanced</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="treesapp-create.html"><a href="treesapp-create.html"><i class="fa fa-check"></i><b>4</b> Creating a reference package for TreeSAPP</a><ul>
-<li class="chapter" data-level="4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#introduction-and-goals-1"><i class="fa fa-check"></i><b>4.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="4.2" data-path="treesapp-create.html"><a href="treesapp-create.html#making-the-reference-package"><i class="fa fa-check"></i><b>4.2</b> Making the reference package</a></li>
-<li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#testing-the-purity-of-the-reference-package"><i class="fa fa-check"></i><b>4.3</b> Testing the purity of the reference package</a></li>
-<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#viewing-the-reference-package-tree-with-itol"><i class="fa fa-check"></i><b>4.4</b> Viewing the reference package tree with iTOL</a></li>
-<li class="chapter" data-level="4.5" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.5</b> Building your group’s reference package</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="treesapp-create.html"><a href="treesapp-create.html#booster-shot"><i class="fa fa-check"></i><b>4.5.1</b> Booster shot</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><i class="fa fa-check"></i><b>5</b> Classifying unknown sequences with TreeSAPP and updating a reference package</a><ul>
-<li class="chapter" data-level="5.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#introduction-and-goals-2"><i class="fa fa-check"></i><b>5.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="5.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#change-notes"><i class="fa fa-check"></i><b>5.2</b> Change notes</a></li>
-<li class="chapter" data-level="5.3" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classify-new-sequences"><i class="fa fa-check"></i><b>5.3</b> Classify new sequences</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classifying-amino-acid-sequences"><i class="fa fa-check"></i><b>5.3.1</b> Classifying amino acid sequences</a></li>
-<li class="chapter" data-level="5.3.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classifying-orfs-predicted-from-genomes"><i class="fa fa-check"></i><b>5.3.2</b> Classifying ORFs predicted from genomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#update-the-reference-package-with-new-sequences"><i class="fa fa-check"></i><b>5.4</b> Update the reference package with new sequences</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#updating-with-publicly-available-sequences"><i class="fa fa-check"></i><b>5.4.1</b> Updating with publicly available sequences</a></li>
-<li class="chapter" data-level="5.4.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#updating-with-mag-sequences"><i class="fa fa-check"></i><b>5.4.2</b> Updating with MAG sequences</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#annotate-clades"><i class="fa fa-check"></i><b>5.5</b> Annotate clades</a></li>
-<li class="chapter" data-level="5.6" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#reclassify-and-layer-annotations-onto-classification-table"><i class="fa fa-check"></i><b>5.6</b> Reclassify and layer annotations onto classification table</a></li>
-<li class="chapter" data-level="5.7" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#use-your-groups-reference-package-to-classify-unkown-sequences-then-update-your-package"><i class="fa fa-check"></i><b>5.7</b> Use your group’s reference package to classify unkown sequences then update your package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html"><i class="fa fa-check"></i><b>6</b> Calculating relative abundance of meta’omic data</a><ul>
-<li class="chapter" data-level="6.1" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#introduction-and-goals-3"><i class="fa fa-check"></i><b>6.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="6.2" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#workflow-description"><i class="fa fa-check"></i><b>6.2</b> Workflow description</a></li>
-<li class="chapter" data-level="6.3" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#usage"><i class="fa fa-check"></i><b>6.3</b> Usage</a></li>
-<li class="chapter" data-level="6.4" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#outputs"><i class="fa fa-check"></i><b>6.4</b> Outputs</a></li>
-<li class="chapter" data-level="6.5" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#tutorial-steps"><i class="fa fa-check"></i><b>6.5</b> Tutorial steps</a></li>
-<li class="chapter" data-level="6.6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#use-your-groups-reference-package-to-calculate-abundances"><i class="fa fa-check"></i><b>6.6</b> Use your group’s reference package to calculate abundances</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html"><i class="fa fa-check"></i><b>7</b> Analysing the TreeSAPP classifications in R</a><ul>
-<li class="chapter" data-level="7.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#introduction-and-goals-4"><i class="fa fa-check"></i><b>7.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="7.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#resources-for-analysis-of-treesapp-output-in-r"><i class="fa fa-check"></i><b>7.2</b> Resources for analysis of TreeSAPP output in R</a></li>
-<li class="chapter" data-level="7.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#checklist-to-write-and-run-r-script"><i class="fa fa-check"></i><b>7.3</b> Checklist to write and run R script</a></li>
-<li class="chapter" data-level="7.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script"><i class="fa fa-check"></i><b>7.4</b> Writing the R script</a></li>
-<li class="chapter" data-level="7.5" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-any-required-packages"><i class="fa fa-check"></i><b>7.5</b> Load any required packages</a></li>
-<li class="chapter" data-level="7.6" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fa fa-check"></i><b>7.6</b> Load metagenomic and metatranscriptomic TreeSAPP data</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#classification-table"><i class="fa fa-check"></i><b>7.6.1</b> Classification table</a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fa fa-check"></i><b>7.7</b> Subset your data to the variables and marker genes of interest</a></li>
-<li class="chapter" data-level="7.8" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#reformat-variables"><i class="fa fa-check"></i><b>7.8</b> Reformat variables</a><ul>
-<li class="chapter" data-level="7.8.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-taxonomic-information"><i class="fa fa-check"></i><b>7.8.1</b> Processing taxonomic information</a></li>
-<li class="chapter" data-level="7.8.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#distinguishing-metagenomes-from-metatranscriptomes"><i class="fa fa-check"></i><b>7.8.2</b> Distinguishing metagenomes from metatranscriptomes</a></li>
-<li class="chapter" data-level="7.8.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-depth-data"><i class="fa fa-check"></i><b>7.8.3</b> Processing depth data</a></li>
-</ul></li>
-<li class="chapter" data-level="7.9" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-the-geochemical-data"><i class="fa fa-check"></i><b>7.9</b> Load the geochemical data</a></li>
-<li class="chapter" data-level="7.10" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><i class="fa fa-check"></i><b>7.10</b> Visualize the taxonomic, functional and chemical data from Saanich Inlet</a><ul>
-<li class="chapter" data-level="7.10.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-treesapps-taxonomic-classifications"><i class="fa fa-check"></i><b>7.10.1</b> Analyze TreeSAPP’s taxonomic classifications</a></li>
-<li class="chapter" data-level="7.10.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-functional-data"><i class="fa fa-check"></i><b>7.10.2</b> Analyze the functional data</a></li>
-<li class="chapter" data-level="7.10.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-chemical-measurements"><i class="fa fa-check"></i><b>7.10.3</b> Analyze the chemical measurements</a></li>
-<li class="chapter" data-level="7.10.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#bringing-them-all-together"><i class="fa fa-check"></i><b>7.10.4</b> Bringing them all together</a></li>
-</ul></li>
-<li class="chapter" data-level="7.11" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyzing-classifications-for-your-groups-reference-package"><i class="fa fa-check"></i><b>7.11</b> Analyzing classifications for your group’s reference package</a></li>
-</ul></li>
-<li class="part"><span><b>III Capstone project</b></span></li>
-<li class="chapter" data-level="8" data-path="project-description.html"><a href="project-description.html"><i class="fa fa-check"></i><b>8</b> Project description</a><ul>
-<li class="chapter" data-level="8.1" data-path="project-description.html"><a href="project-description.html#guiding-research-questions"><i class="fa fa-check"></i><b>8.1</b> Guiding research questions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="project-description.html"><a href="project-description.html#questions-for-project-with-a-focus-on-biogeochemical-cycles-repeated-in-report-structure-below"><i class="fa fa-check"></i><b>8.1.1</b> Questions for project with a focus on biogeochemical cycles (repeated in report structure below)</a></li>
-<li class="chapter" data-level="8.1.2" data-path="project-description.html"><a href="project-description.html#questions-for-project-with-a-focus-on-using-all-reference-packages"><i class="fa fa-check"></i><b>8.1.2</b> Questions for project with a focus on using all reference packages</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="project-description.html"><a href="project-description.html#resources"><i class="fa fa-check"></i><b>8.2</b> Resources</a></li>
-<li class="chapter" data-level="8.3" data-path="project-description.html"><a href="project-description.html#your-submission"><i class="fa fa-check"></i><b>8.3</b> Your submission</a></li>
-<li class="chapter" data-level="8.4" data-path="project-description.html"><a href="project-description.html#timeline"><i class="fa fa-check"></i><b>8.4</b> Timeline</a></li>
-<li class="chapter" data-level="8.5" data-path="project-description.html"><a href="project-description.html#reports"><i class="fa fa-check"></i><b>8.5</b> Reports</a></li>
-<li class="chapter" data-level="8.6" data-path="project-description.html"><a href="project-description.html#addendum"><i class="fa fa-check"></i><b>8.6</b> Addendum</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="project-description.html"><a href="project-description.html#abundance"><i class="fa fa-check"></i><b>8.6.1</b> Abundance</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i><b>9</b> Assessment</a><ul>
-<li class="chapter" data-level="9.1" data-path="assessment.html"><a href="assessment.html#peer-evaluation-10"><i class="fa fa-check"></i><b>9.1</b> Peer evaluation (10%)</a></li>
-<li class="chapter" data-level="9.2" data-path="assessment.html"><a href="assessment.html#report-20"><i class="fa fa-check"></i><b>9.2</b> Report (20%)</a></li>
-<li class="chapter" data-level="9.3" data-path="assessment.html"><a href="assessment.html#ujemi-submission"><i class="fa fa-check"></i><b>9.3</b> UJEMI submission</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html"><i class="fa fa-check"></i><b>10</b> Running TreeSAPP on a server</a><ul>
-<li class="chapter" data-level="10.1" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#resources-for-treesapp-analysis"><i class="fa fa-check"></i><b>10.1</b> Resources for TreeSAPP analysis</a></li>
-<li class="chapter" data-level="10.2" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#checklist-to-write-and-run-shell-script"><i class="fa fa-check"></i><b>10.2</b> Checklist to write and run shell script</a></li>
-<li class="chapter" data-level="10.3" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#shell-writing"><i class="fa fa-check"></i><b>10.3</b> Writing the shell script</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#defining-the-shell"><i class="fa fa-check"></i><b>10.3.1</b> Defining the shell</a></li>
-<li class="chapter" data-level="10.3.2" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#setting-a-variable-for-your-depth"><i class="fa fa-check"></i><b>10.3.2</b> Setting a variable for your depth</a></li>
-<li class="chapter" data-level="10.3.3" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#providing-user-feedback"><i class="fa fa-check"></i><b>10.3.3</b> Providing user feedback</a></li>
-<li class="chapter" data-level="10.3.4" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#defining-variable-for-input-directory"><i class="fa fa-check"></i><b>10.3.4</b> Defining variable for input directory</a></li>
-<li class="chapter" data-level="10.3.5" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#creating-output-directory"><i class="fa fa-check"></i><b>10.3.5</b> Creating output directory</a></li>
-<li class="chapter" data-level="10.3.6" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#reporting-variables-to-user"><i class="fa fa-check"></i><b>10.3.6</b> Reporting variables to user</a></li>
-<li class="chapter" data-level="10.3.7" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#listing-treesapp-version"><i class="fa fa-check"></i><b>10.3.7</b> Listing TreeSAPP version</a></li>
-<li class="chapter" data-level="10.3.8" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#executing-treesapp-analysis"><i class="fa fa-check"></i><b>10.3.8</b> Executing TreeSAPP analysis</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html"><i class="fa fa-check"></i><b>A</b> The Saanich Inlet data set</a><ul>
-<li class="chapter" data-level="A.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description"><i class="fa fa-check"></i><b>A.1</b> Description</a></li>
-<li class="chapter" data-level="A.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#data-on-the-server"><i class="fa fa-check"></i><b>A.2</b> Data on the server</a></li>
-<li class="chapter" data-level="A.3" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description-of-input-data"><i class="fa fa-check"></i><b>A.3</b> Description of input data</a></li>
-<li class="chapter" data-level="A.4" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#methods"><i class="fa fa-check"></i><b>A.4</b> Methods</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#metagenomes-and-metatransriptopmes"><i class="fa fa-check"></i><b>A.4.1</b> Metagenomes and metatransriptopmes</a></li>
-<li class="chapter" data-level="A.4.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#single-cell-amplified-genomes"><i class="fa fa-check"></i><b>A.4.2</b> Single-Cell Amplified Genomes</a></li>
-</ul></li>
-<li class="chapter" data-level="A.5" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#installing-and-running-gtdb-tk"><i class="fa fa-check"></i><b>A.5</b> Installing and running GTDB-Tk</a></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="treesapp-reference-packages.html"><a href="treesapp-reference-packages.html"><i class="fa fa-check"></i><b>B</b> TreeSAPP reference packages</a></li>
-<li class="chapter" data-level="C" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>C</b> Shell cheat sheet</a></li>
-<li class="chapter" data-level="D" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>D</b> References</a></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="2020.21 MICB425 Mirobial Ecological Genomics Capstone project">Gene-centric mapping of microbial community structure and function</a>:
+        <small class="text-muted">2020.21 MICB425 Mirobial Ecological Genomics Capstone project</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gene-centric mapping of microbial community structure and function</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Introduction</li>
+<li><a class="" href="exploring-the-microcosmos.html"><span class="header-section-number">1</span> Exploring the microcosmos</a></li>
+<li class="book-part">Tutorials</li>
+<li><a class="" href="a-tutorial-for-using-treesapp.html"><span class="header-section-number">2</span> A tutorial for using TreeSAPP</a></li>
+<li><a class="" href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></li>
+<li><a class="" href="treesapp-create.html"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
+<li><a class="" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></li>
+<li><a class="" href="calculating-relative-abundance-of-metaomic-data.html"><span class="header-section-number">6</span> Calculating relative abundance of meta’omic data</a></li>
+<li><a class="active" href="analysing-the-treesapp-classifications-in-r.html"><span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R</a></li>
+<li class="book-part">Capstone project</li>
+<li><a class="" href="project-description.html"><span class="header-section-number">8</span> Project description</a></li>
+<li><a class="" href="assessment.html"><span class="header-section-number">9</span> Assessment</a></li>
+<li><a class="" href="running-treesapp-on-a-server.html"><span class="header-section-number">10</span> Running TreeSAPP on a server</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="the-saanich-inlet-data-set.html"><span class="header-section-number">A</span> The Saanich Inlet data set</a></li>
+<li><a class="" href="treesapp-reference-packages.html"><span class="header-section-number">B</span> TreeSAPP reference packages</a></li>
+<li><a class="" href="shell-cheat-sheet.html"><span class="header-section-number">C</span> Shell cheat sheet</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">D</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="analysing-the-treesapp-classifications-in-r" class="section level1">
-<h1><span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="analysing-the-treesapp-classifications-in-r" class="section level1">
+<h1>
+<span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R<a class="anchor" aria-label="anchor" href="#analysing-the-treesapp-classifications-in-r"><i class="fas fa-link"></i></a>
+</h1>
 <div id="introduction-and-goals-4" class="section level2">
-<h2><span class="header-section-number">7.1</span> Introduction and goals</h2>
+<h2>
+<span class="header-section-number">7.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-4"><i class="fas fa-link"></i></a>
+</h2>
 <p>These instructions will help you to complete the script template <code>treesapp_analysis.R</code> to complete the initial analysis of your TreeSAPP classifications.
 The following code chunks will show you how to load, aggregate, subset and transform continuous and discrete variables in R using the <code>tidyverse</code>.
 You will also be provided with examples for plotting TreeSAPP classification data using the <code>ggplot2</code> library.</p>
 </div>
 <div id="resources-for-analysis-of-treesapp-output-in-r" class="section level2">
-<h2><span class="header-section-number">7.2</span> Resources for analysis of TreeSAPP output in R</h2>
+<h2>
+<span class="header-section-number">7.2</span> Resources for analysis of TreeSAPP output in R<a class="anchor" aria-label="anchor" href="#resources-for-analysis-of-treesapp-output-in-r"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
 <li>The TreeSAPP output file <code>extra_annotated_marker_contig_map.tsv</code> with the metagenome and metatranscriptome abundances and gene functions you generated with <a href="#running-treesapp%20on%20a%20server">TreeSAPP</a>. If you are unable to retrieve this file, it can be downloaded from <a href="https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/extra_annotated_marker_contig_map.tsv">here</a>.</li>
 <li>An R script template called <code>treesapp_analysis.R</code> on Canvas.</li>
-<li><code>Saanich_TimeSeries_Chemical_DATA.csv</code> file containing geochemical measurements on Canvas.</li>
+<li>
+<code>Saanich_TimeSeries_Chemical_DATA.csv</code> file containing geochemical measurements on Canvas.</li>
 </ul>
 </div>
 <div id="checklist-to-write-and-run-r-script" class="section level2">
-<h2><span class="header-section-number">7.3</span> Checklist to write and run R script</h2>
+<h2>
+<span class="header-section-number">7.3</span> Checklist to write and run R script<a class="anchor" aria-label="anchor" href="#checklist-to-write-and-run-r-script"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
-<li><input type="checkbox" disabled="" />
+<li>
+<input type="checkbox" disabled>
 Place <code>treesapp_analysis.R</code>, <code>extra_annotated_marker_contig_map.tsv</code> and <code>Saanich_TimeSeries_Chemical_DATA.csv</code> files into a single folder and create a new RStudio project in that folder on your local computer.</li>
-<li><input type="checkbox" disabled="" />
+<li>
+<input type="checkbox" disabled>
 Edit the <code>treesapp_analysis.R</code> script following <a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script">the instructions below</a>.</li>
 </ul>
 </div>
 <div id="writing-the-r-script" class="section level2">
-<h2><span class="header-section-number">7.4</span> Writing the R script</h2>
+<h2>
+<span class="header-section-number">7.4</span> Writing the R script<a class="anchor" aria-label="anchor" href="#writing-the-r-script"><i class="fas fa-link"></i></a>
+</h2>
 <p>In the <code>treesapp_analysis.R</code> script you will load and subset your TreeSAPP data to the variables and marker genes of interest. You will then break the one taxonomic information column into multiple taxonomic ranks. You will also load the <code>Saanich_TimeSeries_Chemical_DATA.csv</code> file for geochemical measurements to learn more about the conditions at your assigned depth.
 Finally, you will visualize the taxonomic, functional and chemical data using the <code>ggplot2</code> library.</p>
 <p>To complete this, replace all instances of test between angle brackets, like <code>&lt;SOME TEXT&gt;</code>, with the code in each section.</p>
 </div>
 <div id="load-any-required-packages" class="section level2">
-<h2><span class="header-section-number">7.5</span> Load any required packages</h2>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb44-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb44-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb44-2"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb44-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb44-3"></a><span class="kw">library</span>(tidyr)</span></code></pre></div>
+<h2>
+<span class="header-section-number">7.5</span> Load any required packages<a class="anchor" aria-label="anchor" href="#load-any-required-packages"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyr</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="load-metagenomic-and-metatranscriptomic-treesapp-data" class="section level2">
-<h2><span class="header-section-number">7.6</span> Load metagenomic and metatranscriptomic TreeSAPP data</h2>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb45-1"></a>ts_dat &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span><span class="st">&quot;extra_annotated_marker_contig_map.tsv&quot;</span>,</span>
-<span id="cb45-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb45-2"></a>                     <span class="dt">header=</span><span class="ot">TRUE</span>,</span>
-<span id="cb45-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb45-3"></a>                     <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<h2>
+<span class="header-section-number">7.6</span> Load metagenomic and metatranscriptomic TreeSAPP data<a class="anchor" aria-label="anchor" href="#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"extra_annotated_marker_contig_map.tsv"</span>,
+                     header<span class="op">=</span><span class="cn">TRUE</span>,
+                     sep<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></code></pre></div>
 <div id="classification-table" class="section level3">
-<h3><span class="header-section-number">7.6.1</span> Classification table</h3>
-<p>Let’s look at TreeSAPP’s classification table for these FunGene XmoA sequences. In RStudio, you are able to click on a variable name under the “Environment” tab in the top-right panel. Optionally, you can use the <code>View</code> function in the R-console to view an object. For example, you could run <code>View(ts_dat)</code>.</p>
+<h3>
+<span class="header-section-number">7.6.1</span> Classification table<a class="anchor" aria-label="anchor" href="#classification-table"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s look at TreeSAPP’s classification table for these FunGene XmoA sequences. In RStudio, you are able to click on a variable name under the “Environment” tab in the top-right panel. Optionally, you can use the <code>View</code> function in the R-console to view an object. For example, you could run <code><a href="https://rdrr.io/r/utils/View.html">View(ts_dat)</a></code>.</p>
 <p>A description of each of the fields can be found under the <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table"><code>treesapp assign</code> documentation page</a>.</p>
 </div>
 </div>
 <div id="subset-your-data-to-the-variables-and-marker-genes-of-interest" class="section level2">
-<h2><span class="header-section-number">7.7</span> Subset your data to the variables and marker genes of interest</h2>
+<h2>
+<span class="header-section-number">7.7</span> Subset your data to the variables and marker genes of interest<a class="anchor" aria-label="anchor" href="#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fas fa-link"></i></a>
+</h2>
 <p>Determine which variables and marker genes you will need and subset your data to them. The only “Marker” in these data is XmoA, so we will filter to XmoA.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb46-1"></a>ts_df &lt;-<span class="st"> </span>ts_dat <span class="op">%&gt;%</span></span>
-<span id="cb46-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb46-2"></a><span class="st">  </span><span class="kw">filter</span>(Marker <span class="op">==</span><span class="st"> &quot;XmoA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_dat</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Marker</span> <span class="op">==</span> <span class="st">"XmoA"</span><span class="op">)</span></code></pre></div>
 <p>When working with real data you may be analyzing multiple reference package’s worth of data. If you want to subset those data to a couple of reference packages you will find the ‘%in%’ operator handy. In the following example we are keeping data where the Marker variable is equal to any of “XmoA”, “PmoA” or “AmoA”. In reality, they will only match “XmoA”.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb47-1"></a>ts_df &lt;-<span class="st"> </span>ts_df <span class="op">%&gt;%</span></span>
-<span id="cb47-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb47-2"></a><span class="st">  </span><span class="kw">filter</span>(Marker <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;XmoA&quot;</span>, <span class="st">&quot;PmoA&quot;</span>, <span class="st">&quot;AmoA&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Marker</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"XmoA"</span>, <span class="st">"PmoA"</span>, <span class="st">"AmoA"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="reformat-variables" class="section level2">
-<h2><span class="header-section-number">7.8</span> Reformat variables</h2>
+<h2>
+<span class="header-section-number">7.8</span> Reformat variables<a class="anchor" aria-label="anchor" href="#reformat-variables"><i class="fas fa-link"></i></a>
+</h2>
 <div id="processing-taxonomic-information" class="section level3">
-<h3><span class="header-section-number">7.8.1</span> Processing taxonomic information</h3>
+<h3>
+<span class="header-section-number">7.8.1</span> Processing taxonomic information<a class="anchor" aria-label="anchor" href="#processing-taxonomic-information"><i class="fas fa-link"></i></a>
+</h3>
 <p>Your taxonomic information contains information from the highest to lowest available rank. Look at a few rows containing taxonomic information and determine the separator between each rank. We can use a function in the tidyverse called <code>separate</code> that allows you split a character object at each of these separators. As a result, your initial single taxonomic variable will be split into multiple new variables, one for each rank. Use the R object <code>taxa_ranks</code> to assign the names for those new variables.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb48-1"></a>taxa_ranks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Root&quot;</span>, <span class="st">&quot;Domain&quot;</span>, <span class="st">&quot;Phylum&quot;</span>, <span class="st">&quot;Class&quot;</span>,</span>
-<span id="cb48-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb48-2"></a>                <span class="st">&quot;Order&quot;</span>, <span class="st">&quot;Family&quot;</span>, <span class="st">&quot;Genus&quot;</span>, <span class="st">&quot;Species&quot;</span>)</span>
-<span id="cb48-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb48-3"></a>ts_df &lt;-<span class="st"> </span>ts_df <span class="op">%&gt;%</span></span>
-<span id="cb48-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb48-4"></a><span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> Taxonomy,</span>
-<span id="cb48-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb48-5"></a>           <span class="dt">into =</span> taxa_ranks,</span>
-<span id="cb48-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb48-6"></a>           <span class="dt">sep =</span> <span class="st">&quot;; &quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">remove =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">taxa_ranks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Root"</span>, <span class="st">"Domain"</span>, <span class="st">"Phylum"</span>, <span class="st">"Class"</span>,
+                <span class="st">"Order"</span>, <span class="st">"Family"</span>, <span class="st">"Genus"</span>, <span class="st">"Species"</span><span class="op">)</span>
+<span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op">%&gt;%</span>
+  <span class="fu">separate</span><span class="op">(</span>col <span class="op">=</span> <span class="va">Taxonomy</span>,
+           into <span class="op">=</span> <span class="va">taxa_ranks</span>,
+           sep <span class="op">=</span> <span class="st">"; "</span>, fill <span class="op">=</span> <span class="st">"right"</span>, remove <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="distinguishing-metagenomes-from-metatranscriptomes" class="section level3">
-<h3><span class="header-section-number">7.8.2</span> Distinguishing metagenomes from metatranscriptomes</h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb49-1"></a>ts_df &lt;-<span class="st"> </span>ts_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb49-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb49-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sample =</span> <span class="kw">gsub</span>(<span class="st">&quot;_pe&quot;</span>, <span class="st">&quot;_MetaG&quot;</span>, Sample)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb49-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb49-3"></a><span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> Sample,</span>
-<span id="cb49-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb49-4"></a>           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;Cruise&quot;</span>, <span class="st">&quot;Depth&quot;</span>, <span class="st">&quot;SeqType&quot;</span>),</span>
-<span id="cb49-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb49-5"></a>           <span class="dt">extra =</span> <span class="st">&quot;drop&quot;</span>)</span></code></pre></div>
+<h3>
+<span class="header-section-number">7.8.2</span> Distinguishing metagenomes from metatranscriptomes<a class="anchor" aria-label="anchor" href="#distinguishing-metagenomes-from-metatranscriptomes"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Sample <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_pe"</span>, <span class="st">"_MetaG"</span>, <span class="va">Sample</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">separate</span><span class="op">(</span>col <span class="op">=</span> <span class="va">Sample</span>,
+           into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cruise"</span>, <span class="st">"Depth"</span>, <span class="st">"SeqType"</span><span class="op">)</span>,
+           extra <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="processing-depth-data" class="section level3">
-<h3><span class="header-section-number">7.8.3</span> Processing depth data</h3>
+<h3>
+<span class="header-section-number">7.8.3</span> Processing depth data<a class="anchor" aria-label="anchor" href="#processing-depth-data"><i class="fas fa-link"></i></a>
+</h3>
 <p>Modify the data frame to split the sample name into “Cruise” and “Depth” variables. Then, remove the ‘m’ character from the “Depth” variable to create a numeric variable called “Depth.m”.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb50-1"></a>ts_df &lt;-<span class="st"> </span>ts_df <span class="op">%&gt;%</span></span>
-<span id="cb50-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb50-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Depth.m =</span> <span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;m&#39;</span>, <span class="st">&#39;&#39;</span>, Depth))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb50-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb50-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Cruise =</span> <span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;SI0&#39;</span>, <span class="st">&#39;&#39;</span>, Cruise)))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Depth.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">'m'</span>, <span class="st">''</span>, <span class="va">Depth</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Cruise <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">'SI0'</span>, <span class="st">''</span>, <span class="va">Cruise</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="load-the-geochemical-data" class="section level2">
-<h2><span class="header-section-number">7.9</span> Load the geochemical data</h2>
+<h2>
+<span class="header-section-number">7.9</span> Load the geochemical data<a class="anchor" aria-label="anchor" href="#load-the-geochemical-data"><i class="fas fa-link"></i></a>
+</h2>
 <p>Geochemical data for the Saanich Inlet time series is in another file called <code>Saanich_TimeSeries_Chemical_DATA.csv</code>. We will first load it into its own data frame called <code>geochem_df</code>, and subset it to just the samples we are interested in.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-1"></a>geochem_df &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;Saanich_TimeSeries_Chemical_DATA.csv&quot;</span>,</span>
-<span id="cb51-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-2"></a>                          <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb51-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-3"></a><span class="st">  </span><span class="kw">filter</span>(Cruise <span class="op">==</span><span class="st"> </span><span class="dv">72</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb51-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-4"></a><span class="st">  </span><span class="kw">select</span>(Cruise, Depth,</span>
-<span id="cb51-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-5"></a>         CTD_O2, NO3,</span>
-<span id="cb51-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-6"></a>         Mean_NH4, Mean_NO2, Mean_H2S, Mean_CH4) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb51-7"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Mean_CH4 =</span> Mean_CH4<span class="op">*</span><span class="fl">1E-3</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb51-8"><a href="analysing-the-treesapp-classifications-in-r.html#cb51-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="dt">.fns=</span>as.numeric))</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">geochem_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"Saanich_TimeSeries_Chemical_DATA.csv"</span>,
+                          header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">','</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Cruise</span> <span class="op">==</span> <span class="fl">72</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Cruise</span>, <span class="va">Depth</span>,
+         <span class="va">CTD_O2</span>, <span class="va">NO3</span>,
+         <span class="va">Mean_NH4</span>, <span class="va">Mean_NO2</span>, <span class="va">Mean_H2S</span>, <span class="va">Mean_CH4</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Mean_CH4 <span class="op">=</span> <span class="va">Mean_CH4</span><span class="op">*</span><span class="fl">1E-3</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.fns<span class="op">=</span><span class="va">as.numeric</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>We are going to use the function <code>left_join</code> from the <code>dplyr</code> library to merge the geochemical data for cruise 72 with the TreeSAPP classifications for XmoA by Sample. The combined data will be saved to a new data frame called <code>ts_geo_df</code>.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb52-1"></a>ts_geo_df &lt;-<span class="st"> </span><span class="kw">left_join</span>(ts_df,</span>
-<span id="cb52-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb52-2"></a>                       geochem_df,</span>
-<span id="cb52-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb52-3"></a>                       <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;Cruise&quot;</span>,</span>
-<span id="cb52-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb52-4"></a>                            <span class="st">&quot;Depth.m&quot;</span> =<span class="st"> &quot;Depth&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ts_df</span>,
+                       <span class="va">geochem_df</span>,
+                       by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cruise"</span>,
+                            <span class="st">"Depth.m"</span> <span class="op">=</span> <span class="st">"Depth"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet" class="section level2">
-<h2><span class="header-section-number">7.10</span> Visualize the taxonomic, functional and chemical data from Saanich Inlet</h2>
+<h2>
+<span class="header-section-number">7.10</span> Visualize the taxonomic, functional and chemical data from Saanich Inlet<a class="anchor" aria-label="anchor" href="#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><i class="fas fa-link"></i></a>
+</h2>
 <div id="analyze-treesapps-taxonomic-classifications" class="section level3">
-<h3><span class="header-section-number">7.10.1</span> Analyze TreeSAPP’s taxonomic classifications</h3>
+<h3>
+<span class="header-section-number">7.10.1</span> Analyze TreeSAPP’s taxonomic classifications<a class="anchor" aria-label="anchor" href="#analyze-treesapps-taxonomic-classifications"><i class="fas fa-link"></i></a>
+</h3>
 <p>We’re going to begin with making a line plot to show the distribution of abundances of taxonomic orders at different depths. The only taxa that will be shown are those with an XmoA gene and these are <em>not</em> the only organisms in Saanich Inlet!
-We will create a new variable called <code>Sum</code> that sums all the <code>Abundance</code> (TPM values) for each taxonomic order at each depth. Without the <code>group_by()</code> function, it would return a single value but since we’re grouping by Depth and Order, <code>sum</code> yields a value for each taxon at each depth.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-1"></a>ts_geo_df <span class="op">%&gt;%</span></span>
-<span id="cb53-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-2"></a><span class="st">  </span><span class="kw">filter</span>(SeqType <span class="op">==</span><span class="st"> &quot;MetaG&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb53-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-3"></a><span class="st">  </span><span class="kw">group_by</span>(Depth.m, Order) <span class="op">%&gt;%</span></span>
-<span id="cb53-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-4"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Sum =</span> <span class="kw">sum</span>(Abundance)) <span class="op">%&gt;%</span></span>
-<span id="cb53-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-5"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb53-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Depth.m, <span class="dt">y=</span>Sum, <span class="dt">colour=</span>Order)) <span class="op">+</span></span>
-<span id="cb53-7"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb53-8"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-8"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
-<span id="cb53-9"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-9"></a><span class="st">  </span><span class="kw">scale_x_reverse</span>() <span class="op">+</span></span>
-<span id="cb53-10"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Depth (m)&quot;</span>,</span>
-<span id="cb53-11"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-11"></a>       <span class="dt">y=</span><span class="st">&quot;Relative abundance (TPM)&quot;</span>)</span>
-<span id="cb53-12"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-12"></a></span>
-<span id="cb53-13"><a href="analysing-the-treesapp-classifications-in-r.html#cb53-13"></a><span class="kw">ggsave</span>(<span class="st">&quot;taxonomic_order_lineplot.png&quot;</span>)</span></code></pre></div>
+We will create a new variable called <code>Sum</code> that sums all the <code>Abundance</code> (TPM values) for each taxonomic order at each depth. Without the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function, it would return a single value but since we’re grouping by Depth and Order, <code>sum</code> yields a value for each taxon at each depth.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">SeqType</span> <span class="op">==</span> <span class="st">"MetaG"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth.m</span>, <span class="va">Order</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Abundance</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth.m</span>, y<span class="op">=</span><span class="va">Sum</span>, colour<span class="op">=</span><span class="va">Order</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_x_reverse</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span><span class="st">"Depth (m)"</span>,
+       y<span class="op">=</span><span class="st">"Relative abundance (TPM)"</span><span class="op">)</span>
+
+<span class="fu">ggsave</span><span class="op">(</span><span class="st">"taxonomic_order_lineplot.png"</span><span class="op">)</span></code></pre></div>
 <p>The above plot gives us an idea of the absolute TPM values, but what is each taxon’s share of the total abundance at each depth? To answer this we will create a stacked barplot to show the relative change in proportions at different depths.
 Instead of creating a variable to hold each taxon’s total TPM we will create a new variable to store the proportion of TPM called <code>Proportion</code>. This could easily be changed to a percentage by multiplying it by 100.</p>
 <p>In the <code>ts_geo_df</code> dataframe there are two variables storing the sample depth: one is a numeric type and the other is a character type. We will be plotting the character type depth (<code>Depth</code>) on the x-axis but by default R’s alphabetical ordering makes ‘100m’ precede ‘10m’. The <code>reorder</code> function is used here to ensure that the depth is sorted numerically by ordering <code>Depth</code> (character type) by <code>Depth.m</code> (numeric type).</p>
 <p>Additionally, we are faceting this plot by the sequence type: ‘MetaG’ (metagenome) and ‘MetaT’ (metatranscriptome).</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-1"></a>ts_geo_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-2"></a><span class="st">  </span><span class="kw">group_by</span>(Depth, Depth.m, SeqType) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Proportion =</span> Abundance<span class="op">/</span><span class="kw">sum</span>(Abundance)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-4"></a><span class="st">  </span><span class="kw">group_by</span>(Depth, Depth.m, Order, SeqType) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-5"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sum =</span> <span class="kw">sum</span>(Proportion)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-6"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-7"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Depth =</span> <span class="kw">reorder</span>(Depth, Depth.m)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb54-8"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-8"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Depth, <span class="dt">y=</span>sum, <span class="dt">fill=</span>Order)) <span class="op">+</span></span>
-<span id="cb54-9"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-9"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
-<span id="cb54-10"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-10"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>SeqType) <span class="op">+</span></span>
-<span id="cb54-11"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Depth&quot;</span>,</span>
-<span id="cb54-12"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-12"></a>       <span class="dt">y=</span><span class="st">&quot;Relative abundance&quot;</span>) <span class="op">+</span></span>
-<span id="cb54-13"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-13"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb54-14"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-14"></a></span>
-<span id="cb54-15"><a href="analysing-the-treesapp-classifications-in-r.html#cb54-15"></a><span class="kw">ggsave</span>(<span class="st">&quot;taxonomic_order_barplot.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">SeqType</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Proportion <span class="op">=</span> <span class="va">Abundance</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Abundance</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">Order</span>, <span class="va">SeqType</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Proportion</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth</span>, y<span class="op">=</span><span class="va">sum</span>, fill<span class="op">=</span><span class="va">Order</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_bar</span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">SeqType</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>x<span class="op">=</span><span class="st">"Depth"</span>,
+       y<span class="op">=</span><span class="st">"Relative abundance"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">ggsave</span><span class="op">(</span><span class="st">"taxonomic_order_barplot.png"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="analyze-the-functional-data" class="section level3">
-<h3><span class="header-section-number">7.10.2</span> Analyze the functional data</h3>
+<h3>
+<span class="header-section-number">7.10.2</span> Analyze the functional data<a class="anchor" aria-label="anchor" href="#analyze-the-functional-data"><i class="fas fa-link"></i></a>
+</h3>
 <p>In the following figure we are instead going to visualize the abundance of each classified XmoA’s <code>Function</code> across the water column.
 We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (<code>Abundance</code>). We are colouring the bubbles according to their assigned <code>Function</code>.
 We are again faceting this plot by the sequence type.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-1"></a>ts_geo_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb55-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-2"></a><span class="st">  </span><span class="kw">group_by</span>(Depth, Depth.m, SeqType, Order, Function) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb55-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Sum =</span> <span class="kw">sum</span>(Abundance)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb55-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-4"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb55-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Depth =</span> <span class="kw">reorder</span>(Depth, <span class="kw">desc</span>(Depth.m))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb55-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Depth, <span class="dt">y=</span>Order, <span class="dt">colour=</span>Function)) <span class="op">+</span></span>
-<span id="cb55-7"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>Sum)) <span class="op">+</span></span>
-<span id="cb55-8"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>SeqType) <span class="op">+</span></span>
-<span id="cb55-9"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-9"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
-<span id="cb55-10"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb55-11"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-11"></a></span>
-<span id="cb55-12"><a href="analysing-the-treesapp-classifications-in-r.html#cb55-12"></a><span class="kw">ggsave</span>(<span class="st">&quot;functional_bubbleplot.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">SeqType</span>, <span class="va">Order</span>, <span class="va">Function</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Abundance</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Depth.m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth</span>, y<span class="op">=</span><span class="va">Order</span>, colour<span class="op">=</span><span class="va">Function</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>size<span class="op">=</span><span class="va">Sum</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">SeqType</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">ggsave</span><span class="op">(</span><span class="st">"functional_bubbleplot.png"</span><span class="op">)</span></code></pre></div>
 <p>Can you see any discrepancies between the metagenome and metatranscriptome abundances?</p>
 </div>
 <div id="analyze-the-chemical-measurements" class="section level3">
-<h3><span class="header-section-number">7.10.3</span> Analyze the chemical measurements</h3>
+<h3>
+<span class="header-section-number">7.10.3</span> Analyze the chemical measurements<a class="anchor" aria-label="anchor" href="#analyze-the-chemical-measurements"><i class="fas fa-link"></i></a>
+</h3>
 <p>The following plot is for visualizing the chemical profiles for each depth. This is not exhaustive but does include most of the molecules we’re interested in.</p>
 <p>To generate this plot, we’ve had to perform a common data manipulation technique called pivoting. Essentially, instead of having a separate variable for each of the chemical measurements, we have combined them into two columns: one for the name of the molecule (which was previously the variable name) and another for their value.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-1"></a>ts_geo_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb56-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols=</span><span class="kw">c</span>(<span class="kw">starts_with</span>(<span class="st">&quot;Mean&quot;</span>), NO3, CTD_O2),</span>
-<span id="cb56-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-3"></a>               <span class="dt">values_to =</span> <span class="st">&quot;Value.uM&quot;</span>,</span>
-<span id="cb56-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-4"></a>               <span class="dt">names_to =</span> <span class="st">&quot;Molecule&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb56-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Depth.m, <span class="dt">y=</span>Value.uM)) <span class="op">+</span></span>
-<span id="cb56-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-6"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb56-7"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb56-8"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Molecule, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
-<span id="cb56-9"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-9"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
-<span id="cb56-10"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-10"></a><span class="st">  </span><span class="kw">scale_x_reverse</span>()</span>
-<span id="cb56-11"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-11"></a></span>
-<span id="cb56-12"><a href="analysing-the-treesapp-classifications-in-r.html#cb56-12"></a><span class="kw">ggsave</span>(<span class="st">&quot;geochemical_lineplot.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_longer</span><span class="op">(</span>cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"Mean"</span><span class="op">)</span>, <span class="va">NO3</span>, <span class="va">CTD_O2</span><span class="op">)</span>,
+               values_to <span class="op">=</span> <span class="st">"Value.uM"</span>,
+               names_to <span class="op">=</span> <span class="st">"Molecule"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth.m</span>, y<span class="op">=</span><span class="va">Value.uM</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Molecule</span>, scales <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_x_reverse</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">ggsave</span><span class="op">(</span><span class="st">"geochemical_lineplot.png"</span><span class="op">)</span></code></pre></div>
 <p>Notice that the x-axis scales all differ. This was enabled with <code>scales = "free_x"</code> in the function <code>facet_wrap</code> and was essential to observe the trends across the water column. Without it many of the values would be squished against the y-axis as their values are close to zero and the oxygen concentration gets up to ~200 micromolar.</p>
 </div>
 <div id="bringing-them-all-together" class="section level3">
-<h3><span class="header-section-number">7.10.4</span> Bringing them all together</h3>
+<h3>
+<span class="header-section-number">7.10.4</span> Bringing them all together<a class="anchor" aria-label="anchor" href="#bringing-them-all-together"><i class="fas fa-link"></i></a>
+</h3>
 <p>In this final figure we are going to combine the methane concentration data with the TPM values for the two orders, <em>Methylococcales</em> and <em>Nitrosomonadales</em>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-1"></a>ts_geo_df <span class="op">%&gt;%</span></span>
-<span id="cb57-2"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-2"></a><span class="st">  </span><span class="kw">filter</span>(SeqType<span class="op">==</span><span class="st">&quot;MetaT&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb57-3"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Order)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb57-4"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Depth =</span> <span class="kw">reorder</span>(Depth, Depth.m)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb57-5"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Depth, <span class="dt">y=</span>Abundance, <span class="dt">colour=</span>Mean_CH4)) <span class="op">+</span></span>
-<span id="cb57-6"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-6"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
-<span id="cb57-7"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb57-8"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Order) <span class="op">+</span></span>
-<span id="cb57-9"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-9"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb57-10"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-10"></a></span>
-<span id="cb57-11"><a href="analysing-the-treesapp-classifications-in-r.html#cb57-11"></a><span class="kw">ggsave</span>(<span class="st">&quot;taxonomic_order_boxplot.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">SeqType</span><span class="op">==</span><span class="st">"MetaT"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Order</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth</span>, y<span class="op">=</span><span class="va">Abundance</span>, colour<span class="op">=</span><span class="va">Mean_CH4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">Order</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">ggsave</span><span class="op">(</span><span class="st">"taxonomic_order_boxplot.png"</span><span class="op">)</span></code></pre></div>
 <p>How does the abundance of these two groups change with methane concentration?</p>
 </div>
 </div>
 <div id="analyzing-classifications-for-your-groups-reference-package" class="section level2">
-<h2><span class="header-section-number">7.11</span> Analyzing classifications for your group’s reference package</h2>
+<h2>
+<span class="header-section-number">7.11</span> Analyzing classifications for your group’s reference package<a class="anchor" aria-label="anchor" href="#analyzing-classifications-for-your-groups-reference-package"><i class="fas fa-link"></i></a>
+</h2>
 <ul>
 <li><p>How does abundance of your gene vary with depth? Are trends similar for both RNA and DNA?</p></li>
 <li><p>How does microbial diversity vary with depth? Are trends similar for both RNA and DNA?
@@ -495,71 +328,72 @@ You will need to make a decision at what taxonomic rank you will calculate diver
 <li><p>How does the abundance of your gene relate to water column geochemistry in Saanich Inlet (use the chemical measurement data in <code>Saanich_TimeSeries_Chemical_DATA.csv</code>)?</p></li>
 <li><p>Determine the geochemical conditions at your given depths. Which is the best available terminal electron acceptor?</p></li>
 </ul>
-
 </div>
 </div>
 
 
 
-</div>
-            </section>
+<div class="chapter-nav">
+<div class="prev"><a href="calculating-relative-abundance-of-metaomic-data.html"><span class="header-section-number">6</span> Calculating relative abundance of meta’omic data</a></div>
+<div class="next"><a href="project-description.html"><span class="header-section-number">8</span> Project description</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#analysing-the-treesapp-classifications-in-r"><span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R</a></li>
+<li><a class="nav-link" href="#introduction-and-goals-4"><span class="header-section-number">7.1</span> Introduction and goals</a></li>
+<li><a class="nav-link" href="#resources-for-analysis-of-treesapp-output-in-r"><span class="header-section-number">7.2</span> Resources for analysis of TreeSAPP output in R</a></li>
+<li><a class="nav-link" href="#checklist-to-write-and-run-r-script"><span class="header-section-number">7.3</span> Checklist to write and run R script</a></li>
+<li><a class="nav-link" href="#writing-the-r-script"><span class="header-section-number">7.4</span> Writing the R script</a></li>
+<li><a class="nav-link" href="#load-any-required-packages"><span class="header-section-number">7.5</span> Load any required packages</a></li>
+<li>
+<a class="nav-link" href="#load-metagenomic-and-metatranscriptomic-treesapp-data"><span class="header-section-number">7.6</span> Load metagenomic and metatranscriptomic TreeSAPP data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#classification-table"><span class="header-section-number">7.6.1</span> Classification table</a></li></ul>
+</li>
+<li><a class="nav-link" href="#subset-your-data-to-the-variables-and-marker-genes-of-interest"><span class="header-section-number">7.7</span> Subset your data to the variables and marker genes of interest</a></li>
+<li>
+<a class="nav-link" href="#reformat-variables"><span class="header-section-number">7.8</span> Reformat variables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#processing-taxonomic-information"><span class="header-section-number">7.8.1</span> Processing taxonomic information</a></li>
+<li><a class="nav-link" href="#distinguishing-metagenomes-from-metatranscriptomes"><span class="header-section-number">7.8.2</span> Distinguishing metagenomes from metatranscriptomes</a></li>
+<li><a class="nav-link" href="#processing-depth-data"><span class="header-section-number">7.8.3</span> Processing depth data</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#load-the-geochemical-data"><span class="header-section-number">7.9</span> Load the geochemical data</a></li>
+<li>
+<a class="nav-link" href="#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><span class="header-section-number">7.10</span> Visualize the taxonomic, functional and chemical data from Saanich Inlet</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#analyze-treesapps-taxonomic-classifications"><span class="header-section-number">7.10.1</span> Analyze TreeSAPP’s taxonomic classifications</a></li>
+<li><a class="nav-link" href="#analyze-the-functional-data"><span class="header-section-number">7.10.2</span> Analyze the functional data</a></li>
+<li><a class="nav-link" href="#analyze-the-chemical-measurements"><span class="header-section-number">7.10.3</span> Analyze the chemical measurements</a></li>
+<li><a class="nav-link" href="#bringing-them-all-together"><span class="header-section-number">7.10.4</span> Bringing them all together</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#analyzing-classifications-for-your-groups-reference-package"><span class="header-section-number">7.11</span> Analyzing classifications for your group’s reference package</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="calculating-relative-abundance-of-metaomic-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="project-description.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+</div>
+  
+
+  
+
+</div>
+ <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on August 18, 2021.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>

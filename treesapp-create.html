@@ -1,323 +1,109 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function</title>
-  <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function" />
-  
-  <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  
-
-<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="acquiring-golden-data.html"/>
-<link rel="next" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-
-
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function</title>
+<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam">
+<meta name="description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product. The goals of this...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function">
+<meta property="og:type" content="book">
+<meta property="og:description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product. The goals of this...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function">
+<meta name="twitter:description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product. The goals of this...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
-<li class="part"><span><b>I Introduction</b></span></li>
-<li class="chapter" data-level="1" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html"><i class="fa fa-check"></i><b>1</b> Exploring the microcosmos</a><ul>
-<li class="chapter" data-level="1.1" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a></li>
-<li class="chapter" data-level="1.2" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#using-multi-omic-data-to-reconstruct-distributed-networks-of-metabolite-exchange"><i class="fa fa-check"></i><b>1.2</b> Using multi-omic data to reconstruct distributed networks of metabolite exchange</a></li>
-<li class="chapter" data-level="1.3" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#treesapp"><i class="fa fa-check"></i><b>1.3</b> TreeSAPP</a></li>
-</ul></li>
-<li class="part"><span><b>II Tutorials</b></span></li>
-<li class="chapter" data-level="2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html"><i class="fa fa-check"></i><b>2</b> A tutorial for using TreeSAPP</a><ul>
-<li class="chapter" data-level="2.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#introduction-and-goals"><i class="fa fa-check"></i><b>2.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="2.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#a-typical-treesapp-workflow"><i class="fa fa-check"></i><b>2.2</b> A typical TreeSAPP workflow</a></li>
-<li class="chapter" data-level="2.3" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#genes-for-creating-reference-packages"><i class="fa fa-check"></i><b>2.3</b> Genes for creating reference packages</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#xmoa"><i class="fa fa-check"></i><b>2.3.1</b> XmoA</a></li>
-<li class="chapter" data-level="2.3.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#group-assigned-genes"><i class="fa fa-check"></i><b>2.3.2</b> Group-assigned genes</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#tools"><i class="fa fa-check"></i><b>2.4</b> Tools</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#shell"><i class="fa fa-check"></i><b>2.4.1</b> Shell</a></li>
-<li class="chapter" data-level="2.4.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#treesapp-1"><i class="fa fa-check"></i><b>2.4.2</b> TreeSAPP</a></li>
-<li class="chapter" data-level="2.4.3" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#itol"><i class="fa fa-check"></i><b>2.4.3</b> iTOL</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#data"><i class="fa fa-check"></i><b>2.5</b> Data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html"><i class="fa fa-check"></i><b>3</b> Acquiring golden data</a><ul>
-<li class="chapter" data-level="3.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#the-golden-standard"><i class="fa fa-check"></i><b>3.1</b> The golden standard</a></li>
-<li class="chapter" data-level="3.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#what-databases-can-i-retrieve-sequences-from"><i class="fa fa-check"></i><b>3.2</b> What databases can I retrieve sequences from?</a></li>
-<li class="chapter" data-level="3.3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#xmoa-example"><i class="fa fa-check"></i><b>3.3</b> XmoA example</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#fungene"><i class="fa fa-check"></i><b>3.3.1</b> FunGene</a></li>
-<li class="chapter" data-level="3.3.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#eggnog"><i class="fa fa-check"></i><b>3.3.2</b> EggNOG</a></li>
-<li class="chapter" data-level="3.3.3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#copying-data-onto-the-server"><i class="fa fa-check"></i><b>3.3.3</b> Copying data onto the server</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#alternative-sources"><i class="fa fa-check"></i><b>3.4</b> Alternative sources</a></li>
-<li class="chapter" data-level="3.5" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#data-access-hazards"><i class="fa fa-check"></i><b>3.5</b> Data access hazards</a></li>
-<li class="chapter" data-level="3.6" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#validation"><i class="fa fa-check"></i><b>3.6</b> Validation</a><ul>
-<li class="chapter" data-level="3.6.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#basic"><i class="fa fa-check"></i><b>3.6.1</b> Basic</a></li>
-<li class="chapter" data-level="3.6.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#advanced"><i class="fa fa-check"></i><b>3.6.2</b> Advanced</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="treesapp-create.html"><a href="treesapp-create.html"><i class="fa fa-check"></i><b>4</b> Creating a reference package for TreeSAPP</a><ul>
-<li class="chapter" data-level="4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#introduction-and-goals-1"><i class="fa fa-check"></i><b>4.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="4.2" data-path="treesapp-create.html"><a href="treesapp-create.html#making-the-reference-package"><i class="fa fa-check"></i><b>4.2</b> Making the reference package</a></li>
-<li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#testing-the-purity-of-the-reference-package"><i class="fa fa-check"></i><b>4.3</b> Testing the purity of the reference package</a></li>
-<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#viewing-the-reference-package-tree-with-itol"><i class="fa fa-check"></i><b>4.4</b> Viewing the reference package tree with iTOL</a></li>
-<li class="chapter" data-level="4.5" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.5</b> Building your group’s reference package</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="treesapp-create.html"><a href="treesapp-create.html#booster-shot"><i class="fa fa-check"></i><b>4.5.1</b> Booster shot</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><i class="fa fa-check"></i><b>5</b> Classifying unknown sequences with TreeSAPP and updating a reference package</a><ul>
-<li class="chapter" data-level="5.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#introduction-and-goals-2"><i class="fa fa-check"></i><b>5.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="5.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#change-notes"><i class="fa fa-check"></i><b>5.2</b> Change notes</a></li>
-<li class="chapter" data-level="5.3" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classify-new-sequences"><i class="fa fa-check"></i><b>5.3</b> Classify new sequences</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classifying-amino-acid-sequences"><i class="fa fa-check"></i><b>5.3.1</b> Classifying amino acid sequences</a></li>
-<li class="chapter" data-level="5.3.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classifying-orfs-predicted-from-genomes"><i class="fa fa-check"></i><b>5.3.2</b> Classifying ORFs predicted from genomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#update-the-reference-package-with-new-sequences"><i class="fa fa-check"></i><b>5.4</b> Update the reference package with new sequences</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#updating-with-publicly-available-sequences"><i class="fa fa-check"></i><b>5.4.1</b> Updating with publicly available sequences</a></li>
-<li class="chapter" data-level="5.4.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#updating-with-mag-sequences"><i class="fa fa-check"></i><b>5.4.2</b> Updating with MAG sequences</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#annotate-clades"><i class="fa fa-check"></i><b>5.5</b> Annotate clades</a></li>
-<li class="chapter" data-level="5.6" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#reclassify-and-layer-annotations-onto-classification-table"><i class="fa fa-check"></i><b>5.6</b> Reclassify and layer annotations onto classification table</a></li>
-<li class="chapter" data-level="5.7" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#use-your-groups-reference-package-to-classify-unkown-sequences-then-update-your-package"><i class="fa fa-check"></i><b>5.7</b> Use your group’s reference package to classify unkown sequences then update your package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html"><i class="fa fa-check"></i><b>6</b> Calculating relative abundance of meta’omic data</a><ul>
-<li class="chapter" data-level="6.1" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#introduction-and-goals-3"><i class="fa fa-check"></i><b>6.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="6.2" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#workflow-description"><i class="fa fa-check"></i><b>6.2</b> Workflow description</a></li>
-<li class="chapter" data-level="6.3" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#usage"><i class="fa fa-check"></i><b>6.3</b> Usage</a></li>
-<li class="chapter" data-level="6.4" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#outputs"><i class="fa fa-check"></i><b>6.4</b> Outputs</a></li>
-<li class="chapter" data-level="6.5" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#tutorial-steps"><i class="fa fa-check"></i><b>6.5</b> Tutorial steps</a></li>
-<li class="chapter" data-level="6.6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#use-your-groups-reference-package-to-calculate-abundances"><i class="fa fa-check"></i><b>6.6</b> Use your group’s reference package to calculate abundances</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html"><i class="fa fa-check"></i><b>7</b> Analysing the TreeSAPP classifications in R</a><ul>
-<li class="chapter" data-level="7.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#introduction-and-goals-4"><i class="fa fa-check"></i><b>7.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="7.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#resources-for-analysis-of-treesapp-output-in-r"><i class="fa fa-check"></i><b>7.2</b> Resources for analysis of TreeSAPP output in R</a></li>
-<li class="chapter" data-level="7.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#checklist-to-write-and-run-r-script"><i class="fa fa-check"></i><b>7.3</b> Checklist to write and run R script</a></li>
-<li class="chapter" data-level="7.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script"><i class="fa fa-check"></i><b>7.4</b> Writing the R script</a></li>
-<li class="chapter" data-level="7.5" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-any-required-packages"><i class="fa fa-check"></i><b>7.5</b> Load any required packages</a></li>
-<li class="chapter" data-level="7.6" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fa fa-check"></i><b>7.6</b> Load metagenomic and metatranscriptomic TreeSAPP data</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#classification-table"><i class="fa fa-check"></i><b>7.6.1</b> Classification table</a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fa fa-check"></i><b>7.7</b> Subset your data to the variables and marker genes of interest</a></li>
-<li class="chapter" data-level="7.8" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#reformat-variables"><i class="fa fa-check"></i><b>7.8</b> Reformat variables</a><ul>
-<li class="chapter" data-level="7.8.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-taxonomic-information"><i class="fa fa-check"></i><b>7.8.1</b> Processing taxonomic information</a></li>
-<li class="chapter" data-level="7.8.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#distinguishing-metagenomes-from-metatranscriptomes"><i class="fa fa-check"></i><b>7.8.2</b> Distinguishing metagenomes from metatranscriptomes</a></li>
-<li class="chapter" data-level="7.8.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-depth-data"><i class="fa fa-check"></i><b>7.8.3</b> Processing depth data</a></li>
-</ul></li>
-<li class="chapter" data-level="7.9" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-the-geochemical-data"><i class="fa fa-check"></i><b>7.9</b> Load the geochemical data</a></li>
-<li class="chapter" data-level="7.10" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><i class="fa fa-check"></i><b>7.10</b> Visualize the taxonomic, functional and chemical data from Saanich Inlet</a><ul>
-<li class="chapter" data-level="7.10.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-treesapps-taxonomic-classifications"><i class="fa fa-check"></i><b>7.10.1</b> Analyze TreeSAPP’s taxonomic classifications</a></li>
-<li class="chapter" data-level="7.10.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-functional-data"><i class="fa fa-check"></i><b>7.10.2</b> Analyze the functional data</a></li>
-<li class="chapter" data-level="7.10.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-chemical-measurements"><i class="fa fa-check"></i><b>7.10.3</b> Analyze the chemical measurements</a></li>
-<li class="chapter" data-level="7.10.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#bringing-them-all-together"><i class="fa fa-check"></i><b>7.10.4</b> Bringing them all together</a></li>
-</ul></li>
-<li class="chapter" data-level="7.11" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyzing-classifications-for-your-groups-reference-package"><i class="fa fa-check"></i><b>7.11</b> Analyzing classifications for your group’s reference package</a></li>
-</ul></li>
-<li class="part"><span><b>III Capstone project</b></span></li>
-<li class="chapter" data-level="8" data-path="project-description.html"><a href="project-description.html"><i class="fa fa-check"></i><b>8</b> Project description</a><ul>
-<li class="chapter" data-level="8.1" data-path="project-description.html"><a href="project-description.html#guiding-research-questions"><i class="fa fa-check"></i><b>8.1</b> Guiding research questions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="project-description.html"><a href="project-description.html#questions-for-project-with-a-focus-on-biogeochemical-cycles-repeated-in-report-structure-below"><i class="fa fa-check"></i><b>8.1.1</b> Questions for project with a focus on biogeochemical cycles (repeated in report structure below)</a></li>
-<li class="chapter" data-level="8.1.2" data-path="project-description.html"><a href="project-description.html#questions-for-project-with-a-focus-on-using-all-reference-packages"><i class="fa fa-check"></i><b>8.1.2</b> Questions for project with a focus on using all reference packages</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="project-description.html"><a href="project-description.html#resources"><i class="fa fa-check"></i><b>8.2</b> Resources</a></li>
-<li class="chapter" data-level="8.3" data-path="project-description.html"><a href="project-description.html#your-submission"><i class="fa fa-check"></i><b>8.3</b> Your submission</a></li>
-<li class="chapter" data-level="8.4" data-path="project-description.html"><a href="project-description.html#timeline"><i class="fa fa-check"></i><b>8.4</b> Timeline</a></li>
-<li class="chapter" data-level="8.5" data-path="project-description.html"><a href="project-description.html#reports"><i class="fa fa-check"></i><b>8.5</b> Reports</a></li>
-<li class="chapter" data-level="8.6" data-path="project-description.html"><a href="project-description.html#addendum"><i class="fa fa-check"></i><b>8.6</b> Addendum</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="project-description.html"><a href="project-description.html#abundance"><i class="fa fa-check"></i><b>8.6.1</b> Abundance</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i><b>9</b> Assessment</a><ul>
-<li class="chapter" data-level="9.1" data-path="assessment.html"><a href="assessment.html#peer-evaluation-10"><i class="fa fa-check"></i><b>9.1</b> Peer evaluation (10%)</a></li>
-<li class="chapter" data-level="9.2" data-path="assessment.html"><a href="assessment.html#report-20"><i class="fa fa-check"></i><b>9.2</b> Report (20%)</a></li>
-<li class="chapter" data-level="9.3" data-path="assessment.html"><a href="assessment.html#ujemi-submission"><i class="fa fa-check"></i><b>9.3</b> UJEMI submission</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html"><i class="fa fa-check"></i><b>10</b> Running TreeSAPP on a server</a><ul>
-<li class="chapter" data-level="10.1" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#resources-for-treesapp-analysis"><i class="fa fa-check"></i><b>10.1</b> Resources for TreeSAPP analysis</a></li>
-<li class="chapter" data-level="10.2" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#checklist-to-write-and-run-shell-script"><i class="fa fa-check"></i><b>10.2</b> Checklist to write and run shell script</a></li>
-<li class="chapter" data-level="10.3" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#shell-writing"><i class="fa fa-check"></i><b>10.3</b> Writing the shell script</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#defining-the-shell"><i class="fa fa-check"></i><b>10.3.1</b> Defining the shell</a></li>
-<li class="chapter" data-level="10.3.2" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#setting-a-variable-for-your-depth"><i class="fa fa-check"></i><b>10.3.2</b> Setting a variable for your depth</a></li>
-<li class="chapter" data-level="10.3.3" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#providing-user-feedback"><i class="fa fa-check"></i><b>10.3.3</b> Providing user feedback</a></li>
-<li class="chapter" data-level="10.3.4" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#defining-variable-for-input-directory"><i class="fa fa-check"></i><b>10.3.4</b> Defining variable for input directory</a></li>
-<li class="chapter" data-level="10.3.5" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#creating-output-directory"><i class="fa fa-check"></i><b>10.3.5</b> Creating output directory</a></li>
-<li class="chapter" data-level="10.3.6" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#reporting-variables-to-user"><i class="fa fa-check"></i><b>10.3.6</b> Reporting variables to user</a></li>
-<li class="chapter" data-level="10.3.7" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#listing-treesapp-version"><i class="fa fa-check"></i><b>10.3.7</b> Listing TreeSAPP version</a></li>
-<li class="chapter" data-level="10.3.8" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#executing-treesapp-analysis"><i class="fa fa-check"></i><b>10.3.8</b> Executing TreeSAPP analysis</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html"><i class="fa fa-check"></i><b>A</b> The Saanich Inlet data set</a><ul>
-<li class="chapter" data-level="A.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description"><i class="fa fa-check"></i><b>A.1</b> Description</a></li>
-<li class="chapter" data-level="A.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#data-on-the-server"><i class="fa fa-check"></i><b>A.2</b> Data on the server</a></li>
-<li class="chapter" data-level="A.3" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description-of-input-data"><i class="fa fa-check"></i><b>A.3</b> Description of input data</a></li>
-<li class="chapter" data-level="A.4" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#methods"><i class="fa fa-check"></i><b>A.4</b> Methods</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#metagenomes-and-metatransriptopmes"><i class="fa fa-check"></i><b>A.4.1</b> Metagenomes and metatransriptopmes</a></li>
-<li class="chapter" data-level="A.4.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#single-cell-amplified-genomes"><i class="fa fa-check"></i><b>A.4.2</b> Single-Cell Amplified Genomes</a></li>
-</ul></li>
-<li class="chapter" data-level="A.5" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#installing-and-running-gtdb-tk"><i class="fa fa-check"></i><b>A.5</b> Installing and running GTDB-Tk</a></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="treesapp-reference-packages.html"><a href="treesapp-reference-packages.html"><i class="fa fa-check"></i><b>B</b> TreeSAPP reference packages</a></li>
-<li class="chapter" data-level="C" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>C</b> Shell cheat sheet</a></li>
-<li class="chapter" data-level="D" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>D</b> References</a></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="2020.21 MICB425 Mirobial Ecological Genomics Capstone project">Gene-centric mapping of microbial community structure and function</a>:
+        <small class="text-muted">2020.21 MICB425 Mirobial Ecological Genomics Capstone project</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gene-centric mapping of microbial community structure and function</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Introduction</li>
+<li><a class="" href="exploring-the-microcosmos.html"><span class="header-section-number">1</span> Exploring the microcosmos</a></li>
+<li class="book-part">Tutorials</li>
+<li><a class="" href="a-tutorial-for-using-treesapp.html"><span class="header-section-number">2</span> A tutorial for using TreeSAPP</a></li>
+<li><a class="" href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></li>
+<li><a class="active" href="treesapp-create.html"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
+<li><a class="" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></li>
+<li><a class="" href="calculating-relative-abundance-of-metaomic-data.html"><span class="header-section-number">6</span> Calculating relative abundance of meta’omic data</a></li>
+<li><a class="" href="analysing-the-treesapp-classifications-in-r.html"><span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R</a></li>
+<li class="book-part">Capstone project</li>
+<li><a class="" href="project-description.html"><span class="header-section-number">8</span> Project description</a></li>
+<li><a class="" href="assessment.html"><span class="header-section-number">9</span> Assessment</a></li>
+<li><a class="" href="running-treesapp-on-a-server.html"><span class="header-section-number">10</span> Running TreeSAPP on a server</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="the-saanich-inlet-data-set.html"><span class="header-section-number">A</span> The Saanich Inlet data set</a></li>
+<li><a class="" href="treesapp-reference-packages.html"><span class="header-section-number">B</span> TreeSAPP reference packages</a></li>
+<li><a class="" href="shell-cheat-sheet.html"><span class="header-section-number">C</span> Shell cheat sheet</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">D</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="treesapp-create" class="section level1">
-<h1><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="treesapp-create" class="section level1">
+<h1>
+<span class="header-section-number">4</span> Creating a reference package for TreeSAPP<a class="anchor" aria-label="anchor" href="#treesapp-create"><i class="fas fa-link"></i></a>
+</h1>
 <div id="introduction-and-goals-1" class="section level2">
-<h2><span class="header-section-number">4.1</span> Introduction and goals</h2>
+<h2>
+<span class="header-section-number">4.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-1"><i class="fas fa-link"></i></a>
+</h2>
 <p>In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product.</p>
 <p>The goals of this tutorial are:</p>
 <ol style="list-style-type: decimal">
 <li>To learn how to use <code>treesapp create</code> to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial</li>
-<li>Learn how to assess whether the reference package contains only homologous sequences using <code>treesapp purity</code></li>
+<li>Learn how to assess whether the reference package contains only homologous sequences using <code>treesapp purity</code>
+</li>
 <li>Learn how to view a reference package’s phylogenetic tree using the interactive Tree of Life (iTOL)</li>
 </ol>
 </div>
 <div id="making-the-reference-package" class="section level2">
-<h2><span class="header-section-number">4.2</span> Making the reference package</h2>
+<h2>
+<span class="header-section-number">4.2</span> Making the reference package<a class="anchor" aria-label="anchor" href="#making-the-reference-package"><i class="fas fa-link"></i></a>
+</h2>
 <p>In the <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a> tutorial, PmoA &amp; AmoA sequences were downloaded from <a href="http://tigrfams.jcvi.org/cgi-bin/index.cgi">TIGRFAM</a>, <a href="http://eggnog5.embl.de/#/app/home">EggNOG</a>, and <a href="http://fungene.cme.msu.edu/">FunGene</a>. For now we’ll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let’s call this our seed reference package. The steps involved are:</p>
 <ul>
-<li><strong>All steps are executed on the server unless stated otherwise!!</strong> Connect to your personal server and continue to work in the <code>/data/ts_tutorial</code> directory.</li>
+<li>
+<strong>All steps are executed on the server unless stated otherwise!!</strong> Connect to your personal server and continue to work in the <code>/data/ts_tutorial</code> directory.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="treesapp-create.html#cb4-1"></a><span class="bu">cd</span> /data/ts_tutorial</span></code></pre></div>
 <ul>
-<li><strong>Optional:</strong> If you could not download the reference sequences of XmoA yourself (see <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a>), download <a href="https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a>—a list of the necessary fasta files—with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
+<li>
+<strong>Optional:</strong> If you could not download the reference sequences of XmoA yourself (see <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a>), download <a href="https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a>—a list of the necessary fasta files—with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="treesapp-create.html#cb5-1"></a><span class="bu">cd</span> /data/ts_tutorial</span>
 <span id="cb5-2"><a href="treesapp-create.html#cb5-2"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt</span>
 <span id="cb5-3"><a href="treesapp-create.html#cb5-3"></a><span class="fu">wget</span> -i xmoa_file_list.txt</span></code></pre></div>
 <ul>
-<li>Create the input FASTA file by combining the EggNOG and TIGRFAM reference into a single file using <code>cat</code>. <code>cat</code> stands for concatentate, i.e. the files are pasted together. The output of <code>cat</code> is funneled with the <code>&gt;</code> symbol to a <code>&lt;new file&gt;</code>, i.e. <code>cat &lt;file 1&gt; &lt;file 2&gt; &gt; &lt;new file&gt;</code></li>
+<li>Create the input FASTA file by combining the EggNOG and TIGRFAM reference into a single file using <code>cat</code>. <code>cat</code> stands for concatentate, i.e. the files are pasted together. The output of <code>cat</code> is funneled with the <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> symbol to a <code>&lt;new file&gt;</code>, i.e. <code>cat &lt;file 1&gt; &lt;file 2&gt; &gt; &lt;new file&gt;</code>
+</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="treesapp-create.html#cb6-1"></a><span class="fu">cat</span> ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa <span class="op">&gt;</span> XmoA_seed.faa</span></code></pre></div>
 <p>There are 76 well curated PmoA and AmoA fasta sequences in this file.</p>
@@ -326,9 +112,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="treesapp-create.html#cb7-1"></a><span class="fu">less</span> XmoA_seed.faa</span></code></pre></div>
 <ul>
-<li>You will notice, that they are lines that start with a <code>&gt;</code> that gives the name of a sequence followed by a line containing the actual nucleotide sequence itself. We can count and confirm the number of sequences in the fasta file by counting those <code>&gt;</code> using <code>grep</code>. <code>grep</code> is an incredibly powerful tool to find matching text patterns (using a format called “regular expression”) and is beyond the scope of this tutorial. The code below searches for a <code>&gt;</code> at the beginning of the line (defined with <code>"^&gt;"</code>) of the file <code>XmoA_seed.faa</code> and counts each occurrence due to the option <code>-c</code>.</li>
+<li>You will notice, that they are lines that start with a <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> that gives the name of a sequence followed by a line containing the actual nucleotide sequence itself. We can count and confirm the number of sequences in the fasta file by counting those <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> using <code>grep</code>. <code>grep</code> is an incredibly powerful tool to find matching text patterns (using a format called “regular expression”) and is beyond the scope of this tutorial. The code below searches for a <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> at the beginning of the line (defined with <code>"^&gt;"</code>) of the file <code>XmoA_seed.faa</code> and counts each occurrence due to the option <code>-c</code>.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="treesapp-create.html#cb8-1"></a><span class="fu">grep</span> -c <span class="st">&quot;^&gt;&quot;</span> XmoA_seed.faa</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="treesapp-create.html#cb8-1"></a><span class="fu">grep</span> -c <span class="st">"^&gt;"</span> XmoA_seed.faa</span></code></pre></div>
 <ul>
 <li>Use submodule <code>treesapp create</code> to build the XmoA reference package with different arguments (see <a href="https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients">visualization of the <code>create</code> workflow</a>). To speed things along, we will use FastTree to infer the phylogeny and will skip bootstrapping with <code>--fast</code>. To remove potential redundant sequences, we will cluster the candidate reference sequences at 97% similarity using the argument <code>-p</code>. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more, the flag <code>--headless</code> will prevent these requests. This command will take ~2 minutes to complete.</li>
 </ul>
@@ -356,12 +142,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>We can also modify the reference package’s description while we’re here.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="treesapp-create.html#cb11-1"></a><span class="ex">treesapp</span> package edit \</span>
-<span id="cb11-2"><a href="treesapp-create.html#cb11-2"></a>  description <span class="st">&quot;Alpha subunits of copper membrane monooxygenase enzymes&quot;</span> \</span>
+<span id="cb11-2"><a href="treesapp-create.html#cb11-2"></a>  description <span class="st">"Alpha subunits of copper membrane monooxygenase enzymes"</span> \</span>
 <span id="cb11-3"><a href="treesapp-create.html#cb11-3"></a>  --overwrite \</span>
 <span id="cb11-4"><a href="treesapp-create.html#cb11-4"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
 </div>
 <div id="testing-the-purity-of-the-reference-package" class="section level2">
-<h2><span class="header-section-number">4.3</span> Testing the purity of the reference package</h2>
+<h2>
+<span class="header-section-number">4.3</span> Testing the purity of the reference package<a class="anchor" aria-label="anchor" href="#testing-the-purity-of-the-reference-package"><i class="fas fa-link"></i></a>
+</h2>
 <p>We will determine whether there were any mis-annotated sequences that were included in our reference package with <code>treesapp purity</code>. To do this, we take a well-curated database and attempt to classify sequences in it using <code>treesapp assign</code>. The results are then analysed and displayed for the user to evaluate. The TIGRFAM database is fairly comprehensive, representing 4488 different groups in version 15, and by using just the TIGRFAM seed sequences (<code>TIGRFAM_seed_named.faa</code>) we can be fairly sure we won’t be evaluating our classifications with mis-annotated sequences.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="treesapp-create.html#cb12-1"></a><span class="ex">treesapp</span> purity \</span>
 <span id="cb12-2"><a href="treesapp-create.html#cb12-2"></a>  --trim_align \</span>
@@ -379,7 +167,9 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 <p>From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they’re closely related) and the sequences were all from the family “TIGR03080”, also known as “methane monooxygenase/ammonia monooxygenase, subunit A”. In all, we are probably good to proceed!</p>
 </div>
 <div id="viewing-the-reference-package-tree-with-itol" class="section level2">
-<h2><span class="header-section-number">4.4</span> Viewing the reference package tree with iTOL</h2>
+<h2>
+<span class="header-section-number">4.4</span> Viewing the reference package tree with iTOL<a class="anchor" aria-label="anchor" href="#viewing-the-reference-package-tree-with-itol"><i class="fas fa-link"></i></a>
+</h2>
 <p>We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use the <code>treesapp assign</code> function.</p>
 <ul>
 <li>Assign reference sequences to reference package to generate tree with labels.</li>
@@ -393,7 +183,8 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 <span id="cb14-7"><a href="treesapp-create.html#cb14-7"></a>  --output XmoA_seed_assign/</span></code></pre></div>
 <p>The <code>treesapp assign</code> output directory (defined by the flag <code>--output</code>, i.e. in this case <code>XmoA_seed_assign</code>) contains the <code>iTOL_output</code> directory.</p>
 <ul>
-<li><strong>On your computer:</strong> Transfer <code>XmoA_seed_assign/iTOL_output</code> from the server to your local directory <code>Xmoa_sequences</code>.</li>
+<li>
+<strong>On your computer:</strong> Transfer <code>XmoA_seed_assign/iTOL_output</code> from the server to your local directory <code>Xmoa_sequences</code>.</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="treesapp-create.html#cb15-1"></a> <span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span></span></code></pre></div>
 <p>We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the JPlace file produced by TreeSAPP. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.</p>
@@ -401,15 +192,19 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and sign in using the group’s username and password.</p></li>
 <li><p>Upload the file <code>XmoA_complete_profile.jplace</code>. You can do this using either your computer’s file browser then navigating to the <code>iTOL_output</code> directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
 <li><p>Next, navigate to the page displaying the phylogeny and click-and-drag the file <code>XmoA_labels.txt</code> from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.</p></li>
-<li><p>Finally, turn on the “Phylogenetic Placements” dataset (right of the screen) and the figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p>
-<div class="figure"><span id="fig:xmoa"></span>
-<img src="images/XmoA_seed_iTOLtree.svg" alt="" />
-<p class="caption">FIGURE 4.1:  Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes.</p>
-</div></li>
+<li>
+<p>Finally, turn on the “Phylogenetic Placements” dataset (right of the screen) and the figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p>
+<div class="figure">
+<span style="display:block;" id="fig:xmoa"></span>
+<img src="images/XmoA_seed_iTOLtree.svg" alt=""><p class="caption">FIGURE 4.1:  Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes.</p>
+</div>
+</li>
 </ul>
 </div>
 <div id="building-your-groups-reference-package" class="section level2">
-<h2><span class="header-section-number">4.5</span> Building your group’s reference package</h2>
+<h2>
+<span class="header-section-number">4.5</span> Building your group’s reference package<a class="anchor" aria-label="anchor" href="#building-your-groups-reference-package"><i class="fas fa-link"></i></a>
+</h2>
 <p>Now we have covered the first steps of creating a reference package for TreeSAPP and visualizing the outputs. Adapt and repeat the steps for <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a> and creating the reference package (this chapter) for the gene assigned to your group using your <strong>group’s</strong> server.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>On your computer:</strong> create a directory <code>&lt;gene_name_sequences&gt;</code> in your home directory and download any reference sequences for your gene you can find on the databases.</p></li>
@@ -419,7 +214,9 @@ TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygen
 <li><p><strong>On your computer:</strong> Whenever you have TreeSAPP outputs that can be visualized with iTOL, copy the files from the server to your computer to do so.</p></li>
 </ol>
 <div id="booster-shot" class="section level3">
-<h3><span class="header-section-number">4.5.1</span> Booster shot</h3>
+<h3>
+<span class="header-section-number">4.5.1</span> Booster shot<a class="anchor" aria-label="anchor" href="#booster-shot"><i class="fas fa-link"></i></a>
+</h3>
 <p>The reference package for XmoA is relatively small, and ideal for an in-class tutorial. However, many protein families are much more complex with members spread broadly across the tree of life. In these cases, you may need to use other tactics to reduce the size of your reference package so <code>treesapp create</code> can finish in under a few hours. Using any or all of the following options are <strong>not</strong> required, but may be useful.</p>
 <ol style="list-style-type: decimal">
 <li><p>Remove more candidate reference sequences from the final reference package by decreasing the percent similarity used during sequence clustering. In the tutorial we set “-p”/“--similarity” to 0.97 but this is going to be too high in many cases. Try something between 0.80 and 0.95 to get between 100 and 2000 sequences.</p></li>
@@ -450,64 +247,44 @@ If your reference package is still very large after using the above options, set
 </div>
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></div>
+<div class="next"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#treesapp-create"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
+<li><a class="nav-link" href="#introduction-and-goals-1"><span class="header-section-number">4.1</span> Introduction and goals</a></li>
+<li><a class="nav-link" href="#making-the-reference-package"><span class="header-section-number">4.2</span> Making the reference package</a></li>
+<li><a class="nav-link" href="#testing-the-purity-of-the-reference-package"><span class="header-section-number">4.3</span> Testing the purity of the reference package</a></li>
+<li><a class="nav-link" href="#viewing-the-reference-package-tree-with-itol"><span class="header-section-number">4.4</span> Viewing the reference package tree with iTOL</a></li>
+<li>
+<a class="nav-link" href="#building-your-groups-reference-package"><span class="header-section-number">4.5</span> Building your group’s reference package</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#booster-shot"><span class="header-section-number">4.5.1</span> Booster shot</a></li></ul>
+</li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="acquiring-golden-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on August 18, 2021.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>

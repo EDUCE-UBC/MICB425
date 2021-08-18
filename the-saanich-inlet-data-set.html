@@ -1,312 +1,94 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function</title>
-  <meta name="description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function" />
-  
-  <meta name="twitter:description" content="A collection of tutorials and the capstone project information for MICB425 Module 04." />
-  
-
-<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="running-treesapp-on-a-server.html"/>
-<link rel="next" href="treesapp-reference-packages.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-
-
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function</title>
+<meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam">
+<meta name="description" content="A.1 Description We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function">
+<meta property="og:type" content="book">
+<meta property="og:description" content="A.1 Description We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A The Saanich Inlet data set | Gene-centric mapping of microbial community structure and function">
+<meta name="twitter:description" content="A.1 Description We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
-<li class="part"><span><b>I Introduction</b></span></li>
-<li class="chapter" data-level="1" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html"><i class="fa fa-check"></i><b>1</b> Exploring the microcosmos</a><ul>
-<li class="chapter" data-level="1.1" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a></li>
-<li class="chapter" data-level="1.2" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#using-multi-omic-data-to-reconstruct-distributed-networks-of-metabolite-exchange"><i class="fa fa-check"></i><b>1.2</b> Using multi-omic data to reconstruct distributed networks of metabolite exchange</a></li>
-<li class="chapter" data-level="1.3" data-path="exploring-the-microcosmos.html"><a href="exploring-the-microcosmos.html#treesapp"><i class="fa fa-check"></i><b>1.3</b> TreeSAPP</a></li>
-</ul></li>
-<li class="part"><span><b>II Tutorials</b></span></li>
-<li class="chapter" data-level="2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html"><i class="fa fa-check"></i><b>2</b> A tutorial for using TreeSAPP</a><ul>
-<li class="chapter" data-level="2.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#introduction-and-goals"><i class="fa fa-check"></i><b>2.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="2.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#a-typical-treesapp-workflow"><i class="fa fa-check"></i><b>2.2</b> A typical TreeSAPP workflow</a></li>
-<li class="chapter" data-level="2.3" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#genes-for-creating-reference-packages"><i class="fa fa-check"></i><b>2.3</b> Genes for creating reference packages</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#xmoa"><i class="fa fa-check"></i><b>2.3.1</b> XmoA</a></li>
-<li class="chapter" data-level="2.3.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#group-assigned-genes"><i class="fa fa-check"></i><b>2.3.2</b> Group-assigned genes</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#tools"><i class="fa fa-check"></i><b>2.4</b> Tools</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#shell"><i class="fa fa-check"></i><b>2.4.1</b> Shell</a></li>
-<li class="chapter" data-level="2.4.2" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#treesapp-1"><i class="fa fa-check"></i><b>2.4.2</b> TreeSAPP</a></li>
-<li class="chapter" data-level="2.4.3" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#itol"><i class="fa fa-check"></i><b>2.4.3</b> iTOL</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="a-tutorial-for-using-treesapp.html"><a href="a-tutorial-for-using-treesapp.html#data"><i class="fa fa-check"></i><b>2.5</b> Data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html"><i class="fa fa-check"></i><b>3</b> Acquiring golden data</a><ul>
-<li class="chapter" data-level="3.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#the-golden-standard"><i class="fa fa-check"></i><b>3.1</b> The golden standard</a></li>
-<li class="chapter" data-level="3.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#what-databases-can-i-retrieve-sequences-from"><i class="fa fa-check"></i><b>3.2</b> What databases can I retrieve sequences from?</a></li>
-<li class="chapter" data-level="3.3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#xmoa-example"><i class="fa fa-check"></i><b>3.3</b> XmoA example</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#fungene"><i class="fa fa-check"></i><b>3.3.1</b> FunGene</a></li>
-<li class="chapter" data-level="3.3.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#eggnog"><i class="fa fa-check"></i><b>3.3.2</b> EggNOG</a></li>
-<li class="chapter" data-level="3.3.3" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#copying-data-onto-the-server"><i class="fa fa-check"></i><b>3.3.3</b> Copying data onto the server</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#alternative-sources"><i class="fa fa-check"></i><b>3.4</b> Alternative sources</a></li>
-<li class="chapter" data-level="3.5" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#data-access-hazards"><i class="fa fa-check"></i><b>3.5</b> Data access hazards</a></li>
-<li class="chapter" data-level="3.6" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#validation"><i class="fa fa-check"></i><b>3.6</b> Validation</a><ul>
-<li class="chapter" data-level="3.6.1" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#basic"><i class="fa fa-check"></i><b>3.6.1</b> Basic</a></li>
-<li class="chapter" data-level="3.6.2" data-path="acquiring-golden-data.html"><a href="acquiring-golden-data.html#advanced"><i class="fa fa-check"></i><b>3.6.2</b> Advanced</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="treesapp-create.html"><a href="treesapp-create.html"><i class="fa fa-check"></i><b>4</b> Creating a reference package for TreeSAPP</a><ul>
-<li class="chapter" data-level="4.1" data-path="treesapp-create.html"><a href="treesapp-create.html#introduction-and-goals-1"><i class="fa fa-check"></i><b>4.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="4.2" data-path="treesapp-create.html"><a href="treesapp-create.html#making-the-reference-package"><i class="fa fa-check"></i><b>4.2</b> Making the reference package</a></li>
-<li class="chapter" data-level="4.3" data-path="treesapp-create.html"><a href="treesapp-create.html#testing-the-purity-of-the-reference-package"><i class="fa fa-check"></i><b>4.3</b> Testing the purity of the reference package</a></li>
-<li class="chapter" data-level="4.4" data-path="treesapp-create.html"><a href="treesapp-create.html#viewing-the-reference-package-tree-with-itol"><i class="fa fa-check"></i><b>4.4</b> Viewing the reference package tree with iTOL</a></li>
-<li class="chapter" data-level="4.5" data-path="treesapp-create.html"><a href="treesapp-create.html#building-your-groups-reference-package"><i class="fa fa-check"></i><b>4.5</b> Building your group’s reference package</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="treesapp-create.html"><a href="treesapp-create.html#booster-shot"><i class="fa fa-check"></i><b>4.5.1</b> Booster shot</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><i class="fa fa-check"></i><b>5</b> Classifying unknown sequences with TreeSAPP and updating a reference package</a><ul>
-<li class="chapter" data-level="5.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#introduction-and-goals-2"><i class="fa fa-check"></i><b>5.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="5.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#change-notes"><i class="fa fa-check"></i><b>5.2</b> Change notes</a></li>
-<li class="chapter" data-level="5.3" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classify-new-sequences"><i class="fa fa-check"></i><b>5.3</b> Classify new sequences</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classifying-amino-acid-sequences"><i class="fa fa-check"></i><b>5.3.1</b> Classifying amino acid sequences</a></li>
-<li class="chapter" data-level="5.3.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#classifying-orfs-predicted-from-genomes"><i class="fa fa-check"></i><b>5.3.2</b> Classifying ORFs predicted from genomes</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#update-the-reference-package-with-new-sequences"><i class="fa fa-check"></i><b>5.4</b> Update the reference package with new sequences</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#updating-with-publicly-available-sequences"><i class="fa fa-check"></i><b>5.4.1</b> Updating with publicly available sequences</a></li>
-<li class="chapter" data-level="5.4.2" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#updating-with-mag-sequences"><i class="fa fa-check"></i><b>5.4.2</b> Updating with MAG sequences</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#annotate-clades"><i class="fa fa-check"></i><b>5.5</b> Annotate clades</a></li>
-<li class="chapter" data-level="5.6" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#reclassify-and-layer-annotations-onto-classification-table"><i class="fa fa-check"></i><b>5.6</b> Reclassify and layer annotations onto classification table</a></li>
-<li class="chapter" data-level="5.7" data-path="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#use-your-groups-reference-package-to-classify-unkown-sequences-then-update-your-package"><i class="fa fa-check"></i><b>5.7</b> Use your group’s reference package to classify unkown sequences then update your package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html"><i class="fa fa-check"></i><b>6</b> Calculating relative abundance of meta’omic data</a><ul>
-<li class="chapter" data-level="6.1" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#introduction-and-goals-3"><i class="fa fa-check"></i><b>6.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="6.2" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#workflow-description"><i class="fa fa-check"></i><b>6.2</b> Workflow description</a></li>
-<li class="chapter" data-level="6.3" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#usage"><i class="fa fa-check"></i><b>6.3</b> Usage</a></li>
-<li class="chapter" data-level="6.4" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#outputs"><i class="fa fa-check"></i><b>6.4</b> Outputs</a></li>
-<li class="chapter" data-level="6.5" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#tutorial-steps"><i class="fa fa-check"></i><b>6.5</b> Tutorial steps</a></li>
-<li class="chapter" data-level="6.6" data-path="calculating-relative-abundance-of-metaomic-data.html"><a href="calculating-relative-abundance-of-metaomic-data.html#use-your-groups-reference-package-to-calculate-abundances"><i class="fa fa-check"></i><b>6.6</b> Use your group’s reference package to calculate abundances</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html"><i class="fa fa-check"></i><b>7</b> Analysing the TreeSAPP classifications in R</a><ul>
-<li class="chapter" data-level="7.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#introduction-and-goals-4"><i class="fa fa-check"></i><b>7.1</b> Introduction and goals</a></li>
-<li class="chapter" data-level="7.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#resources-for-analysis-of-treesapp-output-in-r"><i class="fa fa-check"></i><b>7.2</b> Resources for analysis of TreeSAPP output in R</a></li>
-<li class="chapter" data-level="7.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#checklist-to-write-and-run-r-script"><i class="fa fa-check"></i><b>7.3</b> Checklist to write and run R script</a></li>
-<li class="chapter" data-level="7.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script"><i class="fa fa-check"></i><b>7.4</b> Writing the R script</a></li>
-<li class="chapter" data-level="7.5" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-any-required-packages"><i class="fa fa-check"></i><b>7.5</b> Load any required packages</a></li>
-<li class="chapter" data-level="7.6" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fa fa-check"></i><b>7.6</b> Load metagenomic and metatranscriptomic TreeSAPP data</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#classification-table"><i class="fa fa-check"></i><b>7.6.1</b> Classification table</a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fa fa-check"></i><b>7.7</b> Subset your data to the variables and marker genes of interest</a></li>
-<li class="chapter" data-level="7.8" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#reformat-variables"><i class="fa fa-check"></i><b>7.8</b> Reformat variables</a><ul>
-<li class="chapter" data-level="7.8.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-taxonomic-information"><i class="fa fa-check"></i><b>7.8.1</b> Processing taxonomic information</a></li>
-<li class="chapter" data-level="7.8.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#distinguishing-metagenomes-from-metatranscriptomes"><i class="fa fa-check"></i><b>7.8.2</b> Distinguishing metagenomes from metatranscriptomes</a></li>
-<li class="chapter" data-level="7.8.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#processing-depth-data"><i class="fa fa-check"></i><b>7.8.3</b> Processing depth data</a></li>
-</ul></li>
-<li class="chapter" data-level="7.9" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#load-the-geochemical-data"><i class="fa fa-check"></i><b>7.9</b> Load the geochemical data</a></li>
-<li class="chapter" data-level="7.10" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><i class="fa fa-check"></i><b>7.10</b> Visualize the taxonomic, functional and chemical data from Saanich Inlet</a><ul>
-<li class="chapter" data-level="7.10.1" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-treesapps-taxonomic-classifications"><i class="fa fa-check"></i><b>7.10.1</b> Analyze TreeSAPP’s taxonomic classifications</a></li>
-<li class="chapter" data-level="7.10.2" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-functional-data"><i class="fa fa-check"></i><b>7.10.2</b> Analyze the functional data</a></li>
-<li class="chapter" data-level="7.10.3" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyze-the-chemical-measurements"><i class="fa fa-check"></i><b>7.10.3</b> Analyze the chemical measurements</a></li>
-<li class="chapter" data-level="7.10.4" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#bringing-them-all-together"><i class="fa fa-check"></i><b>7.10.4</b> Bringing them all together</a></li>
-</ul></li>
-<li class="chapter" data-level="7.11" data-path="analysing-the-treesapp-classifications-in-r.html"><a href="analysing-the-treesapp-classifications-in-r.html#analyzing-classifications-for-your-groups-reference-package"><i class="fa fa-check"></i><b>7.11</b> Analyzing classifications for your group’s reference package</a></li>
-</ul></li>
-<li class="part"><span><b>III Capstone project</b></span></li>
-<li class="chapter" data-level="8" data-path="project-description.html"><a href="project-description.html"><i class="fa fa-check"></i><b>8</b> Project description</a><ul>
-<li class="chapter" data-level="8.1" data-path="project-description.html"><a href="project-description.html#guiding-research-questions"><i class="fa fa-check"></i><b>8.1</b> Guiding research questions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="project-description.html"><a href="project-description.html#questions-for-project-with-a-focus-on-biogeochemical-cycles-repeated-in-report-structure-below"><i class="fa fa-check"></i><b>8.1.1</b> Questions for project with a focus on biogeochemical cycles (repeated in report structure below)</a></li>
-<li class="chapter" data-level="8.1.2" data-path="project-description.html"><a href="project-description.html#questions-for-project-with-a-focus-on-using-all-reference-packages"><i class="fa fa-check"></i><b>8.1.2</b> Questions for project with a focus on using all reference packages</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="project-description.html"><a href="project-description.html#resources"><i class="fa fa-check"></i><b>8.2</b> Resources</a></li>
-<li class="chapter" data-level="8.3" data-path="project-description.html"><a href="project-description.html#your-submission"><i class="fa fa-check"></i><b>8.3</b> Your submission</a></li>
-<li class="chapter" data-level="8.4" data-path="project-description.html"><a href="project-description.html#timeline"><i class="fa fa-check"></i><b>8.4</b> Timeline</a></li>
-<li class="chapter" data-level="8.5" data-path="project-description.html"><a href="project-description.html#reports"><i class="fa fa-check"></i><b>8.5</b> Reports</a></li>
-<li class="chapter" data-level="8.6" data-path="project-description.html"><a href="project-description.html#addendum"><i class="fa fa-check"></i><b>8.6</b> Addendum</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="project-description.html"><a href="project-description.html#abundance"><i class="fa fa-check"></i><b>8.6.1</b> Abundance</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i><b>9</b> Assessment</a><ul>
-<li class="chapter" data-level="9.1" data-path="assessment.html"><a href="assessment.html#peer-evaluation-10"><i class="fa fa-check"></i><b>9.1</b> Peer evaluation (10%)</a></li>
-<li class="chapter" data-level="9.2" data-path="assessment.html"><a href="assessment.html#report-20"><i class="fa fa-check"></i><b>9.2</b> Report (20%)</a></li>
-<li class="chapter" data-level="9.3" data-path="assessment.html"><a href="assessment.html#ujemi-submission"><i class="fa fa-check"></i><b>9.3</b> UJEMI submission</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html"><i class="fa fa-check"></i><b>10</b> Running TreeSAPP on a server</a><ul>
-<li class="chapter" data-level="10.1" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#resources-for-treesapp-analysis"><i class="fa fa-check"></i><b>10.1</b> Resources for TreeSAPP analysis</a></li>
-<li class="chapter" data-level="10.2" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#checklist-to-write-and-run-shell-script"><i class="fa fa-check"></i><b>10.2</b> Checklist to write and run shell script</a></li>
-<li class="chapter" data-level="10.3" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#shell-writing"><i class="fa fa-check"></i><b>10.3</b> Writing the shell script</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#defining-the-shell"><i class="fa fa-check"></i><b>10.3.1</b> Defining the shell</a></li>
-<li class="chapter" data-level="10.3.2" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#setting-a-variable-for-your-depth"><i class="fa fa-check"></i><b>10.3.2</b> Setting a variable for your depth</a></li>
-<li class="chapter" data-level="10.3.3" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#providing-user-feedback"><i class="fa fa-check"></i><b>10.3.3</b> Providing user feedback</a></li>
-<li class="chapter" data-level="10.3.4" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#defining-variable-for-input-directory"><i class="fa fa-check"></i><b>10.3.4</b> Defining variable for input directory</a></li>
-<li class="chapter" data-level="10.3.5" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#creating-output-directory"><i class="fa fa-check"></i><b>10.3.5</b> Creating output directory</a></li>
-<li class="chapter" data-level="10.3.6" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#reporting-variables-to-user"><i class="fa fa-check"></i><b>10.3.6</b> Reporting variables to user</a></li>
-<li class="chapter" data-level="10.3.7" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#listing-treesapp-version"><i class="fa fa-check"></i><b>10.3.7</b> Listing TreeSAPP version</a></li>
-<li class="chapter" data-level="10.3.8" data-path="running-treesapp-on-a-server.html"><a href="running-treesapp-on-a-server.html#executing-treesapp-analysis"><i class="fa fa-check"></i><b>10.3.8</b> Executing TreeSAPP analysis</a></li>
-</ul></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html"><i class="fa fa-check"></i><b>A</b> The Saanich Inlet data set</a><ul>
-<li class="chapter" data-level="A.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description"><i class="fa fa-check"></i><b>A.1</b> Description</a></li>
-<li class="chapter" data-level="A.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#data-on-the-server"><i class="fa fa-check"></i><b>A.2</b> Data on the server</a></li>
-<li class="chapter" data-level="A.3" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#description-of-input-data"><i class="fa fa-check"></i><b>A.3</b> Description of input data</a></li>
-<li class="chapter" data-level="A.4" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#methods"><i class="fa fa-check"></i><b>A.4</b> Methods</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#metagenomes-and-metatransriptopmes"><i class="fa fa-check"></i><b>A.4.1</b> Metagenomes and metatransriptopmes</a></li>
-<li class="chapter" data-level="A.4.2" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#single-cell-amplified-genomes"><i class="fa fa-check"></i><b>A.4.2</b> Single-Cell Amplified Genomes</a></li>
-</ul></li>
-<li class="chapter" data-level="A.5" data-path="the-saanich-inlet-data-set.html"><a href="the-saanich-inlet-data-set.html#installing-and-running-gtdb-tk"><i class="fa fa-check"></i><b>A.5</b> Installing and running GTDB-Tk</a></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="treesapp-reference-packages.html"><a href="treesapp-reference-packages.html"><i class="fa fa-check"></i><b>B</b> TreeSAPP reference packages</a></li>
-<li class="chapter" data-level="C" data-path="shell-cheat-sheet.html"><a href="shell-cheat-sheet.html"><i class="fa fa-check"></i><b>C</b> Shell cheat sheet</a></li>
-<li class="chapter" data-level="D" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>D</b> References</a></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="2020.21 MICB425 Mirobial Ecological Genomics Capstone project">Gene-centric mapping of microbial community structure and function</a>:
+        <small class="text-muted">2020.21 MICB425 Mirobial Ecological Genomics Capstone project</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Gene-centric mapping of microbial community structure and function</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Introduction</li>
+<li><a class="" href="exploring-the-microcosmos.html"><span class="header-section-number">1</span> Exploring the microcosmos</a></li>
+<li class="book-part">Tutorials</li>
+<li><a class="" href="a-tutorial-for-using-treesapp.html"><span class="header-section-number">2</span> A tutorial for using TreeSAPP</a></li>
+<li><a class="" href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></li>
+<li><a class="" href="treesapp-create.html"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
+<li><a class="" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></li>
+<li><a class="" href="calculating-relative-abundance-of-metaomic-data.html"><span class="header-section-number">6</span> Calculating relative abundance of meta’omic data</a></li>
+<li><a class="" href="analysing-the-treesapp-classifications-in-r.html"><span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R</a></li>
+<li class="book-part">Capstone project</li>
+<li><a class="" href="project-description.html"><span class="header-section-number">8</span> Project description</a></li>
+<li><a class="" href="assessment.html"><span class="header-section-number">9</span> Assessment</a></li>
+<li><a class="" href="running-treesapp-on-a-server.html"><span class="header-section-number">10</span> Running TreeSAPP on a server</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="active" href="the-saanich-inlet-data-set.html"><span class="header-section-number">A</span> The Saanich Inlet data set</a></li>
+<li><a class="" href="treesapp-reference-packages.html"><span class="header-section-number">B</span> TreeSAPP reference packages</a></li>
+<li><a class="" href="shell-cheat-sheet.html"><span class="header-section-number">C</span> Shell cheat sheet</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">D</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="the-saanich-inlet-data-set" class="section level1">
-<h1><span class="header-section-number">A</span> The Saanich Inlet data set</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="the-saanich-inlet-data-set" class="section level1">
+<h1>
+<span class="header-section-number">A</span> The Saanich Inlet data set<a class="anchor" aria-label="anchor" href="#the-saanich-inlet-data-set"><i class="fas fa-link"></i></a>
+</h1>
 <div id="description" class="section level2">
-<h2><span class="header-section-number">A.1</span> Description</h2>
+<h2>
+<span class="header-section-number">A.1</span> Description<a class="anchor" aria-label="anchor" href="#description"><i class="fas fa-link"></i></a>
+</h2>
 <p>We will work with real-world data collected as part of an ongoing oceanographic time series program in Saanich Inlet, a seasonally anoxic fjord on the East coast of Vancouver Island, British Columbia:</p>
-<div class="figure"><span id="fig:saanich-inlet"></span>
-<img src="images/saanich_inlet_map.png" alt="The Saanich Inlet"  />
-<p class="caption">
+<div class="figure">
+<span style="display:block;" id="fig:saanich-inlet"></span>
+<img src="images/saanich_inlet_map.png" alt="The Saanich Inlet"><p class="caption">
 FIGURE A.1: The Saanich Inlet
 </p>
 </div>
 <p>Figure <a href="the-saanich-inlet-data-set.html#fig:saanich-inlet">A.1</a> shows a map of Saanich Inlet indicating conventional sample collection stations (S1-S9). The data used in this tutorial (sourced from S3, Cruise 72) include various geochemical measurements and the genomic and transcriptomic data of microbial samples at depths 10, 100, 120, 135, 150, 165 and 200 m.</p>
-<p>For more details about these data, see <span class="citation">(<a href="references.html#ref-Hallam.2017" role="doc-biblioref">10</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="references.html#ref-Torres-Beltrán.2017" role="doc-biblioref">11</a>)</span>.</p>
+<p>For more details about these data, see <span class="citation">(<a href="references.html#ref-Hallam.2017" role="doc-biblioref">10</a>)</span>, and for more detailed information on the environmental context and time series data, see <span class="citation">(<a href="references.html#ref-Torres-Beltr%C3%A1n.2017" role="doc-biblioref">11</a>)</span>.</p>
 </div>
 <div id="data-on-the-server" class="section level2">
-<h2><span class="header-section-number">A.2</span> Data on the server</h2>
+<h2>
+<span class="header-section-number">A.2</span> Data on the server<a class="anchor" aria-label="anchor" href="#data-on-the-server"><i class="fas fa-link"></i></a>
+</h2>
 <p>The Saanich data is located on the MICB425 server at <code>/mnt/datasets/saanich/</code>.</p>
 <pre><code>/mnt/datasets/saanich/
 ├── [   0]  directory_structure.txt
@@ -356,33 +138,55 @@ FIGURE A.1: The Saanich Inlet
 <p>Additionally, if you would like to run GTDB-TK, the path to the GTDB refrence directory is located at <code>/mnt/datasets/GTDB-Tk/release95/</code></p>
 </div>
 <div id="description-of-input-data" class="section level2">
-<h2><span class="header-section-number">A.3</span> Description of input data</h2>
+<h2>
+<span class="header-section-number">A.3</span> Description of input data<a class="anchor" aria-label="anchor" href="#description-of-input-data"><i class="fas fa-link"></i></a>
+</h2>
 <p>List of directories and their contents</p>
 <ul>
-<li><p><code>MAGs</code></p>
-<p>Within the <code>Concatonated</code> subdirectory, there is a single <code>All_SI072_Metawrap_MAGs.fa</code> fasta file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the MetaWrap pipeline <span class="citation">(<a href="references.html#ref-Uritskiy.2018" role="doc-biblioref">12</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p></li>
-<li><p><code>MetaG_Assemblies</code></p>
-<p>This directory contains seven assembled metagenomic contigs for each SI072 sample depth, and one file where each of these has been concatonated into a single file. These files will be used for the <code>treesapp assign</code> and <code>abundance</code> tutorials. These files were generated by assembling the trimmed and quality controlled reads that were generated by the Illumina HiSeq platform (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>).</p></li>
-<li><p><code>MetaG_Trim_QC_Reads</code></p>
-<p>This directory contains fourteen fastq files which contain the paired-end forward and reverse metagenomic reads for each SI072 sample depth. These trimmed and QC’d fastqs were generated by processing the raw reads through the Megahit workflow described below. You will use these files for treesapp abundance to get the metagenomic abundance of your assigned genes.</p></li>
-<li><p><code>MetaT_Raw_Reads</code></p>
-<p>This directory contains seven filtered and QC’d metatranscriptome fastq files for each SI072 Sample depth. These files are paired end and interleaved. These files we provided by the the JGI and generated based on the methodology below. You will use these files in <code>treesapp abundance</code> to calculate the metatransciptomic abundances of each gene of interest.</p></li>
-<li><p><code>SAGs</code></p>
-<p>Within the <code>Concatenated_Med_Plus</code> subdirectory, there is a single <code>Saanich_Med_Plus_SAGs.fasta</code> file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the SAG Assembly and Decontamination Workflow <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>–<a href="references.html#ref-Tennessen.2016" role="doc-biblioref">16</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p></li>
-<li><p><code>seq2lineage_Tables</code></p>
-<p>This directory contains two files that will be used for treesapp update. One file contains the lineage information from the MAGs, and the other contains information for the SAGs. These tables were generated by taking each separate MAG and SAG respectively and passing them through the Genome Taxonomic Database Toolkit v1.4.0 classify workflow <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>). Then, the first two columns of the archaeal and bacterial summary files were taken and combined into each of these files.</p></li>
+<li>
+<p><code>MAGs</code></p>
+<p>Within the <code>Concatonated</code> subdirectory, there is a single <code>All_SI072_Metawrap_MAGs.fa</code> fasta file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the MetaWrap pipeline <span class="citation">(<a href="references.html#ref-Uritskiy.2018" role="doc-biblioref">12</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p>
+</li>
+<li>
+<p><code>MetaG_Assemblies</code></p>
+<p>This directory contains seven assembled metagenomic contigs for each SI072 sample depth, and one file where each of these has been concatonated into a single file. These files will be used for the <code>treesapp assign</code> and <code>abundance</code> tutorials. These files were generated by assembling the trimmed and quality controlled reads that were generated by the Illumina HiSeq platform (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>).</p>
+</li>
+<li>
+<p><code>MetaG_Trim_QC_Reads</code></p>
+<p>This directory contains fourteen fastq files which contain the paired-end forward and reverse metagenomic reads for each SI072 sample depth. These trimmed and QC’d fastqs were generated by processing the raw reads through the Megahit workflow described below. You will use these files for treesapp abundance to get the metagenomic abundance of your assigned genes.</p>
+</li>
+<li>
+<p><code>MetaT_Raw_Reads</code></p>
+<p>This directory contains seven filtered and QC’d metatranscriptome fastq files for each SI072 Sample depth. These files are paired end and interleaved. These files we provided by the the JGI and generated based on the methodology below. You will use these files in <code>treesapp abundance</code> to calculate the metatransciptomic abundances of each gene of interest.</p>
+</li>
+<li>
+<p><code>SAGs</code></p>
+<p>Within the <code>Concatenated_Med_Plus</code> subdirectory, there is a single <code>Saanich_Med_Plus_SAGs.fasta</code> file which you will use with both <code>treesapp assign</code> and <code>treesapp update</code>. After the MAGs were generated with the SAG Assembly and Decontamination Workflow <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>–<a href="references.html#ref-Tennessen.2016" role="doc-biblioref">16</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>), sample IDs were added to the contig headers of each MAG produced from each SI072 sample depth. The individual MAGs were then concatenated into this file.</p>
+</li>
+<li>
+<p><code>seq2lineage_Tables</code></p>
+<p>This directory contains two files that will be used for treesapp update. One file contains the lineage information from the MAGs, and the other contains information for the SAGs. These tables were generated by taking each separate MAG and SAG respectively and passing them through the Genome Taxonomic Database Toolkit v1.4.0 classify workflow <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span> (see <a href="the-saanich-inlet-data-set.html#methods">Methods</a>). Then, the first two columns of the archaeal and bacterial summary files were taken and combined into each of these files.</p>
+</li>
 </ul>
 </div>
 <div id="methods" class="section level2">
-<h2><span class="header-section-number">A.4</span> Methods</h2>
+<h2>
+<span class="header-section-number">A.4</span> Methods<a class="anchor" aria-label="anchor" href="#methods"><i class="fas fa-link"></i></a>
+</h2>
 <div id="metagenomes-and-metatransriptopmes" class="section level3">
-<h3><span class="header-section-number">A.4.1</span> Metagenomes and metatransriptopmes</h3>
+<h3>
+<span class="header-section-number">A.4.1</span> Metagenomes and metatransriptopmes<a class="anchor" aria-label="anchor" href="#metagenomes-and-metatransriptopmes"><i class="fas fa-link"></i></a>
+</h3>
 <div id="sample-collection" class="section level4">
-<h4><span class="header-section-number">A.4.1.1</span> Sample Collection</h4>
+<h4>
+<span class="header-section-number">A.4.1.1</span> Sample Collection<a class="anchor" aria-label="anchor" href="#sample-collection"><i class="fas fa-link"></i></a>
+</h4>
 <p>Water was collected at 10, 100, 120, 135, 150, 165, and 200m at Saanich Inlet on August 1st, 2012 and filtered through a 0.22 µm Sterivex filter to collect biomass. Total genomic DNA and RNA were extracted from these filters. RNA was reversed transcribed into cDNA and both genomic DNA and cDNA were used in the construction of shotgun Illumina libraries. Sequencing data were generated on the Illumina HiSeq platform with <strong>2x150bp</strong> technology. For more in-depth sampling and sequencing methods, please see <span class="citation">(<a href="references.html#ref-Hawley.2017" role="doc-biblioref">17</a>)</span>.</p>
 </div>
 <div id="quality-filtering-of-reads" class="section level4">
-<h4><span class="header-section-number">A.4.1.2</span> Quality filtering of reads</h4>
+<h4>
+<span class="header-section-number">A.4.1.2</span> Quality filtering of reads<a class="anchor" aria-label="anchor" href="#quality-filtering-of-reads"><i class="fas fa-link"></i></a>
+</h4>
 <p>The resulting reads were processed, quality controlled and filtered with Trimmomatic (v.0.35, <a href="http://www.usadellab.org/cms/?page=trimmomatic">documentation</a>) <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>)</span>. Trimmomatic command is as follows, where SI072_XXX represents the same command being applied to each of the seven depths.</p>
 <pre><code>trimmomatic -threads 8 -phred33 \
 Path_to/SI072_XXXm/Raw/forward_dir/SI072_XXXm_R1.fastq \
@@ -396,18 +200,24 @@ ILLUMINACLIP:/usr/local/share/Trimmomatic-0.35/adapters/TruSeq3-PE.fa:2:3:10 LEA
 <p>The resulting trimmed fastq files were also deposited into the MICB425 server in <code>/mnt/datasets/saanich/MetaG_Trim_QC_Reads</code></p>
 </div>
 <div id="contig-assembly" class="section level4">
-<h4><span class="header-section-number">A.4.1.3</span> Contig Assembly</h4>
+<h4>
+<span class="header-section-number">A.4.1.3</span> Contig Assembly<a class="anchor" aria-label="anchor" href="#contig-assembly"><i class="fas fa-link"></i></a>
+</h4>
 <p>MEGAHIT (v.1.1.3, <a href="https://github.com/voutcn/megahit/wiki/Assembly-Tips">documentation</a>) <span class="citation">(<a href="references.html#ref-Li.2015" role="doc-biblioref">18</a>)</span> was used to assemble the filtered metagenomic reads into contigs.</p>
 <pre><code>megahit -1 Path_To/SI072_200m//trim/SI072_XXXm_pe.1.fq  -2 Path_To/SI072_200m//trim/SI072_XXXm_pe.2.fq  -m 0.5  -t 12  -o megahit_result --k-min 27 --k-step 10 --min-contig-len 500</code></pre>
 <p>The resulting assemblies can be found in <code>/mnt/datasets/saanich/MetaG_Assemblies</code>.</p>
 </div>
 <div id="binning-and-mag-generation" class="section level4">
-<h4><span class="header-section-number">A.4.1.4</span> Binning and MAG Generation</h4>
+<h4>
+<span class="header-section-number">A.4.1.4</span> Binning and MAG Generation<a class="anchor" aria-label="anchor" href="#binning-and-mag-generation"><i class="fas fa-link"></i></a>
+</h4>
 <p>MetaWRAP (v1.2.4, <a href="https://github.com/bxlab/metaWRAP">documentation</a>) <span class="citation">(<a href="references.html#ref-Uritskiy.2018" role="doc-biblioref">12</a>)</span> was used to generate the MAGs from the metagenome assemblies and filtered reads for this project. MetaWRAP leverages multiple binning software (we chose to use MetaBAT2 v2.12.1 <span class="citation">(<a href="references.html#ref-kang.2019" role="doc-biblioref">19</a>)</span> and MaxBin v2.2.7 <span class="citation">(<a href="references.html#ref-Wu.2014" role="doc-biblioref">20</a>)</span>, <span class="citation">(<a href="references.html#ref-Wu.2016" role="doc-biblioref">21</a>)</span>) to create a non-redundant set of MAGs that are better quality than those from any single software. The quality of the resulting bins – assessed by their completeness, contamination, and strain-heterogeneity – was calculated with MetaWRAP’s implementation of CheckM (v1.0.12) <span class="citation">(<a href="references.html#ref-Parks.2015" role="doc-biblioref">15</a>)</span>. The command used to invoke MetaWRAP is as follows:</p>
 <pre><code>metawrap binning -a SI072_Assembly.fa -o output_directory -t 16 -m 64 -l 1500 --metabat2 --maxbin2 --universal Path_To/SI072_200m//trimSI072_XXXm_pe.1.fastq Path_To/SI072_200m//trimSI072_XXXm_pe.2.fastq</code></pre>
 </div>
 <div id="taxonomic-assignment-of-mags" class="section level4">
-<h4><span class="header-section-number">A.4.1.5</span> Taxonomic Assignment of MAGs</h4>
+<h4>
+<span class="header-section-number">A.4.1.5</span> Taxonomic Assignment of MAGs<a class="anchor" aria-label="anchor" href="#taxonomic-assignment-of-mags"><i class="fas fa-link"></i></a>
+</h4>
 <p>The resulting MAGs were then passed through GTDB-TK v1.4.0 classify workflow with the reference data version r95 <a href="https://ecogenomics.github.io/GTDBTk/commands/classify_wf.html">documentation</a> <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span>.</p>
 <pre><code>gtdbtk classify_wf --genome_dir Path_To_SI072/MAGs/ -x .fa --out_dir Path_To_SI072/MAG_GTDB_Outputs/ --cpus 8 --pplacer_cpus 8
 </code></pre>
@@ -415,22 +225,32 @@ ILLUMINACLIP:/usr/local/share/Trimmomatic-0.35/adapters/TruSeq3-PE.fa:2:3:10 LEA
 </div>
 </div>
 <div id="single-cell-amplified-genomes" class="section level3">
-<h3><span class="header-section-number">A.4.2</span> Single-Cell Amplified Genomes</h3>
+<h3>
+<span class="header-section-number">A.4.2</span> Single-Cell Amplified Genomes<a class="anchor" aria-label="anchor" href="#single-cell-amplified-genomes"><i class="fas fa-link"></i></a>
+</h3>
 <div id="sample-collection-1" class="section level4">
-<h4><span class="header-section-number">A.4.2.1</span> Sample Collection</h4>
+<h4>
+<span class="header-section-number">A.4.2.1</span> Sample Collection<a class="anchor" aria-label="anchor" href="#sample-collection-1"><i class="fas fa-link"></i></a>
+</h4>
 <p>Water was collected at across the water column at Saanich Inlet on August 9th, 2011. 900 µL of seawater was aliquoted into 100 µL of glycerol-TE buffer, then stored at -80 degrees Celsius. Samples from 100m, 150m, and 185m were selected for sorting and sequencing. The selected samples were thawed and had their microbial cells sorted at the Bigelow Laboratory for Ocean Sciences’ Single Cell Genomics Center (scgc.bigelow.org).</p>
 </div>
 <div id="florescence-activated-cell-sorting" class="section level4">
-<h4><span class="header-section-number">A.4.2.2</span> Florescence Activated Cell Sorting</h4>
+<h4>
+<span class="header-section-number">A.4.2.2</span> Florescence Activated Cell Sorting<a class="anchor" aria-label="anchor" href="#florescence-activated-cell-sorting"><i class="fas fa-link"></i></a>
+</h4>
 <p>Samples were passed through a sterile 40 𝜇m size mesh before microorganisms were sorted by a non-targeted isolation procedure. For non-target isolation, the microbial particles were labeled with a 5 𝜇M final concentration of the DNA stain SYTO-9 (Thermo Fisher Scientific). Microbial cells were individually sorted using a MoFloTM (Beckman Coulter) or an InFluxTM (BD Biosciences) flow cytometer system equipped with a 488 nm laser for excitation and a 70 μm nozzle orifice30. The gates for the untargeted isolation of microbial cells stained with SYTO-9 were defined based on the green fluorescence of particles as a proxy for nucleic acid content, and side scattered light as a proxy for particle size. All microbial single cells were sorted into 384-well plates containing 600 nL of 1X TE buffer per well and then stored at -80 degrees Celsius. The microbial single-cells sorted into TE buffer were lysed as described previously by adding cold KOH.The microbial nucleic acids were then amplified in each individual wells through Multiple Displacement Amplification (MDA) <span class="citation">(<a href="references.html#ref-Raghunathan.2005" role="doc-biblioref">22</a>)</span>, <span class="citation">(<a href="references.html#ref-Rinke.2014" role="doc-biblioref">23</a>)</span>.</p>
 </div>
 <div id="amplicon-taxonomic-screening" class="section level4">
-<h4><span class="header-section-number">A.4.2.3</span> Amplicon Taxonomic Screening</h4>
+<h4>
+<span class="header-section-number">A.4.2.3</span> Amplicon Taxonomic Screening<a class="anchor" aria-label="anchor" href="#amplicon-taxonomic-screening"><i class="fas fa-link"></i></a>
+</h4>
 <p>SAGs generated through the MDA methodology were taxonomically characterized by sequencing a determined phylogenetic marker using an amplification based approach. SAGs were screened for their small subunit ribosomal rRNA gene (SSU rRNA) using primers for bacterial (27-F: 5’- AGAGTTTGATCMTGGCTCAG -3’37, 907-R: 5’- CCGTCAATTCMTTTRAGTTT -3’38 and archaeal sequences (Arc_344F: 5’- ACGGGGYGCAGCAGGCGCGA -3’39, Arch_915R: 5’- GTGCTCCCCCGCCAATTCCT -3’40). The real-time PCR and sequencing procedure of the resulting amplicons was performed as previously described <span class="citation">(<a href="references.html#ref-Tyson.2004" role="doc-biblioref">24</a>)</span>, <span class="citation">(<a href="references.html#ref-Swan.2011" role="doc-biblioref">25</a>)</span>. The partial SSU rRNA gene sequences were then queried against the SILVA database v138.1 <span class="citation">(<a href="references.html#ref-Quast.2013" role="doc-biblioref">26</a>)</span> with blastn, from BLAST+ v2.9.0 <span class="citation">(<a href="references.html#ref-Camacho.2009" role="doc-biblioref">27</a>)</span>.</p>
-<pre><code> blastn -query -db -outfmt &quot;6 qacc sacc stitle staxid pident bitscore&quot; -max_target_seqs 1 -num_threads 4 -out </code></pre>
+<pre><code> blastn -query -db -outfmt "6 qacc sacc stitle staxid pident bitscore" -max_target_seqs 1 -num_threads 4 -out </code></pre>
 </div>
 <div id="sag-sequencing-and-assembly" class="section level4">
-<h4><span class="header-section-number">A.4.2.4</span> SAG Sequencing and Assembly</h4>
+<h4>
+<span class="header-section-number">A.4.2.4</span> SAG Sequencing and Assembly<a class="anchor" aria-label="anchor" href="#sag-sequencing-and-assembly"><i class="fas fa-link"></i></a>
+</h4>
 <p>MDA products for the SAGs were sequenced as described previously <span class="citation">(<a href="references.html#ref-Tyson.2004" role="doc-biblioref">24</a>)</span>, <span class="citation">(<a href="references.html#ref-Swan.2011" role="doc-biblioref">25</a>)</span> on an Illumina HiSeq 2000. The resulting raw reads were then filtered and trimmed to remove adaptors with Trimmomatic v0.35 <span class="citation">(<a href="references.html#ref-Bolger.2014" role="doc-biblioref">13</a>)</span>.</p>
 <pre><code>trimmomatic -threads 8 -phred33 \
 Path_to/SI072_XXXm/Raw/forward_dir/SI072_XXXm_R1.fastq \
@@ -457,26 +277,28 @@ ILLUMINACLIP:/usr/local/share/Trimmomatic-0.35/adapters/TruSeq3-PE.fa:2:3:10 LEA
 </code></pre>
 </div>
 <div id="sag-assembly-quality-control-and-decontamination" class="section level4">
-<h4><span class="header-section-number">A.4.2.5</span> SAG Assembly Quality Control and Decontamination</h4>
+<h4>
+<span class="header-section-number">A.4.2.5</span> SAG Assembly Quality Control and Decontamination<a class="anchor" aria-label="anchor" href="#sag-assembly-quality-control-and-decontamination"><i class="fas fa-link"></i></a>
+</h4>
 <p>Quality of the SAGs was assessed using CheckM (v1.0.5) <span class="citation">(<a href="references.html#ref-Parks.2015" role="doc-biblioref">15</a>)</span> with the following command:</p>
 <pre><code>checkm lineage_wf --tab_table -x .fna --threads 8 --pplacer_threads 8</code></pre>
 <p>SAGs found to have &gt;5% contamination were passed through ProDeGe v2.3.0 <span class="citation">(<a href="references.html#ref-Tennessen.2016" role="doc-biblioref">16</a>)</span>. The resulting decontaminated SAGs were re-assesed with CheckM and those that still exceeded 5% contamination had all of their short contigs (i.e. &lt;2000 bp) removed from the assembly. These were again re-assessed with CheckM to ensure they met our standards.</p>
 <p>For this project, of the 376 SAGs recovered, 154 SAGs that were estimated to have &gt;50% completeness and &lt;10% contamination were selected for the remainder of the analysis.</p>
 </div>
 <div id="final-taxonomic-assignment-of-sags" class="section level4">
-<h4><span class="header-section-number">A.4.2.6</span> Final Taxonomic Assignment of SAGs</h4>
+<h4>
+<span class="header-section-number">A.4.2.6</span> Final Taxonomic Assignment of SAGs<a class="anchor" aria-label="anchor" href="#final-taxonomic-assignment-of-sags"><i class="fas fa-link"></i></a>
+</h4>
 <p>The resulting SAGs were then passed through GTDB-TK v1.4.0 classify workflow <a href="https://ecogenomics.github.io/GTDBTk/commands/classify_wf.html">documentation</a> <span class="citation">(<a href="references.html#ref-Chaumeil.2019" role="doc-biblioref">7</a>)</span>.</p>
 <pre><code>gtdbtk classify_wf --genome_dir Path_To_SI_SAGs/ -x .fna --out_dir Path_To_SI_SAGs/GTDB_1.4.0/ --cpus 8 --pplacer_cpus 8
 </code></pre>
 <p>After updating the headers for resulting SAGs with the sample IDs, the SAGs were concatenated and deposited into: <code>/mnt/datasets/saanich/SAGs/Concatenated_Med_Plus/</code></p>
 <p><strong>Note:</strong> The identifier for each SAG consists of a combination of the plate ID and the well location it was sorted into. The identifiers take the form (AB-7XX_YYY). These identifiers were incorporated into the headers of the final SAG assemblies. Each plate corresponds to a specific depth as shown below:</p>
-<table>
-<thead>
-<tr class="header">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
 <th align="center">Plate ID</th>
 <th align="center">Sample Depth (m)</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td align="center">AB-746</td>
@@ -503,12 +325,14 @@ ILLUMINACLIP:/usr/local/share/Trimmomatic-0.35/adapters/TruSeq3-PE.fa:2:3:10 LEA
 <td align="center">185</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 </div>
 </div>
 </div>
 <div id="installing-and-running-gtdb-tk" class="section level2">
-<h2><span class="header-section-number">A.5</span> Installing and running GTDB-Tk</h2>
+<h2>
+<span class="header-section-number">A.5</span> Installing and running GTDB-Tk<a class="anchor" aria-label="anchor" href="#installing-and-running-gtdb-tk"><i class="fas fa-link"></i></a>
+</h2>
 <p>If you would like to use additional genomes or MAGs for you capstone project, you can also classify them with GTDB-Tk.</p>
 <p>If you would like to install GTDB-TK with conda, you will first need to create a new conda environment. First, deactivate the treesapp environment:</p>
 <pre><code>conda deactivate treesapp_cenv</code></pre>
@@ -524,7 +348,7 @@ conda create -n gtdbtk-1.4.1 -c conda-forge -c bioconda gtdbtk=1.4.1
 </code></pre>
 <p>It should be <code>root/miniconda3/envs/gtdbtk-1.4.1/bin/gtdbtk</code></p>
 <p>Next, edit the activate file</p>
-<pre><code>echo &quot;export GTDBTK_DATA_PATH=/mnt/datasets/GTDB-Tk/release95/&quot; &gt; /root/miniconda3/envs/gtdbtk-1.4.1/etc/conda/activate.d/gtdbtk.sh</code></pre>
+<pre><code>echo "export GTDBTK_DATA_PATH=/mnt/datasets/GTDB-Tk/release95/" &gt; /root/miniconda3/envs/gtdbtk-1.4.1/etc/conda/activate.d/gtdbtk.sh</code></pre>
 <p>You are now ready to use the classify workflow command listed above. You will need to substitute the directory name that you would like to write out to, as well as the extension of the fasta files for your genomes.</p>
 <p><strong>It is very important you set the cpus and pplacer_cpus flags to 4 threads to make sure you do not tie up all of the server’s resources!</strong></p>
 <pre><code>gtdbtk classify_wf --genome_dir Path_To_Genomes/ \
@@ -542,64 +366,47 @@ conda create -n gtdbtk-1.4.1 -c conda-forge -c bioconda gtdbtk=1.4.1
 
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="running-treesapp-on-a-server.html"><span class="header-section-number">10</span> Running TreeSAPP on a server</a></div>
+<div class="next"><a href="treesapp-reference-packages.html"><span class="header-section-number">B</span> TreeSAPP reference packages</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-saanich-inlet-data-set"><span class="header-section-number">A</span> The Saanich Inlet data set</a></li>
+<li><a class="nav-link" href="#description"><span class="header-section-number">A.1</span> Description</a></li>
+<li><a class="nav-link" href="#data-on-the-server"><span class="header-section-number">A.2</span> Data on the server</a></li>
+<li><a class="nav-link" href="#description-of-input-data"><span class="header-section-number">A.3</span> Description of input data</a></li>
+<li>
+<a class="nav-link" href="#methods"><span class="header-section-number">A.4</span> Methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#metagenomes-and-metatransriptopmes"><span class="header-section-number">A.4.1</span> Metagenomes and metatransriptopmes</a></li>
+<li><a class="nav-link" href="#single-cell-amplified-genomes"><span class="header-section-number">A.4.2</span> Single-Cell Amplified Genomes</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#installing-and-running-gtdb-tk"><span class="header-section-number">A.5</span> Installing and running GTDB-Tk</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="running-treesapp-on-a-server.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="treesapp-reference-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on August 18, 2021.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>
