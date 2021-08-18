@@ -1,4 +1,4 @@
-bookdown::gitbook:
+bookdown::bs4_book:
   split_bib: no
   config:
     toc:

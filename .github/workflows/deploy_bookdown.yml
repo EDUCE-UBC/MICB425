@@ -16,9 +16,10 @@ jobs:
       - name: Install R packages
         run: >-
           Rscript -e 'install.packages(c("rmarkdown","bookdown", "readr",
-                                         "dplyr", "kableExtra"))'
+                                         "dplyr", "kableExtra",
+                                         "bslib", "downlit"))'
       - name: Render Book
-        run: Rscript -e 'bookdown::render_book("index.Rmd")'
+        run: Rscript -e 'bookdown::render_book()'
       - uses: actions/upload-artifact@v1
         with:
           name: _book

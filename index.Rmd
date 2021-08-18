@@ -1,18 +1,20 @@
 ---
 title: "Gene-centric mapping of microbial community structure and function"
 subtitle: "2020.21 MICB425 Mirobial Ecological Genomics Capstone project"
-author: "Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam"
-date: "version `r format(Sys.time(), '%B %d, %Y')`"
+author: >-
+  Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia
+  Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
-# See `_output.yml` for output configuration
 bibliography: book.bib
 csl: american-society-for-microbiology.csl
 documentclass: book
 link-citations: true
-description: | 
-  | A collection of tutorials and the capstone project information for MICB425
-    Module 04.
-# For further configuration, see `_bookdown.yml`
+description: >- 
+  A collection of tutorials and the capstone project information for MICB425
+  Module 04.
+# See `_output.yml` for output configuration
+# See `_bookdown.yml` for other configurations
 ---
 
 ```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
