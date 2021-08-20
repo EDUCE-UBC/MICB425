@@ -147,7 +147,7 @@ The `treesapp assign` output directory (defined by the flag `--output`, i.e. in 
 
 -   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen) and the figure should look identical to this figure below Figure \@ref(fig:xmoa).
 
-    ![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes. ](images/XmoA_seed_iTOLtree.svg)
+    ![(\#fig:xmoa) Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes. ](images/XmoA_seed_iTOLtree.svg){width=100%}
 
 ## Building your group's reference package
 

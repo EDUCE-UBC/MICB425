@@ -16,7 +16,7 @@ Specifically, we will study the effects of changing oxygen levels on communities
 
 By combining multi-omics and geochemical parameter information from OMZs, it becomes possible to evaluate microbial communities' regulatory and response dynamics to changing DO levels. For example, because OMZs are hotspots for nitrogen loss processes reconstructing the nitrogen cycle as a distributed metabolic process can shed new insight into microbial controls on matter and energy transformations integral to ocean health and climate balance. Genes encoding key steps in the nitrogen cycle are well defined (Figure \@ref(fig:N-cycle-genes)), providing a basis for functional anchor screening to determine their distribution across the Tree of Life.
 
-```{r N-cycle-genes, echo = FALSE, fig.cap = "Nitrogen cycle"}
+```{r N-cycle-genes, echo = FALSE, fig.cap = "Nitrogen cycle", out.width = "100%"}
 knitr::include_graphics("images/N_cycle_genes.png")
 ```
 

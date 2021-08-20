@@ -24,15 +24,15 @@ To show you how to access these data, we will download the alpha subunit sequenc
 
 First, navigate to <http://fungene.cme.msu.edu/>. This front page organizes the genes into their respective functional groups. The sequences we're interested in are involved in biogeochemical cycling, so look under that panel for "AmoA" and "PmoA".
 
-![](images/fungene_landing.png)
+![](images/fungene_landing.png){width=50%}
 
 As you can see, AmoA are broken up into four different entries: "amoA_AOA", "amoA_AOB", "amoA_AOB_like", and "amoA_comammox". We will download the sequences from only "amoA_AOA" and "amoA_AOB", so let's begin alphabetically with "amoA_AOA".
 
-![](images/amoA_AOA_landing.png)
+![](images/amoA_AOA_landing.png){width=50%}
 
 For these sequences, we will limit them to just sequences derived from isolate genomes of which the functional and taxonomic annotations are more reliable. To do this, go to "Display Options" in the top right. Click the "Isolate" option then "Update". We also want the sequences that are more-or-less full-length. Click on "Show/Hide filter options", fill the "Minimum HMM Coverage" parameter with "80" (or some other number between 60 and 90), then "Filter". That's all the filtering we're going to do here. To add the sequences to your cart, click "Select All Sequences" then "Begin Analysis".
 
-![](images/amoA_AOA_download.png)
+![](images/amoA_AOA_download.png){width=100%}
 
 Deselect "Aligned" then click the "Download" button.
 
@@ -42,7 +42,7 @@ Repeat with the above steps with the other genes "amoA_AOB" and "PmoA".
 
 Go to the EggNOG website at http://eggnog5.embl.de/#/app/home and search for either "ENOG5028JPK" or "arCOG08676" in the search bar at the top of the page. These EggNOG ortholog identifiers correspond to PmoA/AmoA from Bacteria and AmoA from Archaea, respectively. In the image below, we've searched for "ENOG5028JPK".
 
-![](images/EggNOG_xmoa_1.png)
+![](images/EggNOG_xmoa_1.png){width=100%}
 
 Click "Download" at the bottom-left of the panel and select "All _XX_ sequences (FASTA)", where _XX_ is the number of sequences belonging to the orthologous group (OG). This will open a new window with all sequences from that OG in FASTA format. Download this file to a file on your computer following the format &lt;OG name&gt;_EggNOGv5.faa where &lt;OG name&gt; is the EggNOG ortholog identifier.
 

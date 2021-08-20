@@ -249,7 +249,7 @@ scp -r root@<server address>:/data/ts_tutorial/p_amoA_FunGene9.5_isolates_update
 
 -   The two files `XmoA_Function_colours_style.txt` and `XmoA_Function_colour_strip.txt`  can be dragged into the iTOL browser window to bring colour to the XmoA tree. The figure should look identical to Figure \@ref(fig:XmoA-Classified)
 
-![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](images/XmoA_update_coloured.png )
+![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation](images/XmoA_update_coloured.png){width=100%}
 
 -   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen).
  
