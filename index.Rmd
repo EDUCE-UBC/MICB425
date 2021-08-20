@@ -6,13 +6,14 @@ author: >-
   Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
-bibliography: book.bib
-csl: american-society-for-microbiology.csl
 documentclass: book
-link-citations: true
+bibliography: book.bib
 description: >- 
   A collection of tutorials and the capstone project information for MICB425
   Module 04.
+biblio-style: apalike
+csl: american-society-for-microbiology.csl
+link-citations: true
 # See `_output.yml` for output configuration
 # See `_bookdown.yml` for other configurations
 ---
