@@ -8,6 +8,14 @@ A warning though, if using `dplyr` is driving a car, then this tutorial is teach
 
 ## Prerequisites
 
+Please download the following:
+
+-   [numbers.csv](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/numbers.csv)
+-   [brokenNumbers.csv](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/brokenNumbers.csv)
+-   [dummyData.zip](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/dummyData.zip)
+
+R libraries
+
 ```{r}
 library(tidyverse)
 ```
@@ -198,8 +206,10 @@ isOdd <- read.csv(file="data/brokenNumbers.csv", header=TRUE)
 isOdd %>% slice(50:60)
 ```
 
-...it's format is obviously broken. Investigate the file and see if you can fix it.
-[strsplit](https://stringr.tidyverse.org/reference/str_split.html)
+## Practice 1
+
+...it's format is obviously broken. Investigate the file and see if you can fix it.\
+[Documentation for strsplit()](https://stringr.tidyverse.org/reference/str_split.html)
 
 ```{r}
 con=file("data/brokenNumbers.csv", "r")
@@ -218,13 +228,27 @@ while (TRUE) {
   cells <- str_split(row, ", ")[[1]] # see str_split above
   
   # look at cells by index like so
+  n = cells[1]
   twoN = cells[length(cells)]
+  # ...
   
-  # fixedRow = ...
+  # join strings using paste()
+  fixedRow <- paste(n, ", ", twoN) # ...
 
   write(fixedRow, outCon)
 }
 
 close(con)
 close(outCon)
+```
+
+## Practice 2
+
+TreeSAPP's `assign` function wants a single `fasta` file, but all your data is separated by bins from a previous taxonomic classifier! See if you can append all of them together into one file.
+
+```{r}
+for (f in list.files('data/dummyData')) {
+  print(f)
+  # append files
+}
 ```
