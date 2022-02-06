@@ -14,3 +14,11 @@ libs/
 
 # macOS specific files
 .DS_Store
+
+# scratch
+scratch/
+
+# generated outputs
+data/fixedNumbers.csv
+data/myNumbers.csv
+data/dummyData/
