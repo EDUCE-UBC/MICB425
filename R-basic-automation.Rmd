@@ -1,0 +1,8 @@
+---
+title: "Basic Automation with R"
+output: html_document
+---
+# Basic Automation with R
+
+## Introduction and goals
+

@@ -1,0 +1,277 @@
+---
+title: "Gene-centric mapping of microbial community structure and function"
+subtitle: "2020.21 MICB425 Mirobial Ecological Genomics Capstone project"
+author: >-
+  Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia
+  Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: book.bib
+description: >- 
+  A collection of tutorials and the capstone project information for MICB425
+  Module 04.
+biblio-style: apalike
+csl: american-society-for-microbiology.csl
+link-citations: true
+# See `_output.yml` for output configuration
+# See `_bookdown.yml` for other configurations
+---
+
+# See `_output.yml` for output configuration
+
+Placeholder
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# (PART) Introduction {-}
+
+<!--chapter:end:part_introduction.Rmd-->
+
+
+# Exploring the microcosmos
+
+Placeholder
+
+
+## Background
+## Using multi-omic data to reconstruct distributed networks of metabolite exchange
+## TreeSAPP
+
+<!--chapter:end:introduction.Rmd-->
+
+# (PART) Tutorials {-}
+
+<!--chapter:end:part_tutorials.Rmd-->
+
+
+# A tutorial for using TreeSAPP
+
+Placeholder
+
+
+## Introduction and goals
+## A typical TreeSAPP workflow
+## Genes for creating reference packages
+### XmoA
+### Group-assigned genes
+## Tools
+### Shell
+### TreeSAPP
+### iTOL
+## Data
+
+<!--chapter:end:tutorials_intro.Rmd-->
+
+
+# Acquiring golden data
+
+Placeholder
+
+
+## The golden standard
+## What databases can I retrieve sequences from?
+## XmoA example
+### FunGene
+### EggNOG
+### Copying data onto the server
+## Alternative sources
+## Data access hazards
+## Validation
+### Basic
+### Advanced
+
+<!--chapter:end:golden_data.Rmd-->
+
+
+# Creating a reference package for TreeSAPP {#treesapp-create}
+
+Placeholder
+
+
+## Introduction and goals
+## Making the reference package
+## Testing the purity of the reference package
+## Viewing the reference package tree with iTOL
+## Building your group's reference package
+### Booster shot
+
+<!--chapter:end:treesapp_create.Rmd-->
+
+
+# Classifying unknown sequences with TreeSAPP and updating a reference package
+
+Placeholder
+
+
+## Introduction and goals
+## Change notes
+## Classify new sequences
+### Classifying amino acid sequences
+### Classifying ORFs predicted from genomes
+## Update the reference package with new sequences
+### Updating with publicly available sequences
+### Updating with MAG sequences
+## Annotate clades
+## Reclassify and layer annotations onto classification table
+## Use your group's reference package to classify unkown sequences then update your package
+
+<!--chapter:end:treesapp_assign_and_update.Rmd-->
+
+
+# Calculating relative abundance of meta'omic data
+
+Placeholder
+
+
+## Introduction and goals
+## Workflow description
+## Usage
+## Outputs
+## Tutorial steps
+## Use your group's reference package to calculate abundances
+
+<!--chapter:end:treesapp_abundance.Rmd-->
+
+
+# Analysing the TreeSAPP classifications in R
+
+Placeholder
+
+
+## Introduction and goals
+## Resources for analysis of TreeSAPP output in R
+## Checklist to write and run R script
+## Writing the R script
+## Load any required packages
+## Load metagenomic and metatranscriptomic TreeSAPP data
+### Classification table
+## Subset your data to the variables and marker genes of interest
+## Reformat variables
+### Processing taxonomic information
+### Distinguishing metagenomes from metatranscriptomes
+### Processing depth data
+## Load the geochemical data
+## Visualize the taxonomic, functional and chemical data from Saanich Inlet
+### Analyze TreeSAPP's taxonomic classifications
+### Analyze the functional data
+### Analyze the chemical measurements 
+### Bringing them all together
+## Analyzing classifications for your group's reference package
+
+<!--chapter:end:R.Rmd-->
+
+# (PART) Capstone project {-}
+
+<!--chapter:end:part_capstone.Rmd-->
+
+
+# Project description
+
+Placeholder
+
+
+## Guiding research questions
+### Questions for project with a focus on biogeochemical cycles (repeated in report structure below)
+### Questions for project with a focus on using all reference packages
+## Resources
+## Your submission
+## Timeline
+## Reports
+## Addendum
+### Abundance
+#### Generate the JPlace with all classifications
+#### Generate TPM values for metagenomes
+#### Generate TPM values for metatranscriptomes
+#### Generate the file with all classifications and TPM values
+#### Viewing the placements and TPM bars in iTOL
+
+<!--chapter:end:instructions.Rmd-->
+
+
+# Assessment
+
+Placeholder
+
+
+## Peer evaluation (10%)
+## Report (20%)
+## UJEMI submission
+
+<!--chapter:end:assessment.Rmd-->
+
+
+# Running TreeSAPP on a server
+
+Placeholder
+
+
+## Resources for TreeSAPP analysis
+## Checklist to write and run shell script
+## Writing the shell script {#shell-writing}
+### Defining the shell
+### Setting a variable for your depth
+### Providing user feedback
+### Defining variable for input directory
+### Creating output directory
+### Reporting variables to user
+### Listing TreeSAPP version
+### Executing TreeSAPP analysis
+
+<!--chapter:end:shell.Rmd-->
+
+# (APPENDIX) Appendix {-}
+
+<!--chapter:end:appendix.Rmd-->
+
+
+# The Saanich Inlet data set
+
+Placeholder
+
+
+## Description 
+## Data on the server
+## Description of input data
+## Methods
+### Metagenomes and metatransriptopmes
+#### Sample Collection
+#### Quality filtering of reads
+#### Contig Assembly
+#### Binning and MAG Generation
+#### Taxonomic Assignment of MAGs
+### Single-Cell Amplified Genomes
+#### Sample Collection
+#### Florescence Activated Cell Sorting
+#### Amplicon Taxonomic Screening
+#### SAG Sequencing and Assembly
+#### SAG Assembly Quality Control and Decontamination
+#### Final Taxonomic Assignment of SAGs
+## Installing and running GTDB-Tk
+
+<!--chapter:end:data.Rmd-->
+
+
+# TreeSAPP reference packages
+
+Placeholder
+
+
+
+<!--chapter:end:refpkgs.Rmd-->
+
+
+# Shell cheat sheet
+
+Placeholder
+
+
+
+<!--chapter:end:cheat_sheet.Rmd-->
+
+# References
+
+<!--chapter:end:references.Rmd-->
+
