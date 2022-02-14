@@ -1,0 +1,11 @@
+Imports:
+  bslib,
+  downlit
+Suggests:
+  devtools,
+  miniUI,
+  reprex,
+  styler,
+  testthis,
+  thematic,
+  usethis
