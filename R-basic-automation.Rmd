@@ -43,7 +43,7 @@ f(2)
 ```{r}
 doubleIfLessThan <- function(x, threshold) {
   if (x < threshold) {
-    return(2*x)
+    return(2 * x)
   } else {
     return(x) # if no condition satisfied
   }
@@ -58,9 +58,9 @@ More than one condition can be used...
 ```{r}
 doubleOutsideRange <- function(x, lower, upper) {
   if (x < lower) {
-    return(2*x)
+    return( 2 *x)
   } else if (x > upper) {
-    return(2*x)
+    return( 2 *x)
   } else {
     return(x)
   }
@@ -133,7 +133,7 @@ If the number of repeats is unknown, we can use a `while` loop. A condition is u
 ```{r}
 n <- 1
 while (n < 1000) {
-  n = n * 2
+  n <-  n * 2
 }
 
 n
@@ -141,7 +141,7 @@ n
 
 Loops can repeat forever. Click the red octagon (🛑) at the top right of your RStudio console to force the script to stop.
 
-```{r}
+```{r eval = FALSE}
 while (TRUE) {
   # loop forever
 }
@@ -152,10 +152,10 @@ while (TRUE) {
 Files can be opened and read one line at a time like so.
 
 ```{r}
-numbersFileConnection=file("data/numbers.csv", "r") # r is for read
+numbersFileConnection <- file("data/numbers.csv", "r") # r is for read
 
 while (TRUE) {
-  line = readLines(numbersFileConnection, n = 1) # read 1 line
+  line <-  readLines(numbersFileConnection, n = 1) # read 1 line
   if (length(line) == 0) { # if no more lines ...
     break # ... exit loop
   }
@@ -167,15 +167,15 @@ close(numbersFileConnection)
 
 The last parameter specifies the read/write permissions of the opened file.
 
-```{r, error=TRUE}
-con=file("data/numbers.csv", "r")
-write("some new text", file=con)
+```{r error = TRUE}
+con <- file("data/numbers.csv", "r")
+write("some new text", file = con)
 ```
 
 Files can also be written to one line at a time like so.
 
 ```{r}
-con=file("data/myNumbers.csv", "w")
+con <- file("data/myNumbers.csv", "w")
 
 write("n", con) # header
 for (i in 1:10) {
@@ -191,8 +191,8 @@ Check your `data` folder for the new file.
 Reading and writing `csvs` are done *much better* by `read.csv()` and `write.csv()`, but suppose you come across this file...
 
 ```{r}
-con=file("data/brokenNumbers.csv","r")
-line=readLines(con) 
+con <- file("data/brokenNumbers.csv","r")
+line <- readLines(con) 
 for (i in 1:10) {
   print(line[i])
 }
@@ -202,7 +202,7 @@ close(con)
 ...seems innocent enough, but when trying to load it as a csv...
 
 ```{r}
-isOdd <- read.csv(file="data/brokenNumbers.csv", header=TRUE)
+isOdd <- read.csv(file = "data/brokenNumbers.csv", header = TRUE)
 isOdd %>% slice(50:60)
 ```
 
@@ -212,8 +212,8 @@ isOdd %>% slice(50:60)
 [Documentation for strsplit()](https://stringr.tidyverse.org/reference/str_split.html)
 
 ```{r}
-con=file("data/brokenNumbers.csv", "r")
-outCon=file("data/fixedNumbers.csv", "w")
+con <- file("data/brokenNumbers.csv", "r")
+outCon <- file("data/fixedNumbers.csv", "w")
 
 headers <- readLines(con, n = 1)
 while (TRUE) {
