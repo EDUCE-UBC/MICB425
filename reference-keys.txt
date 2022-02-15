@@ -77,6 +77,15 @@ analyze-the-functional-data
 analyze-the-chemical-measurements
 bringing-them-all-together
 analyzing-classifications-for-your-groups-reference-package
+basic-automation-with-r
+introduction-and-goals-5
+prerequisites
+making-a-function
+decisions-with-conditionals
+iterating-with-loops
+reading-files
+practice-1
+practice-2
 project-description
 guiding-research-questions
 questions-for-project-with-a-focus-on-biogeochemical-cycles-repeated-in-report-structure-below
