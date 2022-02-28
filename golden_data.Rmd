@@ -1,16 +1,14 @@
-# Acquiring golden data
+# Acquiring reference sequence data
 
-Golden data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they should be used to create all future reference packages. But what does "well-curated" mean, and how can you identify data that would meet this gold standard?
+Reference data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they should be used to create all future reference packages. But what does "well-curated" mean, and how can you identify data that would meet this standard?
 
 ## The golden standard
 
 The field of genomics is blessed with an abundance of reference data. In fact, it is not uncommon for biologists and bioinformaticians alike to gripe over the increased run-time of computational analyses caused by steps that include comparisons to such large reference databases. Not all of these data are, however, of the same quality. The vast majority have been automatically curated using algorithms with known shortcomings, and only a small portion have been manually curated with verified functional characterization. These latter data are the ones we consider well-curated or golden. More details on choosing databases for retrieving sequences can be found on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#step-1-reference-sequences).
 
-## What databases can I retrieve sequences from?
+## Recommended biological sequence databases
 
 One of the most comprehensive and reputable biological sequence databases is SwissProt. The protein sequences curated within SwissProt can be accessed and downloaded through the [UniProt Knowledgebase](https://www.uniprot.org/) by selecting "Swiss-Prot" under the "UniProtKB" panel on the left of the landing page. You can submit queries for a protein family through their search bar and add filters to the query using their [advanced search](https://www.uniprot.org/help/advanced_search) options. For example, you can search for reviewed RuBisCO sequences by entering the query 'rubisco taxonomy:"Bacteria [2]" AND reviewed:yes'.
-
-Throughout the development of TreeSAPP, I have frequented [FunGene](http://fungene.cme.msu.edu/), the functional gene pipeline and repository. This database provides curated sequences (of varying reliability) for many popular functional and taxonomic anchor genes. FunGene is also great since they have profile hidden Markov models (HMMs) for every gene available. In bioinformatics, HMMs are commonly used to represent a group of homologous amino acid sequences, often belonging to the same protein family, as a probabilistic model. They are inferred by modelling the amino acid character frequencies and motifs along the length of multiple aligned sequences. Additionally, by providing a sense of the full-length protein, they allow users to filter the sequences based on the percentage of an HMM covered. Since we're building a *reference* tree, only include roughly full-length sequences by setting that minimum HMM coverage parameter between 60 and 90%.
 
 [EggNOG](http://eggnog5.embl.de/#/app/home) is another source of curated orthologous groups. The breadth of families available here is astounding and more often than not they do have the sequences you're looking for. There are a couple of benefits to accessing data from EggNOG. The first is they use a common identifier format. Using the correct identifier for a protein family, a single search will yield all available amino acid sequences belonging to that protein family or COG. What I've found handy is first looking for the Clusters of Orthologous Gene (COG) identifier on NCBI's [Conserved Domains](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) database. Then I'd use that identifier to search for the sequences I'm interested in on EggNOG. The second benefit is the quality of their automated annotation pipeline. With every version of EggNOG, the entire set of protein sequences is clustered and the orthologous groups are defined *de novo*. This prevents incorrect legacy annotations from propagating to new sequences. Unfortunately, the breadth of taxa covered by EggNOG is limited to *just* 5,090 organisms. In many cases, this is good enough to build a "seed" reference package, especially if you're building a reference package of a well-conserved---or housekeeping---gene. Yet, there are plenty of scenarios where the number of sequences downloaded is just too few for your objective, and a more comprehensive reference package is required---more on that below.
 
@@ -18,25 +16,7 @@ In addition to these general and all-encompassing databases, there are smaller c
 
 ## XmoA example
 
-To show you how to access these data, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the [`treesapp create` tutorial](#treesapp-create) from the FunGene and EggNOG databases.
-
-### FunGene
-
-First, navigate to <http://fungene.cme.msu.edu/>. This front page organizes the genes into their respective functional groups. The sequences we're interested in are involved in biogeochemical cycling, so look under that panel for "AmoA" and "PmoA".
-
-![](images/fungene_landing.png){width=50%}
-
-As you can see, AmoA are broken up into four different entries: "amoA_AOA", "amoA_AOB", "amoA_AOB_like", and "amoA_comammox". We will download the sequences from only "amoA_AOA" and "amoA_AOB", so let's begin alphabetically with "amoA_AOA".
-
-![](images/amoA_AOA_landing.png){width=50%}
-
-For these sequences, we will limit them to just sequences derived from isolate genomes of which the functional and taxonomic annotations are more reliable. To do this, go to "Display Options" in the top right. Click the "Isolate" option then "Update". We also want the sequences that are more-or-less full-length. Click on "Show/Hide filter options", fill the "Minimum HMM Coverage" parameter with "80" (or some other number between 60 and 90), then "Filter". That's all the filtering we're going to do here. To add the sequences to your cart, click "Select All Sequences" then "Begin Analysis".
-
-![](images/amoA_AOA_download.png){width=100%}
-
-Deselect "Aligned" then click the "Download" button.
-
-Repeat with the above steps with the other genes "amoA_AOB" and "PmoA".
+To show you how to access these data, we will download the alpha subunit sequences of the enzymes particulate methane monooxygenase (PmoA) and ammonia monooxygenase (AmoA) that are used in the [`treesapp create` tutorial](#treesapp-create) from the EggNOG and UniProt databases. Since XmoA is not a recognized identifier, but a convenient label that reflects the operon structure (_xmoCAB_) of homologous oxidoreductase enzymes, we will need to search in databases multiple times.
 
 ### EggNOG
 
@@ -47,6 +27,51 @@ Go to the EggNOG website at http://eggnog5.embl.de/#/app/home and search for eit
 Click "Download" at the bottom-left of the panel and select "All _XX_ sequences (FASTA)", where _XX_ is the number of sequences belonging to the orthologous group (OG). This will open a new window with all sequences from that OG in FASTA format. Download this file to a file on your computer following the format &lt;OG name&gt;_EggNOGv5.faa where &lt;OG name&gt; is the EggNOG ortholog identifier.
 
 Repeat the above steps with the other EggNOG identifier.
+
+### UniProt
+
+The UniProt database architecture is built upon standard biological attributes, in contrast to the *de novo* clustering and classification scheme of EggNOG. Protein sequences are therefore searchable using multiple keys covering a range of taxonomic and functional specificities. The most specific is the unique identifier of a single protein sequence (e.g. Q04507 is an AmoA sequence in Nitrosomonas europaea). More broad searchable attributes include protein names, gene names, organism, [Enzyme Commission (EC)](https://en.wikipedia.org/wiki/Enzyme_Commission_number) numbers, and identifiers of other databases such as PFam and TIGRFAM.
+
+Here, we will use the gene names AmoA and PmoA to find reference sequences in UniProt. Begin by navigating to [https://www.uniprot.org/](https://www.uniprot.org/) and typing either "Particulate methane monooxygenase" (including the double quotation marks) into the search bar at the top of the page.
+
+#### Refining the search
+
+12,231 sequences were returned by the initial query. In the following figure, we can see many entries were unrelated to pmoA (e.g. ftsH, ffsA, carB).
+
+![](images/UniProt_pmo.png){width=100%}
+To remove these off-target search results, we will need to expand our search terms and for this we will turn to the "Advanced" drop-down menu on the right side of the search bar. Add "pmoa" for the gene name and remove all sequences by specifying "uncultured bacterium" with the "NOT" logical operator. The latter filter was applied since these poorly annotated sequences are typically derived from short environmental samples and are not taxonomically informative.
+
+![](images/pmoA_advanced_search.png){width=100%}
+
+This more specific search should yield 3882 entries with the vast majority being predicted pmoA sequences.
+
+#### Download sequences
+
+Downloading sequences in UniProt is quick and easy. Click the ![](images/uniprot_dl_icon.png){width=50} button (atop the table), ensure the format is FASTA, and click "Go" to specify where the file should be saved on your computer.
+
+#### Download taxonomic lineages
+
+UniProt sequence names are not searchable within the NCBI's database, so software (including TreeSAPP) is unable to pair them with their corresponding taxonomic lineages like with EggNOG. Therefore, a separate table must be downloaded from UniProt and provided to TreeSAPP during reference package creation.
+
+To create a properly formatted table, we must first change the columns in the UniProt table of search results. Begin by clicking the ![](images/uniprot_cols_icon.png){width=50} icon to the right of the "Download" button.
+
+![](images/uniprot_columns.png){width=100%}
+
+Once there, only check the boxes for organism, superkingdom, phylum, class, order, family, genus and species as shown above.
+Click "Save" near the top-right of the page to save your selection.
+
+You can export this table similar to before.
+Click the ![](images/uniprot_dl_icon.png){width=50} button to select all sequences, change the format to "Tab-separated", then click "Go" to save the table to your computer.
+
+To gather all sequences in UniProt for the XmoA reference package, repeat the previous two steps with the string "Ammonia monooxygenase alpha subunit".
+
+#### Downloading reviewed sequences from SwissProt
+
+As you may have noticed in the previous steps, there was a single manually-reviewed sequence for PmoA and AmoA each.
+In this case, there are too few sequences to build a seed reference package that could be scaffolded on to eventually construct phylogenetically comprehensive reference package.
+Still, once there are more than ten or so phylogenetically diverse manually-reviewed sequences, the UniProt/SwissProt database should be sufficient to construct a seed reference package.
+By filtering by reviewed sequenced (gold star) and following the previous two steps you can retrieve sequences that have been manually curated, indicating a high-degree of confidence in the functional annotation of those sequences.
+Keep this functionality in mind for future reference packages.
 
 ### Copying data onto the server
 
@@ -74,7 +99,7 @@ Repeat the above steps with the other EggNOG identifier.
 
 ## Alternative sources
 
-EggNOG and FunGene are my favourite sources, though this leaves out the majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, PFam, and other similar databases are all great but they lack an API to retrieve lineage information, and therefore this needs to be provided in a separate table. Details on this table's format and how to provide it can be found under the [`treesapp create` wiki page](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP).
+EggNOG and UniProt are often the most useful sources, though this leaves out the majority of biological sequence databases for no reason other than simplicity. IMG, KEGG, PFam, and other similar databases are all great but their utility is blunted because they either lack an API to retrieve lineage information, requiring a separate table to link this information, or the sequence accession (how database sequences are uniquely named) do not allow for easy referencing in the NCBI taxonomic hierarchy. Details on this table's format and how to provide it can be found under the [`treesapp create` wiki page](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP).
 
 ## Data access hazards
 

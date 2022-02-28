@@ -2,11 +2,15 @@
 
 ## Introduction and goals
 
-In this series of tutorials, users will analyze a gene family lacking an existing TreeSAPP reference package (refpkg). You will work through a typical workflow of TreeSAPP both with an example gene (XmoA) to familiarize yourself with the tools, and then you will repeat the steps with a gene assigned to your group for which no reference package exists. You will document your efforts for the new reference package in Problem Set 5.
+In this series of tutorials, students will analyze a gene family by creating a TreeSAPP reference package (refpkg). Students will work through a typical workflow of TreeSAPP both with an example gene (XmoA) to familiarize yourself with the tools, and then you will repeat the steps with a gene assigned to your group for which no reference package exists. You will document your efforts for the new reference package in Problem Set 5.
 
-## A typical TreeSAPP workflow
+## TreeSAPP workflow
 
--   [Acquiring golden data].
+TreeSAPP is a Python package for gene-centric analysis. It uses custom protein sequence databases called reference packages (RefPkg)
+
+![](images/TreeSAPP_env.png){width=100%}
+
+-   [Acquiring reference sequence data].
 -   [Creating a Reference Package For TreeSAPP].
 -   [Classifying unknown sequences with TreeSAPP and updating a reference package].
 -   [Calculating relative abundance of meta'omic data].
@@ -14,23 +18,11 @@ In this series of tutorials, users will analyze a gene family lacking an existin
 
 ## Genes for creating reference packages
 
+Reference packages can be built for nearly any protein-encoding gene but to demonstrate the process of gene-centric analysis we will create and use a reference package for XmoA.
+
 ### XmoA
 
 The protein family we will be focusing on is that of the copper-containing membrane-bound monooxygenases @Khadka.2018. This family contains particulate methane monooxygenase (pMMO) and ammonia monooxygenase (AMO) and well be building a reference package for the alpha subunits of these enzymes called XmoA. All students will work through this example individually.
-
-### Group-assigned genes
-
-You will create a reference package and perform the other steps only for the gene that has been assigned to you.
-
-```{r message = FALSE, echo = FALSE}
-read_tsv("data/new_refpkgs.tsv") %>% 
-  # For 2020W2 focused on these genes
-  filter(RefPkg %in% c("cbbS", "ACoA", "Hzs", "NirB", "NirD",
-                       "NrfA", "NrfH", "APS_red", "BacRho")) %>% 
-  kbl() %>% 
-  kable_paper() %>%
-  scroll_box(width = "100%")
-```
 
 ## Tools
 
@@ -48,7 +40,7 @@ Interactive Tree Of Life ([iTOL](https://itol.embl.de/)) @Letunic.2019 is a brow
 
 ## Data
 
-Other than [The Saanich Inlet data set] already located on the server, you will download data from different databases:
+Other than [The Saanich Inlet data set] already located on the server, you may download data from different databases:
 
--   [FunGene](http://fungene.cme.msu.edu/), the functional gene pipeline and repository.
--   [EggNOG](http://eggnog5.embl.de/#/app/home)
+-   [FunGene](http://fungene.cme.msu.edu/), the functional gene pipeline and repository
+-   [EggNOG](http://eggnog5.embl.de/#/app/home), evolutionary genealogy of genes: Non-supervised Orthologous Groups
