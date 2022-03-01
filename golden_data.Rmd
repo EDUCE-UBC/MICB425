@@ -1,6 +1,13 @@
 # Acquiring reference sequence data
 
+## Introduction and goals
+
 Reference data in the context of biological sequence analysis are those that come from well-curated open-source databases. These data have been used to create all TreeSAPP reference packages to date, and they should be used to create all future reference packages. But what does "well-curated" mean, and how can you identify data that would meet this standard?
+
+The goals of this tutorial are:
+
+1) Develop a sense of biological sequence database curation quality
+1) Learn how to subset and download sequences from the EggNOG and UniProt databases
 
 ## The golden standard
 
@@ -12,7 +19,7 @@ One of the most comprehensive and reputable biological sequence databases is Swi
 
 [EggNOG](http://eggnog5.embl.de/#/app/home) is another source of curated orthologous groups. The breadth of families available here is astounding and more often than not they do have the sequences you're looking for. There are a couple of benefits to accessing data from EggNOG. The first is they use a common identifier format. Using the correct identifier for a protein family, a single search will yield all available amino acid sequences belonging to that protein family or COG. What I've found handy is first looking for the Clusters of Orthologous Gene (COG) identifier on NCBI's [Conserved Domains](https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd.shtml) database. Then I'd use that identifier to search for the sequences I'm interested in on EggNOG. The second benefit is the quality of their automated annotation pipeline. With every version of EggNOG, the entire set of protein sequences is clustered and the orthologous groups are defined *de novo*. This prevents incorrect legacy annotations from propagating to new sequences. Unfortunately, the breadth of taxa covered by EggNOG is limited to *just* 5,090 organisms. In many cases, this is good enough to build a "seed" reference package, especially if you're building a reference package of a well-conserved---or housekeeping---gene. Yet, there are plenty of scenarios where the number of sequences downloaded is just too few for your objective, and a more comprehensive reference package is required---more on that below.
 
-In addition to these general and all-encompassing databases, there are smaller curated databases that are independently maintained. These tend to be gene- or function-specific and, as long as they're still maintained, highly reliable. Perhaps the most notable of these is the [Carbohydrate Active enZYmes (CAZy)](http://www.cazy.org/) database. The maintainers of CAZy constantly screen new sequenced from GenBank and sort any hits into different families based on their putative biochemical characterization.
+In addition to these general and all-encompassing databases, there are smaller curated databases that are independently maintained. These tend to be gene- or function-specific and, as long as they're still maintained, highly reliable. Perhaps the most notable of these is the [Carbohydrate Active enZYmes (CAZy)](http://www.cazy.org/) database. The maintainers of CAZy constantly screen new sequenced from GenBank and sort any hits into different families based on their putative biochemical characterization. [FunGene](http://fungene.cme.msu.edu/) has also been used extensively to build reference packages but due to system instability and variability in curation quality this database is used less often. Still, the focus on biogeochemical cycles and convenient organization, export process, and sequence header format make this database a good back-up.
 
 ## XmoA example
 
@@ -32,14 +39,14 @@ Repeat the above steps with the other EggNOG identifier.
 
 The UniProt database architecture is built upon standard biological attributes, in contrast to the *de novo* clustering and classification scheme of EggNOG. Protein sequences are therefore searchable using multiple keys covering a range of taxonomic and functional specificities. The most specific is the unique identifier of a single protein sequence (e.g. Q04507 is an AmoA sequence in Nitrosomonas europaea). More broad searchable attributes include protein names, gene names, organism, [Enzyme Commission (EC)](https://en.wikipedia.org/wiki/Enzyme_Commission_number) numbers, and identifiers of other databases such as PFam and TIGRFAM.
 
-Here, we will use the gene names AmoA and PmoA to find reference sequences in UniProt. Begin by navigating to [https://www.uniprot.org/](https://www.uniprot.org/) and typing either "Particulate methane monooxygenase" (including the double quotation marks) into the search bar at the top of the page.
+Here, we will use the gene names AmoA and PmoA to find reference sequences in UniProt. Begin by navigating to [https://www.uniprot.org/](https://www.uniprot.org/) and typing "Particulate methane monooxygenase" (including the double quotation marks) into the search bar at the top of the page.
 
 #### Refining the search
 
 12,231 sequences were returned by the initial query. In the following figure, we can see many entries were unrelated to pmoA (e.g. ftsH, ffsA, carB).
 
 ![](images/UniProt_pmo.png){width=100%}
-To remove these off-target search results, we will need to expand our search terms and for this we will turn to the "Advanced" drop-down menu on the right side of the search bar. Add "pmoa" for the gene name and remove all sequences by specifying "uncultured bacterium" with the "NOT" logical operator. The latter filter was applied since these poorly annotated sequences are typically derived from short environmental samples and are not taxonomically informative.
+To remove these off-target search results, we will need to expand our search terms and for this we will turn to the "Advanced" drop-down menu on the right side of the search bar. Add "pmoa" for the *Gene name [GN]* and remove all sequences with unresolved lineages by specifying "uncultured bacterium" for *Taxonomy [OC]* with the *NOT* logical operator. The latter filter was applied since these poorly annotated sequences are typically derived from short environmental samples and are not taxonomically informative. The advanced search fields should look identical to the figure below.
 
 ![](images/pmoA_advanced_search.png){width=100%}
 
@@ -47,7 +54,7 @@ This more specific search should yield 3882 entries with the vast majority being
 
 #### Download sequences
 
-Downloading sequences in UniProt is quick and easy. Click the ![](images/uniprot_dl_icon.png){width=50} button (atop the table), ensure the format is FASTA, and click "Go" to specify where the file should be saved on your computer.
+Downloading sequences in UniProt is quick and easy. Click the ![](images/uniprot_dl_icon.png){width=50} button (atop the table), ensure the format is FASTA, and click "Go" to specify where the file should be saved on your computer. Change the file name to `UniProt_PmoA.fasta`.
 
 #### Download taxonomic lineages
 
@@ -62,8 +69,9 @@ Click "Save" near the top-right of the page to save your selection.
 
 You can export this table similar to before.
 Click the ![](images/uniprot_dl_icon.png){width=50} button to select all sequences, change the format to "Tab-separated", then click "Go" to save the table to your computer.
+Change the file name to `UniProt_PmoA.tab`.
 
-To gather all sequences in UniProt for the XmoA reference package, repeat the previous two steps with the string "Ammonia monooxygenase alpha subunit".
+To gather all sequences in UniProt for the XmoA reference package, repeat the previous two steps with the string "Ammonia monooxygenase alpha subunit" and gene name "amoA".
 
 #### Downloading reviewed sequences from SwissProt
 

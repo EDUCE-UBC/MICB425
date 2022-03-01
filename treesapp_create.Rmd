@@ -6,16 +6,18 @@ In this tutorial we will demonstrate how to build a TreeSAPP reference package a
 
 The goals of this tutorial are:
 
-1) To learn how to use `treesapp create` to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial
-2) Learn how to assess whether the reference package contains only homologous sequences using `treesapp purity`
-3) Learn how to view a reference package's phylogenetic tree using the interactive Tree of Life (iTOL)
+1) To learn how to use `treesapp create` to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial.
+2) Learn how to assess whether the reference package contains only homologous sequences using `treesapp purity`.
+3) Learn how to view a reference package's phylogenetic tree using the interactive Tree of Life (iTOL).
 
 ## Making the reference package
 
 
-In the [Acquiring reference sequence data] tutorial, PmoA & AmoA sequences were downloaded from [EggNOG](http://eggnog5.embl.de/#/app/home) and [FunGene](http://fungene.cme.msu.edu/). Here, we will use the EggNOG sequences as well as seed sequences from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi) --- a database that is no longer updated but was well curated. Let's call this our seed reference package. The steps involved are:
+In the [Acquiring reference sequence data] tutorial, PmoA & AmoA sequences were downloaded from [EggNOG](http://eggnog5.embl.de/#/app/home) and [UniProt](https://www.uniprot.org/). Here, we will use the EggNOG sequences.
+ <!-- as well as seed sequences from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi) --- a database that is no longer updated but was well curated -->
+Let's call this our seed reference package. The steps involved are:
 
--   **All steps are executed on the server unless stated otherwise!!** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
+-   **All steps are executed on the server unless stated otherwise.** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
 
 ```{bash eval = FALSE}
 cd /data/ts_tutorial
@@ -29,12 +31,12 @@ wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_
 wget -i xmoa_file_list.txt
 ```
 
-There are 76 well curated PmoA and AmoA fasta sequences in this file.
+There are 73 PmoA and AmoA fasta sequences in this file.
 
--   Let's look briefly at the newly generated fasta file using `cat` and `less`. `cat` stands for concatenate, i.e. the files are pasted together. The output of `cat` is funneled with the `>` symbol to a new file, i.e.  `cat file_1.ext file_2.ext > new_file.ext` 
+-   Let's look briefly at the newly generated fasta file using `cat` and `less`. `cat` stands for concatenate, i.e. the files are pasted together. The output of `cat` is funneled, or piped, with the `|` symbol to a text viewer called `less`, i.e.  `cat file_1.ext file_2.ext | less`. The `-S` argument for `less` command turns off line-wrapping to maintain a readable format.
 
 ```{bash eval = FALSE}
-cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa | less -S
+cat ENOG5028JPK_EggNOGv5.faa arCOG08676_EggNOGv5.faa | less -S
 ```
 
 You will notice that there are lines that start with a `>` character. This character indicates all subsequent characters on the line correspond to the name of a sequence (and potentially other information depending on the database), with the protein sequence itself on one or more lines after. 
@@ -42,7 +44,7 @@ You will notice that there are lines that start with a `>` character. This chara
 - We can count and confirm the number of sequences in the fasta file by counting those `>` using `grep`. `grep` is an incredibly powerful tool to find matching text patterns (using a format called "regular expression") and is beyond the scope of this tutorial. The code below searches for a `>` at the beginning of lines (defined with `"^>"`) and counts each occurrence due to the option `-c`.
 
 ```{bash eval = FALSE}
-cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa | grep -c "^>"
+cat ENOG5028JPK_EggNOGv5.faa arCOG08676_EggNOGv5.faa | grep -c "^>"
 ```
 
 -   Use submodule `treesapp create` to build the XmoA reference package with different arguments (see [visualization of the `create` workflow](https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients)). To speed things along, we will use FastTree to infer the phylogeny and will skip bootstrapping with `--fast`. To remove potential redundant sequences, we will cluster the candidate reference sequences at 97% similarity using the argument `-p`. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more, the flag `--headless` will prevent these requests. This command will take \~2 minutes to complete.
@@ -51,18 +53,15 @@ cat ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa | grep -c "^>
 treesapp create \
   --fast \
   --headless \
-  --overwrite \
   --cluster \
-  --trim_align \
   -n 4 \
-  -m prot \
   -p 0.97 \
-  --fastx_input ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa \
+  --fastx_input ENOG5028JPK_EggNOGv5.faa arCOG08676_EggNOGv5.faa \
   -c XmoA \
   --output XmoA_seed
 ```
 
-   The final reference package file is located in `XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule `treesapp package`.
+   The final reference package file is located in `XmoA_seed/final_outputs/XmoA_build.pkl`. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the [joblib](https://joblib.readthedocs.io/en/latest/persistence.html) Python library. They can be accessed individually using the submodule `treesapp package`.
 
 -   Replace the current refpkg_code `Z1111` with unique identifier `N0102`.
 
@@ -88,8 +87,6 @@ We will determine whether there were any mis-annotated sequences that were inclu
 
 ```{bash eval = FALSE}
 treesapp purity \
-  --trim_align \
-  -m prot \
   -n 4 \
   -r XmoA_seed/final_outputs/XmoA_build.pkl \
   --extra_info TIGRFAM_info.tsv \
@@ -103,7 +100,7 @@ The important bit of the output should look like this
 Summarizing assignments for reference package XmoA
 Ortholog        Hits    Leaves  Tree-coverage   Description
 --------------------------------------------------------------------------------
-TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygenase, subunit A
+TIGR03080       3       3       8.3    methane monooxygenase/ammonia monooxygenase, subunit A
 ```
 
 From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they're closely related) and the sequences were all from the family "TIGR03080", also known as "methane monooxygenase/ammonia monooxygenase, subunit A". In all, we are probably good to proceed!
@@ -121,10 +118,10 @@ treesapp package \
   XmoA_seed/XmoA_labelled_tree.txt
 ```
 
- -  **On your computer:** Transfer `XmoA_seed/XmoA_labelled_tree.txt` from the server to your local directory `Xmoa_sequences`.
+ -  **On your computer:** Transfer `XmoA_seed/XmoA_labelled_tree.txt` from the server to your local directory `ts_tutorial_local`.
  
 ```{bash eval = FALSE}
- scp -r root@<server address>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <path to Xmoa_sequences>
+ scp root@<server address>:/data/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <path to ts_tutorial_local>
 ```
 
   We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the text file produced by TreeSAPP.
@@ -135,7 +132,7 @@ treesapp package \
 
 -   The figure should look identical to this figure below Figure \@ref(fig:xmoa).
 
-    ![(\#fig:xmoa) Phylogenetic tree of the seed XmoA reference package.](images/XmoA_seed_iTOLtree.svg){width=100%}
+    ![(\#fig:xmoa) Phylogenetic tree of the seed XmoA reference package viewed in iTOL. Sequence names at the tree's leaf tips show the organism name and unique EggNOG accession identifier.](images/XmoA_seed_iTOLtree.png){width=100%}
 
 <!-- ## Building your group's reference package -->
 
@@ -176,7 +173,6 @@ treesapp create
   --cluster \
   --trim_align \
   -n 4 \
-  -m prot \
   --similarity 0.90 \
   --screen Bacteria,Archaea \
   --min_taxonomic_rank g \
