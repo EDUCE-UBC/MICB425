@@ -12,13 +12,13 @@ You will also be provided with examples for plotting TreeSAPP classification dat
 
 ## Resources for analysis of TreeSAPP output in R
 
--   The TreeSAPP output file `extra_annotated_marker_contig_map.tsv` with the metagenome and metatranscriptome abundances and gene functions you generated with [TreeSAPP](#running-treesapp on a server). If you are unable to retrieve this file, it can be downloaded from [here](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/extra_annotated_marker_contig_map.tsv).
+-   The TreeSAPP output file `layered_classifications.tsv` with the metagenome and metatranscriptome abundances and gene functions you generated with [TreeSAPP](#running-treesapp on a server). If you are unable to retrieve this file, it can be downloaded from [here](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/layered_classifications.tsv).
 -   An R script template called `treesapp_analysis.R` on Canvas.
 -   `Saanich_TimeSeries_Chemical_DATA.csv` file containing geochemical measurements on Canvas.
 
 ## Checklist to write and run R script
 
-- [ ] Place `treesapp_analysis.R`, `extra_annotated_marker_contig_map.tsv` and `Saanich_TimeSeries_Chemical_DATA.csv` files into a single folder and create a new RStudio project in that folder on your local computer.
+- [ ] Place `treesapp_analysis.R`, `layered_classifications.tsv` and `Saanich_TimeSeries_Chemical_DATA.csv` files into a single folder and create a new RStudio project in that folder on your local computer.
 - [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#writing-the-r-script).
 
 ## Writing the R script
@@ -39,7 +39,7 @@ library(tidyr)
 ## Load metagenomic and metatranscriptomic TreeSAPP data
 
 ```{r}
-ts_dat <- read.table(file="extra_annotated_marker_contig_map.tsv",
+ts_dat <- read.table(file="layered_classifications.tsv",
                      header=TRUE,
                      sep="\t")
 ```

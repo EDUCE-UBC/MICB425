@@ -68,16 +68,18 @@ The command should take approximately twenty seconds to complete and if you see 
 
 The second batch of sequences that we will classify XmoA from are metagenome-assembled genomes (MAGs). MAGs are derived from assembled metagenome datasets (i.e. contigs or scaffolds) and represent the genome of a closely related microbial population. You can think of them as representing a single strain present in a microbial community.
 
-We will need to download two files: the FASTA file containing the genomes and a table with the taxonomic label for each genome.
+We will need to download two files: the FASTA file containing the genomes and a table with the taxonomic label for each genome. These files, `SI072_MAGs.fa` and `SI072_MAGs_gtdbtk.bac120.summary.tsv`, are contained within a larger data package that we will be revisiting in the next tutorial.
 
-**TODO: Update these URLs**
+-  Download the data package `SI072_sequence_data.tar.gz` from Zenodo and decompress it with `tar`.
 
-```{bash eval = FALSE}
-wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/SI072_MAGs.fa ./
-wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/SI072_MAGs_gtdbtk.bac120.summary.tsv ./
+```{bash eval=F}
+wget https://zenodo.org/record/6323402/files/SI072_sequence_data.tar.gz && \
+tar -xzvf SI072_sequence_data.tar.gz
 ```
 
-The first file was created by concatenating twelve different MAGs into a single file and prepending each sequence name (i.e. header) with the MAG name using the software [seqkit](https://bioinf.shenwei.me/seqkit/). Concatenating multiple genomes into a single file saves time since you only need to run `treesapp assign` once instead of classifying each MAG individually. Prepending the header with its respective MAG name is necessary to properly map the names of the query sequences back to their original genome names during the update process. Here is the shell command used (do not run):
+The FASTA file was created by concatenating twelve different MAGs into a single file and prepending each sequence name (i.e. header) with the MAG name using the software [seqkit](https://bioinf.shenwei.me/seqkit/).
+Concatenating multiple genomes into a single file saves time since you only need to run `treesapp assign` once instead of classifying each MAG individually.
+Prepending the header with its respective MAG name is necessary to properly map the names of the query sequences back to their original genome names during the update process. Here is the shell command used (do not run):
 
 ```{bash eval = FALSE}
 for f in *fa
@@ -95,7 +97,7 @@ treesapp assign \
   -n 4 \
   --trim_align \
   --refpkg_dir XmoA_seed/final_outputs/ \
-  --fastx_input SI072_MAGs.fa \
+  --fastx_input SI072_sequence_data/SI072_MAGs.fa \
   --output SI072_MAGs_assign/
 ```
 
@@ -181,7 +183,7 @@ The MAGs were assigned taxonomic labels using the [Genome Taxonomy Database](htt
 We first need to reformat the table containing the taxonomic labels of the MAGs. We will employ the shell functions `awk` and `sed` to pull out the two columns we need and find-and-replace words and characters.
 
 ```{bash, eval = FALSE}
-awk -F"\t" '{ OFS="\t"; print $1,$2 }' SI072_MAGs_gtdbtk.bac120.summary.tsv | \
+awk -F"\t" '{ OFS="\t"; print $1,$2 }' SI072_sequence_data/SI072_MAGs_gtdbtk.bac120.summary.tsv | \
 sed 's/user_genome/Organism/g' | \
 sed 's/classification/Lineage/g' | \
 sed 's/;/; /g' >gtdb_classifications.tsv
