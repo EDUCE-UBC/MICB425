@@ -83,7 +83,8 @@ Keep this functionality in mind for future reference packages.
 
 ### Copying data onto the server
 
--   **On your computer:** Create a new directory called `Xmoa_sequences` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS). Place any reference sequences in `Xmoa_sequences` that you identified and downloaded from the databases.
+-   **On your computer:** Create a new directory called `ts_tutorial_local` inside of your home directory by using a file browser, i.e. File Explorer (Windows 10) or Finder (macOS).
+Place any reference sequences in `ts_tutorial_local` that you identified and downloaded from the databases.
 
     Next, connect to your personal server using the terminal app, i.e. Windows Terminal (Windows 10) or Terminal (macOS).
     
@@ -102,7 +103,7 @@ Keep this functionality in mind for future reference packages.
 -   **On your computer:** Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.
 
     ```{bash eval = FALSE}
-    scp -r <path to Xmoa_sequences> root@<server address>:/data/ts_tutorial 
+    scp -r <path to ts_tutorial_local> root@<server address>:/data/ts_tutorial 
     ```
 
 ## Alternative sources
