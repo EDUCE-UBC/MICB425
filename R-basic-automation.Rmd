@@ -1,0 +1,254 @@
+# Basic Automation with R
+
+## Introduction and goals
+
+The library `dplyr` provides many useful functions like `select()`, `filter()`, and `mutate()` that cover the vast majority of use cases, but real data is messy. Sometimes you may what to do but not *how* to do it with existing functions. This tutorial will teach you some fundamental building blocks of scripting so that you can produce the "how" when you know the "what."
+
+A warning though, if using `dplyr` is driving a car, then this tutorial is teaching you how to walk. While more locations are reachable by walking, you will always get there much faster by driving. *Try to find the tools first before hacking together your own.*
+
+## Prerequisites
+
+Please download the following:
+
+-   [numbers.csv](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/numbers.csv)
+-   [brokenNumbers.csv](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/brokenNumbers.csv)
+-   [dummyData.zip](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/dummyData.zip)
+
+R libraries
+
+```{r}
+library(tidyverse)
+```
+
+## Making a function
+
+In math, we specify functions like so: $f(x) = 2x$, where the function $f$ takes the parameter $x$ and performs the action $2x$ before handing back the result. In R, the same would look like this...
+
+```{r}
+f <- function(x) {
+  return(2 * x)
+}
+```
+
+...and it can be used like so.
+
+```{r}
+f(2)
+```
+
+## Decisions with conditionals
+
+`if` allows selective execution based on a condition.
+
+```{r}
+doubleIfLessThan <- function(x, threshold) {
+  if (x < threshold) {
+    return(2 * x)
+  } else {
+    return(x) # if no condition satisfied
+  }
+}
+
+print(doubleIfLessThan(12, 100)) # 12 < 100, so doubled 12
+print(doubleIfLessThan(12, 10)) # 12 ≮ 10, so just give back 12
+```
+
+More than one condition can be used...
+
+```{r}
+doubleOutsideRange <- function(x, lower, upper) {
+  if (x < lower) {
+    return( 2 *x)
+  } else if (x > upper) {
+    return( 2 *x)
+  } else {
+    return(x)
+  }
+}
+
+print(doubleOutsideRange(5, 10, 20))
+print(doubleOutsideRange(5, 0, 2))
+print(doubleOutsideRange(5, 0, 10))
+```
+
+...and conditions can be combined with logical operators
+
+```{r}
+doubleIfInRange <- function(x, lower, upper) {
+  if (x >= lower && x <= upper) { # && is the same as AND
+    return(2*x)
+  } else {
+    return(x)
+  }
+}
+
+print(doubleIfInRange(5, 10, 20))
+print(doubleIfInRange(5, 0, 2))
+print(doubleIfInRange(5, 0, 10))
+```
+
+| Operator |                                  Description                                   |
+|:--------:|:------------------------------------------------------------------------------:|
+|   `&&`   |                         AND, both sides must be `TRUE`                         |
+|   `||`   |                      OR, at lease one side must be`TRUE`                       |
+|   `!`    | NOT, inverts the following (`TRUE` becomes `FALSE` and `FALSE` becomes `TRUE`) |
+|   `==`   |                         EQUALS, left must equal right                          |
+
+Try the following
+
+```{r}
+1==1
+1==1 && 2==1
+!(2==1) || FALSE
+```
+
+## Iterating with loops
+
+Suppose we wanted to double each number in a list.
+
+```{r}
+numbers <- read.csv(file="data/numbers.csv", header=TRUE)
+numbers
+```
+
+We can use a `for` loop. This is how it behaves...
+
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+...and this is how we to use it in our context
+
+```{r}
+for (rowNumber in 1:nrow(numbers)) {
+  n <- numbers[rowNumber, "n"] # get value from row "rowNumber", column "n"
+  print(2 * n)
+}
+```
+
+If the number of repeats is unknown, we can use a `while` loop. A condition is used instead to tell it when to stop.
+
+```{r}
+n <- 1
+while (n < 1000) {
+  n <-  n * 2
+}
+
+n
+```
+
+Loops can repeat forever. Click the red octagon (🛑) at the top right of your RStudio console to force the script to stop.
+
+```{r eval = FALSE}
+while (TRUE) {
+  # loop forever
+}
+```
+
+## Reading files
+
+Files can be opened and read one line at a time like so.
+
+```{r}
+numbersFileConnection <- file("data/numbers.csv", "r") # r is for read
+
+while (TRUE) {
+  line <-  readLines(numbersFileConnection, n = 1) # read 1 line
+  if (length(line) == 0) { # if no more lines ...
+    break # ... exit loop
+  }
+  print(line)
+}
+
+close(numbersFileConnection)
+```
+
+The last parameter specifies the read/write permissions of the opened file.
+
+```{r error = TRUE}
+con <- file("data/numbers.csv", "r")
+write("some new text", file = con)
+```
+
+Files can also be written to one line at a time like so.
+
+```{r}
+con <- file("data/myNumbers.csv", "w")
+
+write("n", con) # header
+for (i in 1:10) {
+  line <- toString(i+10)
+  write(line, con)
+}
+
+close(con)
+```
+
+Check your `data` folder for the new file.
+
+Reading and writing `csvs` are done *much better* by `read.csv()` and `write.csv()`, but suppose you come across this file...
+
+```{r}
+con <- file("data/brokenNumbers.csv","r")
+line <- readLines(con) 
+for (i in 1:10) {
+  print(line[i])
+}
+close(con)
+```
+
+...seems innocent enough, but when trying to load it as a csv...
+
+```{r}
+isOdd <- read.csv(file = "data/brokenNumbers.csv", header = TRUE)
+isOdd %>% slice(50:60)
+```
+
+## Practice 1
+
+...it's format is obviously broken. Investigate the file and see if you can fix it.\
+[Documentation for strsplit()](https://stringr.tidyverse.org/reference/str_split.html)
+
+```{r}
+con <- file("data/brokenNumbers.csv", "r")
+outCon <- file("data/fixedNumbers.csv", "w")
+
+headers <- readLines(con, n = 1)
+while (TRUE) {
+  row = readLines(con, n = 1)
+  if (length(row) == 0) {
+    break
+  }
+  
+  fixedRow <- ""
+  
+  # split row into cells
+  cells <- str_split(row, ", ")[[1]] # see str_split above
+  
+  # look at cells by index like so
+  n = cells[1]
+  twoN = cells[length(cells)]
+  # ...
+  
+  # join strings using paste()
+  fixedRow <- paste(n, ", ", twoN) # ...
+
+  write(fixedRow, outCon)
+}
+
+close(con)
+close(outCon)
+```
+
+## Practice 2
+
+TreeSAPP's `assign` function wants a single `fasta` file, but all your data is separated by bins from a previous taxonomic classifier! See if you can append all of them together into one file.
+
+```{r}
+for (f in list.files('data/dummyData')) {
+  print(f)
+  # append files
+}
+```

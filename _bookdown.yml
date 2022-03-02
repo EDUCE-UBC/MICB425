@@ -19,6 +19,7 @@ rmd_files:
   - treesapp_assign_and_update.Rmd
   - treesapp_abundance.Rmd
   - treesapp_R.Rmd
+  - R-basic-automation.Rmd
   - part_capstone.Rmd # separator for TOC navigation
   - instructions.Rmd
   - assessment.Rmd
