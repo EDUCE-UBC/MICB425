@@ -175,17 +175,18 @@ ggsave("taxonomic_order_barplot.png")
 
 ### Analyze the functional data
 
-In the following figure we are instead going to visualize the abundance of each classified XmoA's `Function` across the water column.
-We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (`Abundance`). We are colouring the bubbles according to their assigned `Function`.
+In the following figure we are instead going to visualize the abundance of each classified XmoA's function (indicated in the `CuMMO` field) across the water column.
+We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (`Abundance`).
+We are colouring the bubbles according to their assigned `CuMMO`.
 We are again faceting this plot by the sequence type.
 
 ```{r}
 ts_geo_df %>% 
-  group_by(Depth, Depth.m, SeqType, Order, Function) %>% 
+  group_by(Depth, Depth.m, SeqType, Order, CuMMO) %>% 
   summarise(Sum = sum(Abundance)) %>% 
   ungroup() %>%
   mutate(Depth = reorder(Depth, desc(Depth.m))) %>% 
-  ggplot(aes(x=Depth, y=Order, colour=Function)) +
+  ggplot(aes(x=Depth, y=Order, colour=CuMMO)) +
   geom_point(aes(size=Sum)) +
   facet_wrap(~SeqType) +
   coord_flip() +

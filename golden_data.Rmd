@@ -50,7 +50,7 @@ To remove these off-target search results, we will need to expand our search ter
 
 ![](images/pmoA_advanced_search.png){width=100%}
 
-This more specific search should yield 3882 entries with the vast majority being predicted pmoA sequences.
+This more specific search should yield >3800 entries with the vast majority being predicted pmoA sequences.
 
 #### Download sequences
 
@@ -71,7 +71,9 @@ You can export this table similar to before.
 Click the ![](images/uniprot_dl_icon.png){width=50} button to select all sequences, change the format to "Tab-separated", then click "Go" to save the table to your computer.
 Change the file name to `UniProt_PmoA.tab`.
 
-To gather all sequences in UniProt for the XmoA reference package, repeat the previous two steps with the string "Ammonia monooxygenase alpha subunit" and gene name "amoA".
+To gather all sequences in UniProt for the XmoA reference package, repeat the previous three steps with the string "Ammonia monooxygenase alpha subunit", *Gene name [GN]* "amoA", and the same taxonomic filter.
+There should be >3,000 entries returned.
+Save the sequences and taxonomic lineages in `UniProt_AmoA.fasta` and `UniProt_AmoA.tab`, respectively.
 
 #### Downloading reviewed sequences from SwissProt
 

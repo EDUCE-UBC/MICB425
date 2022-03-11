@@ -50,7 +50,7 @@ Since `treesapp assign` is capable of using multiple reference packages, the ana
 This should point to a directory containing one or more reference package .pkl files, all of which can be used for classifying the query sequences.
 The output directory is `UniProt_XmoA_assign/`.
 
-- Classify the 6966 protein sequences in `UniProt_XmoA.fasta` using `treesapp assign`.
+- Classify the 6966^[This is the number of sequences included in the files provided. Your files may be slightly different, and that's *probably* okay.] protein sequences in `UniProt_XmoA.fasta` using `treesapp assign`.
 
 ```{bash eval = FALSE}
 treesapp assign \
