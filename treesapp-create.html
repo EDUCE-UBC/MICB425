@@ -17,8 +17,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -46,7 +45,7 @@
 <li><a class="" href="exploring-the-microcosmos.html"><span class="header-section-number">1</span> Exploring the microcosmos</a></li>
 <li class="book-part">Tutorials</li>
 <li><a class="" href="a-tutorial-for-using-treesapp.html"><span class="header-section-number">2</span> A tutorial for using TreeSAPP</a></li>
-<li><a class="" href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></li>
+<li><a class="" href="acquiring-reference-sequence-data.html"><span class="header-section-number">3</span> Acquiring reference sequence data</a></li>
 <li><a class="active" href="treesapp-create.html"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
 <li><a class="" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></li>
 <li><a class="" href="calculating-relative-abundance-of-metaomic-data.html"><span class="header-section-number">6</span> Calculating relative abundance of meta’omic data</a></li>
@@ -72,152 +71,128 @@
 <h1>
 <span class="header-section-number">4</span> Creating a reference package for TreeSAPP<a class="anchor" aria-label="anchor" href="#treesapp-create"><i class="fas fa-link"></i></a>
 </h1>
-<div id="introduction-and-goals-1" class="section level2">
+<div id="introduction-and-goals-2" class="section level2">
 <h2>
-<span class="header-section-number">4.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product.</p>
 <p>The goals of this tutorial are:</p>
 <ol style="list-style-type: decimal">
-<li>To learn how to use <code>treesapp create</code> to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial</li>
-<li>Learn how to assess whether the reference package contains only homologous sequences using <code>treesapp purity</code>
-</li>
-<li>Learn how to view a reference package’s phylogenetic tree using the interactive Tree of Life (iTOL)</li>
+<li>To learn how to use <code>treesapp create</code> to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial.</li>
+<li>Learn how to assess whether the reference package contains only homologous sequences using <code>treesapp purity</code>.</li>
+<li>Learn how to view a reference package’s phylogenetic tree using the interactive Tree of Life (iTOL).</li>
 </ol>
 </div>
 <div id="making-the-reference-package" class="section level2">
 <h2>
 <span class="header-section-number">4.2</span> Making the reference package<a class="anchor" aria-label="anchor" href="#making-the-reference-package"><i class="fas fa-link"></i></a>
 </h2>
-<p>In the <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a> tutorial, PmoA &amp; AmoA sequences were downloaded from <a href="http://tigrfams.jcvi.org/cgi-bin/index.cgi">TIGRFAM</a>, <a href="http://eggnog5.embl.de/#/app/home">EggNOG</a>, and <a href="http://fungene.cme.msu.edu/">FunGene</a>. For now we’ll just use the TIGRFAM seed sequences and EggNOG sequences as these are best curated. Let’s call this our seed reference package. The steps involved are:</p>
+<p>In the <a href="acquiring-reference-sequence-data.html#acquiring-reference-sequence-data">Acquiring reference sequence data</a> tutorial, PmoA &amp; AmoA sequences were downloaded from <a href="http://eggnog5.embl.de/#/app/home">EggNOG</a> and <a href="https://www.uniprot.org/">UniProt</a>. Here, we will use the EggNOG sequences.
+<!-- as well as seed sequences from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi) --- a database that is no longer updated but was well curated -->
+Let’s call this our seed reference package. The steps involved are:</p>
 <ul>
 <li>
-<strong>All steps are executed on the server unless stated otherwise!!</strong> Connect to your personal server and continue to work in the <code>/data/ts_tutorial</code> directory.</li>
+<strong>All steps are executed on the server unless stated otherwise.</strong> Connect to your personal server and continue to work in the <code>/data/ts_tutorial</code> directory.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="treesapp-create.html#cb4-1"></a><span class="bu">cd</span> /data/ts_tutorial</span></code></pre></div>
 <ul>
 <li>
-<strong>Optional:</strong> If you could not download the reference sequences of XmoA yourself (see <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a>), download <a href="https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a>—a list of the necessary fasta files—with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
+<strong>Optional:</strong> If you could not download the reference sequences of XmoA yourself (see <a href="acquiring-reference-sequence-data.html#acquiring-reference-sequence-data">Acquiring reference sequence data</a>), download <a href="https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a> — a list of the necessary fasta files — with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="treesapp-create.html#cb5-1"></a><span class="bu">cd</span> /data/ts_tutorial</span>
 <span id="cb5-2"><a href="treesapp-create.html#cb5-2"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt</span>
 <span id="cb5-3"><a href="treesapp-create.html#cb5-3"></a><span class="fu">wget</span> -i xmoa_file_list.txt</span></code></pre></div>
+<p>There are 73 PmoA and AmoA fasta sequences in this file.</p>
 <ul>
-<li>Create the input FASTA file by combining the EggNOG and TIGRFAM reference into a single file using <code>cat</code>. <code>cat</code> stands for concatentate, i.e. the files are pasted together. The output of <code>cat</code> is funneled with the <code>&gt;</code> symbol to a <code>&lt;new file&gt;</code>, i.e. <code>cat &lt;file 1&gt; &lt;file 2&gt; &gt; &lt;new file&gt;</code>
-</li>
+<li>Let’s look briefly at the newly generated fasta file using <code>cat</code> and <code>less</code>. <code>cat</code> stands for concatenate, i.e. the files are pasted together. The output of <code>cat</code> is funneled, or piped, with the <code>|</code> symbol to a text viewer called <code>less</code>, i.e. <code>cat file_1.ext file_2.ext | less</code>. The <code>-S</code> argument for <code>less</code> command turns off line-wrapping to maintain a readable format.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="treesapp-create.html#cb6-1"></a><span class="fu">cat</span> ENOG5028JPK_EggNOGv5.faa TIGR03080.faa arCOG08676_EggNOGv5.faa <span class="op">&gt;</span> XmoA_seed.faa</span></code></pre></div>
-<p>There are 76 well curated PmoA and AmoA fasta sequences in this file.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="treesapp-create.html#cb6-1"></a><span class="fu">cat</span> ENOG5028JPK_EggNOGv5.faa arCOG08676_EggNOGv5.faa <span class="kw">|</span> <span class="fu">less</span> -S</span></code></pre></div>
+<p>You will notice that there are lines that start with a <code>&gt;</code> character. This character indicates all subsequent characters on the line correspond to the name of a sequence (and potentially other information depending on the database), with the protein sequence itself on one or more lines after.</p>
 <ul>
-<li>Let’s look briefly at the newly generated fasta file.</li>
+<li>We can count and confirm the number of sequences in the fasta file by counting those <code>&gt;</code> using <code>grep</code>. <code>grep</code> is an incredibly powerful tool to find matching text patterns (using a format called “regular expression”) and is beyond the scope of this tutorial. The code below searches for a <code>&gt;</code> at the beginning of lines (defined with <code>"^&gt;"</code>) and counts each occurrence due to the option <code>-c</code>.</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="treesapp-create.html#cb7-1"></a><span class="fu">less</span> XmoA_seed.faa</span></code></pre></div>
-<ul>
-<li>You will notice, that they are lines that start with a <code>&gt;</code> that gives the name of a sequence followed by a line containing the actual nucleotide sequence itself. We can count and confirm the number of sequences in the fasta file by counting those <code>&gt;</code> using <code>grep</code>. <code>grep</code> is an incredibly powerful tool to find matching text patterns (using a format called “regular expression”) and is beyond the scope of this tutorial. The code below searches for a <code>&gt;</code> at the beginning of the line (defined with <code>"^&gt;"</code>) of the file <code>XmoA_seed.faa</code> and counts each occurrence due to the option <code>-c</code>.</li>
-</ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="treesapp-create.html#cb8-1"></a><span class="fu">grep</span> -c <span class="st">"^&gt;"</span> XmoA_seed.faa</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="treesapp-create.html#cb7-1"></a><span class="fu">cat</span> ENOG5028JPK_EggNOGv5.faa arCOG08676_EggNOGv5.faa <span class="kw">|</span> <span class="fu">grep</span> -c <span class="st">"^&gt;"</span></span></code></pre></div>
 <ul>
 <li>Use submodule <code>treesapp create</code> to build the XmoA reference package with different arguments (see <a href="https://github.com/hallamlab/TreeSAPP/wiki/Building-reference-packages-with-TreeSAPP#ingredients">visualization of the <code>create</code> workflow</a>). To speed things along, we will use FastTree to infer the phylogeny and will skip bootstrapping with <code>--fast</code>. To remove potential redundant sequences, we will cluster the candidate reference sequences at 97% similarity using the argument <code>-p</code>. When clustering the candidate sequences TreeSAPP would normally ask which sequence to use for the representative of the cluster. This can be handy in cases when some sequences are better annotated and/or are especially important. To speed things up even more, the flag <code>--headless</code> will prevent these requests. This command will take ~2 minutes to complete.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="treesapp-create.html#cb9-1"></a><span class="ex">treesapp</span> create \</span>
-<span id="cb9-2"><a href="treesapp-create.html#cb9-2"></a>  --fast \</span>
-<span id="cb9-3"><a href="treesapp-create.html#cb9-3"></a>  --headless \</span>
-<span id="cb9-4"><a href="treesapp-create.html#cb9-4"></a>  --overwrite \</span>
-<span id="cb9-5"><a href="treesapp-create.html#cb9-5"></a>  --cluster \</span>
-<span id="cb9-6"><a href="treesapp-create.html#cb9-6"></a>  --trim_align \</span>
-<span id="cb9-7"><a href="treesapp-create.html#cb9-7"></a>  -n 4 \</span>
-<span id="cb9-8"><a href="treesapp-create.html#cb9-8"></a>  -m prot \</span>
-<span id="cb9-9"><a href="treesapp-create.html#cb9-9"></a>  -p 0.97 \</span>
-<span id="cb9-10"><a href="treesapp-create.html#cb9-10"></a>  --fastx_input XmoA_seed.faa \</span>
-<span id="cb9-11"><a href="treesapp-create.html#cb9-11"></a>  -c XmoA \</span>
-<span id="cb9-12"><a href="treesapp-create.html#cb9-12"></a>  --output XmoA_seed</span></code></pre></div>
-<p>The final reference package file is located in <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the joblib Python library. They can be accessed individually using the submodule <code>treesapp package</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="treesapp-create.html#cb8-1"></a><span class="ex">treesapp</span> create \</span>
+<span id="cb8-2"><a href="treesapp-create.html#cb8-2"></a>  --fast \</span>
+<span id="cb8-3"><a href="treesapp-create.html#cb8-3"></a>  --headless \</span>
+<span id="cb8-4"><a href="treesapp-create.html#cb8-4"></a>  --cluster \</span>
+<span id="cb8-5"><a href="treesapp-create.html#cb8-5"></a>  -n 4 \</span>
+<span id="cb8-6"><a href="treesapp-create.html#cb8-6"></a>  -p 0.97 \</span>
+<span id="cb8-7"><a href="treesapp-create.html#cb8-7"></a>  --fastx_input ENOG5028JPK_EggNOGv5.faa arCOG08676_EggNOGv5.faa \</span>
+<span id="cb8-8"><a href="treesapp-create.html#cb8-8"></a>  -c XmoA \</span>
+<span id="cb8-9"><a href="treesapp-create.html#cb8-9"></a>  --output XmoA_seed</span></code></pre></div>
+<p>The final reference package file is located in <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>. This file contains all the individual components of a reference package (multiple sequence alignment, profile HMM, phylogenetic tree, taxonomic lineages) as well as some other data. These files were bundled up using the <a href="https://joblib.readthedocs.io/en/latest/persistence.html">joblib</a> Python library. They can be accessed individually using the submodule <code>treesapp package</code>.</p>
 <ul>
 <li>Replace the current refpkg_code <code>Z1111</code> with unique identifier <code>N0102</code>.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="treesapp-create.html#cb10-1"></a><span class="ex">treesapp</span> package edit \</span>
-<span id="cb10-2"><a href="treesapp-create.html#cb10-2"></a>  refpkg_code N0102 \</span>
-<span id="cb10-3"><a href="treesapp-create.html#cb10-3"></a>  --overwrite \</span>
-<span id="cb10-4"><a href="treesapp-create.html#cb10-4"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="treesapp-create.html#cb9-1"></a><span class="ex">treesapp</span> package edit \</span>
+<span id="cb9-2"><a href="treesapp-create.html#cb9-2"></a>  refpkg_code N0102 \</span>
+<span id="cb9-3"><a href="treesapp-create.html#cb9-3"></a>  --overwrite \</span>
+<span id="cb9-4"><a href="treesapp-create.html#cb9-4"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
 <ul>
 <li>We can also modify the reference package’s description while we’re here.</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="treesapp-create.html#cb11-1"></a><span class="ex">treesapp</span> package edit \</span>
-<span id="cb11-2"><a href="treesapp-create.html#cb11-2"></a>  description <span class="st">"Alpha subunits of copper membrane monooxygenase enzymes"</span> \</span>
-<span id="cb11-3"><a href="treesapp-create.html#cb11-3"></a>  --overwrite \</span>
-<span id="cb11-4"><a href="treesapp-create.html#cb11-4"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="treesapp-create.html#cb10-1"></a><span class="ex">treesapp</span> package edit \</span>
+<span id="cb10-2"><a href="treesapp-create.html#cb10-2"></a>  description <span class="st">"Alpha subunits of copper membrane monooxygenase enzymes"</span> \</span>
+<span id="cb10-3"><a href="treesapp-create.html#cb10-3"></a>  --overwrite \</span>
+<span id="cb10-4"><a href="treesapp-create.html#cb10-4"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl</span></code></pre></div>
 </div>
 <div id="testing-the-purity-of-the-reference-package" class="section level2">
 <h2>
 <span class="header-section-number">4.3</span> Testing the purity of the reference package<a class="anchor" aria-label="anchor" href="#testing-the-purity-of-the-reference-package"><i class="fas fa-link"></i></a>
 </h2>
 <p>We will determine whether there were any mis-annotated sequences that were included in our reference package with <code>treesapp purity</code>. To do this, we take a well-curated database and attempt to classify sequences in it using <code>treesapp assign</code>. The results are then analysed and displayed for the user to evaluate. The TIGRFAM database is fairly comprehensive, representing 4488 different groups in version 15, and by using just the TIGRFAM seed sequences (<code>TIGRFAM_seed_named.faa</code>) we can be fairly sure we won’t be evaluating our classifications with mis-annotated sequences.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="treesapp-create.html#cb12-1"></a><span class="ex">treesapp</span> purity \</span>
-<span id="cb12-2"><a href="treesapp-create.html#cb12-2"></a>  --trim_align \</span>
-<span id="cb12-3"><a href="treesapp-create.html#cb12-3"></a>  -m prot \</span>
-<span id="cb12-4"><a href="treesapp-create.html#cb12-4"></a>  -n 4 \</span>
-<span id="cb12-5"><a href="treesapp-create.html#cb12-5"></a>  -r XmoA_seed/final_outputs/XmoA_build.pkl \</span>
-<span id="cb12-6"><a href="treesapp-create.html#cb12-6"></a>  --extra_info TIGRFAM_info.tsv \</span>
-<span id="cb12-7"><a href="treesapp-create.html#cb12-7"></a>  -i TIGRFAM_seed_named.faa \</span>
-<span id="cb12-8"><a href="treesapp-create.html#cb12-8"></a>  --output XmoA_purity</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="treesapp-create.html#cb11-1"></a><span class="ex">treesapp</span> purity \</span>
+<span id="cb11-2"><a href="treesapp-create.html#cb11-2"></a>  -n 4 \</span>
+<span id="cb11-3"><a href="treesapp-create.html#cb11-3"></a>  -r XmoA_seed/final_outputs/XmoA_build.pkl \</span>
+<span id="cb11-4"><a href="treesapp-create.html#cb11-4"></a>  --extra_info TIGRFAM_info.tsv \</span>
+<span id="cb11-5"><a href="treesapp-create.html#cb11-5"></a>  -i TIGRFAM_seed_named.faa \</span>
+<span id="cb11-6"><a href="treesapp-create.html#cb11-6"></a>  --output XmoA_purity</span></code></pre></div>
 <p>The important bit of the output should look like this</p>
 <pre><code>Summarizing assignments for reference package XmoA
 Ortholog        Hits    Leaves  Tree-coverage   Description
 --------------------------------------------------------------------------------
-TIGR03080       3       4       11.1    methane monooxygenase/ammonia monooxygenase, subunit A</code></pre>
+TIGR03080       3       3       8.3    methane monooxygenase/ammonia monooxygenase, subunit A</code></pre>
 <p>From this summary it appears that the reference package classified three homologous sequences that were placed at leaf nodes in the tree (i.e. they’re closely related) and the sequences were all from the family “TIGR03080”, also known as “methane monooxygenase/ammonia monooxygenase, subunit A”. In all, we are probably good to proceed!</p>
 </div>
 <div id="viewing-the-reference-package-tree-with-itol" class="section level2">
 <h2>
 <span class="header-section-number">4.4</span> Viewing the reference package tree with iTOL<a class="anchor" aria-label="anchor" href="#viewing-the-reference-package-tree-with-itol"><i class="fas fa-link"></i></a>
 </h2>
-<p>We have now created a phylogenetic tree for XmoA, but if we would visualize it, we would only see TreeSAPP identifiers (such as 1_XmoA, 2_XmoA) as labels on the tree which by themselves are not meaningful. In order to assign leaf labels to the refpkg iTOL tree, we will use the <code>treesapp assign</code> function.</p>
+<p>Among the many files inferred by <code>treesapp create</code> is a phylogenetic tree for XmoA. To ensure that the tree topology is sensible, without any anomalously long branches for example, we should visualize it in iTOL. Since reference packages are compressed files with many attributes, we will use the subcommand <code>treesapp package</code> to extract the tree in <a href="https://en.wikipedia.org/wiki/Newick_format">Newick</a> format.</p>
 <ul>
-<li>Assign reference sequences to reference package to generate tree with labels.</li>
+<li>Use <code>treesapp package</code> to write the reference package tree to a file.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="treesapp-create.html#cb14-1"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb14-2"><a href="treesapp-create.html#cb14-2"></a>  -n 4 \</span>
-<span id="cb14-3"><a href="treesapp-create.html#cb14-3"></a>  -m prot \</span>
-<span id="cb14-4"><a href="treesapp-create.html#cb14-4"></a>  --trim_align \</span>
-<span id="cb14-5"><a href="treesapp-create.html#cb14-5"></a>  --refpkg_dir XmoA_seed/final_outputs/ \</span>
-<span id="cb14-6"><a href="treesapp-create.html#cb14-6"></a>  --fastx_input XmoA_seed.faa \</span>
-<span id="cb14-7"><a href="treesapp-create.html#cb14-7"></a>  --output XmoA_seed_assign/</span></code></pre></div>
-<p>The <code>treesapp assign</code> output directory (defined by the flag <code>--output</code>, i.e. in this case <code>XmoA_seed_assign</code>) contains the <code>iTOL_output</code> directory.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="treesapp-create.html#cb13-1"></a><span class="ex">treesapp</span> package \</span>
+<span id="cb13-2"><a href="treesapp-create.html#cb13-2"></a>  view tree \</span>
+<span id="cb13-3"><a href="treesapp-create.html#cb13-3"></a>  --refpkg_path XmoA_seed/final_outputs/XmoA_build.pkl <span class="op">&gt;</span> \</span>
+<span id="cb13-4"><a href="treesapp-create.html#cb13-4"></a>  XmoA_seed/XmoA_labelled_tree.txt</span></code></pre></div>
 <ul>
 <li>
-<strong>On your computer:</strong> Transfer <code>XmoA_seed_assign/iTOL_output</code> from the server to your local directory <code>Xmoa_sequences</code>.</li>
+<strong>On your computer:</strong> Transfer <code>XmoA_seed/XmoA_labelled_tree.txt</code> from the server to your local directory <code>ts_tutorial_local</code>.</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="treesapp-create.html#cb15-1"></a> <span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed_assign/iTOL_output <span class="op">&lt;</span>path to Xmoa_sequences<span class="op">&gt;</span></span></code></pre></div>
-<p>We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the JPlace file produced by TreeSAPP. This JPlace file contains both the phylogeny and the location of the placements that will be visualized.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="treesapp-create.html#cb14-1"></a> <span class="fu">scp</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span></span></code></pre></div>
+<p>We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the text file produced by TreeSAPP.</p>
 <ul>
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and sign in using the group’s username and password.</p></li>
-<li><p>Upload the file <code>XmoA_complete_profile.jplace</code>. You can do this using either your computer’s file browser then navigating to the <code>iTOL_output</code> directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
-<li><p>Next, navigate to the page displaying the phylogeny and click-and-drag the file <code>XmoA_labels.txt</code> from your file browser into the iTOL window. This should convert the TreeSAPP identifiers (e.g. 1_XmoA) to more useful descriptions with the organism name and accession for each leaf node.</p></li>
+<li><p>Upload the file <code>XmoA_labelled_tree.txt</code>. You can do this using either your computer’s file browser then navigating to the parent directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
 <li>
-<p>Finally, turn on the “Phylogenetic Placements” dataset (right of the screen) and the figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p>
+<p>The figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p>
 <div class="figure">
 <span style="display:block;" id="fig:xmoa"></span>
-<img src="images/XmoA_seed_iTOLtree.svg" style="width:100.0%" alt=""><p class="caption">FIGURE 4.1:  Phylogenetic tree of XmoA_seed refpkg. The red bubbles represent sequence placements with the size of the bubble indicating the number of placements on a branch. 76 sequences were classified and placed on 36 leaf nodes.</p>
+<img src="images/XmoA_seed_iTOLtree.png" style="width:100.0%" alt=""><p class="caption">FIGURE 4.1:  Phylogenetic tree of the seed XmoA reference package viewed in iTOL. Sequence names at the tree’s leaf tips show the organism name and unique EggNOG accession identifier.</p>
 </div>
 </li>
 </ul>
+<!-- ## Building your group's reference package --><!-- Now we have covered the first steps of creating a reference package for TreeSAPP and visualizing the outputs. Adapt and repeat the steps for [Acquiring reference sequence data] and creating the reference package (this chapter) for the gene assigned to your group using your **group's** server. --><!-- 1) **On your computer:** create a directory `<gene_name_sequences>` in your home directory and download any reference sequences for your gene you can find on the databases. --><!-- 1) **On the server:** In the directory `/data`, create a new directory `<gene name>`. --><!-- 1) **On your computer:** Copy the reference sequences from your computer to the directory `/data/<gene name>` on the server. --><!-- 1) **On the server:** Work in `/data/<gene name>` as you are creating your TreeSAPP reference package and outputs. --><!-- 1) **On your computer:** Whenever you have TreeSAPP outputs that can be visualized with iTOL, copy the files from the server to your computer to do so. -->
 </div>
-<div id="building-your-groups-reference-package" class="section level2">
+<div id="booster-shot" class="section level2">
 <h2>
-<span class="header-section-number">4.5</span> Building your group’s reference package<a class="anchor" aria-label="anchor" href="#building-your-groups-reference-package"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Booster shot<a class="anchor" aria-label="anchor" href="#booster-shot"><i class="fas fa-link"></i></a>
 </h2>
-<p>Now we have covered the first steps of creating a reference package for TreeSAPP and visualizing the outputs. Adapt and repeat the steps for <a href="acquiring-golden-data.html#acquiring-golden-data">Acquiring golden data</a> and creating the reference package (this chapter) for the gene assigned to your group using your <strong>group’s</strong> server.</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>On your computer:</strong> create a directory <code>&lt;gene_name_sequences&gt;</code> in your home directory and download any reference sequences for your gene you can find on the databases.</p></li>
-<li><p><strong>On the server:</strong> In the directory <code>/data</code>, create a new directory <code>&lt;gene name&gt;</code>.</p></li>
-<li><p><strong>On your computer:</strong> Copy the reference sequences from your computer to the directory <code>/data/&lt;gene name&gt;</code> on the server.</p></li>
-<li><p><strong>On the server:</strong> Work in <code>/data/&lt;gene name&gt;</code> as you are creating your TreeSAPP referenc package and outputs.</p></li>
-<li><p><strong>On your computer:</strong> Whenever you have TreeSAPP outputs that can be visualized with iTOL, copy the files from the server to your computer to do so.</p></li>
-</ol>
-<div id="booster-shot" class="section level3">
-<h3>
-<span class="header-section-number">4.5.1</span> Booster shot<a class="anchor" aria-label="anchor" href="#booster-shot"><i class="fas fa-link"></i></a>
-</h3>
 <p>The reference package for XmoA is relatively small, and ideal for an in-class tutorial. However, many protein families are much more complex with members spread broadly across the tree of life. In these cases, you may need to use other tactics to reduce the size of your reference package so <code>treesapp create</code> can finish in under a few hours. Using any or all of the following options are <strong>not</strong> required, but may be useful.</p>
 <ol style="list-style-type: decimal">
 <li><p>Remove more candidate reference sequences from the final reference package by decreasing the percent similarity used during sequence clustering. In the tutorial we set “-p”/“--similarity” to 0.97 but this is going to be too high in many cases. Try something between 0.80 and 0.95 to get between 100 and 2000 sequences.</p></li>
@@ -229,39 +204,35 @@ Provide the HMM file to <code>treesapp create</code> with the “--profile” ar
 If your reference package is still very large after using the above options, setting this argument to a highly resolved taxonomic rank can be a potent way to remove candidate reference sequences.</p></li>
 </ol>
 <p>To bring all of these arguments together for you here is an example command:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="treesapp-create.html#cb16-1"></a><span class="ex">treesapp</span> create</span>
-<span id="cb16-2"><a href="treesapp-create.html#cb16-2"></a>  <span class="ex">--fast</span> \</span>
-<span id="cb16-3"><a href="treesapp-create.html#cb16-3"></a>  --headless \</span>
-<span id="cb16-4"><a href="treesapp-create.html#cb16-4"></a>  --overwrite \</span>
-<span id="cb16-5"><a href="treesapp-create.html#cb16-5"></a>  --cluster \</span>
-<span id="cb16-6"><a href="treesapp-create.html#cb16-6"></a>  --trim_align \</span>
-<span id="cb16-7"><a href="treesapp-create.html#cb16-7"></a>  -n 4 \</span>
-<span id="cb16-8"><a href="treesapp-create.html#cb16-8"></a>  -m prot \</span>
-<span id="cb16-9"><a href="treesapp-create.html#cb16-9"></a>  --similarity 0.90 \</span>
-<span id="cb16-10"><a href="treesapp-create.html#cb16-10"></a>  --screen Bacteria,Archaea \</span>
-<span id="cb16-11"><a href="treesapp-create.html#cb16-11"></a>  --min_taxonomic_rank g \</span>
-<span id="cb16-12"><a href="treesapp-create.html#cb16-12"></a>  --profile arCOG08676_hmm.txt \</span>
-<span id="cb16-13"><a href="treesapp-create.html#cb16-13"></a>  --fastx_input XmoA_seed.faa \</span>
-<span id="cb16-14"><a href="treesapp-create.html#cb16-14"></a>  -c XmoA \</span>
-<span id="cb16-15"><a href="treesapp-create.html#cb16-15"></a>  --output XmoA_seed</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="treesapp-create.html#cb15-1"></a><span class="ex">treesapp</span> create</span>
+<span id="cb15-2"><a href="treesapp-create.html#cb15-2"></a>  <span class="ex">--fast</span> \</span>
+<span id="cb15-3"><a href="treesapp-create.html#cb15-3"></a>  --headless \</span>
+<span id="cb15-4"><a href="treesapp-create.html#cb15-4"></a>  --overwrite \</span>
+<span id="cb15-5"><a href="treesapp-create.html#cb15-5"></a>  --cluster \</span>
+<span id="cb15-6"><a href="treesapp-create.html#cb15-6"></a>  --trim_align \</span>
+<span id="cb15-7"><a href="treesapp-create.html#cb15-7"></a>  -n 4 \</span>
+<span id="cb15-8"><a href="treesapp-create.html#cb15-8"></a>  --similarity 0.90 \</span>
+<span id="cb15-9"><a href="treesapp-create.html#cb15-9"></a>  --screen Bacteria,Archaea \</span>
+<span id="cb15-10"><a href="treesapp-create.html#cb15-10"></a>  --min_taxonomic_rank g \</span>
+<span id="cb15-11"><a href="treesapp-create.html#cb15-11"></a>  --profile arCOG08676_hmm.txt \</span>
+<span id="cb15-12"><a href="treesapp-create.html#cb15-12"></a>  --fastx_input XmoA_seed.faa \</span>
+<span id="cb15-13"><a href="treesapp-create.html#cb15-13"></a>  -c XmoA \</span>
+<span id="cb15-14"><a href="treesapp-create.html#cb15-14"></a>  --output XmoA_seed</span></code></pre></div>
 
 </div>
 </div>
-</div>
   <div class="chapter-nav">
-<div class="prev"><a href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></div>
+<div class="prev"><a href="acquiring-reference-sequence-data.html"><span class="header-section-number">3</span> Acquiring reference sequence data</a></div>
 <div class="next"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#treesapp-create"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
-<li><a class="nav-link" href="#introduction-and-goals-1"><span class="header-section-number">4.1</span> Introduction and goals</a></li>
+<li><a class="nav-link" href="#introduction-and-goals-2"><span class="header-section-number">4.1</span> Introduction and goals</a></li>
 <li><a class="nav-link" href="#making-the-reference-package"><span class="header-section-number">4.2</span> Making the reference package</a></li>
 <li><a class="nav-link" href="#testing-the-purity-of-the-reference-package"><span class="header-section-number">4.3</span> Testing the purity of the reference package</a></li>
 <li><a class="nav-link" href="#viewing-the-reference-package-tree-with-itol"><span class="header-section-number">4.4</span> Viewing the reference package tree with iTOL</a></li>
-<li>
-<a class="nav-link" href="#building-your-groups-reference-package"><span class="header-section-number">4.5</span> Building your group’s reference package</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#booster-shot"><span class="header-section-number">4.5.1</span> Booster shot</a></li></ul>
-</li>
+<li><a class="nav-link" href="#booster-shot"><span class="header-section-number">4.5</span> Booster shot</a></li>
 </ul>
 
       <div class="book-extra">
@@ -279,7 +250,7 @@ If your reference package is still very large after using the above options, set
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on February 17, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 13, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

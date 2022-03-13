@@ -17,8 +17,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -46,7 +45,7 @@
 <li><a class="" href="exploring-the-microcosmos.html"><span class="header-section-number">1</span> Exploring the microcosmos</a></li>
 <li class="book-part">Tutorials</li>
 <li><a class="" href="a-tutorial-for-using-treesapp.html"><span class="header-section-number">2</span> A tutorial for using TreeSAPP</a></li>
-<li><a class="" href="acquiring-golden-data.html"><span class="header-section-number">3</span> Acquiring golden data</a></li>
+<li><a class="" href="acquiring-reference-sequence-data.html"><span class="header-section-number">3</span> Acquiring reference sequence data</a></li>
 <li><a class="" href="treesapp-create.html"><span class="header-section-number">4</span> Creating a reference package for TreeSAPP</a></li>
 <li><a class="" href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html"><span class="header-section-number">5</span> Classifying unknown sequences with TreeSAPP and updating a reference package</a></li>
 <li><a class="" href="calculating-relative-abundance-of-metaomic-data.html"><span class="header-section-number">6</span> Calculating relative abundance of meta’omic data</a></li>
@@ -72,9 +71,9 @@
 <h1>
 <span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R<a class="anchor" aria-label="anchor" href="#analysing-the-treesapp-classifications-in-r"><i class="fas fa-link"></i></a>
 </h1>
-<div id="introduction-and-goals-4" class="section level2">
+<div id="introduction-and-goals-5" class="section level2">
 <h2>
-<span class="header-section-number">7.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-5"><i class="fas fa-link"></i></a>
 </h2>
 <p>These instructions will help you to complete the script template <code>treesapp_analysis.R</code> to complete the initial analysis of your TreeSAPP classifications.
 The following code chunks will show you how to load, aggregate, subset and transform continuous and discrete variables in R using the <code>tidyverse</code>.
@@ -85,7 +84,7 @@ You will also be provided with examples for plotting TreeSAPP classification dat
 <span class="header-section-number">7.2</span> Resources for analysis of TreeSAPP output in R<a class="anchor" aria-label="anchor" href="#resources-for-analysis-of-treesapp-output-in-r"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li>The TreeSAPP output file <code>extra_annotated_marker_contig_map.tsv</code> with the metagenome and metatranscriptome abundances and gene functions you generated with <a href="#running-treesapp%20on%20a%20server">TreeSAPP</a>. If you are unable to retrieve this file, it can be downloaded from <a href="https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/extra_annotated_marker_contig_map.tsv">here</a>.</li>
+<li>The TreeSAPP output file <code>layered_classifications.tsv</code> with the metagenome and metatranscriptome abundances and gene functions you generated with <a href="#running-treesapp%20on%20a%20server">TreeSAPP</a>. If you are unable to retrieve this file, it can be downloaded from <a href="https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/layered_classifications.tsv">here</a>.</li>
 <li>An R script template called <code>treesapp_analysis.R</code> on Canvas.</li>
 <li>
 <code>Saanich_TimeSeries_Chemical_DATA.csv</code> file containing geochemical measurements on Canvas.</li>
@@ -98,7 +97,7 @@ You will also be provided with examples for plotting TreeSAPP classification dat
 <ul>
 <li>
 <input type="checkbox" disabled>
-Place <code>treesapp_analysis.R</code>, <code>extra_annotated_marker_contig_map.tsv</code> and <code>Saanich_TimeSeries_Chemical_DATA.csv</code> files into a single folder and create a new RStudio project in that folder on your local computer.</li>
+Place <code>treesapp_analysis.R</code>, <code>layered_classifications.tsv</code> and <code>Saanich_TimeSeries_Chemical_DATA.csv</code> files into a single folder and create a new RStudio project in that folder on your local computer.</li>
 <li>
 <input type="checkbox" disabled>
 Edit the <code>treesapp_analysis.R</code> script following <a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script">the instructions below</a>.</li>
@@ -126,7 +125,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <span class="header-section-number">7.6</span> Load metagenomic and metatranscriptomic TreeSAPP data<a class="anchor" aria-label="anchor" href="#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fas fa-link"></i></a>
 </h2>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ts_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"extra_annotated_marker_contig_map.tsv"</span>,
+<code class="sourceCode R"><span class="va">ts_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"layered_classifications.tsv"</span>,
                      header<span class="op">=</span><span class="cn">TRUE</span>,
                      sep<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></code></pre></div>
 <div id="classification-table" class="section level3">
@@ -259,16 +258,17 @@ Instead of creating a variable to hold each taxon’s total TPM we will create a
 <h3>
 <span class="header-section-number">7.10.2</span> Analyze the functional data<a class="anchor" aria-label="anchor" href="#analyze-the-functional-data"><i class="fas fa-link"></i></a>
 </h3>
-<p>In the following figure we are instead going to visualize the abundance of each classified XmoA’s <code>Function</code> across the water column.
-We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (<code>Abundance</code>). We are colouring the bubbles according to their assigned <code>Function</code>.
+<p>In the following figure we are instead going to visualize the abundance of each classified XmoA’s function (indicated in the <code>CuMMO</code> field) across the water column.
+We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (<code>Abundance</code>).
+We are colouring the bubbles according to their assigned <code>CuMMO</code>.
 We are again faceting this plot by the sequence type.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">SeqType</span>, <span class="va">Order</span>, <span class="va">Function</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">SeqType</span>, <span class="va">Order</span>, <span class="va">CuMMO</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Abundance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Depth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Depth.m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth</span>, y<span class="op">=</span><span class="va">Order</span>, colour<span class="op">=</span><span class="va">Function</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Depth</span>, y<span class="op">=</span><span class="va">Order</span>, colour<span class="op">=</span><span class="va">CuMMO</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size<span class="op">=</span><span class="va">Sum</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">SeqType</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
@@ -338,7 +338,7 @@ You will need to make a decision at what taxonomic rank you will calculate diver
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#analysing-the-treesapp-classifications-in-r"><span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R</a></li>
-<li><a class="nav-link" href="#introduction-and-goals-4"><span class="header-section-number">7.1</span> Introduction and goals</a></li>
+<li><a class="nav-link" href="#introduction-and-goals-5"><span class="header-section-number">7.1</span> Introduction and goals</a></li>
 <li><a class="nav-link" href="#resources-for-analysis-of-treesapp-output-in-r"><span class="header-section-number">7.2</span> Resources for analysis of TreeSAPP output in R</a></li>
 <li><a class="nav-link" href="#checklist-to-write-and-run-r-script"><span class="header-section-number">7.3</span> Checklist to write and run R script</a></li>
 <li><a class="nav-link" href="#writing-the-r-script"><span class="header-section-number">7.4</span> Writing the R script</a></li>
@@ -368,8 +368,8 @@ You will need to make a decision at what taxonomic rank you will calculate diver
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/EDUCE-UBC/MICB425/blob/main/R.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/EDUCE-UBC/MICB425/edit/main/R.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/EDUCE-UBC/MICB425/blob/main/treesapp_R.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/EDUCE-UBC/MICB425/edit/main/treesapp_R.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -381,7 +381,7 @@ You will need to make a decision at what taxonomic rank you will calculate diver
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on February 17, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 13, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
