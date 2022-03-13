@@ -12,13 +12,13 @@ You will also be provided with examples for plotting TreeSAPP classification dat
 
 ## Resources for analysis of TreeSAPP output in R
 
--   The TreeSAPP output file `extra_annotated_marker_contig_map.tsv` with the metagenome and metatranscriptome abundances and gene functions you generated with [TreeSAPP](#running-treesapp on a server). If you are unable to retrieve this file, it can be downloaded from [here](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/extra_annotated_marker_contig_map.tsv).
+-   The TreeSAPP output file `layered_classifications.tsv` with the metagenome and metatranscriptome abundances and gene functions you generated with [TreeSAPP](#running-treesapp on a server). If you are unable to retrieve this file, it can be downloaded from [here](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/layered_classifications.tsv).
 -   An R script template called `treesapp_analysis.R` on Canvas.
 -   `Saanich_TimeSeries_Chemical_DATA.csv` file containing geochemical measurements on Canvas.
 
 ## Checklist to write and run R script
 
-- [ ] Place `treesapp_analysis.R`, `extra_annotated_marker_contig_map.tsv` and `Saanich_TimeSeries_Chemical_DATA.csv` files into a single folder and create a new RStudio project in that folder on your local computer.
+- [ ] Place `treesapp_analysis.R`, `layered_classifications.tsv` and `Saanich_TimeSeries_Chemical_DATA.csv` files into a single folder and create a new RStudio project in that folder on your local computer.
 - [ ] Edit the `treesapp_analysis.R` script following [the instructions below](#writing-the-r-script).
 
 ## Writing the R script
@@ -39,7 +39,7 @@ library(tidyr)
 ## Load metagenomic and metatranscriptomic TreeSAPP data
 
 ```{r}
-ts_dat <- read.table(file="extra_annotated_marker_contig_map.tsv",
+ts_dat <- read.table(file="layered_classifications.tsv",
                      header=TRUE,
                      sep="\t")
 ```
@@ -175,17 +175,18 @@ ggsave("taxonomic_order_barplot.png")
 
 ### Analyze the functional data
 
-In the following figure we are instead going to visualize the abundance of each classified XmoA's `Function` across the water column.
-We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (`Abundance`). We are colouring the bubbles according to their assigned `Function`.
+In the following figure we are instead going to visualize the abundance of each classified XmoA's function (indicated in the `CuMMO` field) across the water column.
+We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (`Abundance`).
+We are colouring the bubbles according to their assigned `CuMMO`.
 We are again faceting this plot by the sequence type.
 
 ```{r}
 ts_geo_df %>% 
-  group_by(Depth, Depth.m, SeqType, Order, Function) %>% 
+  group_by(Depth, Depth.m, SeqType, Order, CuMMO) %>% 
   summarise(Sum = sum(Abundance)) %>% 
   ungroup() %>%
   mutate(Depth = reorder(Depth, desc(Depth.m))) %>% 
-  ggplot(aes(x=Depth, y=Order, colour=Function)) +
+  ggplot(aes(x=Depth, y=Order, colour=CuMMO)) +
   geom_point(aes(size=Sum)) +
   facet_wrap(~SeqType) +
   coord_flip() +
