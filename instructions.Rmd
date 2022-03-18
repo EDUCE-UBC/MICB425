@@ -78,36 +78,36 @@ Each group will submit **one** report with the sections below.
 ```{r child = "child_Rmds/report_structure.Rmd"}
 ```
 
-## Addendum
+<!-- ## Addendum -->
 
-### Abundance
+<!-- ### Abundance -->
 
-The workflow introduced in the [treesapp abundance](#treesapp-abundance) tutorial was supposed to serve as the guide to generating TPM values for your capstone project. However, it has come to the attention of the teaching team that `treesapp abundance` fails to generate the simple_bar.txt files for viewing the distribution of TPM values across a reference package's phylogenetic tree. Therefore, we are providing you another workflow that will generate both the classifications file (marker_contig_map.tsv) with TPM values and all simplebar.txt files for iTOL.
+<!-- The workflow introduced in the [treesapp abundance](#treesapp-abundance) tutorial was supposed to serve as the guide to generating TPM values for your capstone project. However, it has come to the attention of the teaching team that `treesapp abundance` fails to generate the simple_bar.txt files for viewing the distribution of TPM values across a reference package's phylogenetic tree. Therefore, we are providing you another workflow that will generate both the classifications file (marker_contig_map.tsv) with TPM values and all simplebar.txt files for iTOL. -->
 
-#### Generate the JPlace with all classifications
-With the concatenated metagenome FASTA file for SI072 (`MetaG_Assemblies/SI072_All_contigs.fa`; see [server data locations](#the-saanich-inlet-data-set#data-on-the-server)) run `treesapp assign` without FASTQ reads and abundance flags to generate a single jplace file containing all reference package homologs across all the depths.
+<!-- #### Generate the JPlace with all classifications -->
+<!-- With the concatenated metagenome FASTA file for SI072 (`MetaG_Assemblies/SI072_All_contigs.fa`; see [server data locations](#the-saanich-inlet-data-set#data-on-the-server)) run `treesapp assign` without FASTQ reads and abundance flags to generate a single jplace file containing all reference package homologs across all the depths. -->
 
-#### Generate TPM values for metagenomes
-Run `treesapp assign` seven times with abundance flags (\--rel_abund and \--metric TPM) and paths to metagenome FASTQ files to generate TPM values for each individual depth and the abundance files needed for iToL visualization.
+<!-- #### Generate TPM values for metagenomes -->
+<!-- Run `treesapp assign` seven times with abundance flags (\--rel_abund and \--metric TPM) and paths to metagenome FASTQ files to generate TPM values for each individual depth and the abundance files needed for iToL visualization. -->
 
-This gives you a total of 8 `treesapp assign` runs with associated output files for the metagenome samples.
+<!-- This gives you a total of 8 `treesapp assign` runs with associated output files for the metagenome samples. -->
 
-#### Generate TPM values for metatranscriptomes
+<!-- #### Generate TPM values for metatranscriptomes -->
 
-Run `treesapp assign` with abundance flags once for each of the seven metatranscriptome samples, including their respective FASTQ file path in the command. This will give you another seven `treesapp assign` outputs for a total of 15 to complete the process for metagenome and metatranscriptome data sets.
+<!-- Run `treesapp assign` with abundance flags once for each of the seven metatranscriptome samples, including their respective FASTQ file path in the command. This will give you another seven `treesapp assign` outputs for a total of 15 to complete the process for metagenome and metatranscriptome data sets. -->
 
-#### Generate the file with all classifications and TPM values
+<!-- #### Generate the file with all classifications and TPM values -->
 
-Now concatenate the marker_contig_map.tsv files from the seven individual depth runs for analysis in `R`.
+<!-- Now concatenate the marker_contig_map.tsv files from the seven individual depth runs for analysis in `R`. -->
 
-You will first need to write the header from *one* classification table to the combined table file (`SI072_combined_marker_contig_map.tsv` below), then write the classifications from all tables without the header. This is to avoid including the table's header multiple times partway through the table, which would confuse `R`. We're using `grep` to accomplish this by removing any lines that match a word in the header, 'Query'.
+<!-- You will first need to write the header from *one* classification table to the combined table file (`SI072_combined_marker_contig_map.tsv` below), then write the classifications from all tables without the header. This is to avoid including the table's header multiple times partway through the table, which would confuse `R`. We're using `grep` to accomplish this by removing any lines that match a word in the header, 'Query'. -->
 
-```{bash, eval=F}
-head -n 1 <path to treesapp assign output directory>/final_outputs/marker_contig_map.tsv >SI072_combined_marker_contig_map.tsv
-cat <path to assign outputs>/*/final_outputs/marker_contig_map.tsv | grep -v Query >>SI072_combined_marker_contig_map.tsv
-```
+<!-- ```{bash, eval=F} -->
+<!-- head -n 1 <path to treesapp assign output directory>/final_outputs/marker_contig_map.tsv >SI072_combined_marker_contig_map.tsv -->
+<!-- cat <path to assign outputs>/*/final_outputs/marker_contig_map.tsv | grep -v Query >>SI072_combined_marker_contig_map.tsv -->
+<!-- ``` -->
 
-#### Viewing the placements and TPM bars in iTOL
+<!-- #### Viewing the placements and TPM bars in iTOL -->
 
-For iToL visualization use the jplace file from `treesapp assign` with the concatenated metagenome FASTA to visualize the phylogenetic tree with all placements across depths, and use the <gene>_labels.txt file from the concatenated run to name the leaves.
-To add the TPM abundance layers for each depth access the simple_bar.txt files from each individual depth run and drag and drop these files into the iToL GUI.
+<!-- For iToL visualization use the jplace file from `treesapp assign` with the concatenated metagenome FASTA to visualize the phylogenetic tree with all placements across depths, and use the <gene>_labels.txt file from the concatenated run to name the leaves. -->
+<!-- To add the TPM abundance layers for each depth access the simple_bar.txt files from each individual depth run and drag and drop these files into the iToL GUI. -->
