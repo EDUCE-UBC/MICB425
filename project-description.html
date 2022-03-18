@@ -150,29 +150,36 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Mar 29</td>
-<td align="left">
-<p>Introduction and begin running TreeSAPP</p>
-<p>Ideally, your analyses on the server should run over night</p>
-</td>
+<td align="left">Mar 18</td>
+<td align="left">Introduction and begin running TreeSAPP</td>
 </tr>
 <tr class="even">
-<td align="left">Mar 31</td>
-<td align="left">
-<p><strong>Start of capstone project</strong></p>
-<p>Group work</p>
-</td>
+<td align="left">Mar 21,
+23, 25</td>
+<td align="left">TreeSAPP tutorials</td>
 </tr>
 <tr class="odd">
-<td align="left">Apr 7, 9, 12</td>
-<td align="left">Group work</td>
+<td align="left">Mar 28</td>
+<td align="left">
+<p><strong>Start of capstone project</strong></p>
+<p>Groups present project ideas</p>
+</td>
 </tr>
 <tr class="even">
-<td align="left">Apr 14</td>
+<td align="left">Mar 30,
+Apr 1, 4, 6</td>
+<td align="left">Assisted group work</td>
+</tr>
+<tr class="odd">
+<td align="left">Apr 8</td>
+<td align="left">Project discussion</td>
+</tr>
+<tr class="even">
+<td align="left">Apr 11</td>
 <td align="left">Course recap and discussion</td>
 </tr>
 <tr class="odd">
-<td align="left">April 14–24</td>
+<td align="left">April 12–27</td>
 <td align="left">
 <p><strong>Report writing</strong></p>
 <p>Groups are expected to meet remotely as needed over the Finals Period in order to complete the report. This report serves as a final for this course and should be treated as such.</p>
@@ -182,7 +189,7 @@
 <td align="left">April 24</td>
 <td align="left">
 <p><strong>Final due date</strong></p>
-<p>For reports and completed portfolios</p>
+<p>For reports</p>
 </td>
 </tr>
 </tbody>
@@ -273,53 +280,7 @@
 </tr>
 </tbody>
 </table></div>
-</div>
-<div id="addendum" class="section level2">
-<h2>
-<span class="header-section-number">9.6</span> Addendum<a class="anchor" aria-label="anchor" href="#addendum"><i class="fas fa-link"></i></a>
-</h2>
-<div id="abundance" class="section level3">
-<h3>
-<span class="header-section-number">9.6.1</span> Abundance<a class="anchor" aria-label="anchor" href="#abundance"><i class="fas fa-link"></i></a>
-</h3>
-<p>The workflow introduced in the <a href="#treesapp-abundance">treesapp abundance</a> tutorial was supposed to serve as the guide to generating TPM values for your capstone project. However, it has come to the attention of the teaching team that <code>treesapp abundance</code> fails to generate the simple_bar.txt files for viewing the distribution of TPM values across a reference package’s phylogenetic tree. Therefore, we are providing you another workflow that will generate both the classifications file (marker_contig_map.tsv) with TPM values and all simplebar.txt files for iTOL.</p>
-<div id="generate-the-jplace-with-all-classifications" class="section level4">
-<h4>
-<span class="header-section-number">9.6.1.1</span> Generate the JPlace with all classifications<a class="anchor" aria-label="anchor" href="#generate-the-jplace-with-all-classifications"><i class="fas fa-link"></i></a>
-</h4>
-<p>With the concatenated metagenome FASTA file for SI072 (<code>MetaG_Assemblies/SI072_All_contigs.fa</code>; see <a href="#the-saanich-inlet-data-set#data-on-the-server">server data locations</a>) run <code>treesapp assign</code> without FASTQ reads and abundance flags to generate a single jplace file containing all reference package homologs across all the depths.</p>
-</div>
-<div id="generate-tpm-values-for-metagenomes" class="section level4">
-<h4>
-<span class="header-section-number">9.6.1.2</span> Generate TPM values for metagenomes<a class="anchor" aria-label="anchor" href="#generate-tpm-values-for-metagenomes"><i class="fas fa-link"></i></a>
-</h4>
-<p>Run <code>treesapp assign</code> seven times with abundance flags (--rel_abund and --metric TPM) and paths to metagenome FASTQ files to generate TPM values for each individual depth and the abundance files needed for iToL visualization.</p>
-<p>This gives you a total of 8 <code>treesapp assign</code> runs with associated output files for the metagenome samples.</p>
-</div>
-<div id="generate-tpm-values-for-metatranscriptomes" class="section level4">
-<h4>
-<span class="header-section-number">9.6.1.3</span> Generate TPM values for metatranscriptomes<a class="anchor" aria-label="anchor" href="#generate-tpm-values-for-metatranscriptomes"><i class="fas fa-link"></i></a>
-</h4>
-<p>Run <code>treesapp assign</code> with abundance flags once for each of the seven metatranscriptome samples, including their respective FASTQ file path in the command. This will give you another seven <code>treesapp assign</code> outputs for a total of 15 to complete the process for metagenome and metatranscriptome data sets.</p>
-</div>
-<div id="generate-the-file-with-all-classifications-and-tpm-values" class="section level4">
-<h4>
-<span class="header-section-number">9.6.1.4</span> Generate the file with all classifications and TPM values<a class="anchor" aria-label="anchor" href="#generate-the-file-with-all-classifications-and-tpm-values"><i class="fas fa-link"></i></a>
-</h4>
-<p>Now concatenate the marker_contig_map.tsv files from the seven individual depth runs for analysis in <code>R</code>.</p>
-<p>You will first need to write the header from <em>one</em> classification table to the combined table file (<code>SI072_combined_marker_contig_map.tsv</code> below), then write the classifications from all tables without the header. This is to avoid including the table’s header multiple times partway through the table, which would confuse <code>R</code>. We’re using <code>grep</code> to accomplish this by removing any lines that match a word in the header, ‘Query’.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb109-1"><a href="project-description.html#cb109-1"></a><span class="fu">head</span> -n 1 <span class="op">&lt;</span>path to treesapp assign output directory<span class="op">&gt;</span>/final_outputs/marker_contig_map.tsv <span class="op">&gt;</span>SI072_combined_marker_contig_map.tsv</span>
-<span id="cb109-2"><a href="project-description.html#cb109-2"></a><span class="fu">cat</span> <span class="op">&lt;</span>path to assign outputs<span class="op">&gt;</span>/*/final_outputs/marker_contig_map.tsv <span class="kw">|</span> <span class="fu">grep</span> -v Query <span class="op">&gt;&gt;</span>SI072_combined_marker_contig_map.tsv</span></code></pre></div>
-</div>
-<div id="viewing-the-placements-and-tpm-bars-in-itol" class="section level4">
-<h4>
-<span class="header-section-number">9.6.1.5</span> Viewing the placements and TPM bars in iTOL<a class="anchor" aria-label="anchor" href="#viewing-the-placements-and-tpm-bars-in-itol"><i class="fas fa-link"></i></a>
-</h4>
-<p>For iToL visualization use the jplace file from <code>treesapp assign</code> with the concatenated metagenome FASTA to visualize the phylogenetic tree with all placements across depths, and use the <gene>_labels.txt file from the concatenated run to name the leaves.
-To add the TPM abundance layers for each depth access the simple_bar.txt files from each individual depth run and drag and drop these files into the iToL GUI.</gene></p>
-
-</div>
-</div>
+<!-- ## Addendum --><!-- ### Abundance --><!-- The workflow introduced in the [treesapp abundance](#treesapp-abundance) tutorial was supposed to serve as the guide to generating TPM values for your capstone project. However, it has come to the attention of the teaching team that `treesapp abundance` fails to generate the simple_bar.txt files for viewing the distribution of TPM values across a reference package's phylogenetic tree. Therefore, we are providing you another workflow that will generate both the classifications file (marker_contig_map.tsv) with TPM values and all simplebar.txt files for iTOL. --><!-- #### Generate the JPlace with all classifications --><!-- With the concatenated metagenome FASTA file for SI072 (`MetaG_Assemblies/SI072_All_contigs.fa`; see [server data locations](#the-saanich-inlet-data-set#data-on-the-server)) run `treesapp assign` without FASTQ reads and abundance flags to generate a single jplace file containing all reference package homologs across all the depths. --><!-- #### Generate TPM values for metagenomes --><!-- Run `treesapp assign` seven times with abundance flags (\--rel_abund and \--metric TPM) and paths to metagenome FASTQ files to generate TPM values for each individual depth and the abundance files needed for iToL visualization. --><!-- This gives you a total of 8 `treesapp assign` runs with associated output files for the metagenome samples. --><!-- #### Generate TPM values for metatranscriptomes --><!-- Run `treesapp assign` with abundance flags once for each of the seven metatranscriptome samples, including their respective FASTQ file path in the command. This will give you another seven `treesapp assign` outputs for a total of 15 to complete the process for metagenome and metatranscriptome data sets. --><!-- #### Generate the file with all classifications and TPM values --><!-- Now concatenate the marker_contig_map.tsv files from the seven individual depth runs for analysis in `R`. --><!-- You will first need to write the header from *one* classification table to the combined table file (`SI072_combined_marker_contig_map.tsv` below), then write the classifications from all tables without the header. This is to avoid including the table's header multiple times partway through the table, which would confuse `R`. We're using `grep` to accomplish this by removing any lines that match a word in the header, 'Query'. --><!-- ```{bash, eval=F} --><!-- head -n 1 <path to treesapp assign output directory>/final_outputs/marker_contig_map.tsv >SI072_combined_marker_contig_map.tsv --><!-- cat <path to assign outputs>/*/final_outputs/marker_contig_map.tsv | grep -v Query >>SI072_combined_marker_contig_map.tsv --><!-- ``` --><!-- #### Viewing the placements and TPM bars in iTOL --><!-- For iToL visualization use the jplace file from `treesapp assign` with the concatenated metagenome FASTA to visualize the phylogenetic tree with all placements across depths, and use the <gene>_labels.txt file from the concatenated run to name the leaves. --><!-- To add the TPM abundance layers for each depth access the simple_bar.txt files from each individual depth run and drag and drop these files into the iToL GUI. -->
 </div>
 </div>
   <div class="chapter-nav">
@@ -339,9 +300,6 @@ To add the TPM abundance layers for each depth access the simple_bar.txt files f
 <li><a class="nav-link" href="#your-submission"><span class="header-section-number">9.3</span> Your submission</a></li>
 <li><a class="nav-link" href="#timeline"><span class="header-section-number">9.4</span> Timeline</a></li>
 <li><a class="nav-link" href="#reports"><span class="header-section-number">9.5</span> Reports</a></li>
-<li>
-<a class="nav-link" href="#addendum"><span class="header-section-number">9.6</span> Addendum</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#abundance"><span class="header-section-number">9.6.1</span> Abundance</a></li></ul>
-</li>
 </ul>
 
       <div class="book-extra">
@@ -359,7 +317,7 @@ To add the TPM abundance layers for each depth access the simple_bar.txt files f
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 13, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 18, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

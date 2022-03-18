@@ -96,13 +96,6 @@ resources
 your-submission
 timeline
 reports
-addendum
-abundance
-generate-the-jplace-with-all-classifications
-generate-tpm-values-for-metagenomes
-generate-tpm-values-for-metatranscriptomes
-generate-the-file-with-all-classifications-and-tpm-values
-viewing-the-placements-and-tpm-bars-in-itol
 assessment
 peer-evaluation-10
 report-20
