@@ -90,8 +90,8 @@
 <span class="header-section-number">5.2</span> Classify new sequences<a class="anchor" aria-label="anchor" href="#classify-new-sequences"><i class="fas fa-link"></i></a>
 </h2>
 <p>Before we can begin using TreeSAPP, we must log onto the server and make sure we’re in the same directory as all our data.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb16-1"></a><span class="bu">cd</span> /data/ts_tutorial/</span></code></pre></div>
-<p>According to <code>treesapp purity</code> in the <a href="treesapp-create.html#treesapp-create">last chapter</a>, and all other sanity checks, the XmoA reference package (contained in your working directory, <code>/data/ts_tutorial</code>, at <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>) only contains XmoA sequences. At this point, you’re able to use this reference package to classify sequences in any dataset using <code>treesapp assign</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb16-1"></a><span class="bu">cd</span> /data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/ts_tutorial/</span></code></pre></div>
+<p>According to <code>treesapp purity</code> in the <a href="treesapp-create.html#treesapp-create">last chapter</a>, and all other sanity checks, the XmoA reference package (contained in your working directory, <code>/data/&lt;user&gt;/ts_tutorial</code>, at <code>XmoA_seed/final_outputs/XmoA_build.pkl</code>) only contains XmoA sequences. At this point, you’re able to use this reference package to classify sequences in any dataset using <code>treesapp assign</code>.</p>
 <p>The command <code>treesapp assign</code> is perhaps the most popular command and is described in detail on the <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign">TreeSAPP wiki</a>.</p>
 <p>For these commands we will use the Block Mapping and Gathering with Entropy (BMGE) software to filter out regions of questionable homology from the alignment <span class="citation">(<a href="references.html#ref-Criscuolo.2010" role="doc-biblioref">6</a>)</span>. Refer to the <a href="https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-10-210">BMGE publication</a> for more information. To trim the multiple sequence alignments prior to phylogenetic placement use the <code>--trim_align</code> flag.
 To use the PmoA and AmoA reference package we’ve built instead of any other reference packages that come with TreeSAPP we can use the argument <code>--refpkg_dir</code> with the path to a directory containing reference packages we want to use.</p>
@@ -347,7 +347,7 @@ The default colour palette used is “BrBG” from <a href="https://colorbrewer2
 <li>
 <strong>On your computer:</strong> Transfer <code>UniProt_XmoA_update_assign/iTOL_output/</code> from the server to your local directory <code>ts_tutorial_local</code>.</li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb37-1"></a><span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/UniProt_XmoA_update_assign/iTOL_output <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="classifying-unknown-sequences-with-treesapp-and-updating-a-reference-package.html#cb37-1"></a><span class="fu">scp</span> -r root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/ts_tutorial/UniProt_XmoA_update_assign/iTOL_output <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span></span></code></pre></div>
 <ul>
 <li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and sign in using the group’s username and password.</p></li>
 <li><p>Upload the file <code>XmoA_complete_profile.jplace</code>. You can do this using either your computer’s file browser then navigating to the <code>iTOL_output</code> directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
@@ -407,7 +407,7 @@ The default colour palette used is “BrBG” from <a href="https://colorbrewer2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 18, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 23, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

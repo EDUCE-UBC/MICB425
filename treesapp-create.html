@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function</title>
 <meta name="author" content="Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam">
-<meta name="description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product. The goals of this...">
+<meta name="description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated sequences in the final product. The goals...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function">
 <meta property="og:type" content="book">
-<meta property="og:description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product. The goals of this...">
+<meta property="og:description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated sequences in the final product. The goals...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4 Creating a reference package for TreeSAPP | Gene-centric mapping of microbial community structure and function">
-<meta name="twitter:description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product. The goals of this...">
+<meta name="twitter:description" content="4.1 Introduction and goals In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated sequences in the final product. The goals...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -75,12 +75,12 @@
 <h2>
 <span class="header-section-number">4.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-2"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product.</p>
+<p>In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated sequences in the final product.</p>
 <p>The goals of this tutorial are:</p>
 <ol style="list-style-type: decimal">
 <li>To learn how to use <code>treesapp create</code> to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial.</li>
-<li>Learn how to assess whether the reference package contains only homologous sequences using <code>treesapp purity</code>.</li>
-<li>Learn how to view a reference package’s phylogenetic tree using the interactive Tree of Life (iTOL).</li>
+<li>To learn how to assess whether the reference package contains only homologous sequences using <code>treesapp purity</code>.</li>
+<li>To learn how to view a reference package’s phylogenetic tree using the interactive Tree of Life (iTOL).</li>
 </ol>
 </div>
 <div id="making-the-reference-package" class="section level2">
@@ -92,16 +92,15 @@
 Let’s call this our seed reference package. The steps involved are:</p>
 <ul>
 <li>
-<strong>All steps are executed on the server unless stated otherwise.</strong> Connect to your personal server and continue to work in the <code>/data/ts_tutorial</code> directory.</li>
+<strong>All steps are executed on the server unless stated otherwise.</strong> Connect to your group’s server container and continue to work in your <code>/data/&lt;user&gt;/tutorial</code> directory.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="treesapp-create.html#cb4-1"></a><span class="bu">cd</span> /data/ts_tutorial</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="treesapp-create.html#cb4-1"></a><span class="bu">cd</span> /data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/tutorial</span></code></pre></div>
 <ul>
 <li>
-<strong>Optional:</strong> If you could not download the reference sequences of XmoA yourself (see <a href="acquiring-reference-sequence-data.html#acquiring-reference-sequence-data">Acquiring reference sequence data</a>), download <a href="https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a> — a list of the necessary fasta files — with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
+<strong>Optional:</strong> If you could not download the reference sequences of XmoA yourself (see <a href="acquiring-reference-sequence-data.html#acquiring-reference-sequence-data">Acquiring reference sequence data</a>), download <a href="https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt"><code>xmoa_file_list.txt</code></a> — a list of the necessary fasta files — with <code>wget</code> to the <code>ts_tutorial</code> directory, then run <code>wget</code> again to retrieve each file within this list.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="treesapp-create.html#cb5-1"></a><span class="bu">cd</span> /data/ts_tutorial</span>
-<span id="cb5-2"><a href="treesapp-create.html#cb5-2"></a><span class="fu">wget</span> https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt</span>
-<span id="cb5-3"><a href="treesapp-create.html#cb5-3"></a><span class="fu">wget</span> -i xmoa_file_list.txt</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="treesapp-create.html#cb5-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt</span>
+<span id="cb5-2"><a href="treesapp-create.html#cb5-2"></a><span class="fu">wget</span> -i xmoa_file_list.txt</span></code></pre></div>
 <p>There are 73 PmoA and AmoA fasta sequences in this file.</p>
 <ul>
 <li>Let’s look briefly at the newly generated fasta file using <code>cat</code> and <code>less</code>. <code>cat</code> stands for concatenate, i.e. the files are pasted together. The output of <code>cat</code> is funneled, or piped, with the <code>|</code> symbol to a text viewer called <code>less</code>, i.e. <code>cat file_1.ext file_2.ext | less</code>. The <code>-S</code> argument for <code>less</code> command turns off line-wrapping to maintain a readable format.</li>
@@ -174,11 +173,11 @@ TIGR03080       3       3       8.3    methane monooxygenase/ammonia monooxygena
 <li>
 <strong>On your computer:</strong> Transfer <code>XmoA_seed/XmoA_labelled_tree.txt</code> from the server to your local directory <code>ts_tutorial_local</code>.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="treesapp-create.html#cb14-1"></a> <span class="fu">scp</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="treesapp-create.html#cb14-1"></a> <span class="fu">scp</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span></span></code></pre></div>
 <p>We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the text file produced by TreeSAPP.</p>
 <ul>
-<li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and sign in using the group’s username and password.</p></li>
-<li><p>Upload the file <code>XmoA_labelled_tree.txt</code>. You can do this using either your computer’s file browser then navigating to the parent directory and clicking-and-dragging the file, or iTOL’s file uploader—the “Upload tree files” button.</p></li>
+<li><p>Navigate to <a href="https://itol.embl.de/" class="uri">https://itol.embl.de/</a> using a web browser and click “Upload” at the top of the page.</p></li>
+<li><p>Upload the file <code>XmoA_labelled_tree.txt</code>. You can do this using either your computer’s file browser then navigating to the parent directory and clicking-and-dragging the file, or iTOL’s file uploader by choosing a file.</p></li>
 <li>
 <p>The figure should look identical to this figure below Figure <a href="treesapp-create.html#fig:xmoa">4.1</a>.</p>
 <div class="figure">
@@ -250,7 +249,7 @@ If your reference package is still very large after using the above options, set
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 18, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 23, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

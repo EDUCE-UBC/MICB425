@@ -171,14 +171,15 @@ Place any reference sequences in <code>ts_tutorial_local</code> that you identif
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="acquiring-reference-sequence-data.html#cb1-1"></a><span class="fu">ssh</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span></span></code></pre></div>
 </li>
 <li>
-<p><strong>On the server:</strong> Move to the directory <code>/data</code> (if it is not your working directory already), create a new directory called <code>ts_tutorial</code> and then move into it.</p>
+<p><strong>On the server:</strong> Move to your directory <code>/data</code> (if it is not your working directory already) and create a new directory called <code>&lt;user&gt;/ts_tutorial</code> where <code>&lt;user&gt;/</code> is unique within your project group.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="acquiring-reference-sequence-data.html#cb2-1"></a><span class="bu">cd</span> /data/</span>
-<span id="cb2-2"><a href="acquiring-reference-sequence-data.html#cb2-2"></a><span class="fu">mkdir</span> ts_tutorial</span>
-<span id="cb2-3"><a href="acquiring-reference-sequence-data.html#cb2-3"></a><span class="bu">cd</span> ts_tutorial</span></code></pre></div>
+<span id="cb2-2"><a href="acquiring-reference-sequence-data.html#cb2-2"></a><span class="fu">mkdir</span> <span class="op">&lt;</span>user<span class="op">&gt;</span></span>
+<span id="cb2-3"><a href="acquiring-reference-sequence-data.html#cb2-3"></a><span class="bu">cd</span> <span class="op">&lt;</span>user<span class="op">&gt;</span></span>
+<span id="cb2-4"><a href="acquiring-reference-sequence-data.html#cb2-4"></a><span class="fu">mkdir</span> ts_tutorial</span></code></pre></div>
 </li>
 <li>
 <p><strong>On your computer:</strong> Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="acquiring-reference-sequence-data.html#cb3-1"></a><span class="fu">scp</span> -r <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span> root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/ts_tutorial </span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="acquiring-reference-sequence-data.html#cb3-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>path to ts_tutorial_local<span class="op">&gt;</span>/* root@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:/data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/ts_tutorial/</span></code></pre></div>
 </li>
 </ul>
 </div>
@@ -264,7 +265,7 @@ Place any reference sequences in <code>ts_tutorial_local</code> that you identif
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 18, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 23, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
