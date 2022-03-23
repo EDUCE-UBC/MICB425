@@ -2,13 +2,13 @@
 
 ## Introduction and goals
 
-In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated in the final product.
+In this tutorial we will demonstrate how to build a TreeSAPP reference package and assess whether there are any mis-annotated sequences in the final product.
 
 The goals of this tutorial are:
 
 1) To learn how to use `treesapp create` to build a reference package for a simple protein family (XmoA) using the sequences acquired in the previous tutorial.
-2) Learn how to assess whether the reference package contains only homologous sequences using `treesapp purity`.
-3) Learn how to view a reference package's phylogenetic tree using the interactive Tree of Life (iTOL).
+2) To learn how to assess whether the reference package contains only homologous sequences using `treesapp purity`.
+3) To learn how to view a reference package's phylogenetic tree using the interactive Tree of Life (iTOL).
 
 ## Making the reference package
 
@@ -17,16 +17,15 @@ In the [Acquiring reference sequence data] tutorial, PmoA & AmoA sequences were 
  <!-- as well as seed sequences from [TIGRFAM](http://tigrfams.jcvi.org/cgi-bin/index.cgi) --- a database that is no longer updated but was well curated -->
 Let's call this our seed reference package. The steps involved are:
 
--   **All steps are executed on the server unless stated otherwise.** Connect to your personal server and continue to work in the `/data/ts_tutorial` directory.
+-   **All steps are executed on the server unless stated otherwise.** Connect to your group's server container and continue to work in your `/data/<user>/tutorial` directory.
 
 ```{bash eval = FALSE}
-cd /data/ts_tutorial
+cd /data/<user>/tutorial
 ```
 
 -   **Optional:** If you could not download the reference sequences of XmoA yourself (see [Acquiring reference sequence data]), download [`xmoa_file_list.txt`](https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt) --- a list of the necessary fasta files --- with `wget` to the `ts_tutorial` directory, then run `wget` again to retrieve each file within this list.
 
 ```{bash eval = FALSE}
-cd /data/ts_tutorial
 wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt
 wget -i xmoa_file_list.txt
 ```
@@ -121,14 +120,14 @@ treesapp package \
  -  **On your computer:** Transfer `XmoA_seed/XmoA_labelled_tree.txt` from the server to your local directory `ts_tutorial_local`.
  
 ```{bash eval = FALSE}
- scp root@<server address>:/data/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <path to ts_tutorial_local>
+ scp root@<server address>:/data/<user>/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <path to ts_tutorial_local>
 ```
 
   We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the text file produced by TreeSAPP.
 
--   Navigate to <https://itol.embl.de/> using a web browser and sign in using the group's username and password.
+-   Navigate to <https://itol.embl.de/> using a web browser and click "Upload" at the top of the page.
 
--   Upload the file `XmoA_labelled_tree.txt`. You can do this using either your computer's file browser then navigating to the parent directory and clicking-and-dragging the file, or iTOL's file uploader---the "Upload tree files" button. 
+-   Upload the file `XmoA_labelled_tree.txt`. You can do this using either your computer's file browser then navigating to the parent directory and clicking-and-dragging the file, or iTOL's file uploader by choosing a file. 
 
 -   The figure should look identical to this figure below Figure \@ref(fig:xmoa).
 
