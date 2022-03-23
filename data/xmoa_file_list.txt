@@ -1,0 +1,8 @@
+https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/ENOG5028JPK_EggNOGv5.faa
+https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/arCOG08676_EggNOGv5.faa
+https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/UniProt_AmoA.fasta
+https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/UniProt_PmoA.fasta
+https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/uniprot-EmoA.fasta
+https://raw.githubusercontent.com/hallamlab/RefPkgs/master/Nitrogen_metabolism/Nitrification/XmoA/uniprot-PxmA.fasta
+https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/dev_utils/TIGRFAM_seed_named.faa
+https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/dev_utils/TIGRFAM_info.tsv
