@@ -23,10 +23,10 @@ Let's call this our seed reference package. The steps involved are:
 cd /data/<user>/tutorial
 ```
 
--   **Optional:** If you could not download the reference sequences of XmoA yourself (see [Acquiring reference sequence data]), download [`xmoa_file_list.txt`](https://github.com/hallamlab/TreeSAPP/blob/master/docs/xmoa_file_list.txt) --- a list of the necessary fasta files --- with `wget` to the `ts_tutorial` directory, then run `wget` again to retrieve each file within this list.
+-   **Optional:** If you could not download the reference sequences of XmoA yourself (see [Acquiring reference sequence data]), download [`xmoa_file_list.txt`](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt) --- a list of the necessary fasta files --- with `wget` to the `ts_tutorial` directory, then run `wget` again to retrieve each file within this list.
 
 ```{bash eval = FALSE}
-wget https://raw.githubusercontent.com/hallamlab/TreeSAPP/master/docs/xmoa_file_list.txt
+wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt
 wget -i xmoa_file_list.txt
 ```
 
