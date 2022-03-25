@@ -89,7 +89,7 @@
 <li><a href="https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/dummyData.zip">dummyData.zip</a></li>
 </ul>
 <p>R libraries</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
@@ -105,12 +105,12 @@
 <span class="header-section-number">8.3</span> Making a function<a class="anchor" aria-label="anchor" href="#making-a-function"><i class="fas fa-link"></i></a>
 </h2>
 <p>In math, we specify functions like so: <span class="math inline">\(f(x) = 2x\)</span>, where the function <span class="math inline">\(f\)</span> takes the parameter <span class="math inline">\(x\)</span> and performs the action <span class="math inline">\(2x\)</span> before handing back the result. In R, the same would look like this…</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>…and it can be used like so.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 </div>
@@ -119,7 +119,7 @@
 <span class="header-section-number">8.4</span> Decisions with conditionals<a class="anchor" aria-label="anchor" href="#decisions-with-conditionals"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>if</code> allows selective execution based on a condition.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">doubleIfLessThan</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">threshold</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&lt;</span> <span class="va">threshold</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span>
@@ -130,11 +130,11 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleIfLessThan</span><span class="op">(</span><span class="fl">12</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="co"># 12 &lt; 100, so doubled 12</span></code></pre></div>
 <pre><code>## [1] 24</code></pre>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleIfLessThan</span><span class="op">(</span><span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="co"># 12 ≮ 10, so just give back 12</span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>More than one condition can be used…</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">doubleOutsideRange</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">lower</span>, <span class="va">upper</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&lt;</span> <span class="va">lower</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span> <span class="fl">2</span> <span class="op">*</span><span class="va">x</span><span class="op">)</span>
@@ -147,14 +147,14 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleOutsideRange</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleOutsideRange</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleOutsideRange</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>…and conditions can be combined with logical operators</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">doubleIfInRange</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">lower</span>, <span class="va">upper</span><span class="op">)</span> <span class="op">{</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;=</span> <span class="va">lower</span> <span class="op">&amp;&amp;</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="va">upper</span><span class="op">)</span> <span class="op">{</span> <span class="co"># &amp;&amp; is the same as AND</span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span><span class="op">)</span>
@@ -165,10 +165,10 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleIfInRange</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleIfInRange</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">doubleIfInRange</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="inline-table"><table class="table table-sm">
@@ -198,13 +198,13 @@
 </tbody>
 </table></div>
 <p>Try the following</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span><span class="op">==</span><span class="fl">1</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span><span class="op">==</span><span class="fl">1</span> <span class="op">&amp;&amp;</span> <span class="fl">2</span><span class="op">==</span><span class="fl">1</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">!</span><span class="op">(</span><span class="fl">2</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span> <span class="op">||</span> <span class="cn">FALSE</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
@@ -213,7 +213,7 @@
 <span class="header-section-number">8.5</span> Iterating with loops<a class="anchor" aria-label="anchor" href="#iterating-with-loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>Suppose we wanted to double each number in a list.</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"data/numbers.csv"</span>, header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">numbers</span></code></pre></div>
 <pre><code>##     n
@@ -228,7 +228,7 @@
 ## 9   9
 ## 10 10</code></pre>
 <p>We can use a <code>for</code> loop. This is how it behaves…</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
@@ -238,7 +238,7 @@
 ## [1] 4
 ## [1] 5</code></pre>
 <p>…and this is how we to use it in our context</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">rowNumber</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">numbers</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">numbers</span><span class="op">[</span><span class="va">rowNumber</span>, <span class="st">"n"</span><span class="op">]</span> <span class="co"># get value from row "rowNumber", column "n"</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">n</span><span class="op">)</span>
@@ -254,7 +254,7 @@
 ## [1] 18
 ## [1] 20</code></pre>
 <p>If the number of repeats is unknown, we can use a <code>while</code> loop. A condition is used instead to tell it when to stop.</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="kw">while</span> <span class="op">(</span><span class="va">n</span> <span class="op">&lt;</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">n</span> <span class="op">&lt;-</span>  <span class="va">n</span> <span class="op">*</span> <span class="fl">2</span>
@@ -263,7 +263,7 @@
 <span class="va">n</span></code></pre></div>
 <pre><code>## [1] 1024</code></pre>
 <p>Loops can repeat forever. Click the red octagon (🛑) at the top right of your RStudio console to force the script to stop.</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">while</span> <span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># loop forever</span>
 <span class="op">}</span></code></pre></div>
@@ -273,7 +273,7 @@
 <span class="header-section-number">8.6</span> Reading files<a class="anchor" aria-label="anchor" href="#reading-files"><i class="fas fa-link"></i></a>
 </h2>
 <p>Files can be opened and read one line at a time like so.</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">numbersFileConnection</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">file</a></span><span class="op">(</span><span class="st">"data/numbers.csv"</span>, <span class="st">"r"</span><span class="op">)</span> <span class="co"># r is for read</span>
 
 <span class="kw">while</span> <span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
@@ -294,15 +294,15 @@
 ## [1] "8"
 ## [1] "9"
 ## [1] "10"</code></pre>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/connections.html">close</a></span><span class="op">(</span><span class="va">numbersFileConnection</span><span class="op">)</span></code></pre></div>
 <p>The last parameter specifies the read/write permissions of the opened file.</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">file</a></span><span class="op">(</span><span class="st">"data/numbers.csv"</span>, <span class="st">"r"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="st">"some new text"</span>, file <span class="op">=</span> <span class="va">con</span><span class="op">)</span></code></pre></div>
 <pre><code>## Error in cat(x, file = file, sep = c(rep.int(sep, ncolumns - 1), "\n"), : cannot write to this connection</code></pre>
 <p>Files can also be written to one line at a time like so.</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">file</a></span><span class="op">(</span><span class="st">"data/myNumbers.csv"</span>, <span class="st">"w"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="va">con</span><span class="op">)</span> <span class="co"># header</span>
@@ -314,7 +314,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/connections.html">close</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre></div>
 <p>Check your <code>data</code> folder for the new file.</p>
 <p>Reading and writing <code>csvs</code> are done <em>much better</em> by <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> and <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code>, but suppose you come across this file…</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">file</a></span><span class="op">(</span><span class="st">"data/brokenNumbers.csv"</span>,<span class="st">"r"</span><span class="op">)</span>
 <span class="va">line</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span> 
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
@@ -330,10 +330,10 @@
 ## [1] "7, certainly odd, 3.5, 14"
 ## [1] "8, 4.0, 16"
 ## [1] "9, odd, 4.5, 18"</code></pre>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/connections.html">close</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></code></pre></div>
 <p>…seems innocent enough, but when trying to load it as a csv…</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">isOdd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/brokenNumbers.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">isOdd</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">50</span><span class="op">:</span><span class="fl">60</span><span class="op">)</span></code></pre></div>
 <pre><code>##                          n             comment half_n  X2n
@@ -354,7 +354,7 @@
 <span class="header-section-number">8.7</span> Practice 1<a class="anchor" aria-label="anchor" href="#practice-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>…it’s format is obviously broken. Investigate the file and see if you can fix it.<br><a href="https://stringr.tidyverse.org/reference/str_split.html">Documentation for strsplit()</a></p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">file</a></span><span class="op">(</span><span class="st">"data/brokenNumbers.csv"</span>, <span class="st">"r"</span><span class="op">)</span>
 <span class="va">outCon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/connections.html">file</a></span><span class="op">(</span><span class="st">"data/fixedNumbers.csv"</span>, <span class="st">"w"</span><span class="op">)</span>
 
@@ -389,7 +389,7 @@
 <span class="header-section-number">8.8</span> Practice 2<a class="anchor" aria-label="anchor" href="#practice-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>TreeSAPP’s <code>assign</code> function wants a single <code>fasta</code> file, but all your data is separated by bins from a previous taxonomic classifier! See if you can append all of them together into one file.</p>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">f</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">'data/dummyData'</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span>
   <span class="co"># append files</span>
@@ -436,7 +436,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 23, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 25, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

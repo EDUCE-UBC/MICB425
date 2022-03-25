@@ -93,12 +93,12 @@ Edit the <code>treesapp_analysis.sh</code> script following <a href="running-tre
 <li>
 <p><input type="checkbox" disabled>
 Using the terminal on your computer, copy the script to your group’s server using:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb109-1"><a href="running-treesapp-on-a-server.html#cb109-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>path to file on your computer<span class="op">&gt;</span> <span class="op">&lt;</span>user<span class="op">&gt;</span>@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:<span class="op">&lt;</span>destination<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb110-1"><a href="running-treesapp-on-a-server.html#cb110-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>path to file on your computer<span class="op">&gt;</span> <span class="op">&lt;</span>user<span class="op">&gt;</span>@<span class="op">&lt;</span>server address<span class="op">&gt;</span>:<span class="op">&lt;</span>destination<span class="op">&gt;</span></span></code></pre></div>
 </li>
 <li>
 <p><input type="checkbox" disabled>
 Make the script executable on the server (otherwise you won’t be able to run it). In the CLI and while in the directory containing your script, run the following command:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb110-1"><a href="running-treesapp-on-a-server.html#cb110-1"></a><span class="fu">chmod</span> u+x treesapp_analysis.sh</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb111-1"><a href="running-treesapp-on-a-server.html#cb111-1"></a><span class="fu">chmod</span> u+x treesapp_analysis.sh</span></code></pre></div>
 </li>
 <li><p><input type="checkbox" disabled>
 Still in the CLI, start a new session with <code>screen -S &lt;session name&gt;</code>.</p></li>
@@ -119,7 +119,7 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 <span class="header-section-number">11.3.1</span> Defining the shell<a class="anchor" aria-label="anchor" href="#defining-the-shell"><i class="fas fa-link"></i></a>
 </h3>
 <p>The script template starts with:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb111-1"><a href="running-treesapp-on-a-server.html#cb111-1"></a><span class="co">#! bin/bash</span></span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb112-1"><a href="running-treesapp-on-a-server.html#cb112-1"></a><span class="co">#! bin/bash</span></span></code></pre></div>
 <p>and defines the shell used to interpret this script and where the shell is located (i.e. the <code>bash</code> shell in the <code>/bin</code> directory). You do not need to modify anything about that step.</p>
 </div>
 <div id="setting-a-variable-for-your-depth" class="section level3">
@@ -127,7 +127,7 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 <span class="header-section-number">11.3.2</span> Setting a variable for your depth<a class="anchor" aria-label="anchor" href="#setting-a-variable-for-your-depth"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s define our first variable with the name “depth”. Replace <code>&lt;your depth&gt;</code> with the depth your group has been assigned to (e.g. <code>100</code>).</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb112-1"><a href="running-treesapp-on-a-server.html#cb112-1"></a><span class="va">depth=</span><span class="st">"&lt;your  depth&gt;"</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb113-1"><a href="running-treesapp-on-a-server.html#cb113-1"></a><span class="va">depth=</span><span class="st">"&lt;your  depth&gt;"</span></span></code></pre></div>
 </div>
 <div id="providing-user-feedback" class="section level3">
 <h3>
@@ -135,36 +135,36 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 </h3>
 <p>It is good practice to provide feedback to the user while a script is running by printing messages to the terminal. Let’s print a welcome message to the terminal using the <code>echo</code> command to informing the user what the script is going to do. This is a great opportunity to call the <code>depth</code> variable that we have just defined.</p>
 <p><em>Hint</em>: Remember, to call a variable, you have to prepend its name with a <code>$</code>, e.g. if the variable’s name is <code>some_variable</code> then you call it with <code>$some_variable</code>.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb113-1"><a href="running-treesapp-on-a-server.html#cb113-1"></a><span class="bu">echo</span> <span class="st">"TreeSAPP analysis of Saanich Inlet Data at Depth &lt;call depth variable&gt; m"</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb114-1"><a href="running-treesapp-on-a-server.html#cb114-1"></a><span class="bu">echo</span> <span class="st">"TreeSAPP analysis of Saanich Inlet Data at Depth &lt;call depth variable&gt; m"</span></span></code></pre></div>
 </div>
 <div id="defining-variable-for-input-directory" class="section level3">
 <h3>
 <span class="header-section-number">11.3.4</span> Defining variable for input directory<a class="anchor" aria-label="anchor" href="#defining-variable-for-input-directory"><i class="fas fa-link"></i></a>
 </h3>
 <p>Define a variable for path to the input data directory. Let’s call the variable <code>input_dir</code>.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb114-1"><a href="running-treesapp-on-a-server.html#cb114-1"></a><span class="op">&lt;</span><span class="ex">variable_name</span><span class="op">&gt;</span>=<span class="st">"&lt;path to data directory&gt;"</span></span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb115-1"><a href="running-treesapp-on-a-server.html#cb115-1"></a><span class="op">&lt;</span><span class="ex">variable_name</span><span class="op">&gt;</span>=<span class="st">"&lt;path to data directory&gt;"</span></span></code></pre></div>
 </div>
 <div id="creating-output-directory" class="section level3">
 <h3>
 <span class="header-section-number">11.3.5</span> Creating output directory<a class="anchor" aria-label="anchor" href="#creating-output-directory"><i class="fas fa-link"></i></a>
 </h3>
 <p>Define a variable for the TreeSAPP output directory and choose a name for it yourself. The directory should be located in your home directory (which is also shared between your host and container). To refer to your home directory, use the environmental variable <code>HOME</code> which is automatically defined by the shell (i.e. you do not need to first define it yourself). Finally, create the output directory.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb115-1"><a href="running-treesapp-on-a-server.html#cb115-1"></a><span class="op">&lt;</span><span class="kw">set</span> <span class="ex">output</span> directory variable<span class="op">&gt;</span></span>
-<span id="cb115-2"><a href="running-treesapp-on-a-server.html#cb115-2"></a><span class="op">&lt;</span><span class="ex">create</span> the ouput directory<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb116-1"><a href="running-treesapp-on-a-server.html#cb116-1"></a><span class="op">&lt;</span><span class="kw">set</span> <span class="ex">output</span> directory variable<span class="op">&gt;</span></span>
+<span id="cb116-2"><a href="running-treesapp-on-a-server.html#cb116-2"></a><span class="op">&lt;</span><span class="ex">create</span> the ouput directory<span class="op">&gt;</span></span></code></pre></div>
 </div>
 <div id="reporting-variables-to-user" class="section level3">
 <h3>
 <span class="header-section-number">11.3.6</span> Reporting variables to user<a class="anchor" aria-label="anchor" href="#reporting-variables-to-user"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s provide the user some feedback where TreeSAPP is going to save its output and what bind paths have been set.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb116-1"><a href="running-treesapp-on-a-server.html#cb116-1"></a><span class="op">&lt;</span><span class="ex">print</span> command<span class="op">&gt;</span> <span class="st">"&lt;Some text explaining what variables have been set&gt;"</span></span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb117-1"><a href="running-treesapp-on-a-server.html#cb117-1"></a><span class="op">&lt;</span><span class="ex">print</span> command<span class="op">&gt;</span> <span class="st">"&lt;Some text explaining what variables have been set&gt;"</span></span></code></pre></div>
 </div>
 <div id="listing-treesapp-version" class="section level3">
 <h3>
 <span class="header-section-number">11.3.7</span> Listing TreeSAPP version<a class="anchor" aria-label="anchor" href="#listing-treesapp-version"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s print the information about the configuration of TreeSAPP.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb117-1"><a href="running-treesapp-on-a-server.html#cb117-1"></a> <span class="ex">treesapp</span> info</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb118-1"><a href="running-treesapp-on-a-server.html#cb118-1"></a> <span class="ex">treesapp</span> info</span></code></pre></div>
 <p><em>Hint</em>: When we have very long commands in a script, we can introduce line breaks using <code>\</code> which are best used right after a space in the command (see example above after the word “following”).</p>
 </div>
 <div id="executing-treesapp-analysis" class="section level3">
@@ -172,7 +172,7 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 <span class="header-section-number">11.3.8</span> Executing TreeSAPP analysis<a class="anchor" aria-label="anchor" href="#executing-treesapp-analysis"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the terminal (i.e. not as part of this script), check the documentation for <code>treesapp assign</code>, the command you will use for the automated reconstruction of a nutrient cycle (visit its <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign">wikipage</a> to learn more).</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb118-1"><a href="running-treesapp-on-a-server.html#cb118-1"></a><span class="ex">treesapp</span> assign -h</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb119-1"><a href="running-treesapp-on-a-server.html#cb119-1"></a><span class="ex">treesapp</span> assign -h</span></code></pre></div>
 <p>Looking at the TreeSAPP documentation, determine the flags you need in addition to the ones already included below.</p>
 <p>Time to run our analysis! You will have to identify the input file(s) that you need to process. You will run the analysis once for metagenomic (two files, forward reads are in the file that contains <code>.1</code> in its name, and reverse reads in file the with <code>.2</code>) and once for metatranscriptomic reads (a single file that contains both forward and reverse reads) and align them to the assembled contigs. All reads are pair-end.</p>
 <p>You will need to provide the following settings using flags:</p>
@@ -197,16 +197,16 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 </ul>
 <p>Optional bonus challenge:<br>
 Earlier we defined the <code>depth</code> variable. Could you use it in some way when you define which assembly and reads you are using in the analysis?</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb119-1"><a href="running-treesapp-on-a-server.html#cb119-1"></a><span class="co"># Metagenomic analysis</span></span>
-<span id="cb119-2"><a href="running-treesapp-on-a-server.html#cb119-2"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb119-3"><a href="running-treesapp-on-a-server.html#cb119-3"></a>-i <span class="op">&lt;</span>input data dir<span class="op">&gt;&lt;</span>file path to your assembly<span class="op">&gt;</span> \</span>
-<span id="cb119-4"><a href="running-treesapp-on-a-server.html#cb119-4"></a>-m <span class="op">&lt;</span>choose the correct option<span class="op">&gt;</span> \</span>
-<span id="cb119-5"><a href="running-treesapp-on-a-server.html#cb119-5"></a><span class="op">&lt;</span>number of CPU threads, set to <span class="op">8&gt;</span></span>
-<span id="cb119-6"><a href="running-treesapp-on-a-server.html#cb119-6"></a><span class="op">&lt;</span><span class="ex">your</span> output directory<span class="op">&gt;</span> \</span>
-<span id="cb119-7"><a href="running-treesapp-on-a-server.html#cb119-7"></a><span class="op">&lt;</span>your remaining settings<span class="op">&gt;</span></span>
-<span id="cb119-8"><a href="running-treesapp-on-a-server.html#cb119-8"></a></span>
-<span id="cb119-9"><a href="running-treesapp-on-a-server.html#cb119-9"></a><span class="co"># Metatranscriptomic analysis</span></span>
-<span id="cb119-10"><a href="running-treesapp-on-a-server.html#cb119-10"></a><span class="op">&lt;</span><span class="ex">you</span> are on your own now :)<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb120-1"><a href="running-treesapp-on-a-server.html#cb120-1"></a><span class="co"># Metagenomic analysis</span></span>
+<span id="cb120-2"><a href="running-treesapp-on-a-server.html#cb120-2"></a><span class="ex">treesapp</span> assign \</span>
+<span id="cb120-3"><a href="running-treesapp-on-a-server.html#cb120-3"></a>-i <span class="op">&lt;</span>input data dir<span class="op">&gt;&lt;</span>file path to your assembly<span class="op">&gt;</span> \</span>
+<span id="cb120-4"><a href="running-treesapp-on-a-server.html#cb120-4"></a>-m <span class="op">&lt;</span>choose the correct option<span class="op">&gt;</span> \</span>
+<span id="cb120-5"><a href="running-treesapp-on-a-server.html#cb120-5"></a><span class="op">&lt;</span>number of CPU threads, set to <span class="op">8&gt;</span></span>
+<span id="cb120-6"><a href="running-treesapp-on-a-server.html#cb120-6"></a><span class="op">&lt;</span><span class="ex">your</span> output directory<span class="op">&gt;</span> \</span>
+<span id="cb120-7"><a href="running-treesapp-on-a-server.html#cb120-7"></a><span class="op">&lt;</span>your remaining settings<span class="op">&gt;</span></span>
+<span id="cb120-8"><a href="running-treesapp-on-a-server.html#cb120-8"></a></span>
+<span id="cb120-9"><a href="running-treesapp-on-a-server.html#cb120-9"></a><span class="co"># Metatranscriptomic analysis</span></span>
+<span id="cb120-10"><a href="running-treesapp-on-a-server.html#cb120-10"></a><span class="op">&lt;</span><span class="ex">you</span> are on your own now :)<span class="op">&gt;</span></span></code></pre></div>
 
 </div>
 </div>
@@ -256,7 +256,7 @@ Earlier we defined the <code>depth</code> variable. Could you use it in some way
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 23, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 25, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

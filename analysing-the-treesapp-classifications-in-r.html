@@ -115,7 +115,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <h2>
 <span class="header-section-number">7.5</span> Load any required packages<a class="anchor" aria-label="anchor" href="#load-any-required-packages"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
@@ -124,7 +124,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <h2>
 <span class="header-section-number">7.6</span> Load metagenomic and metatranscriptomic TreeSAPP data<a class="anchor" aria-label="anchor" href="#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"layered_classifications.tsv"</span>,
                      header<span class="op">=</span><span class="cn">TRUE</span>,
                      sep<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></code></pre></div>
@@ -141,11 +141,11 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <span class="header-section-number">7.7</span> Subset your data to the variables and marker genes of interest<a class="anchor" aria-label="anchor" href="#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fas fa-link"></i></a>
 </h2>
 <p>Determine which variables and marker genes you will need and subset your data to them. The only “Marker” in these data is XmoA, so we will filter to XmoA.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Marker</span> <span class="op">==</span> <span class="st">"XmoA"</span><span class="op">)</span></code></pre></div>
 <p>When working with real data you may be analyzing multiple reference package’s worth of data. If you want to subset those data to a couple of reference packages you will find the ‘%in%’ operator handy. In the following example we are keeping data where the Marker variable is equal to any of “XmoA”, “PmoA” or “AmoA”. In reality, they will only match “XmoA”.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Marker</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"XmoA"</span>, <span class="st">"PmoA"</span>, <span class="st">"AmoA"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
@@ -158,7 +158,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <span class="header-section-number">7.8.1</span> Processing taxonomic information<a class="anchor" aria-label="anchor" href="#processing-taxonomic-information"><i class="fas fa-link"></i></a>
 </h3>
 <p>Your taxonomic information contains information from the highest to lowest available rank. Look at a few rows containing taxonomic information and determine the separator between each rank. We can use a function in the tidyverse called <code>separate</code> that allows you split a character object at each of these separators. As a result, your initial single taxonomic variable will be split into multiple new variables, one for each rank. Use the R object <code>taxa_ranks</code> to assign the names for those new variables.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">taxa_ranks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Root"</span>, <span class="st">"Domain"</span>, <span class="st">"Phylum"</span>, <span class="st">"Class"</span>,
                 <span class="st">"Order"</span>, <span class="st">"Family"</span>, <span class="st">"Genus"</span>, <span class="st">"Species"</span><span class="op">)</span>
 <span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -170,7 +170,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <h3>
 <span class="header-section-number">7.8.2</span> Distinguishing metagenomes from metatranscriptomes<a class="anchor" aria-label="anchor" href="#distinguishing-metagenomes-from-metatranscriptomes"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Sample <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_pe"</span>, <span class="st">"_MetaG"</span>, <span class="va">Sample</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">Sample</span>,
@@ -182,7 +182,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <span class="header-section-number">7.8.3</span> Processing depth data<a class="anchor" aria-label="anchor" href="#processing-depth-data"><i class="fas fa-link"></i></a>
 </h3>
 <p>Modify the data frame to split the sample name into “Cruise” and “Depth” variables. Then, remove the ‘m’ character from the “Depth” variable to create a numeric variable called “Depth.m”.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Depth.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">'m'</span>, <span class="st">''</span>, <span class="va">Depth</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Cruise <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">'SI0'</span>, <span class="st">''</span>, <span class="va">Cruise</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -193,7 +193,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <span class="header-section-number">7.9</span> Load the geochemical data<a class="anchor" aria-label="anchor" href="#load-the-geochemical-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>Geochemical data for the Saanich Inlet time series is in another file called <code>Saanich_TimeSeries_Chemical_DATA.csv</code>. We will first load it into its own data frame called <code>geochem_df</code>, and subset it to just the samples we are interested in.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">geochem_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"Saanich_TimeSeries_Chemical_DATA.csv"</span>,
                           header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">','</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Cruise</span> <span class="op">==</span> <span class="fl">72</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -203,7 +203,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Mean_CH4 <span class="op">=</span> <span class="va">Mean_CH4</span><span class="op">*</span><span class="fl">1E-3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>.fns<span class="op">=</span><span class="va">as.numeric</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>We are going to use the function <code>left_join</code> from the <code>dplyr</code> library to merge the geochemical data for cruise 72 with the TreeSAPP classifications for XmoA by Sample. The combined data will be saved to a new data frame called <code>ts_geo_df</code>.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ts_df</span>,
                        <span class="va">geochem_df</span>,
                        by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cruise"</span>,
@@ -219,7 +219,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 </h3>
 <p>We’re going to begin with making a line plot to show the distribution of abundances of taxonomic orders at different depths. The only taxa that will be shown are those with an XmoA gene and these are <em>not</em> the only organisms in Saanich Inlet!
 We will create a new variable called <code>Sum</code> that sums all the <code>Abundance</code> (TPM values) for each taxonomic order at each depth. Without the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function, it would return a single value but since we’re grouping by Depth and Order, <code>sum</code> yields a value for each taxon at each depth.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">SeqType</span> <span class="op">==</span> <span class="st">"MetaG"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth.m</span>, <span class="va">Order</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -237,7 +237,7 @@ We will create a new variable called <code>Sum</code> that sums all the <code>Ab
 Instead of creating a variable to hold each taxon’s total TPM we will create a new variable to store the proportion of TPM called <code>Proportion</code>. This could easily be changed to a percentage by multiplying it by 100.</p>
 <p>In the <code>ts_geo_df</code> dataframe there are two variables storing the sample depth: one is a numeric type and the other is a character type. We will be plotting the character type depth (<code>Depth</code>) on the x-axis but by default R’s alphabetical ordering makes ‘100m’ precede ‘10m’. The <code>reorder</code> function is used here to ensure that the depth is sorted numerically by ordering <code>Depth</code> (character type) by <code>Depth.m</code> (numeric type).</p>
 <p>Additionally, we are faceting this plot by the sequence type: ‘MetaG’ (metagenome) and ‘MetaT’ (metatranscriptome).</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">SeqType</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Proportion <span class="op">=</span> <span class="va">Abundance</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Abundance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -262,7 +262,7 @@ Instead of creating a variable to hold each taxon’s total TPM we will create a
 We are going to use a bubble-plot for this figure where the bubbles at each depth-order intersection are scaled by the TPM value (<code>Abundance</code>).
 We are colouring the bubbles according to their assigned <code>CuMMO</code>.
 We are again faceting this plot by the sequence type.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Depth</span>, <span class="va">Depth.m</span>, <span class="va">SeqType</span>, <span class="va">Order</span>, <span class="va">CuMMO</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Abundance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -283,7 +283,7 @@ We are again faceting this plot by the sequence type.</p>
 </h3>
 <p>The following plot is for visualizing the chemical profiles for each depth. This is not exhaustive but does include most of the molecules we’re interested in.</p>
 <p>To generate this plot, we’ve had to perform a common data manipulation technique called pivoting. Essentially, instead of having a separate variable for each of the chemical measurements, we have combined them into two columns: one for the name of the molecule (which was previously the variable name) and another for their value.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"Mean"</span><span class="op">)</span>, <span class="va">NO3</span>, <span class="va">CTD_O2</span><span class="op">)</span>,
                values_to <span class="op">=</span> <span class="st">"Value.uM"</span>,
@@ -303,7 +303,7 @@ We are again faceting this plot by the sequence type.</p>
 <span class="header-section-number">7.10.4</span> Bringing them all together<a class="anchor" aria-label="anchor" href="#bringing-them-all-together"><i class="fas fa-link"></i></a>
 </h3>
 <p>In this final figure we are going to combine the methane concentration data with the TPM values for the two orders, <em>Methylococcales</em> and <em>Nitrosomonadales</em>.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ts_geo_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">SeqType</span><span class="op">==</span><span class="st">"MetaT"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Order</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -381,7 +381,7 @@ You will need to make a decision at what taxonomic rank you will calculate diver
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 23, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on March 25, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
