@@ -43,10 +43,10 @@ The sole output of `treesapp abundance` is an edited classification table, previ
 
 ## Tutorial steps
 
--   Connect to your group's server, then move to the directory `/data/<user>/ts_tutorial`.
+-   Connect to your group's server, then move to the directory `/data/<user>/tutorial`.
 
 ```{bash eval = FALSE}
-cd /data/<user>/ts_tutorial/
+cd /data/<user>/tutorial/
 ```
 
 This tutorial requires many FASTQ and FASTA-formatted files that are subsetted versions of the originals.

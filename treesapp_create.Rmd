@@ -23,7 +23,16 @@ Let's call this our seed reference package. The steps involved are:
 cd /data/<user>/tutorial
 ```
 
--   **Optional:** If you could not download the reference sequences of XmoA yourself (see [Acquiring reference sequence data]), download [`xmoa_file_list.txt`](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt) --- a list of the necessary fasta files --- with `wget` to the `ts_tutorial` directory, then run `wget` again to retrieve each file within this list.
+-   **Optional:** If this directory doesn't exist, first create it using the command `mkdir`.
+
+```{bash eval = FALSE}
+cd /data/
+mkdir <user>
+cd <user>
+mkdir tutorial
+```
+
+-   **Optional:** If you could not download the reference sequences of XmoA yourself (see [Acquiring reference sequence data]), download [`xmoa_file_list.txt`](https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt) --- a list of the necessary fasta files --- with `wget` to the `tutorial` directory, then run `wget` again to retrieve each file within this list.
 
 ```{bash eval = FALSE}
 wget https://raw.githubusercontent.com/EDUCE-UBC/MICB425/main/data/xmoa_file_list.txt
@@ -120,7 +129,7 @@ treesapp package \
  -  **On your computer:** Transfer `XmoA_seed/XmoA_labelled_tree.txt` from the server to your local directory `ts_tutorial_local`.
  
 ```{bash eval = FALSE}
- scp root@<server address>:/data/<user>/ts_tutorial/XmoA_seed/XmoA_labelled_tree.txt <path to ts_tutorial_local>
+ scp root@<server address>:/data/<user>/tutorial/XmoA_seed/XmoA_labelled_tree.txt <path to ts_tutorial_local>
 ```
 
   We can quickly and easily view the sequences placed on the phylogeny using iTOL. We will do this by uploading the text file produced by TreeSAPP.

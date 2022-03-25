@@ -18,10 +18,10 @@ The first step involves using `treesapp assign` to classify the UniProt XmoA seq
 Before we can begin using TreeSAPP, we must log onto the server and make sure we're in the same directory as all our data.
 
 ```{bash eval = FALSE}
-cd /data/<user>/ts_tutorial/
+cd /data/<user>/tutorial/
 ```
 
-According to `treesapp purity` in the [last chapter](#treesapp-create), and all other sanity checks, the XmoA reference package (contained in your working directory, `/data/<user>/ts_tutorial`, at `XmoA_seed/final_outputs/XmoA_build.pkl`) only contains XmoA sequences. At this point, you're able to use this reference package to classify sequences in any dataset using `treesapp assign`.
+According to `treesapp purity` in the [last chapter](#treesapp-create), and all other sanity checks, the XmoA reference package (contained in your working directory, `/data/<user>/tutorial`, at `XmoA_seed/final_outputs/XmoA_build.pkl`) only contains XmoA sequences. At this point, you're able to use this reference package to classify sequences in any dataset using `treesapp assign`.
 
 The command `treesapp assign` is perhaps the most popular command and is described in detail on the [TreeSAPP wiki](https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign).
 
@@ -344,7 +344,7 @@ cp XmoA_MAG_update/final_outputs/XmoA_CuMMO_*.txt UniProt_XmoA_update_assign/iTO
  -  **On your computer:** Transfer `UniProt_XmoA_update_assign/iTOL_output/` from the server to your local directory `ts_tutorial_local`.
 
 ```{bash eval = FALSE}
-scp -r root@<server address>:/data/<user>/ts_tutorial/UniProt_XmoA_update_assign/iTOL_output <path to ts_tutorial_local>
+scp -r root@<server address>:/data/<user>/tutorial/UniProt_XmoA_update_assign/iTOL_output <path to ts_tutorial_local>
 ```
 
 -   Navigate to <https://itol.embl.de/> using a web browser and sign in using the group's username and password.

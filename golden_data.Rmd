@@ -94,19 +94,19 @@ Place any reference sequences in `ts_tutorial_local` that you identified and dow
     ssh root@<server address>
     ```
 
--   **On the server:** Move to your directory `/data` (if it is not your working directory already) and create a new directory called `<user>/ts_tutorial` where `<user>/` is unique within your project group.
+-   **On the server:** Move to your directory `/data` (if it is not your working directory already) and create a new directory called `<user>/tutorial` where `<user>/` is unique within your project group.
 
     ```{bash eval = FALSE}
     cd /data/
     mkdir <user>
     cd <user>
-    mkdir ts_tutorial
+    mkdir tutorial
     ```
 
 -   **On your computer:** Open a second terminal window that is connected to your local computer, then copy the reference sequences from your computer to your server.
 
     ```{bash eval = FALSE}
-    scp <path to ts_tutorial_local>/* root@<server address>:/data/<user>/ts_tutorial/
+    scp <path to ts_tutorial_local>/* root@<server address>:/data/<user>/tutorial/
     ```
 
 ## Alternative sources
