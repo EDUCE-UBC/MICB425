@@ -207,7 +207,7 @@ treesapp update \
   --refpkg_path XmoA_UniProt_update/final_outputs/XmoA_build.pkl
 ```
 
-One of the XmoA sequences from the MAGs should have been added to the reference package bringing the total to 144 reference sequences.
+One of the XmoA sequences from the MAGs should have been added to the reference package bringing the total to 77 reference sequences.
 
 A summary of the reference package will have been printed to the screen if `treesapp update` completed properly, and it should look like this:
 
@@ -218,7 +218,7 @@ ReferencePackage instance of XmoA (N0102):
 	TreeSAPP version:                                   '0.11.3'
 	Profile HMM length:                                 '246'
 	Substitution model used for phylogenetic inference: 'LG+G4'
-	Number of reference sequences (leaf nodes):          144
+	Number of reference sequences (leaf nodes):          77
 	Software used to infer phylogeny:                   'FastTree'
 	Date of last update:                                '2022-03-01'
 	Description:                                        'Alpha subunits of copper membrane monooxygenase enzymes'
@@ -357,4 +357,4 @@ scp -r root@<server address>:/data/<user>/tutorial/UniProt_XmoA_update_assign/iT
 
 -   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen). The figure should look identical to Figure \@ref(fig:XmoA-Classified)
 
-![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation. Red bubbles are positioned at the mid-point of branches where 6921 query proteins from UniProt were placed. Phylogeny was rooted at the midpoint in iTOL.](images/XmoA_tree_MAG_update_mapped.svg){width=100%} 
+![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation. Red bubbles are positioned at the mid-point of branches where 6921 query proteins from UniProt were placed. Phylogeny was rooted at the midpoint in iTOL.](images/XmoA_tree_MAG_update_mapped.svg){width=100%}
