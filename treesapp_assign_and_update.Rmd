@@ -355,6 +355,6 @@ scp -r root@<server address>:/data/<user>/tutorial/UniProt_XmoA_update_assign/iT
 
 -   The two files `XmoA_CuMMO_colours_style.txt` and `XmoA_CuMMO_colour_strip.txt` can be dragged into the iTOL browser window to bring colour to the XmoA tree.
 
--   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen). The figure should look identical to Figure \@ref(fig:XmoA-Classified)
+-   Finally, turn on the "Phylogenetic Placements" dataset (right of the screen). The figure should look very similar to Figure \@ref(fig:XmoA-Classified)
 
 ![(\#fig:XmoA-Classified)XmoA phylogeny after functional annotation. Red bubbles are positioned at the mid-point of branches where 6921 query proteins from UniProt were placed. Phylogeny was rooted at the midpoint in iTOL.](images/XmoA_tree_MAG_update_mapped.svg){width=100%}
