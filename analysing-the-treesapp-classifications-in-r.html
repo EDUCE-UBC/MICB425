@@ -14,10 +14,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7 Analysing the TreeSAPP classifications in R | Gene-centric mapping of microbial community structure and function">
 <meta name="twitter:description" content="7.1 Introduction and goals These instructions will help you to complete the script template treesapp_analysis.R to complete the initial analysis of your TreeSAPP classifications. The following...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -67,11 +67,11 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="analysing-the-treesapp-classifications-in-r" class="section level1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="analysing-the-treesapp-classifications-in-r" class="section level1" number="7">
 <h1>
 <span class="header-section-number">7</span> Analysing the TreeSAPP classifications in R<a class="anchor" aria-label="anchor" href="#analysing-the-treesapp-classifications-in-r"><i class="fas fa-link"></i></a>
 </h1>
-<div id="introduction-and-goals-5" class="section level2">
+<div id="introduction-and-goals-5" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">7.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-5"><i class="fas fa-link"></i></a>
 </h2>
@@ -79,7 +79,7 @@
 The following code chunks will show you how to load, aggregate, subset and transform continuous and discrete variables in R using the <code>tidyverse</code>.
 You will also be provided with examples for plotting TreeSAPP classification data using the <code>ggplot2</code> library.</p>
 </div>
-<div id="resources-for-analysis-of-treesapp-output-in-r" class="section level2">
+<div id="resources-for-analysis-of-treesapp-output-in-r" class="section level2" number="7.2">
 <h2>
 <span class="header-section-number">7.2</span> Resources for analysis of TreeSAPP output in R<a class="anchor" aria-label="anchor" href="#resources-for-analysis-of-treesapp-output-in-r"><i class="fas fa-link"></i></a>
 </h2>
@@ -90,11 +90,11 @@ You will also be provided with examples for plotting TreeSAPP classification dat
 <code>Saanich_TimeSeries_Chemical_DATA.csv</code> file containing geochemical measurements on Canvas.</li>
 </ul>
 </div>
-<div id="checklist-to-write-and-run-r-script" class="section level2">
+<div id="checklist-to-write-and-run-r-script" class="section level2" number="7.3">
 <h2>
 <span class="header-section-number">7.3</span> Checklist to write and run R script<a class="anchor" aria-label="anchor" href="#checklist-to-write-and-run-r-script"><i class="fas fa-link"></i></a>
 </h2>
-<ul>
+<ul class="task-list">
 <li>
 <input type="checkbox" disabled>
 Place <code>treesapp_analysis.R</code>, <code>layered_classifications.tsv</code> and <code>Saanich_TimeSeries_Chemical_DATA.csv</code> files into a single folder and create a new RStudio project in that folder on your local computer.</li>
@@ -103,7 +103,7 @@ Place <code>treesapp_analysis.R</code>, <code>layered_classifications.tsv</code>
 Edit the <code>treesapp_analysis.R</code> script following <a href="analysing-the-treesapp-classifications-in-r.html#writing-the-r-script">the instructions below</a>.</li>
 </ul>
 </div>
-<div id="writing-the-r-script" class="section level2">
+<div id="writing-the-r-script" class="section level2" number="7.4">
 <h2>
 <span class="header-section-number">7.4</span> Writing the R script<a class="anchor" aria-label="anchor" href="#writing-the-r-script"><i class="fas fa-link"></i></a>
 </h2>
@@ -111,7 +111,7 @@ Edit the <code>treesapp_analysis.R</code> script following <a href="analysing-th
 Finally, you will visualize the taxonomic, functional and chemical data using the <code>ggplot2</code> library.</p>
 <p>To complete this, replace all instances of test between angle brackets, like <code>&lt;SOME TEXT&gt;</code>, with the code in each section.</p>
 </div>
-<div id="load-any-required-packages" class="section level2">
+<div id="load-any-required-packages" class="section level2" number="7.5">
 <h2>
 <span class="header-section-number">7.5</span> Load any required packages<a class="anchor" aria-label="anchor" href="#load-any-required-packages"><i class="fas fa-link"></i></a>
 </h2>
@@ -120,7 +120,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="load-metagenomic-and-metatranscriptomic-treesapp-data" class="section level2">
+<div id="load-metagenomic-and-metatranscriptomic-treesapp-data" class="section level2" number="7.6">
 <h2>
 <span class="header-section-number">7.6</span> Load metagenomic and metatranscriptomic TreeSAPP data<a class="anchor" aria-label="anchor" href="#load-metagenomic-and-metatranscriptomic-treesapp-data"><i class="fas fa-link"></i></a>
 </h2>
@@ -128,7 +128,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <code class="sourceCode R"><span class="va">ts_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"layered_classifications.tsv"</span>,
                      header<span class="op">=</span><span class="cn">TRUE</span>,
                      sep<span class="op">=</span><span class="st">"\t"</span><span class="op">)</span></code></pre></div>
-<div id="classification-table" class="section level3">
+<div id="classification-table" class="section level3" number="7.6.1">
 <h3>
 <span class="header-section-number">7.6.1</span> Classification table<a class="anchor" aria-label="anchor" href="#classification-table"><i class="fas fa-link"></i></a>
 </h3>
@@ -136,7 +136,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <p>A description of each of the fields can be found under the <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign#classification-table"><code>treesapp assign</code> documentation page</a>.</p>
 </div>
 </div>
-<div id="subset-your-data-to-the-variables-and-marker-genes-of-interest" class="section level2">
+<div id="subset-your-data-to-the-variables-and-marker-genes-of-interest" class="section level2" number="7.7">
 <h2>
 <span class="header-section-number">7.7</span> Subset your data to the variables and marker genes of interest<a class="anchor" aria-label="anchor" href="#subset-your-data-to-the-variables-and-marker-genes-of-interest"><i class="fas fa-link"></i></a>
 </h2>
@@ -149,11 +149,11 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
 <code class="sourceCode R"><span class="va">ts_df</span> <span class="op">&lt;-</span> <span class="va">ts_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Marker</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"XmoA"</span>, <span class="st">"PmoA"</span>, <span class="st">"AmoA"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="reformat-variables" class="section level2">
+<div id="reformat-variables" class="section level2" number="7.8">
 <h2>
 <span class="header-section-number">7.8</span> Reformat variables<a class="anchor" aria-label="anchor" href="#reformat-variables"><i class="fas fa-link"></i></a>
 </h2>
-<div id="processing-taxonomic-information" class="section level3">
+<div id="processing-taxonomic-information" class="section level3" number="7.8.1">
 <h3>
 <span class="header-section-number">7.8.1</span> Processing taxonomic information<a class="anchor" aria-label="anchor" href="#processing-taxonomic-information"><i class="fas fa-link"></i></a>
 </h3>
@@ -166,7 +166,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
            into <span class="op">=</span> <span class="va">taxa_ranks</span>,
            sep <span class="op">=</span> <span class="st">"; "</span>, fill <span class="op">=</span> <span class="st">"right"</span>, remove <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="distinguishing-metagenomes-from-metatranscriptomes" class="section level3">
+<div id="distinguishing-metagenomes-from-metatranscriptomes" class="section level3" number="7.8.2">
 <h3>
 <span class="header-section-number">7.8.2</span> Distinguishing metagenomes from metatranscriptomes<a class="anchor" aria-label="anchor" href="#distinguishing-metagenomes-from-metatranscriptomes"><i class="fas fa-link"></i></a>
 </h3>
@@ -177,7 +177,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
            into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cruise"</span>, <span class="st">"Depth"</span>, <span class="st">"SeqType"</span><span class="op">)</span>,
            extra <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="processing-depth-data" class="section level3">
+<div id="processing-depth-data" class="section level3" number="7.8.3">
 <h3>
 <span class="header-section-number">7.8.3</span> Processing depth data<a class="anchor" aria-label="anchor" href="#processing-depth-data"><i class="fas fa-link"></i></a>
 </h3>
@@ -188,7 +188,7 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Cruise <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">'SI0'</span>, <span class="st">''</span>, <span class="va">Cruise</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="load-the-geochemical-data" class="section level2">
+<div id="load-the-geochemical-data" class="section level2" number="7.9">
 <h2>
 <span class="header-section-number">7.9</span> Load the geochemical data<a class="anchor" aria-label="anchor" href="#load-the-geochemical-data"><i class="fas fa-link"></i></a>
 </h2>
@@ -209,11 +209,11 @@ Finally, you will visualize the taxonomic, functional and chemical data using th
                        by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cruise"</span>,
                             <span class="st">"Depth.m"</span> <span class="op">=</span> <span class="st">"Depth"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet" class="section level2">
+<div id="visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet" class="section level2" number="7.10">
 <h2>
 <span class="header-section-number">7.10</span> Visualize the taxonomic, functional and chemical data from Saanich Inlet<a class="anchor" aria-label="anchor" href="#visualize-the-taxonomic-functional-and-chemical-data-from-saanich-inlet"><i class="fas fa-link"></i></a>
 </h2>
-<div id="analyze-treesapps-taxonomic-classifications" class="section level3">
+<div id="analyze-treesapps-taxonomic-classifications" class="section level3" number="7.10.1">
 <h3>
 <span class="header-section-number">7.10.1</span> Analyze TreeSAPP’s taxonomic classifications<a class="anchor" aria-label="anchor" href="#analyze-treesapps-taxonomic-classifications"><i class="fas fa-link"></i></a>
 </h3>
@@ -254,7 +254,7 @@ Instead of creating a variable to hold each taxon’s total TPM we will create a
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"taxonomic_order_barplot.png"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="analyze-the-functional-data" class="section level3">
+<div id="analyze-the-functional-data" class="section level3" number="7.10.2">
 <h3>
 <span class="header-section-number">7.10.2</span> Analyze the functional data<a class="anchor" aria-label="anchor" href="#analyze-the-functional-data"><i class="fas fa-link"></i></a>
 </h3>
@@ -277,7 +277,7 @@ We are again faceting this plot by the sequence type.</p>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"functional_bubbleplot.png"</span><span class="op">)</span></code></pre></div>
 <p>Can you see any discrepancies between the metagenome and metatranscriptome abundances?</p>
 </div>
-<div id="analyze-the-chemical-measurements" class="section level3">
+<div id="analyze-the-chemical-measurements" class="section level3" number="7.10.3">
 <h3>
 <span class="header-section-number">7.10.3</span> Analyze the chemical measurements<a class="anchor" aria-label="anchor" href="#analyze-the-chemical-measurements"><i class="fas fa-link"></i></a>
 </h3>
@@ -298,7 +298,7 @@ We are again faceting this plot by the sequence type.</p>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"geochemical_lineplot.png"</span><span class="op">)</span></code></pre></div>
 <p>Notice that the x-axis scales all differ. This was enabled with <code>scales = "free_x"</code> in the function <code>facet_wrap</code> and was essential to observe the trends across the water column. Without it many of the values would be squished against the y-axis as their values are close to zero and the oxygen concentration gets up to ~200 micromolar.</p>
 </div>
-<div id="bringing-them-all-together" class="section level3">
+<div id="bringing-them-all-together" class="section level3" number="7.10.4">
 <h3>
 <span class="header-section-number">7.10.4</span> Bringing them all together<a class="anchor" aria-label="anchor" href="#bringing-them-all-together"><i class="fas fa-link"></i></a>
 </h3>
@@ -318,7 +318,7 @@ We are again faceting this plot by the sequence type.</p>
 <p>How does the abundance of these two groups change with methane concentration?</p>
 </div>
 </div>
-<div id="analyzing-classifications-for-your-groups-reference-package" class="section level2">
+<div id="analyzing-classifications-for-your-groups-reference-package" class="section level2" number="7.11">
 <h2>
 <span class="header-section-number">7.11</span> Analyzing classifications for your group’s reference package<a class="anchor" aria-label="anchor" href="#analyzing-classifications-for-your-groups-reference-package"><i class="fas fa-link"></i></a>
 </h2>

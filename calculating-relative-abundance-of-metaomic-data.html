@@ -14,10 +14,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="6 Calculating relative abundance of meta’omic data | Gene-centric mapping of microbial community structure and function">
 <meta name="twitter:description" content="6.1 Introduction and goals Genome assemblies contain less information than the sequence reads and recovering it is not always possible. The shotgun DNA sequencing technique samples subsequences...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -67,11 +67,11 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="calculating-relative-abundance-of-metaomic-data" class="section level1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="calculating-relative-abundance-of-metaomic-data" class="section level1" number="6">
 <h1>
 <span class="header-section-number">6</span> Calculating relative abundance of meta’omic data<a class="anchor" aria-label="anchor" href="#calculating-relative-abundance-of-metaomic-data"><i class="fas fa-link"></i></a>
 </h1>
-<div id="introduction-and-goals-4" class="section level2">
+<div id="introduction-and-goals-4" class="section level2" number="6.1">
 <h2>
 <span class="header-section-number">6.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-4"><i class="fas fa-link"></i></a>
 </h2>
@@ -81,7 +81,7 @@ One way to recover these read-level abundances is by aligning the reads back to 
 <p>TreeSAPP’s subcommand <code>abundance</code> is capable of calculating FPKM or TPM for all classified query sequences. These can be derived from the reads in the FASTQ files of multiple different samples. This is only possible when the input fasta are nucleotide sequences from which ORFs were predicted within the pipeline (i.e. this thisn’t possible with amino acid sequences).</p>
 <p>The goal of this tutorial is to show you how to use <code>treesapp abundance</code> to calculate TPM for metagenome-derived ORF sequences.</p>
 </div>
-<div id="workflow-description" class="section level2">
+<div id="workflow-description" class="section level2" number="6.2">
 <h2>
 <span class="header-section-number">6.2</span> Workflow description<a class="anchor" aria-label="anchor" href="#workflow-description"><i class="fas fa-link"></i></a>
 </h2>
@@ -98,7 +98,7 @@ One way to recover these read-level abundances is by aligning the reads back to 
 <li>A combined assembly was generated from multiple samples, classified with <code>treesapp assign</code>, then the reads of each sample were mapped individually to generate sample-specific relative abundance values with <code>treesapp abundance</code>.</li>
 </ol>
 </div>
-<div id="usage" class="section level2">
+<div id="usage" class="section level2" number="6.3">
 <h2>
 <span class="header-section-number">6.3</span> Usage<a class="anchor" aria-label="anchor" href="#usage"><i class="fas fa-link"></i></a>
 </h2>
@@ -119,20 +119,20 @@ One way to recover these read-level abundances is by aligning the reads back to 
 <strong>metric</strong>: Either Fragments per Kilobase per Mllion mappable reads (FPKM) or Transcripts per Million (TPM).</li>
 </ol>
 </div>
-<div id="outputs" class="section level2">
+<div id="outputs" class="section level2" number="6.4">
 <h2>
 <span class="header-section-number">6.4</span> Outputs<a class="anchor" aria-label="anchor" href="#outputs"><i class="fas fa-link"></i></a>
 </h2>
 <p>The sole output of <code>treesapp abundance</code> is an edited classification table, previously generated by <code>treesapp assign</code>. No new files are generated, beyond intermediate files (e.g. SAM files). The values are in the ‘Abundance’ field of <code>final_outputs/classifications.tsv</code>.</p>
 </div>
-<div id="tutorial-steps" class="section level2">
+<div id="tutorial-steps" class="section level2" number="6.5">
 <h2>
 <span class="header-section-number">6.5</span> Tutorial steps<a class="anchor" aria-label="anchor" href="#tutorial-steps"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Connect to your group’s server, then move to the directory <code>/data/&lt;user&gt;/tutorial</code>.</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb39-1"></a><span class="bu">cd</span> /data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/tutorial/</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /data/<span class="op">&lt;</span>user<span class="op">&gt;</span>/tutorial/</span></code></pre></div>
 <p>This tutorial requires many FASTQ and FASTA-formatted files that are subsetted versions of the originals.
 They were created by searching metagenome assemblies and reads for XmoA then pulling out all sequences that matched into new files.
 They are all available in the <code>SI072_sequence_data</code> directory downloaded during the last tutorial from <a href="https://doi.org/10.5281/zenodo.6323402"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6323402.svg" alt="DOI"></a>.</p>
@@ -140,51 +140,51 @@ They are all available in the <code>SI072_sequence_data</code> directory downloa
 <ul>
 <li>Assign taxonomic labels to Saanich Inlet metagenomic contigs using the updated XmoA reference package with <code>treesapp assign</code>.</li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-1"></a><span class="ex">treesapp</span> assign \</span>
-<span id="cb40-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-2"></a>  -n 4 \</span>
-<span id="cb40-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-3"></a>  --trim_align \</span>
-<span id="cb40-4"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-4"></a>  --refpkg_dir XmoA_MAG_update/final_outputs/ \</span>
-<span id="cb40-5"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-5"></a>  --fastx_input SI072_sequence_data/SI072_MetaG_contigs.fasta \</span>
-<span id="cb40-6"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-6"></a>  --output SI072_MetaG_contigs_XmoA_assign/</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> assign <span class="dt">\</span></span>
+<span id="cb40-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> 4 <span class="dt">\</span></span>
+<span id="cb40-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--trim_align</span> <span class="dt">\</span></span>
+<span id="cb40-4"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--refpkg_dir</span> XmoA_MAG_update/final_outputs/ <span class="dt">\</span></span>
+<span id="cb40-5"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--fastx_input</span> SI072_sequence_data/SI072_MetaG_contigs.fasta <span class="dt">\</span></span>
+<span id="cb40-6"><a href="calculating-relative-abundance-of-metaomic-data.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> SI072_MetaG_contigs_XmoA_assign/</span></code></pre></div>
 <p>Now we’ll need to access the processed data generated by <code>treesapp assign</code> in <code>SI072_MetaG_contigs_XmoA_assign/</code>. <code>treesapp abundance</code> will access the ORFs in <code>SI072_MetaG_contigs_XmoA_assign/intermediates/orf-call/SI072_MetaG_contigs_ORFs.fna</code> and pass these to <code>bwa mem</code> for sequence alignment. Due to this, the flag ‘--delete’ should not be used with <code>treesapp assign</code> if you want to eventually run <code>treesapp abundance</code> as the <code>intermediates</code> directory would be removed.</p>
 <p>We will begin by calculating TPM for the metagenome reads.
 The reads we are using to calculate these values are <em>paired-end</em> meaning that the there are two reads to represent each sequenced DNA fragment. These two reads, in the case of the metagenomic data, are split across two files: one for the reads sequenced in the forward direction and another for the reads sequenced in the reverse. Their extensions are ‘.1.fq.gz’ and ‘.2.fq.gz’, respectively. Therefore, we must use the parameters ‘--reads’ and ‘--reverse’ to point TreeSAPP towards these files. You’ll notice that we didn’t list out seven files for each, either; we used a <em>wildcard</em> character (the asterisk). For the forward reads, the shell will interpret this as all files within the <code>SI072_sequence_data</code> directory that begin with ‘SI072_’ and end with ‘m_pe.1.fq.gz’. You can test this expansion using the <code>ls</code> command.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb41-1"></a><span class="fu">ls</span> SI072_sequence_data/SI072_*m_pe.1.fq.gz</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> SI072_sequence_data/SI072_<span class="pp">*</span>m_pe.1.fq.gz</span></code></pre></div>
 <p>We would like to replace the current abundance values from <code>treesapp assign</code> (set to 1) with the new TPM values, so we will set the ‘--report’ parameter to ‘update’.
 Finally, we can specify that we want TPM values with <code>--metric tpm</code>. Although, ‘tpm’ is the default so this isn’t necessary.</p>
 <ul>
 <li>Run <code>treesapp abundance</code> to overwrite the previous abundance values with the TPM values calculated from each of the seven SI072 datasets.</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-1"></a><span class="ex">treesapp</span> abundance \</span>
-<span id="cb42-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-2"></a>  -n 4 \</span>
-<span id="cb42-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-3"></a>  --treesapp_output SI072_MetaG_contigs_XmoA_assign/ \</span>
-<span id="cb42-4"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-4"></a>  --reads SI072_sequence_data/SI072_*m_pe.1.fq.gz \</span>
-<span id="cb42-5"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-5"></a>  --reverse SI072_sequence_data/SI072_*m_pe.2.fq.gz \</span>
-<span id="cb42-6"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-6"></a>  --report update \</span>
-<span id="cb42-7"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-7"></a>  --metric tpm</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> abundance <span class="dt">\</span></span>
+<span id="cb42-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> 4 <span class="dt">\</span></span>
+<span id="cb42-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--treesapp_output</span> SI072_MetaG_contigs_XmoA_assign/ <span class="dt">\</span></span>
+<span id="cb42-4"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--reads</span> SI072_sequence_data/SI072_<span class="pp">*</span>m_pe.1.fq.gz <span class="dt">\</span></span>
+<span id="cb42-5"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--reverse</span> SI072_sequence_data/SI072_<span class="pp">*</span>m_pe.2.fq.gz <span class="dt">\</span></span>
+<span id="cb42-6"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--report</span> update <span class="dt">\</span></span>
+<span id="cb42-7"><a href="calculating-relative-abundance-of-metaomic-data.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--metric</span> tpm</span></code></pre></div>
 <p>Now we’re going to generate TPM values for the seven matching metatranscriptome datasets. You will notice the format of these FASTQ files is different from the metagenomes. All of the reads for each sample are contained in a single file, and this is referred to as <em>interleaved</em> FASTQ format.
 Since there is no file for the reverse reads we can just use the ‘--reads’ parameter.
 Another key difference is we’re setting the ‘--report’ parameter to ‘append’. This is because we don’t want to overwrite the TPM values we just generated for the metagenomes. Instead, we want the new metatranscriptome values to be added to <code>SI072_MetaG_contigs_XmoA_assign/final_outputs/classifications.tsv</code>, so in the end the classification table will hold TPM values for both the metagenomes and metatranscriptomes.</p>
 <ul>
 <li>Use <code>treesapp abundance</code> to calculate TPM values from the seven metatranscriptomes.</li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-1"></a><span class="ex">treesapp</span> abundance \</span>
-<span id="cb43-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-2"></a> -n 4 \</span>
-<span id="cb43-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-3"></a> --treesapp_output SI072_MetaG_contigs_XmoA_assign/ \</span>
-<span id="cb43-4"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-4"></a> --reads SI072_sequence_data/SI072_*m_MetaT_QC_Filtered.fq.gz \</span>
-<span id="cb43-5"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-5"></a> --pairing pe \</span>
-<span id="cb43-6"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-6"></a> --metric tpm \</span>
-<span id="cb43-7"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-7"></a> --report append</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> abundance <span class="dt">\</span></span>
+<span id="cb43-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-2" aria-hidden="true" tabindex="-1"></a> <span class="at">-n</span> 4 <span class="dt">\</span></span>
+<span id="cb43-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-3" aria-hidden="true" tabindex="-1"></a> <span class="at">--treesapp_output</span> SI072_MetaG_contigs_XmoA_assign/ <span class="dt">\</span></span>
+<span id="cb43-4"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-4" aria-hidden="true" tabindex="-1"></a> <span class="at">--reads</span> SI072_sequence_data/SI072_<span class="pp">*</span>m_MetaT_QC_Filtered.fq.gz <span class="dt">\</span></span>
+<span id="cb43-5"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-5" aria-hidden="true" tabindex="-1"></a> <span class="at">--pairing</span> pe <span class="dt">\</span></span>
+<span id="cb43-6"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-6" aria-hidden="true" tabindex="-1"></a> <span class="at">--metric</span> tpm <span class="dt">\</span></span>
+<span id="cb43-7"><a href="calculating-relative-abundance-of-metaomic-data.html#cb43-7" aria-hidden="true" tabindex="-1"></a> <span class="at">--report</span> append</span></code></pre></div>
 <p>The next tutorial will cover visualizing the TreeSAPP classifications. For this we also want the functional annotations that we generated in the last tutorial.</p>
 <ul>
 <li>Run <code>treesapp layer</code> to annotate the XmoA query sequences with their respective paralog.</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb44-1"></a><span class="ex">treesapp</span> layer \</span>
-<span id="cb44-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb44-2"></a> -o SI072_MetaG_contigs_XmoA_assign/ \</span>
-<span id="cb44-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb44-3"></a> --refpkg_dir XmoA_MAG_update/final_outputs/</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="calculating-relative-abundance-of-metaomic-data.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> layer <span class="dt">\</span></span>
+<span id="cb44-2"><a href="calculating-relative-abundance-of-metaomic-data.html#cb44-2" aria-hidden="true" tabindex="-1"></a> <span class="at">-o</span> SI072_MetaG_contigs_XmoA_assign/ <span class="dt">\</span></span>
+<span id="cb44-3"><a href="calculating-relative-abundance-of-metaomic-data.html#cb44-3" aria-hidden="true" tabindex="-1"></a> <span class="at">--refpkg_dir</span> XmoA_MAG_update/final_outputs/</span></code></pre></div>
 <p>That’s it! You’re now a seasoned veteran of TreeSAPP.</p>
 </div>
-<div id="use-your-groups-reference-package-to-calculate-abundances" class="section level2">
+<div id="use-your-groups-reference-package-to-calculate-abundances" class="section level2" number="6.6">
 <h2>
 <span class="header-section-number">6.6</span> Use your group’s reference package to calculate abundances<a class="anchor" aria-label="anchor" href="#use-your-groups-reference-package-to-calculate-abundances"><i class="fas fa-link"></i></a>
 </h2>

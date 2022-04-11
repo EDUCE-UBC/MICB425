@@ -14,10 +14,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8 Basic Automation with R | Gene-centric mapping of microbial community structure and function">
 <meta name="twitter:description" content="8.1 Introduction and goals The library dplyr provides many useful functions like select(), filter(), and mutate() that cover the vast majority of use cases, but real data is messy. Sometimes you...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -67,18 +67,18 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-automation-with-r" class="section level1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-automation-with-r" class="section level1" number="8">
 <h1>
 <span class="header-section-number">8</span> Basic Automation with R<a class="anchor" aria-label="anchor" href="#basic-automation-with-r"><i class="fas fa-link"></i></a>
 </h1>
-<div id="introduction-and-goals-6" class="section level2">
+<div id="introduction-and-goals-6" class="section level2" number="8.1">
 <h2>
 <span class="header-section-number">8.1</span> Introduction and goals<a class="anchor" aria-label="anchor" href="#introduction-and-goals-6"><i class="fas fa-link"></i></a>
 </h2>
 <p>The library <code>dplyr</code> provides many useful functions like <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> that cover the vast majority of use cases, but real data is messy. Sometimes you may what to do but not <em>how</em> to do it with existing functions. This tutorial will teach you some fundamental building blocks of scripting so that you can produce the “how” when you know the “what.”</p>
 <p>A warning though, if using <code>dplyr</code> is driving a car, then this tutorial is teaching you how to walk. While more locations are reachable by walking, you will always get there much faster by driving. <em>Try to find the tools first before hacking together your own.</em></p>
 </div>
-<div id="prerequisites" class="section level2">
+<div id="prerequisites" class="section level2" number="8.2">
 <h2>
 <span class="header-section-number">8.2</span> Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"><i class="fas fa-link"></i></a>
 </h2>
@@ -100,7 +100,7 @@
 ## ✖ kableExtra::group_rows() masks dplyr::group_rows()
 ## ✖ dplyr::lag()             masks stats::lag()</code></pre>
 </div>
-<div id="making-a-function" class="section level2">
+<div id="making-a-function" class="section level2" number="8.3">
 <h2>
 <span class="header-section-number">8.3</span> Making a function<a class="anchor" aria-label="anchor" href="#making-a-function"><i class="fas fa-link"></i></a>
 </h2>
@@ -114,7 +114,7 @@
 <code class="sourceCode R"><span class="fu">f</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 </div>
-<div id="decisions-with-conditionals" class="section level2">
+<div id="decisions-with-conditionals" class="section level2" number="8.4">
 <h2>
 <span class="header-section-number">8.4</span> Decisions with conditionals<a class="anchor" aria-label="anchor" href="#decisions-with-conditionals"><i class="fas fa-link"></i></a>
 </h2>
@@ -208,7 +208,7 @@
 <code class="sourceCode R"><span class="op">!</span><span class="op">(</span><span class="fl">2</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span> <span class="op">||</span> <span class="cn">FALSE</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
-<div id="iterating-with-loops" class="section level2">
+<div id="iterating-with-loops" class="section level2" number="8.5">
 <h2>
 <span class="header-section-number">8.5</span> Iterating with loops<a class="anchor" aria-label="anchor" href="#iterating-with-loops"><i class="fas fa-link"></i></a>
 </h2>
@@ -268,7 +268,7 @@
   <span class="co"># loop forever</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="reading-files" class="section level2">
+<div id="reading-files" class="section level2" number="8.6">
 <h2>
 <span class="header-section-number">8.6</span> Reading files<a class="anchor" aria-label="anchor" href="#reading-files"><i class="fas fa-link"></i></a>
 </h2>
@@ -349,7 +349,7 @@
 ## 58                    29.0                 116          NA
 ## 59                very odd                29.5    118   NA</code></pre>
 </div>
-<div id="practice-1" class="section level2">
+<div id="practice-1" class="section level2" number="8.7">
 <h2>
 <span class="header-section-number">8.7</span> Practice 1<a class="anchor" aria-label="anchor" href="#practice-1"><i class="fas fa-link"></i></a>
 </h2>
@@ -384,7 +384,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/connections.html">close</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/connections.html">close</a></span><span class="op">(</span><span class="va">outCon</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="practice-2" class="section level2">
+<div id="practice-2" class="section level2" number="8.8">
 <h2>
 <span class="header-section-number">8.8</span> Practice 2<a class="anchor" aria-label="anchor" href="#practice-2"><i class="fas fa-link"></i></a>
 </h2>
