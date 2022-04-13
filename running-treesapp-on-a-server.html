@@ -59,7 +59,8 @@
 <li><a class="" href="the-saanich-inlet-data-set.html"><span class="header-section-number">A</span> The Saanich Inlet data set</a></li>
 <li><a class="" href="treesapp-reference-packages.html"><span class="header-section-number">B</span> TreeSAPP reference packages</a></li>
 <li><a class="" href="shell-cheat-sheet.html"><span class="header-section-number">C</span> Shell cheat sheet</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">D</span> References</a></li>
+<li><a class="" href="frequently-asked-questions.html"><span class="header-section-number">D</span> Frequently Asked Questions</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">E</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -159,20 +160,48 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 <p>Let’s provide the user some feedback where TreeSAPP is going to save its output and what bind paths have been set.</p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb117-1"><a href="running-treesapp-on-a-server.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>print <span class="bu">command</span><span class="op">&gt;</span> <span class="st">"&lt;Some text explaining what variables have been set&gt;"</span></span></code></pre></div>
 </div>
-<div id="listing-treesapp-version" class="section level3" number="11.3.7">
+<div id="looping-over-multiple-files" class="section level3" number="11.3.7">
 <h3>
-<span class="header-section-number">11.3.7</span> Listing TreeSAPP version<a class="anchor" aria-label="anchor" href="#listing-treesapp-version"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.3.7</span> Looping over multiple files<a class="anchor" aria-label="anchor" href="#looping-over-multiple-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>For-loops minimize the amount of redundant code and ensure all data is processed similarly.
+Below is an example for-loop that could be used to classify metagenome sequences with treesapp assign.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb118-1"><a href="running-treesapp-on-a-server.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> <span class="op">&lt;</span>path/to/assembly_files<span class="op">&gt;</span>/SI072_<span class="pp">*</span>m_contig.fa</span>
+<span id="cb118-2"><a href="running-treesapp-on-a-server.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">do</span> <span class="va">sample</span><span class="op">=</span><span class="va">$(</span> <span class="fu">basename</span> <span class="va">$f</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/_contig.fa//g'</span><span class="va">)</span></span>
+<span id="cb118-3"><a href="running-treesapp-on-a-server.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">treesapp</span> assign <span class="at">-i</span> <span class="va">$f</span> <span class="dt">\</span></span>
+<span id="cb118-4"><a href="running-treesapp-on-a-server.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--refpkg_dir</span> <span class="op">&lt;</span>path_to_refpkgs/<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb118-5"><a href="running-treesapp-on-a-server.html#cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> <span class="op">&lt;</span>path/to/outputs<span class="op">&gt;</span>/<span class="va">${sample}</span>_assign <span class="dt">\</span></span>
+<span id="cb118-6"><a href="running-treesapp-on-a-server.html#cb118-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--trim_align</span> <span class="at">-n</span> 8</span>
+<span id="cb118-7"><a href="running-treesapp-on-a-server.html#cb118-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p>This loop iterates over the seven metagenome assembly files that match the pattern ’SI072_*m_contig.fa’, where the asterisk represents any characters one or more times.
+Effectively, it replaces seven nearly identical <code>treesapp assign</code> commands.
+A variable called ‘sample’ is created by calling <code>basename</code> on the file path to return the filename, and using the <code>sed</code> (stream editor) to remove the assembly-specific suffix ’_contig.fa’.
+The name of the output directory is based on this ‘sample’ variable to ensure the directories are unique across metagenomes.</p>
+<p>This for-loop can be modified to loop over <code>treesapp abundance</code> commands as well (assuming you’ve followed the above naming convention for the <code>treesapp assign</code> output directory):</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb119-1"><a href="running-treesapp-on-a-server.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> <span class="op">&lt;</span>path/to/outputs<span class="op">&gt;</span>/SI072_<span class="pp">*</span>assign</span>
+<span id="cb119-2"><a href="running-treesapp-on-a-server.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">do</span> <span class="va">sample</span><span class="op">=</span><span class="va">$(</span> <span class="fu">basename</span> <span class="va">$f</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/_assign//g'</span><span class="va">)</span></span>
+<span id="cb119-3"><a href="running-treesapp-on-a-server.html#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">treesapp</span> abundance <span class="dt">\</span></span>
+<span id="cb119-4"><a href="running-treesapp-on-a-server.html#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--treesapp_output</span> <span class="va">$f</span> <span class="dt">\</span></span>
+<span id="cb119-5"><a href="running-treesapp-on-a-server.html#cb119-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--reads</span> <span class="op">&lt;</span>path/to<span class="op">&gt;</span>/MetaG_Trim_QC_Reads/<span class="va">${sample}</span>_pe.1.fq.gz <span class="dt">\</span></span>
+<span id="cb119-6"><a href="running-treesapp-on-a-server.html#cb119-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--reverse</span> <span class="op">&lt;</span>path/to<span class="op">&gt;</span>/MetaG_Trim_QC_Reads/<span class="va">${sample}</span>_pe.2.fq.gz <span class="dt">\</span></span>
+<span id="cb119-7"><a href="running-treesapp-on-a-server.html#cb119-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-n</span> 8 <span class="dt">\</span></span>
+<span id="cb119-8"><a href="running-treesapp-on-a-server.html#cb119-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--report</span> update</span>
+<span id="cb119-9"><a href="running-treesapp-on-a-server.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+</div>
+<div id="listing-treesapp-version" class="section level3" number="11.3.8">
+<h3>
+<span class="header-section-number">11.3.8</span> Listing TreeSAPP version<a class="anchor" aria-label="anchor" href="#listing-treesapp-version"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s print the information about the configuration of TreeSAPP.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb118-1"><a href="running-treesapp-on-a-server.html#cb118-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">treesapp</span> info</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb120-1"><a href="running-treesapp-on-a-server.html#cb120-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">treesapp</span> info</span></code></pre></div>
 <p><em>Hint</em>: When we have very long commands in a script, we can introduce line breaks using <code>\</code> which are best used right after a space in the command (see example above after the word “following”).</p>
 </div>
-<div id="executing-treesapp-analysis" class="section level3" number="11.3.8">
+<div id="executing-treesapp-analysis" class="section level3" number="11.3.9">
 <h3>
-<span class="header-section-number">11.3.8</span> Executing TreeSAPP analysis<a class="anchor" aria-label="anchor" href="#executing-treesapp-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.3.9</span> Executing TreeSAPP analysis<a class="anchor" aria-label="anchor" href="#executing-treesapp-analysis"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the terminal (i.e. not as part of this script), check the documentation for <code>treesapp assign</code>, the command you will use for the automated reconstruction of a nutrient cycle (visit its <a href="https://github.com/hallamlab/TreeSAPP/wiki/Classifying-sequences-with-treesapp-assign">wikipage</a> to learn more).</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb119-1"><a href="running-treesapp-on-a-server.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> assign <span class="at">-h</span></span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb121-1"><a href="running-treesapp-on-a-server.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> assign <span class="at">-h</span></span></code></pre></div>
 <p>Looking at the TreeSAPP documentation, determine the flags you need in addition to the ones already included below.</p>
 <p>Time to run our analysis! You will have to identify the input file(s) that you need to process. You will run the analysis once for metagenomic (two files, forward reads are in the file that contains <code>.1</code> in its name, and reverse reads in file the with <code>.2</code>) and once for metatranscriptomic reads (a single file that contains both forward and reverse reads) and align them to the assembled contigs. All reads are pair-end.</p>
 <p>You will need to provide the following settings using flags:</p>
@@ -197,16 +226,30 @@ After the script has run (will take at most 8 hours), locate the <code>final_out
 </ul>
 <p>Optional bonus challenge:<br>
 Earlier we defined the <code>depth</code> variable. Could you use it in some way when you define which assembly and reads you are using in the analysis?</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb120-1"><a href="running-treesapp-on-a-server.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metagenomic analysis</span></span>
-<span id="cb120-2"><a href="running-treesapp-on-a-server.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> assign <span class="dt">\</span></span>
-<span id="cb120-3"><a href="running-treesapp-on-a-server.html#cb120-3" aria-hidden="true" tabindex="-1"></a>-i <span class="op">&lt;</span>input data dir<span class="op">&gt;&lt;</span>file path to your assembly<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb120-4"><a href="running-treesapp-on-a-server.html#cb120-4" aria-hidden="true" tabindex="-1"></a>-m <span class="op">&lt;</span>choose the correct option<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb120-5"><a href="running-treesapp-on-a-server.html#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>number of CPU threads, set to <span class="dv">8</span><span class="op">&gt;</span></span>
-<span id="cb120-6"><a href="running-treesapp-on-a-server.html#cb120-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>your <span class="ex">output</span> directory<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb120-7"><a href="running-treesapp-on-a-server.html#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>your remaining settings<span class="op">&gt;</span></span>
-<span id="cb120-8"><a href="running-treesapp-on-a-server.html#cb120-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-9"><a href="running-treesapp-on-a-server.html#cb120-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Metatranscriptomic analysis</span></span>
-<span id="cb120-10"><a href="running-treesapp-on-a-server.html#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>you <span class="ex">are</span> on your own now :<span class="er">)</span><span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb122-1"><a href="running-treesapp-on-a-server.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metagenomic analysis</span></span>
+<span id="cb122-2"><a href="running-treesapp-on-a-server.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="ex">treesapp</span> assign <span class="dt">\</span></span>
+<span id="cb122-3"><a href="running-treesapp-on-a-server.html#cb122-3" aria-hidden="true" tabindex="-1"></a>-i <span class="op">&lt;</span>input data dir<span class="op">&gt;&lt;</span>file path to your assembly<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb122-4"><a href="running-treesapp-on-a-server.html#cb122-4" aria-hidden="true" tabindex="-1"></a>-m <span class="op">&lt;</span>choose the correct option<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb122-5"><a href="running-treesapp-on-a-server.html#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>number of CPU threads, set to <span class="dv">8</span><span class="op">&gt;</span></span>
+<span id="cb122-6"><a href="running-treesapp-on-a-server.html#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>your <span class="ex">output</span> directory<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb122-7"><a href="running-treesapp-on-a-server.html#cb122-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>your remaining settings<span class="op">&gt;</span></span>
+<span id="cb122-8"><a href="running-treesapp-on-a-server.html#cb122-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-9"><a href="running-treesapp-on-a-server.html#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Metatranscriptomic analysis</span></span>
+<span id="cb122-10"><a href="running-treesapp-on-a-server.html#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>you <span class="ex">are</span> on your own now :<span class="er">)</span><span class="op">&gt;</span></span></code></pre></div>
+</div>
+<div id="concatenating-classification-tables" class="section level3" number="11.3.10">
+<h3>
+<span class="header-section-number">11.3.10</span> Concatenating classification tables<a class="anchor" aria-label="anchor" href="#concatenating-classification-tables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Once the <code>treesapp assign</code>, <code>treesapp abundance</code> and <code>treesapp layer</code> commands have completed successfully it is convenient to store classification data from all samples in a single table.
+This one table can then be downloaded from the server and loaded into R.</p>
+<p>You can combine all tables with two lines of code in bash, using <code>cat</code>, <code>head</code>, and <code>tail</code>.
+The name of the combined table for this example is ‘SI072_classifications.tsv’.
+This first line writes <em>just</em> the header from one of the classification tables to the combined table while the second writes the rows (i.e. not including the column names) to the combined table.
+This ensures the final table is properly formatted, i.e., one row containing the column names and the remaining rows containing data.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb123-1"><a href="running-treesapp-on-a-server.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /data/SI072_<span class="pp">*</span>m_assign/final_outputs/classifications.tsv <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1 <span class="op">&gt;</span>SI072_classifications.tsv</span>
+<span id="cb123-2"><a href="running-treesapp-on-a-server.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-q</span> <span class="at">-n</span> +2 /data/SI072_<span class="pp">*</span>m_assign/final_outputs/classifications.tsv <span class="op">&gt;&gt;</span>SI072_classifications.tsv</span></code></pre></div>
+<p>The above command will work for both the classifications.tsv file created by <code>treesapp assign</code> or the layered_classifications.tsv file created by <code>treesapp layer</code> if the file name is changed from ‘classifications.tsv’ to ‘layered_classifications.tsv’ in the commands above.</p>
 
 </div>
 </div>
@@ -231,8 +274,10 @@ Earlier we defined the <code>depth</code> variable. Could you use it in some way
 <li><a class="nav-link" href="#defining-variable-for-input-directory"><span class="header-section-number">11.3.4</span> Defining variable for input directory</a></li>
 <li><a class="nav-link" href="#creating-output-directory"><span class="header-section-number">11.3.5</span> Creating output directory</a></li>
 <li><a class="nav-link" href="#reporting-variables-to-user"><span class="header-section-number">11.3.6</span> Reporting variables to user</a></li>
-<li><a class="nav-link" href="#listing-treesapp-version"><span class="header-section-number">11.3.7</span> Listing TreeSAPP version</a></li>
-<li><a class="nav-link" href="#executing-treesapp-analysis"><span class="header-section-number">11.3.8</span> Executing TreeSAPP analysis</a></li>
+<li><a class="nav-link" href="#looping-over-multiple-files"><span class="header-section-number">11.3.7</span> Looping over multiple files</a></li>
+<li><a class="nav-link" href="#listing-treesapp-version"><span class="header-section-number">11.3.8</span> Listing TreeSAPP version</a></li>
+<li><a class="nav-link" href="#executing-treesapp-analysis"><span class="header-section-number">11.3.9</span> Executing TreeSAPP analysis</a></li>
+<li><a class="nav-link" href="#concatenating-classification-tables"><span class="header-section-number">11.3.10</span> Concatenating classification tables</a></li>
 </ul>
 </li>
 </ul>
@@ -256,7 +301,7 @@ Earlier we defined the <code>depth</code> variable. Could you use it in some way
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on April 11, 2022.</p>
+    <p>"<strong>Gene-centric mapping of microbial community structure and function</strong>: 2020.21 MICB425 Mirobial Ecological Genomics Capstone project" was written by Stephan Koenig, Kim Dill-McFarland, Connor Morgan-Lang, Ryan McLaughlin, Julia Anstett, Resmi Radhamony, Sean Crowe and Steven Hallam. It was last built on April 13, 2022.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

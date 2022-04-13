@@ -110,8 +110,10 @@ providing-user-feedback
 defining-variable-for-input-directory
 creating-output-directory
 reporting-variables-to-user
+looping-over-multiple-files
 listing-treesapp-version
 executing-treesapp-analysis
+concatenating-classification-tables
 the-saanich-inlet-data-set
 description
 data-on-the-server
@@ -133,4 +135,13 @@ final-taxonomic-assignment-of-sags
 installing-and-running-gtdb-tk
 treesapp-reference-packages
 shell-cheat-sheet
+frequently-asked-questions
+why-is-treesapp-reporting-an-error-where-an-argument-is-unrecognized
+do-i-need-to-run-commands-like-treesapp-assign-and-treesapp-abundance-for-each-reference-package-separately
+why-am-i-suddently-getting-a-no-space-left-on-device-error
+why-is-treesapp-saying-file-already-exists
+can-multiple-treesapp-abundance-processes-be-ran-simultaneously
+no-sequences-were-found-in-the-sags-or-mags-when-running-treesapp-assign.-what-do-i-do-now
+what-do-i-need-to-know-about-the-error-clade-exclusion-analysis-could-not-be-performed-for-training-the-reference-package-models-from-treesapp-create
+is-it-okay-if-treesapp-purity-fails-because-no-alignments-were-found
 references
