@@ -1,0 +1,52 @@
+# Frequently Asked Questions
+
+## Why is TreeSAPP reporting an error where an argument is unrecognized?
+
+This could be due to several reasons.
+The most common is a spelling mistake in the argument name, like `--fasta_input` instead of the correct `--fastx_input`.
+
+If the argument names all look correct you should check the position of backslashes at the end of lines if you are inputting a multi-line command.
+There must be a space between a previous argument and a backslash for the command to be interpreted correctly.
+For example, the following would fail with TreeSAPP complaining 'output_directory' is not recognized:
+
+```{bash, eval=F}
+treesapp assign \
+-i sample.fasta\
+-o output_directory
+```
+
+## Do I need to run commands like `treesapp assign` and `treesapp abundance` for each reference package separately?
+
+Generally no, all the reference packages should be processed together.
+This can be accomplished by copying all the reference packages you're analyzing in a single directory and pointing the `treesapp assign` and any other commands to it with the `--refpkg_dir` option.
+Note that commands that have the argument `--refpkg_path`, such as `treesapp update` and `treesapp colour`, DO need to be ran separately for each reference package.
+
+## Why am I suddently getting a `no space left on device` error?
+
+You have exhausted the allocated hard-disk space in your home directory.
+There are tens of Terabytes of storage capacity under `/data`, so please move your directories there and proceed.
+
+## Why is TreeSAPP saying file already exists?
+
+This error crops up when the output directory already exists from a previous run.
+You should include the `--overwrite` flag in your TreeSAPP command and try again.
+
+## Can multiple `treesapp abundance` processes be ran simultaneously?
+
+It depends. If they are accessing different `treesapp assign` output directories (i.e. different `--treesapp_output` values) then yes. Otherwise, no. This is because the intermediate files may be overwritten by another process causing at least one of the `treesapp abundance` processes to crash.
+
+## No sequences were found in the SAGs or MAGs when running `treesapp assign`. What do I do now?
+
+You can skip updating the reference package(s) with genomes (SAGs or MAGs) where homologs were not found.
+There is nothing for `treesapp update` to add.
+
+The SAGs and MAGs comprise a fraction of the community, and so it isn't expected that every protein family we have reference packages for will be encoded in the SAGs and MAGs, even if it is known to be encoded by community members and found in a metagenome.
+You have done nothing wrong, it's just the data.
+
+## What do I need to know about the error "`Clade exclusion analysis could not be performed for training the reference package models`" from `treesapp create`?
+
+This error can arise when the reference package being created is very small or if the reference sequences lack species-level taxonomic labels. The reference package .pkl file can normally be used but the `treesapp assign` will be more prone to over-classification where the assigned taxonomic labels may be too resolved (closer to species) than they should be for their evolutionary distance.
+
+## Is it okay if `treesapp purity` fails because no alignments were found?
+
+Yes, this is fine. The TIGRFAM seed reference database used is small and not comprehensive. Therefore, it is entirely expected that reference packages for many protein families will not be able to recruit alignments. Still, this result also indicates that the reference package doesn't contain misclassified sequences related to orthologs in the database, which is comforting to know.

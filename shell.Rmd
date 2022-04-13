@@ -90,6 +90,40 @@ Let's provide the user some feedback where TreeSAPP is going to save its output 
 <print command> "<Some text explaining what variables have been set>"
 ```
 
+### Looping over multiple files
+
+For-loops minimize the amount of redundant code and ensure all data is processed similarly.
+Below is an example for-loop that could be used to classify metagenome sequences with treesapp assign. 
+
+```{bash}
+for f in <path/to/assembly_files>/SI072_*m_contig.fa
+  do sample=$( basename $f | sed 's/_contig.fa//g')
+  treesapp assign -i $f \
+  --refpkg_dir <path_to_refpkgs/> \
+  --output <path/to/outputs>/${sample}_assign \
+  --trim_align -n 8
+done
+```
+
+This loop iterates over the seven metagenome assembly files that match the pattern 'SI072_*m_contig.fa', where the asterisk represents any characters one or more times.
+Effectively, it replaces seven nearly identical `treesapp assign` commands.
+A variable called 'sample' is created by calling `basename` on the file path to return the filename, and using the `sed` (stream editor) to remove the assembly-specific suffix '_contig.fa'.
+The name of the output directory is based on this 'sample' variable to ensure the directories are unique across metagenomes.
+
+This for-loop can be modified to loop over `treesapp abundance` commands as well (assuming you've followed the above naming convention for the `treesapp assign` output directory):
+
+```{bash}
+for f in <path/to/outputs>/SI072_*assign
+  do sample=$( basename $f | sed 's/_assign//g')
+  treesapp abundance \
+  --treesapp_output $f \
+  --reads <path/to>/MetaG_Trim_QC_Reads/${sample}_pe.1.fq.gz \
+  --reverse <path/to>/MetaG_Trim_QC_Reads/${sample}_pe.2.fq.gz \
+  -n 8 \
+  --report update
+done
+```
+
 ### Listing TreeSAPP version
 
 Let's print the information about the configuration of TreeSAPP.
@@ -147,6 +181,24 @@ treesapp assign \
 # Metatranscriptomic analysis
 <you are on your own now :)>
 ```
+
+### Concatenating classification tables
+
+Once the `treesapp assign`, `treesapp abundance` and `treesapp layer` commands have completed successfully it is convenient to store classification data from all samples in a single table.
+This one table can then be downloaded from the server and loaded into R.
+
+You can combine all tables with two lines of code in bash, using `cat`, `head`, and `tail`.
+The name of the combined table for this example is 'SI072_classifications.tsv'.
+This first line writes *just* the header from one of the classification tables to the combined table while the second writes the rows (i.e. not including the column names) to the combined table.
+This ensures the final table is properly formatted, i.e., one row containing the column names and the remaining rows containing data.
+
+```{bash}
+cat /data/SI072_*m_assign/final_outputs/classifications.tsv | head -n 1 >SI072_classifications.tsv
+tail -q -n +2 /data/SI072_*m_assign/final_outputs/classifications.tsv >>SI072_classifications.tsv
+```
+
+The above command will work for both the classifications.tsv file created by `treesapp assign` or the layered_classifications.tsv file created by `treesapp layer` if the file name is changed from 'classifications.tsv' to 'layered_classifications.tsv' in the commands above.
+
 
 ```{r eval = TRUE, echo = FALSE, warning = FALSE, message = FALSE}
 # Reset code chunk settings to `default_chunk_options` (defined in `index.Rmd`)

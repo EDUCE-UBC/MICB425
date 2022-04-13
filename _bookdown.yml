@@ -28,4 +28,5 @@ rmd_files:
   - data.Rmd
   - refpkgs.Rmd
   - cheat_sheet.Rmd
+  - faq.Rmd
   - references.Rmd
